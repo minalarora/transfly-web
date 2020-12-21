@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+  <!-- Vendor CSS Files -->
+
+  <link rel="stylesheet" type="text/css" href="../css/login.css" />
+</head>
+
+<body class="align-items-center">
+
+  <div id="container-top" class="d-flex justify-content-center align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <img src="../images/logo.jpg" alt="logo here" width="100" height="100">
+      </div>
+      <br>
+      <div id="" class="row d-flex justify-content-center">
+        <div id="form-div" class="col-lg-5 col-md-7 col-sm-10 p-4 rounded border shadow">
+          <!-- Login Form -->
+          <form method="POST" action="/">
+            <div class="form-group">
+              <label for="mobile">mobile number:</label>
+              <input type="mobile" name="mobile" class="form-control" id="mobile">
+            </div>
+            <div class="form-group">
+              <label for="pwd">Password:</label>
+              <input type="password" name="password" class="form-control" id="pwd">
+            </div>
+            <div class="form-group">
+              <label for="select">Select Role:</label>
+              <select name="role" class="form-control" id="select">
+                <option value="admin">App Admin</option>
+                <option value="finance">Finance Dept</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+
+</html>

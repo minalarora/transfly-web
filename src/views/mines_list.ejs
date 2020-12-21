@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+    <!--Vendor CSS Files -->
+   
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mine_list.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--------------------- side nav ------------------------------>
+
+    <div class="sidenav">
+        <div class="row justify-content-center mb-4">
+            <img src="../images/logo.jpg" alt="logo here" width="70" height="70">
+        </div>
+        <a href="#about">My Profile</a>
+        <a href="#services">Mines</a>
+        <a href="#contact">Finance Dept</a>
+        <a href="#contact">Transporter</a>
+        <a href="#contact">Area Manager</a>
+        <a href="#contact">Field Staff</a>
+        <a href="#reports">Invoice Reports</a>
+        <button class="dropdown-btn align-self-baseline"> Vechicle Owner
+            <i class="fa fa-caret-down mt-1"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Vehicle Owner Request</a>
+            <a href="#">All Vehicle Owners</a>
+        </div>
+        <a href="#resale">Resale</a>
+        <a href="#rewards">Rewards</a>
+    </div>
+    <!------------------------------- right content -------------------------------------------->
+    <div class="main">
+        <div class="container-fluid">
+            <div id="top-nav" class="row p-2 bg-white justify-content-end">
+                <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+            </div>
+            <!---------------------------- main content row start here------------>
+            <div class="row p-3 ">
+                <div class="w-100 text-primary text-center ">
+                    <h3>Mines</h3>
+                </div>
+                <br>
+                <!------------ search bar ------------>
+                <section class="w-100 search-sec">
+                    <form action="#" method="post" novalidate="novalidate">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="offset-lg-2 col-lg-3 col-md-4 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt" placeholder="Search by mine name (optional)">
+                                </div>
+                                <div class=" col-lg-3 col-md-4 col-sm-12 p-0">
+                                    <select class="form-control search-slt" id="exampleFormControlSelect1">
+                                        <% for (var i =0; i <=data.cities.length;  i++ ) { %>
+                                            <option>
+                                                <%= data.cities[i] %>
+                                            </option>
+                                            <% } %>
+                                    </select>
+                                </div>
+                                <!-- <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                        <select class="form-control search-slt" id="exampleFormControlSelect1">
+                                            <option>Select Vehicle</option>
+                                            <option>Example one</option>
+                                            <option>Example one</option>
+                                            <option>Example one</option>
+                                            <option>Example one</option>
+                                            <option>Example one</option>
+                                            <option>Example one</option>
+                                        </select>
+                                    </div>  -->
+                                <div class=" col-lg-3 col-md-4 col-sm-12 p-0">
+                                    <button type="button" class="btn btn-warning wrn-btn">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <hr class="w-100">
+                <!-------------- mines cards ------------>
+                <div class="w-100 d-flex flex-wrap">
+                    <% if(data.mine.length == 0) { %>
+
+                    <% for (var i =0; i <data.mine.length;  i++ ) { %>
+                        <div class="card m-2" style="width: 18rem;">
+                            <div class="card-body">
+                                <a class="card-title h4 text-primary" href="/minespecific/<%= data.mine[i].id %>"> <%= data.mine[i].name %></a>
+                                <h6 class="card-subtitle mb-2 text-muted">Bhopal</h6>
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>ETL:</th>
+                                        <td>
+                                            <%= data.mine[i].etl %> Hours
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rate:</th>
+                                        <td>
+                                            <%= data.mine[i].rate %> Rs / sqft
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Active:</th>
+                                        <td>
+                                            <%= data.mine[i].status %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <% } %>
+                        <% } else { %>
+                            <h2>No Mines found</h2>
+                            <% }  %>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    function filterEmployee() {
+        var input, filter, table, tr, td, i, j, txtValue, no_of_col;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("EmployeesTable");
+        tr = table.getElementsByTagName("tr");
+        no_of_col = tr[0].getElementsByTagName('th').length;
+        for (i = 0; i < tr.length; i++) {
+            for (j = 0; j < no_of_col; j++) {
+                td = tr[i].getElementsByTagName("td")[j];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    console.log(txtValue);
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        }
+    }
+</script>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+<script src="./js/basic_structure.js"></script>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.css" />
+    <!--Vendor CSS Files -->
+    <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="./css/employee_profile_general.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <!--------------------- side nav ------------------------------>
+
+    <div class="sidenav">
+        <div class="row justify-content-center mb-4">
+            <img src="./images/logo.jpg" alt="logo here" width="70" height="70">
+        </div>
+        <a href="#about">My Profile</a>
+        <a href="#services">Mines</a>
+        <a href="#contact">Finance Dept</a>
+        <a href="#contact">Transporter</a>
+        <a href="#contact">Area Manager</a>
+        <a href="#contact">Field Staff</a>
+        <a href="#reports">Invoice Reports</a>
+        <button class="dropdown-btn align-self-baseline"> Vechicle Owner
+            <i class="fa fa-caret-down mt-1"></i>
+        </button>
+        <div class="dropdown-container">
+            <a href="#">Vehicle Owner Request</a>
+            <a href="#">All Vehicle Owners</a>
+        </div>
+        <a href="#resale">Resale</a>
+        <a href="#rewards">Rewards</a>
+    </div>
+    <!------------------------------- right content -------------------------------------------->
+    <div class="main">
+        <div class="container-fluid">
+            <div id="top-nav" class="row p-2 bg-white justify-content-end">
+                <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+            </div>
+            <!---------------------------- main content row start here-->
+            <div class="row p-3 ">
+
+                <br>
+                <div class="container-fluid">
+                    <!-- profile photo with name -->
+                    <div class="row justify-content-between align-items-baseline">
+                        <div class="d-flex justify-content-start align-items-center mt-4">
+                            <div id="profile-pic" class="mr-4">
+                                <img src="./images/avatar.png" alt="">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h3>
+                                    <%= data.areamanager.firstname %>
+                                        <%= data.areamanager.lastname %>
+                                </h3>
+                                <p>(Area Manager)</p>
+                            </div>
+                        </div>
+                        <div><img src="./images/am.jpg" class="mr-4" width="120" height="50" alt=""></div>
+
+                    </div>
+                    <br><br>
+                    <div id="profile-content" class="row justify-content-start">
+                        <div class="w-100 mr-4">
+                            <div class="pl-2 pt-3 pb-2 bg-success text-light">
+                                <h5>Personal Details</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Mobile:</th>
+                                        <td>
+                                            <%= data.areamanager.mobile %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>email:</th>
+                                        <td>
+                                            <%= data.areamanager.email %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>City:</th>
+                                        <td>
+                                            <%= data.areamanager.city %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pan:</th>
+                                        <td>
+                                            <%= data.areamanager.pan %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Aadhar:</th>
+                                        <td>
+                                            <%= data.areamanager.aadhaar %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="w-50 bg-white">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Bank Details</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Ifsc:</th>
+                                        <td>
+                                            <%= data.areamanager.ifsc %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank:</th>
+                                        <td>
+                                            <%= data.areamanager.bannkname %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Acc no:</th>
+                                        <td>
+                                            <%= data.areamanager.accountno %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="w-50 bg-white">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Emergency Contact Details</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Emergency person name:</th>
+                                        <td>
+                                            <%= data.areamanager.ename %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency contact:</th>
+                                        <td>
+                                            <%= data.areamanager.emobile %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency Relation:</th>
+                                        <td>
+                                            <%= data.areamanager.erelation %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br><br>
+                    <div class="row">
+                        <div class="w-50 bg-white">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>No of Mines under AM</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Mine Number:</th>
+                                        <th>Mine name</th>
+                                        <th>City</th>
+                                    </tr>
+                                    <% for (var i =0; i <=data.areamanager.mine.length;  i++ ) { %>
+                                        <tr>
+                                            <td>
+                                                <%= data.areamanager.mine[i].id %>
+                                            </td>
+                                            <td><a href="#"><%= data.areamanager.mine[i].name %></a></td>
+                                            <td>
+                                                <%= data.areamanager.mine[i].area %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div><br>
+                    <!-------    commented if needed uncomment it  
+                    <br>
+                    <div class="row">
+                        <div class="w-75">
+                            <div class="pl-2 pt-3 pb-2 bg-primary text-center text-light">
+                                <h5>Invoice Details</h5>
+                            </div>
+                            <div id="vo_invoice_container" class="container-fluid bg-white">
+                                <div class="row p-2 justify-content-between">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <th>Mine Id</th>
+                                            <th>Invoice id</th>
+                                            <th>Date</th>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                        <tr>
+                                            <td>234ertr</td>
+                                            <td>1234</td>
+                                            <td>28-nov-2020</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="./js/bootstrap/bootstrap.min.js"></script>
+<script src="./js/basic_structure.js"></script>
+
+</html>
