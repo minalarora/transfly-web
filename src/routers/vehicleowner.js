@@ -2,18 +2,20 @@ const express = require('express')
 const router  = new express.Router()
 const VehicleOwner = require('../models/vehicleowner')
 const auth = require('../auth/auth')
+const jwt =require('jsonwebtoken')
 
 
 router.post("/vehicleowner",async (req,res)=>{
     try
     {
-        const vehicleowner  = new Vehicleowner(req.body)
+        const vehicleowner  = new VehicleOwner(req.body)
         const token=await vehicleowner.generateToken()
         await vehicleowner.save()
         res.status(201).send({token,user:vehicleowner.getPublicProfile()})
     }
     catch(e)
     {
+        console.log(e)
         res.status(400).send(e)
     }
    /* const vehicleowner  = new Vehicleowner(req.body)

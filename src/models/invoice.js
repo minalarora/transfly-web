@@ -81,6 +81,16 @@ const invoiceSchema  = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Vehicleowner'
+    },
+    mine:
+    {
+        type: Number,
+        required: true,
+        ref: 'Mine'
+    },
+    date:
+    {
+        type: String
     }
 
 }
@@ -93,6 +103,7 @@ invoiceSchema.pre('save',async function(next){
     const invoice  = this
     invoice.amount = invoice.tonnage * invoice.rate
     invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    invoice.date = invoice.updatedAt.toString().split("GM")[0]
     next()
 })
 

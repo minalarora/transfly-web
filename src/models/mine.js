@@ -79,7 +79,16 @@ const mineSchema  = mongoose.Schema({
     timestamps: true
 })
 
+
+mineSchema.virtual('invoices',{
+    ref: 'Invoice',
+    localField: 'id',
+    foreignField: 'mine'
+})
+
+
 const mine = mongoose.model('Mine',mineSchema)
+
 
  function arrayLimit(val) {
     return val.length > 0;

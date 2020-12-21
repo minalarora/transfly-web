@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
     <!--Vendor CSS Files -->
-    <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="./css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -36,7 +35,7 @@
 
     <div class="sidenav">
         <div class="row justify-content-center mb-4">
-            <img src="./images/logo.jpg" alt="logo here" width="70" height="70">
+            <img src="../images/logo.jpg" alt="logo here" width="70" height="70">
         </div>
         <a href="#about">My Profile</a>
         <a href="#services">Mines</a>
@@ -76,9 +75,25 @@
                             <h3 class="text-center">Details</h3>
                             <table style="width:100%">
                                 <tr>
+                                    <th>Mine id</th>
+                                    <td>:
+                                        <%= data.mine.id %>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Loation</th>
                                     <td>:
-                                        <%= data.mine.city %>
+                                        <%= data.mine.area %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Mine active</th>
+                                    <td>:
+                                        <% if( data.mine.active == true) { %>
+                                        Active
+                                        <% } else { %>
+                                            Inactive
+                                            <% }  %>
                                     </td>
                                 </tr>
                                 <tr>
@@ -107,7 +122,7 @@
                                 <h5>Update Rate , ETL </h5>
                             </div>
                             <div class=" p-2 bg-white">
-                                <form method="POST" action="/admin/edit">
+                                <form method="POST" action="/webspecificmine/<%= data.mine.id %>">
                                     <div class="form-group">
                                         <input type="number" name="etl" class="form-control" id="etl" placeholder="Enter New etl">
                                     </div>
@@ -115,10 +130,10 @@
                                         <input type="number" name="rate" class="form-control" id="rate" placeholder="Enter new rate" required>
                                     </div>
                                     <div class="radio">
-                                        <label class="radio-inline "><input class="mr-1" type="radio" id="inactive" name="status"
-                                                value="Inactive">Inactive</label>
-                                        <label class="radio-inline "><input class="mr-1" type="radio" id="active" name="status"
-                                                value="Active">Active</label>
+                                        <label class="radio-inline "><input class="mr-1" type="radio" id="inactive" name="active"
+                                                value="false">Inactive</label>
+                                        <label class="radio-inline "><input class="mr-1" type="radio" id="active" name="active"
+                                                value="true">Active</label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
@@ -177,26 +192,30 @@
                             <div class="bg-white shadow p-2">
                                 <table style="width:100%">
                                     <tr>
+                                        <th>Invoice Id</th>
                                         <th>Booking date</th>
                                         <th>Vehicle No</th>
                                         <th>Tonnage</th>
                                         <th>Rate</th>
                                     </tr>
-                                    <% for (var i =0; i <=data.invoice.length;  i++ ) { %>
-                                        <tr>
+                                    <% for (var i =0; i < data.invoices.length;  i++ ) { %>
+                                        <tr>  <td >
+                                            <a href="/webspecificinvoice/<%= data.invoices[i].id %>">
+                                            <%= data.invoices[i].id %></a>
+                                        </td>
                                             <td>
-                                                <%= data.invoice[i].date %>
+                                                <%= data.invoices[i].date %>
                                             </td>
                                             <td>
-                                                <%= data.mine[i].vehicleno %>
+                                                <%= data.invoices[i].vehicleno %>
                                             </td>
                                             <td>
-                                                <%= data.mine[i].Tonnage %>
+                                                <%= data.invoices[i].tonnage %>
                                             </td>
                                             <td>
-                                                <%= data.mine[i].rate %>
+                                                <%= data.invoices[i].rate %>
                                             </td>
-                                        </tr <% } %>>
+                                        </tr <% } %>
                                 </table>
                             </div>
                         </div>
@@ -210,7 +229,7 @@
 
 <!-----------toggle switch ---------------->
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script src="./js/bootstrap/bootstrap.min.js"></script>
-<script src="./js/basic_structure.js"></script>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
 
 </html>

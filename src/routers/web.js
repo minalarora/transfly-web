@@ -149,6 +149,7 @@ router.get('/webmine',async (req,res)=>{
         if(admin)
         {
             const mines= await Mine.find({})  
+        
             let data ={
                 mine: mines,
                 cities: [ 'Bhopal','Funcity']
@@ -180,10 +181,12 @@ router.get('/webspecificmine/:id',async (req,res)=>{
             const mine = await Mine.findOne({id})
             if(mine!=null)
             {
+                await mine.populate('invoices').execPopulate()
                 let data = {
-                    mine: mine
+                    mine: mine,
+                    invoices: mine.invoices
                 }
-              return  res.render('mine',data)
+              return  res.render('mine',{data})
                  
             }
             else
@@ -203,7 +206,7 @@ router.get('/webspecificmine/:id',async (req,res)=>{
     }
 })
 
-router.post('/webspecificmine',async (req,res)=>{
+router.post('/webspecificmine/:id',async (req,res)=>{
     try
     {
         const token = req.cookies['Authorization']
@@ -228,7 +231,15 @@ router.post('/webspecificmine',async (req,res)=>{
             if(mine)
             {
                 updates.forEach((update)=>{
+                    if(update == "active")
+                    {
+                       mine[update] = Boolean(req.body[update])
+                    }
+                    else
+                    {
                     mine[update] = req.body[update] 
+                    }
+                    
                 })
                 await mine.save() 
                 return res.redirect('/webspecificmine/'+ id)

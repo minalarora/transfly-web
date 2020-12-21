@@ -103,12 +103,12 @@
                 <hr class="w-100">
                 <!-------------- mines cards ------------>
                 <div class="w-100 d-flex flex-wrap">
-                    <% if(data.mine.length == 0) { %>
+                    <% if(data.mine.length != 0) { %>
 
                     <% for (var i =0; i <data.mine.length;  i++ ) { %>
                         <div class="card m-2" style="width: 18rem;">
                             <div class="card-body">
-                                <a class="card-title h4 text-primary" href="/minespecific/<%= data.mine[i].id %>"> <%= data.mine[i].name %></a>
+                                <a class="card-title h4 text-primary" href="/webspecificmine/<%= data.mine[i].id %>"> <%= data.mine[i].name %></a>
                                 <h6 class="card-subtitle mb-2 text-muted">Bhopal</h6>
                                 <table style="width:100%">
                                     <tr>
