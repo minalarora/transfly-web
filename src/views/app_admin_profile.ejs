@@ -20,26 +20,8 @@
 <body>
     <!--------------------- side nav ------------------------------>
 
-    <div class="sidenav">
-        <div class="row justify-content-center mb-4">
-            <img src="../images/logo.jpg" alt="logo here" width="70" height="70">
-        </div>
-        <a href="/webadmin">My Profile</a>
-        <a href="/webmine">Mines</a>
-        <a href="#contact">Finance Dept</a>
-        <a href="#contact">Transporter</a>
-        <a href="#contact">Area Manager</a>
-        <a href="#contact">Field Staff</a>
-        <a href="#reports">Invoice Reports</a> <button class="dropdown-btn align-self-baseline"> Vechicle Owner
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Vehicle Owner Request</a>
-            <a href="#">All Vehicle Owners</a>
-        </div>
-        <a href="#resale">Resale</a>
-        <a href="#rewards">Rewards</a>
-    </div>
+    <%- include('../partials/structure.ejs') %>
+    
     <!------------------------------- right content -------------------------------------------->
     <div class="main">
         <div class="container-fluid">

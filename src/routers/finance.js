@@ -2,6 +2,7 @@ const express = require('express')
 const router  = new express.Router()
 const Finance = require('../models/finance')
 const auth = require('../auth/auth')
+const jwt = require('jsonwebtoken')
 
 
 router.post("/finance",async (req,res)=>{
@@ -14,6 +15,7 @@ router.post("/finance",async (req,res)=>{
     }
     catch(e)
     {
+        console.log(e)
         res.status(400).send(e)
     }
    /* const finance  = new Finance(req.body)

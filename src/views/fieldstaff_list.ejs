@@ -32,27 +32,8 @@
 <body>
     <!--------------------- side nav ------------------------------>
 
-    <div class="sidenav">
-        <div class="row justify-content-center mb-4">
-            <img src="./images/logo.jpg" alt="logo here" width="70" height="70">
-        </div>
-        <a href="#about">My Profile</a>
-        <a href="#services">Mines</a>
-        <a href="#contact">Finance Dept</a>
-        <a href="#contact">Transporter</a>
-        <a href="#contact">Area Manager</a>
-        <a href="#contact">Field Staff</a>
-        <a href="#reports">Invoice Reports</a>
-        <button class="dropdown-btn align-self-baseline"> Vechicle Owner
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Vehicle Owner Request</a>
-            <a href="#">All Vehicle Owners</a>
-        </div>
-        <a href="#resale">Resale</a>
-        <a href="#rewards">Rewards</a>
-    </div>
+    <%- include('../partials/structure.ejs') %>
+
     <!------------------------------- right content -------------------------------------------->
     <div class="main">
         <div class="container-fluid">
@@ -82,11 +63,12 @@
                             <th>city</th>
                             <th>Mine</th>
                         </tr>
-                        <% for (var i =0; i <=data.fieldstaff.length;  i++ ) { %>
+                        <% if(data.fieldstaff.length != 0) { %>
+                        <% for (var i =0; i < data.fieldstaff.length;  i++ ) { %>
                             <tr>
-                                <td>
+                                <td> <a href="/webspecificfieldstaff/<%= data.fieldstaff[i].mobile %>">
                                     <%= data.fieldstaff[i].firstaname %>
-                                        <%= data.fieldstaff[i].lastname %>
+                                        <%= data.fieldstaff[i].lastname %></a>
                                 </td>
                                 <td>
                                     <%= data.fieldstaff[i].mobile %>
@@ -99,6 +81,10 @@
                                 </td>
                             </tr>
                             <% } %>
+                            <% } else { %>
+                                <tr><td><h4 class=" w-100 text-danger">No Field Staff found</h4></td></tr>
+                                
+                                <% }  %>
 
                     </table>
 

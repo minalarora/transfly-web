@@ -72,7 +72,19 @@ const mineSchema  = mongoose.Schema({
      },
      landmark:{
          type: String
-     }
+     },
+     transporter:
+    {
+        type: String,
+        required: true,
+        ref: 'Transporter' 
+    },
+    areamanager:
+    {
+        type: String,
+        required: true,
+        ref: 'AreaManager'
+    }
  
  }
  ,{

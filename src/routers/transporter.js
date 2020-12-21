@@ -2,6 +2,7 @@ const express = require('express')
 const router  = new express.Router()
 const Transporter = require('../models/transporter')
 const auth = require('../auth/auth')
+const jwt = require("jsonwebtoken")
 
 
 router.post("/transporter",async (req,res)=>{

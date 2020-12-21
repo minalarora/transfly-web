@@ -1,5 +1,6 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 
 const areamanagerSchema  = mongoose.Schema({
@@ -135,6 +136,12 @@ areamanagerSchema.methods.getPublicProfile = function()
     delete userobject.tokens
     return userobject
 }
+
+areamanagerSchema.virtual('mines',{
+    ref: 'Mine',
+    localField: 'mobile',
+    foreignField: 'areamanager'
+  })
 
 areamanagerSchema.methods.generateToken = async function(){
     const areamanager  = this

@@ -42,8 +42,8 @@ app.set('views',viewsPath)
       /*res.status(400).send('site is currently down')
   })*/
 
-// const partialsPath  = path.join(__dirname,'./partials')
-// ejs.registerPartials(partialsPath)
+//  const partialsPath  = path.join(__dirname,'./partials')
+//  ejs.registerPartials(partialsPath)
 
 
 const publicPath = path.join(__dirname,'./public')
@@ -84,10 +84,7 @@ app.use(helmet())
 app.use(compression())
 
 
-app.get('*',(req,res)=>{
-    console.log('run error')
-    res.send("error")
-})
+
 
 
 /*

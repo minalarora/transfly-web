@@ -1,5 +1,6 @@
 const validator = require("validator")
 const mongoose =  require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const financeSchema =  mongoose.Schema({
     firstname: {

@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
     <!--Vendor CSS Files -->
-    <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="./css/basic_structure.css" />
-    <link rel="stylesheet" type="text/css" href="./css/employee_profile_general.css" />
+    <link href=".../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/employee_profile_general.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Latest compiled and minified CSS -->
@@ -31,27 +31,8 @@
 <body>
     <!--------------------- side nav ------------------------------>
 
-    <div class="sidenav">
-        <div class="row justify-content-center mb-4">
-            <img src="./images/logo.jpg" alt="logo here" width="70" height="70">
-        </div>
-        <a href="#about">My Profile</a>
-        <a href="#services">Mines</a>
-        <a href="#contact">Finance Dept</a>
-        <a href="#contact">Transporter</a>
-        <a href="#contact">Area Manager</a>
-        <a href="#contact">Field Staff</a>
-        <a href="#reports">Invoice Reports</a>
-        <button class="dropdown-btn align-self-baseline"> Vechicle Owner
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Vehicle Owner Request</a>
-            <a href="#">All Vehicle Owners</a>
-        </div>
-        <a href="#resale">Resale</a>
-        <a href="#rewards">Rewards</a>
-    </div>
+    <%- include('../partials/structure.ejs') %>
+
     <!------------------------------- right content -------------------------------------------->
     <div class="main">
         <div class="container-fluid">
@@ -67,7 +48,7 @@
                     <div class="row justify-content-between align-items-baseline">
                         <div class="d-flex justify-content-start align-items-center mt-4">
                             <div id="profile-pic" class="mr-4">
-                                <img src="./images/avatar.png" alt="">
+                                <img src="../images/avatar.png" alt="">
                             </div>
                             <div class="d-flex flex-column">
                                 <h3>
@@ -77,7 +58,7 @@
                                 <p>(Transporter)</p>
                             </div>
                         </div>
-                        <div><img src="./images/transporter.png" class="mr-4" width="130" height="90" alt=""></div>
+                        <div><img src="../images/transporter.png" class="mr-4" width="130" height="90" alt=""></div>
 
                     </div>
                     <br><br>
@@ -142,7 +123,7 @@
                                     <tr>
                                         <th>Mining liscence no:</th>
                                         <td>
-                                            <%= data.transporter.miningliscence %>
+                                            <%= data.transporter.mininglicense %>
                                         </td>
                                     </tr>
                                 </table>
@@ -243,7 +224,7 @@
     </div>
 
 </body>
-<script src="./js/bootstrap/bootstrap.min.js"></script>
-<script src="./js/basic_structure.js"></script>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
 
 </html>

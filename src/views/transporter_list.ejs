@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
     <!--Vendor CSS Files -->
-    <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="./css/basic_structure.css" />
-    <link rel="stylesheet" type="text/css" href="./css/employee_search_input_table.css" />
+
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -32,27 +32,8 @@
 <body>
     <!--------------------- side nav ------------------------------>
 
-    <div class="sidenav">
-        <div class="row justify-content-center mb-4">
-            <img src="./images/logo.jpg" alt="logo here" width="70" height="70">
-        </div>
-        <a href="#about">My Profile</a>
-        <a href="#services">Mines</a>
-        <a href="#contact">Finance Dept</a>
-        <a href="#contact">Transporter</a>
-        <a href="#contact">Area Manager</a>
-        <a href="#contact">Field Staff</a>
-        <a href="#reports">Invoice Reports</a>
-        <button class="dropdown-btn align-self-baseline"> Vechicle Owner
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Vehicle Owner Request</a>
-            <a href="#">All Vehicle Owners</a>
-        </div>
-        <a href="#resale">Resale</a>
-        <a href="#rewards">Rewards</a>
-    </div>
+    <%- include('../partials/structure.ejs') %>
+
     <!------------------------------- right content -------------------------------------------->
     <div class="main">
         <div class="container-fluid">
@@ -81,23 +62,17 @@
                             <th>Mobile</th>
                             <th>mines</th>
                         </tr>
-                        <tr>
-                            <td>Saurabh Sharma</td>
-                            <td>8765654342</td>
-                            <td>Vidisha</td>
-                        </tr>
-                        <% for (var i =0; i <=data.transporter.length;  i++ ) { %>
+                        <% for (var i =0; i < data.transporter.length;  i++ ) { %>
                             <tr>
-                                <td><a href="/specifictransporter/<%= data.transporter.mobile %>"> <%= data.transporter[i].firstname %>
+                                <td><a href="/webspecifictransporter/<%= data.transporter[i].mobile %>"> <%= data.transporter[i].firstname %>
                                             <%= data.transporter[i].lastname %></a></td>
                                 <td>
                                     <%= data.transporter[i].mobile %>
                                 </td>
                                 <td>
-                                    <% for (var i =0; i <=data.transporter[i].mine.length;  i++ ) { %>
-                                        <%= data.transporter[i].mine[i].name %> ,
+                                    <% for (var j =0; j < data.transporter[i].mine.length;  j++ ) { %>
+                                        <%= data.transporter[i].mine[j].name %> ,
                                             <% } %>
-
                                 </td>
                             </tr>
                             <% } %>
@@ -139,7 +114,7 @@
     }
 </script>
 
-<script src="./js/bootstrap/bootstrap.min.js"></script>
-<script src="./js/basic_structure.js"></script>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
 
 </html>

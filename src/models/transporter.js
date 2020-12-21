@@ -1,5 +1,6 @@
 const validator =  require('validator')
 const mongoose =  require('mongoose')
+const jwt = require("jsonwebtoken")
 
 const transporterSchema  =  mongoose.Schema({
     firstname: {
@@ -45,6 +46,11 @@ const transporterSchema  =  mongoose.Schema({
         type: Number,
         required: true,
         default: 0 
+    },
+    city:
+    {
+        type: String,
+        default: "NOT AVAILABLE"
     },
     gst:
     {
@@ -112,6 +118,11 @@ transporterSchema.methods.generateToken = async function(){
     return token
 }
 
+transporterSchema.virtual('mines',{
+    ref: 'Mine',
+    localField: 'mobile',
+    foreignField: 'transporter'
+  })
 
 
 transporterSchema.methods.getPublicProfile = function()

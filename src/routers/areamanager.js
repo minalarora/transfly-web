@@ -2,6 +2,7 @@ const express = require('express')
 const router  = new express.Router()
 const AreaManager = require('../models/areamanager')
 const auth = require('../auth/auth')
+const jwt = require('jsonwebtoken')
 
 
 router.post("/areamanager",async (req,res)=>{
@@ -14,6 +15,7 @@ router.post("/areamanager",async (req,res)=>{
     }
     catch(e)
     {
+        console.log(e)
         res.status(400).send(e)
     }
    /* const areamanager  = new AreaManager(req.body)

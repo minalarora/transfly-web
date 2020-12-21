@@ -273,7 +273,7 @@ router.get('/webfinanceall',async (req,res)=>{
             let data ={
                 finance: finance
             }
-           return res.render('finance_list',data)
+           return res.render('finance_official_list',{data})
         }
         else
         {
@@ -301,7 +301,7 @@ router.get('/webspecificfinance/:mobile',async (req,res)=>{
                 let data = {
                     finance: finance
                 }
-                return res.render('finance_single',data)
+                return res.render('finance_official_profile',{data})
                   
             }
             else
@@ -329,10 +329,27 @@ router.get('/webtransporterall',async (req,res)=>{
         if(admin)
         {
             const transporter= await Transporter.find({})  
+        
             let data ={
-                transporter: transporter
+                transporter: []
             }
-           return res.render('transporter_list',data)
+            for(var i = 0;i<transporter.length;i++)
+            {
+                await transporter[i].populate('mines').execPopulate()
+                let t =  transporter[i].toObject()
+                t.mine = transporter[i].mines
+                data.transporter.push(t)
+              
+            }
+
+           
+
+            console.log(data.transporter[0].mine)
+
+            
+            
+           
+           return res.render('transporter_list',{data})
         }
         else
         {
@@ -360,7 +377,7 @@ router.get('/webspecifictransporter/:mobile',async (req,res)=>{
                 let data = {
                     transporter: transporter
                 }
-                return res.render('transporter_single',data)
+                return res.render('transporter_profile',{data})
                   
             }
             else
@@ -388,14 +405,31 @@ router.get('/webareamanagerall',async (req,res)=>{
         if(admin)
         {
             const areamanager= await AreaManager.find({})  
+        
             let data ={
-                areamanager: areamanager
+                areamanager: []
             }
-           return res.render('areamanager_list',data)
+            for(var i = 0;i<areamanager.length;i++)
+            {
+                await areamanager[i].populate('mines').execPopulate()
+                let t =  areamanager[i].toObject()
+                t.mine = areamanager[i].mines
+                data.areamanager.push(t)
+              
+            }
+
+           
+
+            console.log(data.areamanager[0].mine)
+
+            
+            
+           
+           return res.render('area_manager_list',{data})
         }
         else
         {
-            console.log('admin not found in all areamanager')
+            console.log('admin not found in all area manager')
         }
     }
     catch(e)
@@ -416,10 +450,16 @@ router.get('/webspecificareamanager/:mobile',async (req,res)=>{
             const areamanager = await AreaManager.findOne({mobile})
              if(areamanager!=null)
             {
+                await areamanager.populate('mines').execPopulate()
+                let t =areamanager.toObject()
+                t.mines = areamanager.mines
+
+
                 let data = {
-                    areamanager: areamanager
+                    areamanager: t
                 }
-                return res.render('areamanager_single',data)
+                console.log(data)
+            return res.render('area_manager_profile',{data})
                   
             }
             else
@@ -450,7 +490,8 @@ router.get('/webfieldstaffall',async (req,res)=>{
             let data ={
                 fieldstaff: fieldstaff
             }
-           return res.render('fieldstaff_list',data)
+            console.log(data)
+           return res.render('fieldstaff_list',{data})
         }
         else
         {
