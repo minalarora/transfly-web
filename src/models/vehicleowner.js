@@ -143,13 +143,23 @@ vehicleownerSchema.virtual('invoices',{
     foreignField: 'owner'
 })
 
+vehicleownerSchema.virtual('vehicles',{
+    ref: 'Vehicle',
+    localField: 'mobile',
+    foreignField: 'driverid'
+  })
+
 
 vehicleownerSchema.pre('remove',async function(next){
     const user  = this
     await Booking.deleteMany({
         owner: user._id
     })
+
 })
+
+
+
 
 
 const VehicleOwner = mongoose.model('Vehicleowner',vehicleownerSchema)

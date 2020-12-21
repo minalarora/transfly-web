@@ -56,22 +56,24 @@
                         </div>
                         <br>
                         <div class="row">
-                            <table id="invoiceTable">
+                            <table style="width: 100%;" id="invoiceTable">
                                 <tr class="header">
                                     <th>Name</th>
                                     <th>Vehicle No</th>
                                     <th>Mobile</th>
                                     <th>City</th>
                                 </tr>
-                                <% for (var i =0; i <=data.vehicleowner.length;  i++ ) { %>
+                                <% for (var i =0; i < data.vehicleowner.length;  i++ ) { %>
                                     <tr>
-                                        <td><a href="/specificvehicleowner/<%= data.vehicleowner[i].mobile %>"> <%= data.vehicleowner[i].id %></a></td>
-                                        <td>
+                                        <td><a href="/webspecificvehicleowner/<%= data.vehicleowner[i].mobile %>"> 
+                                       
                                             <%= data.vehicleowner[i].firstname %>
-                                                <%= data.vehicleowner[i].lastname %>
+                                                <%= data.vehicleowner[i].lastname %></a>
                                         </td>
-                                        <td>
-                                            <%= data.vehicleowner[i].vehicleno %>
+                                        <td> <% for (var j =0; j < data.vehicleowner[i].vehicles.length;  j++ ) { %>
+                                            <%= data.vehicleowner[i].vehicles[j].number %>
+                                            <% } %>
+
                                         </td>
                                         <td>
                                             <%= data.vehicleowner[i].mobile %>

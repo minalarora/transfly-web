@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const vehicleSchema = mongoose.Schema({
     id:
@@ -22,8 +23,9 @@ const vehicleSchema = mongoose.Schema({
         required: true
     },
     driverid: {
-        type: Number,
-        required: true    
+        type: String,
+        required: true  ,
+        ref : 'Vehicleowner'  
     }
 }
 ,{

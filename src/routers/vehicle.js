@@ -8,12 +8,15 @@ const auth = require('../auth/auth')
 router.post("/vehicle",auth,async (req,res)=>{
     try
     {
+       
         const vehicle  = new Vehicle(req.body)
+        
         await vehicle.save()
         res.status(201).send(vehicle)      
     }
     catch(e)
     {
+        
         res.status(400).send(e)
     }
     /*const vehicle  = new Vehicle(req.body)

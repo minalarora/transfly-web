@@ -76,14 +76,17 @@ const mineSchema  = mongoose.Schema({
      transporter:
     {
         type: String,
-        required: true,
         ref: 'Transporter' 
     },
     areamanager:
     {
         type: String,
-        required: true,
         ref: 'AreaManager'
+    },
+    fieldstaff:
+    {
+        type:String,
+        ref: 'Fieldstaff'
     }
  
  }

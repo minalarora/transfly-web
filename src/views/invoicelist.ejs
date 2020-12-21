@@ -52,26 +52,26 @@
                                     <th>Tonnage</th>
                                     <th>Date</th>
                                 </tr>
-                                <% for (var i =0; i <=data.invoice.length;  i++ ) { %>
+                                <% for (var i =0; i < data.invoice.length;  i++ ) { %>
                                     <tr>
-                                        <td><a href="/specificinvoive/ <%= data.invoive[i].id %>"> <%= data.invoive[i].id %></a></td>
+                                        <td><a href="/webspecificinvoice/<%= data.invoice[i].id %>"> <%= data.invoice[i].id %></a></td>
                                         <td>
-                                            <%= data.invoive[i].id %>
+                                            <%= data.invoice[i].vehicleno %>
                                         </td>
                                         <td>
-                                            <%= data.invoive[i].mine %>
+                                            <%= data.invoice[i].mine %>
                                         </td>
                                         <td>
-                                            <%= data.invoive[i].city %>
+                                            <%= data.invoice[i].city %>
                                         </td>
                                         <td>
-                                            <%= data.invoive[i].owner %>
+                                            <%= data.invoice[i].vehicleowner %>
                                         </td>
                                         <td>
-                                            <%= data.invoive[i].Tonnage %>
+                                            <%= data.invoice[i].tonnage %>
                                         </td>
                                         <td>
-                                            <%= data.invoive[i].date %>
+                                            <%= data.invoice[i].date %>
                                         </td>
                                     </tr>
                                     <% } %>

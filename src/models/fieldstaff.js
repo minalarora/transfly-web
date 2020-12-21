@@ -1,5 +1,6 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
+const jwt =  require('jsonwebtoken')
 
 const fieldstaffSchema = mongoose.Schema({
     firstname: {
@@ -142,6 +143,12 @@ fieldstaffSchema.methods.getPublicProfile = function()
     delete userobject.tokens
     return userobject
 }
+
+fieldstaffSchema.virtual('mines',{
+    ref: 'Mine',
+    localField: 'mobile',
+    foreignField: 'fieldstaff'
+  })
 
 const Fieldstaff = mongoose.model('Fieldstaff',fieldstaffSchema)
 

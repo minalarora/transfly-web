@@ -15,6 +15,7 @@ const VehicleOwner = require("../models/vehicleowner")
 const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
+const vehicle = require('../models/vehicle')
  
 router.use(cookieParser())
 
@@ -487,16 +488,43 @@ router.get('/webfieldstaffall',async (req,res)=>{
         if(admin)
         {
             const fieldstaff= await Fieldstaff.find({})  
+        
             let data ={
-                fieldstaff: fieldstaff
+                fieldstaff: []
             }
-            console.log(data)
+            for(var i = 0;i<fieldstaff.length;i++)
+            {
+                await fieldstaff[i].populate('mines').execPopulate()
+                let t =  fieldstaff[i].toObject()
+                
+                if(fieldstaff[i].mines.length != 0)
+                {
+                    t.mine = fieldstaff[i].mines[0].name
+                }
+                else
+                {
+                    t.mine = "NOT ALLOTTED"
+                }
+               
+                data.fieldstaff.push(t)
+              
+            }
+
+
+           
+
+            console.log(data.fieldstaff[0].mine)
+
+            
+            
+           
            return res.render('fieldstaff_list',{data})
         }
         else
         {
-            console.log('admin not found in all fieldstaff')
+            console.log('admin not found in all area manager')
         }
+
     }
     catch(e)
     {
@@ -519,7 +547,7 @@ router.get('/webspecificfieldstaff/:mobile',async (req,res)=>{
                 let data = {
                     fieldstaff: fieldstaff
                 }
-                return res.render('fieldstaff_single',data)
+                return res.render('field_staff_profile',{data})
                   
             }
             else
@@ -546,11 +574,28 @@ router.get('/webinvoiceall',async (req,res)=>{
         const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
         if(admin)
         {
-            const invoice= await Invoice.find({})  
+            const invoice= await Invoice.find({}) 
             let data ={
-                invoice: invoice
+                invoice: []
             }
-           return res.render('invoice_list',data)
+
+            for(var i = 0;i<invoice.length;i++)
+            {
+
+               
+                let t =  invoice[i].toObject()
+            
+                const mine = await Mine.findOne({id: invoice[i].mine})
+                const vehicleowner = await VehicleOwner.findById({_id: invoice[i].owner})
+                t.mine = mine.name
+                t.vehicleowner = vehicleowner.firstname + " " + vehicleowner.lastname
+                t.city  = mine.area
+                data.invoice.push(t)
+              
+            }
+
+            console.log(data)
+           return res.render('invoicelist',{data})
         }
         else
         {
@@ -562,6 +607,7 @@ router.get('/webinvoiceall',async (req,res)=>{
         console.log(e)
     }
 })
+
 
 router.get('/webspecificinvoice/:id',async (req,res)=>{
     try
@@ -575,10 +621,23 @@ router.get('/webspecificinvoice/:id',async (req,res)=>{
             const invoice = await Invoice.findOne({id})
              if(invoice!=null)
             {
-                let data = {
-                    invoice: invoice
+                let data ={
+                    invoice: {}
                 }
-                return res.render('invoice_single',data)
+ 
+                   
+                    let t =  invoice.toObject()
+                
+                    const mine = await Mine.findOne({id: invoice.mine})
+                    const vehicleowner = await VehicleOwner.findById({_id: invoice.owner})
+                    t.mine = mine.name
+                    t.vehicleowner = vehicleowner.firstname + " " + vehicleowner.lastname
+                    t.city  = mine.area
+                    data.invoice = {...t}
+                  
+                
+    
+                return res.render('invoice',{data})
                   
             }
             else
@@ -596,6 +655,90 @@ router.get('/webspecificinvoice/:id',async (req,res)=>{
         console.log(e)
     }
 })
+
+router.get('/webvehicleownerall',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+
+            const vehicleowner= await VehicleOwner.find({})  
+            let data ={
+                vehicleowner: []
+            }
+            for(var i = 0;i<vehicleowner.length;i++)
+            {
+                let v = await vehicleowner[i].populate('vehicles').execPopulate()
+                let t =  vehicleowner[i].toObject()
+                
+                data.vehicleowner.push({
+                    ...t,
+                    vehicles: vehicleowner[i].vehicles
+                })
+            }
+            console.log("data",data.vehicleowner[0].mobile)
+           return res.render('vehicle_owner_list',{data})
+        }
+        else
+        {
+            console.log('admin not found in all invoice')
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
+router.get('/webspecificvehicleowner/:mobile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            const mobile = req.params.mobile
+            const vehicleowner = await VehicleOwner.findOne({mobile})
+           
+            let data ={
+                vehicleowner: {}
+            }
+           
+                 await vehicleowner.populate('vehicles').execPopulate()
+                 await vehicleowner.populate('invoices').execPopulate()
+
+                 let t =  vehicleowner.toObject()
+                data.vehicleowner = {
+                    ...t,
+                    invoices: vehicleowner.invoices,
+                    vehicles: vehicleowner.vehicles
+
+                }
+
+
+
+               
+            
+            console.log("data",data)
+           return res.render('vehicle_owner_profile',{data})
+        }
+        else
+        {
+            console.log('admin not found in all invoice')
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
 
 
 

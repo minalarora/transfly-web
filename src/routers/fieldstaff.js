@@ -2,6 +2,7 @@ const express = require('express')
 const router  = new express.Router()
 const Fieldstaff = require('../models/fieldstaff')
 const auth = require('../auth/auth')
+const jwt =  require('jsonwebtoken')
 
 router.post("/fieldstaff",async (req,res)=>{
     try

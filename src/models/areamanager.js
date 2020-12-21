@@ -128,6 +128,12 @@ areamanagerSchema.statics.findByMobile = async (mobile,password)=>{
     }
 }
 
+areamanagerSchema.virtual('mines',{
+    ref: 'Mine',
+    localField: 'mobile',
+    foreignField: 'areamanager'
+  })
+
 areamanagerSchema.methods.getPublicProfile = function()
 {
     const user = this

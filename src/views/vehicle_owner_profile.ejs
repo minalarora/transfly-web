@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
     <!--Vendor CSS Files -->
-    <link href="../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="./css/basic_structure.css" />
-    <link rel="stylesheet" type="text/css" href="./css/vehicle_owner_profile.css" />
+    <link href=".../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/vehicle_owner_profile.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Latest compiled and minified CSS -->
@@ -45,7 +45,7 @@
                     <div class="row justify-content-between align-items-baseline">
                         <div class="d-flex justify-content-start align-items-center mt-4">
                             <div id="profile-pic" class="mr-4">
-                                <img src="./images/avatar.png" alt="">
+                                <img src="../images/avatar.png" alt="">
                             </div>
                             <div class="d-flex flex-column">
                                 <h3>
@@ -55,13 +55,13 @@
                                 <p>(Vehicle Owner)</p>
                             </div>
                         </div>
-                        <div><img src="./images/truck.png" class="mr-4" width="100" height="100" alt=""></div>
+                        <div><img src="../images/truck.png" class="mr-4" width="100" height="100" alt=""></div>
 
                     </div>
 
                     <br><br>
                     <div id="profile-content" class="row justify-content-start">
-                        <div class="w-25 mr-4">
+                        <div class="w-50 mr-4">
                             <div class="pl-2 pt-3 pb-2 bg-primary text-light">
                                 <h5>Personal Details</h5>
                             </div>
@@ -69,19 +69,19 @@
                                 <table style="width:100%">
                                     <tr>
                                         <th>Mobile:</th>
-                                        <td>>
+                                        <td>
                                             <%= data.vehicleowner.mobile %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>email:</th>
-                                        <td>>
+                                        <td>
                                             <%= data.vehicleowner.email %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>City:</th>
-                                        <td>>
+                                        <td>
                                             <%= data.vehicleowner.city %>
                                         </td>
                                     </tr>
@@ -96,19 +96,19 @@
                                 <table style="width:100%">
                                     <tr>
                                         <th>Ifsc:</th>
-                                        <td>>
+                                        <td>
                                             <%= data.vehicleowner.ifsc %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Bank:</th>
-                                        <td>>
+                                        <td>
                                             <%= data.vehicleowner.bankname %>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Acc no:</th>
-                                        <td>>
+                                        <td>
                                             <%= data.vehicleowner.accountno %>
                                         </td>
                                     </tr>
@@ -132,13 +132,13 @@
                                         <th>RC number
                                             </td>
                                     </tr>
-                                    <% for (var i =0; i <=data.vehicle.length;  i++ ) { %>
+                                    <% for (var i =0; i < data.vehicleowner.vehicles.length;  i++ ) { %>
                                         <tr>
                                             <td>
-                                                <%= data.vehicle[i].number %>
+                                                <%= data.vehicleowner.vehicles[i].number %>
                                             </td>
                                             <td>
-                                                <%= data.vehicle[i].rc %>
+                                                <%= data.vehicleowner.vehicles[i].rc %>
                                             </td>
                                         </tr>
                                         <% } %>
@@ -157,20 +157,32 @@
                                 <div class="row p-2 justify-content-between">
                                     <table style="width:100%">
                                         <tr>
-                                            <th>Mine Id</th>
                                             <th>Invoice id</th>
+                                            <th>Mine id</th>
                                             <th>Date</th>
+                                            <th>tonnage</th>
+                                            <th>rate</th>
+                                            <th>amount</th>
                                         </tr>
-                                        <% for (var i =0; i <=data.vehicle.length;  i++ ) { %>
+                                        <% for (var i =0; i < data.vehicleowner.invoices.length;  i++ ) { %>
                                             <tr>
-                                                <td>
-                                                    <%= data.invoice[i].id %>
+                                                <td> <a href="webspecificmine/<%= data.vehicleowner.invoices[i].id %>">
+                                                    <%= data.vehicleowner.invoices[i].id %></a>
                                                 </td>
                                                 <td>
-                                                    <%= data.invoice[i].mineid %>
+                                                    <%=  data.vehicleowner.invoices[i].mine %>
                                                 </td>
                                                 <td>
-                                                    <%= data.invoice[i].date %>
+                                                    <%=  data.vehicleowner.invoices[i].date %>
+                                                </td>
+                                                <td>
+                                                    <%=  data.vehicleowner.invoices[i].tonnage %>
+                                                </td>
+                                                <td>
+                                                    <%=  data.vehicleowner.invoices[i].rate %>
+                                                </td>
+                                                <td>
+                                                    <%=  data.vehicleowner.invoices[i].amount %>
                                                 </td>
                                             </tr>
                                             <% } %>
@@ -186,7 +198,7 @@
     </div>
 
 </body>
-<script src="./js/bootstrap/bootstrap.min.js"></script>
-<script src="./js/basic_structure.js"></script>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
 
 </html>
