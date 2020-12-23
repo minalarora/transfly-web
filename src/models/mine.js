@@ -34,7 +34,7 @@ const mineSchema  = mongoose.Schema({
      bodytype:
      {
          type: String,
-         enum : ['ATTACHED','NON-ATTACHED'],
+         enum : ['ATTACHED','NON-ATTACHED','BOTH'],
          default: 'ATTACHED'
      },
      loading:
@@ -71,21 +71,25 @@ const mineSchema  = mongoose.Schema({
          required: true
      },
      landmark:{
-         type: String
+         type: String,
+         default: "NOT AVAILABLE"
      },
      transporter:
     {
         type: String,
+        default: undefined,
         ref: 'Transporter' 
     },
     areamanager:
     {
         type: String,
+        default: undefined,
         ref: 'AreaManager'
     },
     fieldstaff:
     {
         type:String,
+        default: undefined,
         ref: 'Fieldstaff'
     }
  
@@ -100,6 +104,8 @@ mineSchema.virtual('invoices',{
     localField: 'id',
     foreignField: 'mine'
 })
+
+
 
 
 const mine = mongoose.model('Mine',mineSchema)

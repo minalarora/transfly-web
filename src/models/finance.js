@@ -61,20 +61,25 @@ const financeSchema =  mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
-    city:
-    {
-        type: String,
-        default: "NOT AVAILABLE"
-    },
     pan:
     {
         type: String,
-        default: "NOT AVAILABLE"
+        default: "NOT AVAILABLE",
+       
+    },
+    panimage:
+    {
+        type: Buffer
     },
     aadhaar:
     {
         type: String,
         default: "NOT AVAILABLE"
+        
+    },
+    aadhaarimage:
+    {
+        type: Buffer
     },
     ename: {
         type: String,
@@ -109,6 +114,18 @@ const financeSchema =  mongoose.Schema({
     ]
 },{
     timestamps: true
+})
+
+financeSchema.pre('save',async function(next){
+    const user  = this
+    if(user.panimage && user.aadhaarimage && (user.status == 0))
+    {
+        user.status = 1
+    }
+    // invoice.amount = invoice.tonnage * invoice.rate
+    // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    // invoice.date = invoice.updatedAt.toString().split("GM")[0]
+    next()
 })
 
 financeSchema.statics.findByMobile = async (mobile,password)=>{

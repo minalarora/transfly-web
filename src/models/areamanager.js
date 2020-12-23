@@ -1,6 +1,7 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const Mine = require('../models/mine')
 
 
 const areamanagerSchema  = mongoose.Schema({
@@ -63,22 +64,25 @@ const areamanagerSchema  = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
-    city:
-    {
-        type: String,
-        default: "NOT AVAILABLE"
-    },
     pan:
     {
         type: String,
         default: "NOT AVAILABLE",
        
     },
+    panimage:
+    {
+        type: Buffer
+    },
     aadhaar:
     {
         type: String,
         default: "NOT AVAILABLE"
         
+    },
+    aadhaarimage:
+    {
+        type: Buffer
     },
     ename: {
         type: String,
@@ -114,6 +118,35 @@ const areamanagerSchema  = mongoose.Schema({
     ]
 },{
     timestamps: true
+})
+
+
+areamanagerSchema.pre('remove',async function(next){
+    const user = this
+    await Mine.updateMany({
+        areamanager = user.mobile
+    },
+    { $set : { areamanager : undefined }},
+     function(err, result) {
+            if (err) {
+              console.log(err)
+            } else {
+              console.log(result)
+            }
+          })
+    next()
+})
+
+areamanagerSchema.pre('save',async function(next){
+    const user  = this
+    if(user.panimage && user.aadhaarimage && (user.status == 0))
+    {
+        user.status = 1
+    }
+    // invoice.amount = invoice.tonnage * invoice.rate
+    // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    // invoice.date = invoice.updatedAt.toString().split("GM")[0]
+    next()
 })
 
 areamanagerSchema.statics.findByMobile = async (mobile,password)=>{
@@ -158,6 +191,8 @@ areamanagerSchema.methods.generateToken = async function(){
     await areamanager.save()
     return token
 }
+
+
 
 const AreaManager = mongoose.model('AreaManager',areamanagerSchema)
 

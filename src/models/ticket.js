@@ -1,14 +1,18 @@
 const mongoose = require('mongoose')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 7)
 
 const ticketSchema  = mongoose.Schema({
     id:
     {
         type: Number,
-        default: 0 
+        default: () => {
+           return parseInt(nanoid())
+        }
     },
     userid:
     {
-        type: Number,
+        type: String,
         required: true
     },
     category:

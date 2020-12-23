@@ -1,11 +1,15 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 7)
 
 const vehicleSchema = mongoose.Schema({
     id:
     {
         type: Number,
-        default: 0 
+        default: () => {
+           return parseInt(nanoid())
+        }
     },
     number: {
         type: String,
@@ -26,6 +30,19 @@ const vehicleSchema = mongoose.Schema({
         type: String,
         required: true  ,
         ref : 'Vehicleowner'  
+    } ,
+    rc:
+    {
+        type: String
+    },
+    rcimage:
+    {
+        type: Buffer
+    },
+    status:
+    {
+        type: Number,
+        default: 0
     }
 }
 ,{

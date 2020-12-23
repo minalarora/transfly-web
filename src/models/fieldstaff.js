@@ -1,6 +1,7 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
 const jwt =  require('jsonwebtoken')
+const Mine  = require("../models/mine")
 
 const fieldstaffSchema = mongoose.Schema({
     firstname: {
@@ -62,20 +63,25 @@ const fieldstaffSchema = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
-    city:
-    {
-        type: String,
-        default: "NOT AVAILABLE"
-    },
     pan:
     {
         type: String,
-        default: "NOT AVAILABLE"
+        default: "NOT AVAILABLE",
+       
+    },
+    panimage:
+    {
+        type: Buffer
     },
     aadhaar:
     {
         type: String,
         default: "NOT AVAILABLE"
+        
+    },
+    aadhaarimage:
+    {
+        type: Buffer
     },
     ename: {
         type: String,
@@ -110,6 +116,36 @@ const fieldstaffSchema = mongoose.Schema({
     ]
 },{
     timestamps: true
+})
+
+
+fieldstaffSchema.pre('remove',async function(next){
+    const user = this
+    await Mine.updateMany({
+        fieldstaff = user.mobile
+    },
+    { $set : { fieldstaff : undefined }},
+     function(err, result) {
+            if (err) {
+              console.log(err)
+            } else {
+              console.log(result)
+            }
+          })
+    next()
+})
+
+
+fieldstaffSchema.pre('save',async function(next){
+    const user  = this
+    if(user.panimage && user.aadhaarimage && (user.status == 0))
+    {
+        user.status = 1
+    }
+    // invoice.amount = invoice.tonnage * invoice.rate
+    // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    // invoice.date = invoice.updatedAt.toString().split("GM")[0]
+    next()
 })
 
 fieldstaffSchema.statics.findByMobile = async (mobile,password)=>{

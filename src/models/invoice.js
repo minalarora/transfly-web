@@ -5,7 +5,7 @@ const invoiceSchema  = mongoose.Schema({
     id:
     {
         type: Number,
-        default: 0 
+        
     },
     vehicleno:
     {
@@ -30,8 +30,7 @@ const invoiceSchema  = mongoose.Schema({
     },
     hsd:
     {
-        type: Number
-        ,
+        type: Number,
         default: 0
     },
     cash:
@@ -103,9 +102,11 @@ invoiceSchema.pre('save',async function(next){
     const invoice  = this
     invoice.amount = invoice.tonnage * invoice.rate
     invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
-    invoice.date = invoice.updatedAt.toString().split("GM")[0]
+    invoice.date = invoice.createdAt.toString().split("GM")[0]
     next()
 })
+
+
 
 const invoice = mongoose.model("Invoice",invoiceSchema)
 

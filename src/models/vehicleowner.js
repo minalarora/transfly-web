@@ -2,6 +2,7 @@ const validator = require("validator")
 const mongoose = require('mongoose')
 const Booking = require('./booking')
 const Invoice = require('./invoice')
+const Vehicle = require('./vehicle')
 const jwt = require('jsonwebtoken')
 
 
@@ -64,21 +65,24 @@ const vehicleownerSchema  = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
-    city:
-    {
-        type: String,
-        default: "NOT AVAILABLE"
-    },
     pan:
     {
         type: String,
         default: "NOT AVAILABLE"
+    },
+    panimage:
+    {
+        type: Buffer
     },
     tds:
     {
         type: String,
         default: "NOT AVAILABLE"
     
+    },
+    tdsimage:
+    {
+        type: Buffer
     },
     tokens: [
         {
@@ -97,6 +101,19 @@ const vehicleownerSchema  = mongoose.Schema({
 }
 ,{
     timestamps: true
+})
+
+
+vehicleownerSchema.pre('save',async function(next){
+    const user  = this
+    if(user.panimage  && user.tdsimage && (user.status == 0))
+    {
+        user.status = 1
+    }
+    // invoice.amount = invoice.tonnage * invoice.rate
+    // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    // invoice.date = invoice.updatedAt.toString().split("GM")[0]
+    next()
 })
 
 vehicleownerSchema.statics.findByMobile = async (mobile,password)=>{
@@ -155,6 +172,11 @@ vehicleownerSchema.pre('remove',async function(next){
     await Booking.deleteMany({
         owner: user._id
     })
+    await Vehicle.deleteMany({
+        driverid: mobile
+    })
+
+    next()
 
 })
 

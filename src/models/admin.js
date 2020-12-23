@@ -46,6 +46,7 @@ const adminSchema  = mongoose.Schema({
         type: Number,
         required: true,
         default: 0 
+        
     },
     accountno:
     {
@@ -62,23 +63,25 @@ const adminSchema  = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
-    city:
-    {
-        type: String,
-        default: "NOT AVAILABLE"
-        
-    },
     pan:
     {
         type: String,
         default: "NOT AVAILABLE"
        
     },
+    panimage:
+    {
+        type: Buffer
+    },
     aadhaar:
     {
         type: String,
         default: "NOT AVAILABLE"
        
+    },
+    aadhaarimage:
+    {
+        type: Buffer
     },
     ename: {
         type: String,
@@ -115,6 +118,20 @@ const adminSchema  = mongoose.Schema({
 },{
     timestamps: true
 })
+
+
+adminSchema.pre('save',async function(next){
+    const user  = this
+    if(user.panimage && user.aadhaarimage && (user.status == 0))
+    {
+        user.status = 1
+    }
+    // invoice.amount = invoice.tonnage * invoice.rate
+    // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    // invoice.date = invoice.updatedAt.toString().split("GM")[0]
+    next()
+})
+
 
 adminSchema.statics.findByMobile = async (mobile,password)=>{
     const admin  = await Admin.findOne({mobile,password})
