@@ -1,96 +1,28 @@
-const mine = require("./models/mine")
-
-let adminid = 10000
-let areamanagerid = 20000
-let bookingid = 30000
-let fieldstaffid = 40000
-let financeid = 50000
-let invoiceid = 60000
-let mineid = 70000
-let ticketid = 80000
-let transporterid = 90000
+// const {nanoid} = require('nanoid')
 
 
-function getAdminId()
-{
-    adminid++
-    return adminid
-} 
+// // const mySchema = new Schema({
+// //     _id: {
+// //       type: String,
+// //       default: () => nanoid()
+// //     }
+// //   })
 
 
-function getAreaManagerId()
-{
-    areamanagerid++
-    return areamanagerid
+//   console.log(nanoid())
+
+
+// //   import { nanoid } from 'nanoid/async'
+
+// // async function createUser () {
+// //   user.id = await nanoid()
+// // }
+
+const { customAlphabet }  =  require('nanoid/async')
+const nanoid = customAlphabet('1234567890', 10)
+async function createUser () {
+  let value = await nanoid()
+  console.log(value)
 }
 
-function getBookingId()
-{
-    bookingid++
-    return bookingid
-}
-
-
-function getFieldStaffId()
-{
-    fieldstaffid++
-    return fieldstaffid
-}
-
-
-function getFinanceId()
-{
-    financeid++
-    return financeid
-}
-
-function getInvoiceId()
-{
-    invoiceid++
-    return invoiceid
-}
-
-function getMineId()
-{
-    mineid++
-    return mineid
-}
-
-function getTickedId()
-{
-    ticketid++
-    return ticketid
-}
-
-
-function getTransporterId()
-{
-    transporterid++
-    return transporterid
-}
-
-module.exports = {
-    getAdminId,
-    getAreaManagerId,
-    getBookingId,
-    getFieldStaffId,
-    getFinanceId,
-    getInvoiceId,
-    getMineId,
-    getTickedId,
-    getTransporterId
-}
-
-{
-    invoicelist: [
-        {
-                id:
-        },
-        {
-            id:
-        },
-        {
-
-        }
-    ]
-}
+createUser()
