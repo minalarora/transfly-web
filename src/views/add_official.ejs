@@ -108,7 +108,7 @@
                 <div class="container mt-4" style="display: none" id="addAdminForm">
                     <div class="w-75 bg-white border rounded">
                         <h4 class="text-center p-2 bg-primary text-white"> App Admin Form</h4>
-                        <form method="POST" class="p-4" action="/addNewAdmin">
+                        <form method="POST" class="p-4" action="/addofficial/admin"  enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="email">Email address</label>
                                 <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -117,13 +117,10 @@
                                 </small>
                             </div>
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
-                                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter First Name" required>
+                                <label for="first_name"> Name</label>
+                                <input type="text" name="name" class="form-control" id="firstname" placeholder="Enter First Name" required>
                             </div>
-                            <div class="form-group">
-                                <label for="lastname">Last Name</label>
-                                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter Last name" required>
-                            </div>
+                           
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="text" name="password" class="form-control" id="password" placeholder="Enter new Password" required>
@@ -145,17 +142,21 @@
                                 <input type="text" name="bankname" class="form-control" id="bankname" placeholder="Enter Bank Name" required>
                             </div>
                             <div class="form-group">
-                                <label for="city">city</label>
-                                <input type="text" name="city" class="form-control" id="city" placeholder="Enter city" required>
-                            </div>
-                            <div class="form-group">
                                 <label for="pan">PAN</label>
                                 <input type="text" name="pan" class="form-control" id="pan" placeholder="Enter PAN" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="files">Pan sacnned copy:</label>
+                                <input type="file" id="files" name="panimage"  >
                             </div>
                             <div class="form-group">
                                 <label for="Aadhar">Aadhar</label>
                                 <input type="text" name="aadhaar" class="form-control" id="aadhaar" placeholder="Enter Aadhar number" required>
                             </div>
+                            <div class="form-group">
+                                <label for="files">Aadhar sacnned copy:</label>
+                                <input type="file" id="files" name="aadhaarimage"  >
+                            </div>                            
                             <div class="form-group">
                                 <label for="ename">Emergengy contact Person Name</label>
                                 <input type="text" name="ename" class="form-control" id="ename" placeholder="Emergengy contact Person Name" required>

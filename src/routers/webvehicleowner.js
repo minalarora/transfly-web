@@ -1,0 +1,136 @@
+const express = require('express')
+const router  = new express.Router()
+const Admin = require('../models/admin')
+const AreaManager = require('../models/areamanager')
+const Booking = require('../models/booking')
+const Fieldstaff = require('../models/fieldstaff')
+const Finance = require('../models/finance')
+const Invoice  = require('../models/invoice')
+const Mine =  require('../models/mine')
+const Ticket =  require('../models/ticket')
+const Transporter = require('../models/transporter')
+const Vehicle = require('../models/vehicle')
+const VehicleOwner = require("../models/vehicleowner")
+
+const jwt= require('jsonwebtoken')
+const auth = require("../auth/auth")
+var cookieParser = require('cookie-parser')
+const vehicle = require('../models/vehicle')
+ 
+router.use(cookieParser())
+
+router.get('/webvehicleownerall',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+
+            const vehicleowner= await VehicleOwner.find({})  
+            let data ={
+                vehicleowner: []
+            }
+            for(var i = 0;i<vehicleowner.length;i++)
+            {
+                let v = await vehicleowner[i].populate('vehicles').execPopulate()
+                let t =  vehicleowner[i].toObject()
+                
+                data.vehicleowner.push({
+                    ...t,
+                    vehicles: vehicleowner[i].vehicles
+                })
+            }
+            console.log("data",data.vehicleowner[0].mobile)
+           return res.render('vehicle_owner_list',{data})
+        }
+        else
+        {
+            console.log('admin not found in all invoice')
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
+router.get('/webspecificvehicleowner/:mobile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            const mobile = req.params.mobile
+            const vehicleowner = await VehicleOwner.findOne({mobile})
+           
+            let data ={
+                vehicleowner: {}
+            }
+           
+                 await vehicleowner.populate('vehicles').execPopulate()
+                 await vehicleowner.populate('invoices').execPopulate()
+
+                 let t =  vehicleowner.toObject()
+                data.vehicleowner = {
+                    ...t,
+                    invoices: vehicleowner.invoices,
+                    vehicles: vehicleowner.vehicles
+
+                }
+
+
+
+               
+            
+            console.log("data",data)
+           return res.render('vehicle_owner_profile',{data})
+        }
+        else
+        {
+            console.log('admin not found in all invoice')
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+router.get("/vehicleownerrequest",async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            const vehicleowner= await VehicleOwner.find({status: 1})  
+            let data ={
+                vehicleowner: vehicleowner
+            }
+           return res.render('vehicleowner_request',{data})
+        }
+        else
+        {
+            console.log('admin not found in all finance')
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+  
+})
+
+router.post("/vehicleownerrequest",async (req,res)=>{
+    console.log(req.body)
+})
+
+
+
+module.exports =  router

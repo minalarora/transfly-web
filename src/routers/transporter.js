@@ -3,7 +3,9 @@ const router  = new express.Router()
 const Transporter = require('../models/transporter')
 const auth = require('../auth/auth')
 const jwt = require("jsonwebtoken")
-
+var multer  = require('multer')
+var upload = multer({})
+var transporterUpload = upload.fields([{ name: 'gstimage', maxCount: 1 }, { name: 'staimage', maxCount: 1 }])
 
 router.post("/transporter",async (req,res)=>{
     try
@@ -79,12 +81,14 @@ router.get("/transporter/:mobile",auth,async (req,res)=>{
     })*/
 })
 
-router.patch("/transporter/:mobile",auth,async (req,res)=>{
+router.patch("/transporter/:mobile",auth,transporterUpload,async (req,res)=>{
     try
     {
+        console.log(Object.keys(req.files))
         const updates = Object.keys(req.body)
+        const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
-        'gst','sta','pan','aadhaar','mininglicense']
+        'gst','gstimage','sta','staimage','pan','panimage','aadhaar','aadhaarimage','mininglicense','mininglicenseimage']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -103,6 +107,14 @@ router.patch("/transporter/:mobile",auth,async (req,res)=>{
             updates.forEach((update)=>{
                 transporter[update] = req.body[update] 
             })
+
+            console.log('reaching')
+            imageupdates.forEach((update)=>{
+                transporter[update] = req.files[update][0].buffer
+            })
+            //req.files['avatar'][0] -> File
+            //  req.files['gallery'] -> Array
+            
             await transporter.save() 
              res.status(200).send(transporter.getPublicProfile())   
         }

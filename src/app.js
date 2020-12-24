@@ -4,8 +4,6 @@ const compression = require('compression')
 const path = require('path')
 const ejs = require('ejs')
 const app = express()
-const multer = require('multer')
-var upload = multer();
 const bodyparser = require('body-parser')
 const port  = process.env.PORT || 3000
 require("./db/dbfile")
@@ -21,7 +19,17 @@ const Ticket =  require('./routers/ticket')
 const Transporter = require('./routers/transporter')
 const Vehicle = require('./routers/vehicle')
 const VehicleOwner = require("./routers/vehicleowner")
-const Web = require('./routers/web')
+const WebAdmin = require('./routers/webadmin')
+const WebAreaManager  = require('./routers/webareamanager')
+const WebFieldStaff =  require('./routers/webfieldstaff')
+const WebFinance  =  require('./routers/webfinance')
+const WebInvoice  =  require('./routers/webinvoice')
+const WebLogin  =  require('./routers/weblogin')
+const WebMine = require('./routers/webmine')
+const WebResale =  require('./routers/webresale')
+const WebRewardReferral = require('./routers/webrewardreferral')
+const WebTransporter  =  require('./routers/webtransporter')
+const WebVehicleOwner  =  require('./routers/webvehicleowner')
 
 
 
@@ -60,10 +68,19 @@ app.use(bodyparser.urlencoded({ extended: true }));
 //form-urlencoded
 
 // for parsing multipart/form-data
-app.use(upload.array()); 
 app.use(express.static('public'));
 
-app.use(Web)
+app.use(WebAdmin)
+app.use(WebAreaManager)
+app.use(WebFieldStaff)
+app.use(WebFinance)
+app.use(WebInvoice)
+app.use(WebLogin)
+app.use(WebMine)
+app.use(WebResale)
+app.use(WebRewardReferral)
+app.use(WebTransporter)
+app.use(WebVehicleOwner)
 
 
 app.use(express.json())

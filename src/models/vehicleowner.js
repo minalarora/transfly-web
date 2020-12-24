@@ -138,6 +138,7 @@ vehicleownerSchema.methods.getPublicProfile = function()
     const userobject = user.toObject()
     delete userobject.password
     delete userobject.tokens
+   
     return userobject
 }
 

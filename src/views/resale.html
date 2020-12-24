@@ -33,7 +33,7 @@
         <div class="main">
             <div class="container-fluid">
                 <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                    <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+                    <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
                 </div>
                 <!---------------------------- main content row start here ---------------------------->
                 <div class="container-fluid">
@@ -42,6 +42,10 @@
                             <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterVehicle()" placeholder="  Search for anything to filter data.."
                                 title="Type in a name">
                         </div>
+                    </div>
+                    <br>
+                    <div class="row d-flex justify-content-end">
+                        <a href="" class="btn btn-warning">Add New Resale</a>
                     </div>
                     <div class="row">
                         <div class="col-md-6 p-2 col-lg-4 col-sm-12">
@@ -150,6 +154,7 @@
 
 </body>
 <script>
+
     function filterVehicle() {
         var input, filter, table, tr, td, i, j, txtValue, no_of_col;
         input = document.getElementById("searchInput");
