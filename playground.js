@@ -1,12 +1,14 @@
-let nam = undefined
-if(nam)
-{
-    console.log('yes')
-}
-else
-{
-    console.log('no')
-}
+
+
+// let nam = undefined
+// if(nam)
+// {
+//     console.log('yes')
+// }
+// else
+// {
+//     console.log('no')
+// }
 
 // require'('./src/db/dbfile')
 

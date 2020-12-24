@@ -17,7 +17,17 @@ const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 var multer  = require('multer')
-var upload = multer({})
+var upload = multer({
+    fileFilter: function (req, file, cb) {
+
+    
+
+        
+            return cb(null, true);
+        
+
+    }
+})
 var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
  
  
@@ -148,18 +158,38 @@ router.get("/addofficial",async (req,res)=>{
     res.render('add_official')
 })
 
-router.post('/addofficial/:type',upload.single('panimage'),async (req,res)=>{
+router.post('/addofficial/:type',transporterUpload,async (req,res)=>{
     try
     {
         console.log(req.body)
-    //const imageupdates = Object.keys(req.files)
-    console.log(req.file.buffer)
+    const imageupdates = Object.keys(req.files["panimage"][0].buffer)
+    console.log(imageupdates)
     }
     catch(e)
     {
         console.log(e)
     }
     
+},function (req, res, next) {
+
+    // Error MiddleWare for multer file upload, so if any 
+    // error occurs, the image would not be uploaded! 
+    upload(req, res, function (err) {
+
+        if (err) {
+
+            // ERROR occured (here it can be occured due 
+            // to uploading image of size greater than 
+            // 1MB or uploading different file type) 
+            console.log('df')
+            res.send(err)
+        }
+        else {
+            console.log('f')
+            // SUCCESS, image successfully uploaded 
+            res.send("Success, Image uploaded!")
+        }
+    })
 })
 
 
