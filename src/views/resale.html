@@ -16,6 +16,10 @@
         .block {
             box-shadow: 2px 3px 13px -6px black;
         }
+
+        .resale_list {
+            position: relative;
+        }
     </style>
 </head>
 
@@ -32,17 +36,19 @@
                     <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
                 </div>
                 <!---------------------------- main content row start here ---------------------------->
-                <div class="row">
-                    <div id="search-input-row" class="w-75">
-                        <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterVehicle()" placeholder="  Search for anything to filter data.."
-                            title="Type in a name">
+                <div class="container-fluid">
+                    <div class="row my-3">
+                        <div id="search-input-row" class="w-75 w-md-100">
+                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterVehicle()" placeholder="  Search for anything to filter data.."
+                                title="Type in a name">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="thumbnail border rounded p-1  resale_list">
-                            <a href="/w3images/fjords.jpg" target="_blank">
-                                <img src="../images/fieldstaff.jpg" alt="Fjords" style="width:100%">
+                    <div class="row">
+                        <div class="col-md-6 p-2 col-lg-4 col-sm-12">
+                            <div class="thumbnail border rounded p-1  resale_list">
+                                <a href="/w3images/fjords.jpg" target="_blank">
+                                    <img src="../images/fieldstaff.jpg" alt="Fjords" style="width:100%">
+                                </a>
                                 <div class="caption bg-white d-flex justify-content-center">
                                     <table>
                                         <tr>
@@ -67,13 +73,14 @@
                                         </tr>
                                     </table>
                                 </div>
-                            </a>
+
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="thumbnail border rounded p-1  resale_list">
-                            <a href="/w3images/fjords.jpg" target="_blank">
-                                <img src="../images/fieldstaff.jpg" alt="Fjords" style="width:100%">
+                        <div class="col-md-6 p-2 col-lg-4 col-sm-12">
+                            <div class="thumbnail border rounded p-1  resale_list">
+                                <a href="/w3images/fjords.jpg" target="_blank">
+                                    <img src="../images/fieldstaff.jpg" alt="Fjords" style="width:100%">
+                                </a>
                                 <div class="caption bg-white d-flex justify-content-center">
                                     <table>
                                         <tr>
@@ -98,11 +105,44 @@
                                         </tr>
                                     </table>
                                 </div>
-                            </a>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-2 col-lg-4 col-sm-12">
+                            <div class="thumbnail border rounded p-1  resale_list">
+                                <a href="/w3images/fjords.jpg" target="_blank">
+                                    <img src="../images/fieldstaff.jpg" alt="Fjords" style="width:100%">
+                                </a>
+                                <div class="caption bg-white d-flex justify-content-center">
+                                    <table>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>Safari</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tyres</th>
+                                            <td>13</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Condition</th>
+                                            <td>Good</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Vehicle no</th>
+                                            <td>MP05654544</td>
+                                        </tr>
+                                        <tr>
+                                            <th>VEhicle Owner</th>
+                                            <td>Vinay Shamra</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-
+                <!-------------------------- container of search and card end here --------------------->
             </div>
 
         </div>
@@ -117,26 +157,30 @@
         cardlist = document.getElementsByClassName("resale_list");
         console.log(cardlist)
         for (i = 0; i < cardlist.length; i++) {
-            table = cardlist[i].document.getElementsByTagName('table');
+            console.log(cardlist[i])
+            console.log(cardlist[i].lastElementChild)
+            table = cardlist[i].lastElementChild.getElementsByTagName('table');
+            tr = table[0].getElementsByTagName("tr");
             console.log(table)
-            for (j = 0; j < table.length; j++) {
-                tr = table[i].getElementsByTagName("tr");
-                console.log(tr)
-                for (k = 0; k < tr.length; k++) {
-                    td = tr[k].getElementsByTagName("td");
-                    console.log(td[0])
-                    if (td[0]) {
-                        txtValue = td[0].textContent || td[0].innerText;
-                        console.log(txtValue);
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            cardlist[i].style.display = "";
-                            break;
-                        } else {
-                            cardlist[i].style.display = "none";
-                        }
+            console.log(tr)
+            for (k = 0; k < tr.length; k++) {
+                td = tr[k].getElementsByTagName("td");
+                console.log(td[0])
+                if (td[0]) {
+                    txtValue = td[0].textContent || td[0].innerText;
+                    console.log(txtValue);
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        cardlist[i].parentNode.style.display = "block";
+                        cardlist[i].parentNode.style.visibilty = "visible";
+                        break;
+                    } else {
+                        cardlist[i].parentNode.style.display = "none";
+                        cardlist[i].parentNode.style.visibilty = "collapse";
+
                     }
                 }
             }
+
         }
         // no_of_col = tr[0].getElementsByTagName('th').length;
         // for (i = 0; i < tr.length; i++) {
