@@ -151,7 +151,7 @@ transporterSchema.methods.generateToken = async function(){
 transporterSchema.pre('remove',async function(next){
     const user = this
     await Mine.updateMany({
-        transporter = user.mobile
+        transporter : user.mobile
     },
     { $set : { transporter : undefined }},
      function(err, result) {

@@ -122,7 +122,7 @@ const fieldstaffSchema = mongoose.Schema({
 fieldstaffSchema.pre('remove',async function(next){
     const user = this
     await Mine.updateMany({
-        fieldstaff = user.mobile
+        fieldstaff : user.mobile
     },
     { $set : { fieldstaff : undefined }},
      function(err, result) {

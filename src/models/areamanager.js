@@ -124,7 +124,7 @@ const areamanagerSchema  = mongoose.Schema({
 areamanagerSchema.pre('remove',async function(next){
     const user = this
     await Mine.updateMany({
-        areamanager = user.mobile
+        areamanager : user.mobile
     },
     { $set : { areamanager : undefined }},
      function(err, result) {
