@@ -654,6 +654,7 @@ router.get('/webinvoiceall',async (req,res)=>{
 })
 
 
+
 router.get('/webfinanceinvoice',async (req,res)=>{
     try
     {
@@ -686,7 +687,7 @@ router.get('/webfinanceinvoice',async (req,res)=>{
                     const mine = await Mine.findOne({id: invoice[i].mine})
                     const vehicleowner = await VehicleOwner.findById({_id: invoice[i].owner})
                     t.mine = mine.name
-                    t.vehicleowner = vehicleowner.firstname + " " + vehicleowner.lastname
+                    t.vehicleowner = vehicleowner.name
                     t.city  = mine.area
                     data.invoice.push(t)
                   
@@ -695,7 +696,7 @@ router.get('/webfinanceinvoice',async (req,res)=>{
                 data.prev = page - 1
                 data.next = page + 1
                 data.page = page
-                console.log(data)
+                
                 if(req.query.status == "PENDING")
                 {
                     return res.render('finance_pending_invoices',{data})
@@ -716,6 +717,314 @@ router.get('/webfinanceinvoice',async (req,res)=>{
 
         }
         }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+router.get('/webupdatependinginvoice/:id',async (req,res)=>{
+    try
+    {
+        
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            const id = req.params.id
+            const invoice = await Invoice.findOne({id})
+            if(invoice!=null)
+            {
+                let data ={
+                    invoice: {}
+                }
+ 
+                   
+                    let t =  invoice.toObject()
+                
+                    const mine = await Mine.findOne({id: invoice.mine})
+                    const vehicleowner = await VehicleOwner.findById({_id: invoice.owner})
+                    console.log(vehicleowner)
+                    t.mine = mine.name
+                    t.vehicleowner = vehicleowner.name
+                    t.city  = mine.area
+                    data.invoice = {...t}
+                return res.render('update_pending_invoice',{data})
+                  
+            }
+            else
+            {
+                console.log('invoice member not found')
+            }    
+        }
+    }
+    catch(e)
+    {
+
+    }
+})
+
+router.post('/webupdatependinginvoice/:id',async (req,res)=>{
+    try
+    {
+        
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+           
+            const id = req.params.id
+           const invoice = await Invoice.findOne({id})
+            if(invoice!=null)
+            {
+                const updates = Object.keys(req.body)
+                console.log(req.body)
+                const allowedUpdates = ['id','vehicleno','tonnage','rate','amount','hsd','cash','tds',
+        'officecharge','shortage','balanceamount','challantotransporter','balanceamountcleared','status']
+                const isValidOperation = updates.every((update)=>{
+                                           return allowedUpdates.includes(update)
+                                                                })
+            if(!isValidOperation)
+            {
+                console.log('invalid operation')
+            }
+            else
+            {
+                
+              
+                    updates.forEach((update)=>{
+                       
+                       
+                            invoice[update] = req.body[update] 
+                        
+                        
+                    })
+                    invoice["status"] = "COMPLETED"
+                    await invoice.save() 
+
+                return res.redirect('/webfinanceinvoice?status=PENDING&page=1')
+                  
+                }
+            
+        }
+        else
+        {
+            console.log('invoice not found')
+        }
+    }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+router.get('/webcompletedinvoice/:id',async (req,res)=>{
+    try
+    {
+        
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            const id = req.params.id
+            const invoice = await Invoice.findOne({id})
+            if(invoice!=null)
+            {
+                let data ={
+                    invoice: {}
+                }
+ 
+                   
+                    let t =  invoice.toObject()
+                
+                    const mine = await Mine.findOne({id: invoice.mine})
+                    const vehicleowner = await VehicleOwner.findById({_id: invoice.owner})
+                    console.log(vehicleowner)
+                    t.mine = mine.name
+                    t.vehicleowner = vehicleowner.name
+                    t.city  = mine.area
+                    data.invoice = {...t}
+                return res.render('finance_completed_invoice',{data})
+                  
+            }
+            else
+            {
+                console.log('invoice member not found')
+            }    
+        }
+    }
+    catch(e)
+    {
+
+    }
+})
+
+
+router.get('/webupdatecompletedinvoice/:id',async (req,res)=>{
+    try
+    {
+        
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            const id = req.params.id
+            const invoice = await Invoice.findOne({id})
+            if(invoice!=null)
+            {
+                let data ={
+                    invoice: {}
+                }
+ 
+                   
+                    let t =  invoice.toObject()
+                
+                    const mine = await Mine.findOne({id: invoice.mine})
+                    const vehicleowner = await VehicleOwner.findById({_id: invoice.owner})
+                    console.log(vehicleowner)
+                    t.mine = mine.name
+                    t.vehicleowner = vehicleowner.name
+                    t.city  = mine.area
+                    data.invoice = {...t}
+                return res.render('finance_update_completed_invoice',{data})
+                  
+            }
+            else
+            {
+                console.log('invoice member not found')
+            }    
+        }
+    }
+    catch(e)
+    {
+
+    }
+})
+
+router.post('/webupdatecompletedinvoice/:id',async (req,res)=>{
+    try
+    {
+        
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+           
+            const id = req.params.id
+           const invoice = await Invoice.findOne({id})
+            if(invoice!=null)
+            {
+                const updates = Object.keys(req.body)
+                console.log(req.body)
+                const allowedUpdates = ['id','vehicleno','tonnage','rate','amount','hsd','cash','tds',
+        'officecharge','shortage','balanceamount','challantotransporter','balanceamountcleared','status']
+                const isValidOperation = updates.every((update)=>{
+                                           return allowedUpdates.includes(update)
+                                                                })
+            if(!isValidOperation)
+            {
+                console.log('invalid operation')
+            }
+            else
+            {
+                
+              
+                    updates.forEach((update)=>{
+                       
+                       
+                            invoice[update] = req.body[update] 
+                        
+                        
+                    })
+                    
+                    await invoice.save() 
+
+                    console.log('hellooooooooo')
+                return res.redirect('/webcompletedinvoice/'+ id)
+                  
+                }
+            
+        }
+        else
+        {
+            console.log('invoice not found')
+        }
+    }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
+router.get('/updatefinanceprofile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            var data = {
+                finance : finance.getWebProfile()
+            }
+            console.log(data)
+            return res.render("finance_profile_update",{data})
+        }
+        else
+        {
+
+        }
+    }
+    catch(e)
+    {
+        
+    }
+})
+
+
+router.post('/updatefinanceprofile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            const updates = Object.keys(req.body)
+            const allowedUpdates = ['accountno','ifsc','bankname']
+            const isValidOperation = updates.every((update)=>{
+                                       return allowedUpdates.includes(update)
+                                                            })
+        if(!isValidOperation)
+        {
+            console.log('invalid operation')
+        }
+        else
+        {
+            updates.forEach((update)=>{
+                finance[update] = req.body[update] 
+             })
+
+             await finance.save()
+             return res.redirect('/updatefinanceprofile')
+        }
+            
+           
+        }
+        else
+        {
+            console.log('admin not found')
+        }
+       
+    }
     catch(e)
     {
         console.log(e)
@@ -851,6 +1160,123 @@ router.get('/webspecificvehicleowner/:mobile',async (req,res)=>{
         console.log(e)
     }
 })
+
+
+router.get('/webadminlogout',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            admin.tokens = admin.tokens.filter((t)=>{
+                return t.token != token
+            })
+            await admin.save()
+            res.redirect('/')
+        }
+        else
+        {
+            //admin not found
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+router.get('/webfinancelogout',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            finance.tokens = finance.tokens.filter((t)=>{
+                return t.token != token
+            })
+            await finance.save()
+            res.redirect('/')
+        }
+        else
+        {
+            //admin not found
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
+router.get("/areamanagerrequest",async (req,res)=>{
+    res.render('areamanager_request')
+})
+
+router.post("/areamanagerrequest",async (req,res)=>{
+    console.log(req.body)
+})
+
+
+router.get("/fieldstaffrequest",async (req,res)=>{
+    res.render('fieldstaff_request')
+})
+
+router.post("/fieldstaffrequest",async (req,res)=>{
+    console.log(req.body)
+})
+
+router.get("/transporterrequest",async (req,res)=>{
+    res.render('transporter_request')
+})
+
+router.post("/transporterrequest",async (req,res)=>{
+    console.log(req.body)
+})
+
+router.get("/vehicleownerrequest",async (req,res)=>{
+    res.render('vehicleowner_request')
+})
+
+router.post("/vehicleownerrequest",async (req,res)=>{
+    console.log(req.body)
+})
+
+router.get("/webresale",async (req,res)=>{
+    res.render('resale')
+})
+
+router.post("/webresale",async (req,res)=>{
+    console.log(req.body)
+})
+
+router.get("/webspecificresale/:id",async (req,res)=>{
+    res.render('specific_resale_vehicle')
+})
+
+router.get("/addofficial",async (req,res)=>{
+    res.render('add_official')
+})
+
+router.post('/addofficial/:type',async (req,res)=>{
+    console.log(req.body)
+    console.log(req.params.type)
+})
+
+router.get("/rewardreferralrequest",async (req,res)=>{
+    res.render('areamanager_request')
+})
+
+router.post("/rewardreferralrequest/:type",async (req,res)=>{
+    console.log(req.body)
+    console.log(req.params.type)
+
+})
+
 
 
 
@@ -991,6 +1417,7 @@ router.post('/me',async (req,res)=>{
             return res.status(200).cookie('Authorization',token).redirect('/')
             //return res.status(200).cookie('Authorization',token).render("app_admin_profile",admin.getPublicProfile())
     }
+
     catch(e)
     {
         console.log(e)
@@ -998,6 +1425,9 @@ router.post('/me',async (req,res)=>{
     }
 }
 )
+
+
+
 
 
 module.exports = router

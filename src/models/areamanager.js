@@ -6,18 +6,11 @@ const Mine = require('../models/mine')
 
 const areamanagerSchema  = mongoose.Schema({
 
-    firstname: {
+    name: {
         type: String,
         required: true,
         trim: true,
         uppercase: true
-    },
-    lastname: 
-    {
-        type: String,
-        required: true ,
-        trim: true,
-        uppercase: true  
     },
     mobile:{
         type: String,

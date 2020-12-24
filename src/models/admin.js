@@ -3,18 +3,11 @@ const mongoose = require('mongoose')
 const jwt= require('jsonwebtoken')
 
 const adminSchema  = mongoose.Schema({
-    firstname: {
+    name: {
         type: String,
         required: true,
         trim: true,
         uppercase: true
-    },
-    lastname: 
-    {
-        type: String,
-        required: true ,
-        trim: true,
-        uppercase: true  
     },
     mobile:{
         type: String,

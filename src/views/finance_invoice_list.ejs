@@ -24,7 +24,7 @@
     <div class="main">
         <div class="container-fluid">
             <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+                <a href="/webfinancelogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
             </div>
             <!---------------------------- main content row start here-->
             <div class="row p-3 ">
@@ -59,7 +59,7 @@
                             </tr>
                             <% for (var i =0; i < data.invoice.length;  i++ ) { %>
                                 <tr>
-                                    <td><a href="/webspecificinvoice/<%= data.invoice[i].id %>"> <%= data.invoice[i].id %></a></td>
+                                    <td><a href="/webcompletedinvoice/<%= data.invoice[i].id %>"> <%= data.invoice[i].id %></a></td>
                                     <td>
                                         <%= data.invoice[i].vehicleno %>
                                     </td>
