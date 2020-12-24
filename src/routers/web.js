@@ -28,6 +28,8 @@ router.get('/',async (req,res)=>{
 router.post('/',async (req,res)=>{
     try
     {
+        if(req.body.role == "admin")
+        {
         const admin  = await Admin.findByMobile(req.body.mobile,req.body.password)
         if(admin == null)
         {
@@ -38,6 +40,20 @@ router.post('/',async (req,res)=>{
             let token = await admin.generateToken()
             return res.status(200).cookie('Authorization',token).redirect('/webadmin')
         }
+    }
+    else
+    {
+        const finance  = await Finance.findByMobile(req.body.mobile,req.body.password)
+        if(finance == null)
+        {
+          console.log('finance not found')  
+        }
+        else
+        {
+            let token = await finance.generateToken()
+            return res.status(200).cookie('Authorization',token).redirect('/webfinance')
+        }
+    }
     }
     catch(e)
     {
@@ -73,6 +89,33 @@ router.get('/webadmin', async (req,res)=>{
     }
 })
 
+router.get('/webfinance', async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            var data = {
+                finance : finance.getWebProfile()
+            }
+            console.log(data)
+           return res.render("finance_admin_profile",{data})
+        }
+        else
+        {
+            console.log('admin not found')
+        }  
+
+    }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
 router.get('/webadminedit',async (req,res)=>{
     try
     {
@@ -96,6 +139,8 @@ router.get('/webadminedit',async (req,res)=>{
         console.log(e)
     }
 })
+
+
 
 
 router.post('/webadminedit',async (req,res)=>{
@@ -602,6 +647,75 @@ router.get('/webinvoiceall',async (req,res)=>{
             console.log('admin not found in all invoice')
         }
     }
+    catch(e)
+    {
+        console.log(e)
+    }
+})
+
+
+router.get('/webfinanceinvoice',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(finance)
+        {
+            if(req.query.status)
+            {
+                let page = parseInt(req.query.page)
+                if(page<1)
+                {
+                    page = 1;
+                }
+                const invoice= await Invoice.find({status: req.query.status},null,{skip: (page * 10-10),limit: 10}).exec() 
+                let data ={
+                    invoice: []
+                }
+                if(invoice.length == 0)
+                {
+                    res.redirect('/webfinanceinvoice?status='+ req.query.status + '&page=' + (page -1))
+                }
+                for(var i = 0;i<invoice.length;i++)
+                {
+    
+                   
+                    let t =  invoice[i].toObject()
+                
+                    const mine = await Mine.findOne({id: invoice[i].mine})
+                    const vehicleowner = await VehicleOwner.findById({_id: invoice[i].owner})
+                    t.mine = mine.name
+                    t.vehicleowner = vehicleowner.firstname + " " + vehicleowner.lastname
+                    t.city  = mine.area
+                    data.invoice.push(t)
+                  
+                }
+
+                data.prev = page - 1
+                data.next = page + 1
+                data.page = page
+                console.log(data)
+                if(req.query.status == "PENDING")
+                {
+                    return res.render('finance_pending_invoices',{data})
+                }
+                else
+                {
+                    return res.render('finance_invoice_list',{data})
+                }
+               
+            }
+            else
+            {
+                console.log('admin not found in all invoice')
+            } 
+            }
+         else
+        {
+
+        }
+        }
     catch(e)
     {
         console.log(e)

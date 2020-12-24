@@ -3,18 +3,11 @@ const mongoose =  require('mongoose')
 const jwt = require('jsonwebtoken')
 
 const financeSchema =  mongoose.Schema({
-    firstname: {
+    name: {
         type: String,
         required: true,
         trim: true,
         uppercase: true
-    },
-    lastname: 
-    {
-        type: String,
-        required: true ,
-        trim: true,
-        uppercase: true  
     },
     mobile:{
         type: String,
@@ -69,7 +62,8 @@ const financeSchema =  mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer
+        type: Buffer,
+        default: undefined
     },
     aadhaar:
     {
@@ -79,7 +73,8 @@ const financeSchema =  mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer
+        type: Buffer,
+        default: undefined
     },
     ename: {
         type: String,
@@ -157,6 +152,17 @@ financeSchema.methods.getPublicProfile = function()
     const userobject = user.toObject()
     delete userobject.password
     delete userobject.tokens
+    return userobject
+}
+
+financeSchema.methods.getWebProfile = function()
+{
+    const user = this
+    const userobject = user.toObject()
+    delete userobject.password
+    delete userobject.tokens
+    delete userobject.panimage
+    delete userobject.aadhaarimage
     return userobject
 }
 

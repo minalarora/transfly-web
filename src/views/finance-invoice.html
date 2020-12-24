@@ -23,21 +23,8 @@
 <body>
     <!--------------------- side nav ------------------------------>
 
-    <!-- <%- include('../partials/finance_nav_structure.ejs') %> -->
-    <div class="sidenav">
-        <div class="row justify-content-center mb-4">
-            <img src="../images/logo.jpg" alt="logo here" width="70" height="70">
-        </div>
-        <a href="/webfinanceadmin">My Profile</a>
-        <!-- Vehicle Owner menu -->
-        <button class="dropdown-btn align-self-baseline"> Invoice Reports
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="/webinvoiceall/completed=false">Pending Invoice Request</a>
-            <a href="/webinvoiceall/completed=invoice">All Completed Invoices</a>
-        </div>
-    </div>
+    <%- include('../partials/finance_nav_structure.ejs') %>
+    
     <!------------------------------- right content -------------------------------------------->
     <div class="main">
         <div class="container-fluid">
