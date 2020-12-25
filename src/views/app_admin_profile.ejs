@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!--<link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+    <!--Vendor CSS Files -->
+   
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/app_admin_profile.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+    <!--------------------- side nav ------------------------------>
+
+    <%- include('../partials/structure.ejs') %>
+    
+    <!------------------------------- right content -------------------------------------------->
+    <div class="main">
+        <div class="container-fluid">
+            <div id="top-nav" class="row p-2 bg-white justify-content-end">
+                <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+            </div>
+            <!---------------------------- main content row start here --------------------------------->
+            <div class="row p-3 ">
+                <div class="w-100 border-bottom">
+                    <h3>Welcome</h3>
+                </div>
+                <br>
+                <div class="container-fluid">
+                    <div class="row justify-content-between align-items-baseline">
+                        <div class="d-flex justify-content-start align-items-center mt-4">
+                            <div id="profile-pic" class="mr-4">
+                                <img src="../images/admin.jpg" alt="">
+                            </div>
+                            <div class="d-flex flex-column">
+                                <h3>
+                                    <%= data.admin.name %>
+                                        
+                                </h3>
+                                <p>App-Admin</p>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="/webadminedit" class="btn btn-primary">Edit Details</a>
+                        </div>
+
+                    </div>
+
+                    <br><br>
+                    <div id="profile-content" class="row justify-content-start">
+                        <div class="w-100 mr-4">
+                            <div class="pl-2 pt-3 pb-2 bg-primary text-light">
+                                <h5>Personal Details</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Mobile:</th>
+                                        <td>
+                                            <%= data.admin.mobile %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>email:</th>
+                                        <td>
+                                            <%= data.admin.email %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pan:</th>
+                                        <td>
+                                            <%= data.admin.pan %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Aadhar:</th>
+                                        <td>
+                                            <%= data.admin.aadhaar %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="w-50 bg-white">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Bank Details</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Ifsc:</th>
+                                        <td>
+                                            <%= data.admin.ifsc %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank:</th>
+                                        <td>
+                                            <%= data.admin.bankname %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Acc no:</th>
+                                        <td>
+                                            <%= data.admin.accountno %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="w-50 bg-white">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Emergency Details</h5>
+                            </div>
+                            <div class="p-3 bg-white">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Emergency person name:</th>
+                                        <td>
+                                            <%= data.admin.ename %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency contact:</th>
+                                        <td>
+                                            <%= data.admin.emobile %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency Relation:</th>
+                                        <td>
+                                            <%= data.admin.erelation %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
+
+
+</html>

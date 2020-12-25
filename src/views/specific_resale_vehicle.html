@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+    <!--Vendor CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- bootstrap  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .block {
+            box-shadow: 2px 3px 13px -6px black;
+        }
+
+        .vimg img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!--------------------- side nav ------------------------------>
+
+    <%- include('../partials/structure.ejs') %>
+
+
+        <!------------------------------- right content -------------------------------------------->
+        <div class="main">
+            <div class="container-fluid">
+                <div id="top-nav" class="row p-2 bg-white justify-content-end">
+                    <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+                </div>
+                <!---------------------------- main content row start here-->
+                <div class="row p-3 ">
+                    <div class="w-100 border-bottom text-center text-primary">
+                        <h4>Invoice No : {{
+                            <%= data.invoice.id %> }}
+                        </h4>
+                    </div>
+                    <div class="container-fluid">
+                        <br>
+                        <div class="row p-2 justify-content-center">
+                            <div class="w-75 block">
+                                <div class="pl-2 pt-2 pb-1 bg-primary text-light">
+                                    <h5>Details</h5>
+                                </div>
+                                <div class="p-3 bg-white ">
+                                    <table style="width:100%">
+                                        <tr>
+                                            <th>Resale id </th>
+                                            <td>
+                                                <%= data.resale.id %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Vehicle no</th>
+                                            <td>
+                                                <%= data.resale.vehicleno %>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Vehicle Owner Name </th>
+                                            <td>
+                                                <%= data.resale.vehicleowner %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>
+                                                <%= data.resale.description %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Condition</th>
+                                            <td>
+                                                <%= data.resale.condition %>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="vimg container">
+                                    <div class="w-100">
+                                        <img src="../images/finance.jpg" class="my-2" alt="">
+                                        <img src="../images/fieldstaff.jpg" class="my-2" alt="">
+                                        <img src="../images/transporter.png" class="my-2" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+</body>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
+
+</html>

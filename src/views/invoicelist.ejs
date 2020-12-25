@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+    <!--Vendor CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/invoicelist.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <!--------------------- side nav ------------------------------>
+
+    <%- include('../partials/structure.ejs') %>
+
+        <!------------------------------- right content -------------------------------------------->
+        <div class="main">
+            <div class="container-fluid">
+                <div id="top-nav" class="row p-2 bg-white justify-content-end">
+                    <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+                </div>
+                <!---------------------------- main content row start here-->
+                <div class="row p-3 ">
+                    <div class="w-100 text-center text-primary border-bottom">
+                        <h3>Invoice Reports</h3>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <br>
+                        <div class="row justify-content-center">
+                            <div id="search-input-row" class="w-75">
+                                <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterInvoice()" placeholder="  Search for anything to filter data.."
+                                    title="Type in a name">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <table id="invoiceTable">
+                                <tr class="header">
+                                    <th>Invoice id</th>
+                                    <th>Vehicle No</th>
+                                    <th>Mine</th>
+                                    <th>City</th>
+                                    <th>Vehicle Owner</th>
+                                    <th>Tonnage</th>
+                                    <th>Date</th>
+                                </tr>
+                                <% for (var i =0; i < data.invoice.length;  i++ ) { %>
+                                    <tr>
+                                        <td><a href="/webspecificinvoice/<%= data.invoice[i].id %>"> <%= data.invoice[i].id %></a></td>
+                                        <td>
+                                            <%= data.invoice[i].vehicleno %>
+                                        </td>
+                                        <td>
+                                            <%= data.invoice[i].mine %>
+                                        </td>
+                                        <td>
+                                            <%= data.invoice[i].city %>
+                                        </td>
+                                        <td>
+                                            <%= data.invoice[i].vehicleowner %>
+                                        </td>
+                                        <td>
+                                            <%= data.invoice[i].tonnage %>
+                                        </td>
+                                        <td>
+                                            <%= data.invoice[i].date %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+<script>
+
+    function filterInvoice() {
+        var input, filter, table, tr, td, i, j, txtValue, no_of_col;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("invoiceTable");
+        tr = table.getElementsByTagName("tr");
+        no_of_col = tr[0].getElementsByTagName('th').length;
+        for (i = 0; i < tr.length; i++) {
+            for (j = 0; j < no_of_col; j++) {
+                td = tr[i].getElementsByTagName("td")[j];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    console.log(txtValue);
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+        }
+    }
+</script>
+
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
+
+</html>
