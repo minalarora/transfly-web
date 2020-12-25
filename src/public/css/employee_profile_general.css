@@ -1,0 +1,10 @@
+
+    #vo_invoice_container {
+        box-shadow: 2px 3px 13px -6px black;
+    }
+
+    #vo_invoice_container table {
+        height: 200px;
+        overflow: auto;
+        table-layout: fixed;
+    }
