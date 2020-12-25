@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js -i 'max'"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
