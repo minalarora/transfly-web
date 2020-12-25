@@ -5,7 +5,7 @@ const path = require('path')
 const ejs = require('ejs')
 const app = express()
 const bodyparser = require('body-parser')
-const port  = process.env.PORT || 3000
+const port  = process.env.PORT || 8080
 require("./src/db/dbfile")
 
 const Admin  = require('./src/routers/admin')
