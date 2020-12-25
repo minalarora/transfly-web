@@ -62,18 +62,17 @@
                         <tr class="header">
                             <th>Name</th>
                             <th>Mobile</th>
-                            <th>Area</th>
+                            <th>Mines</th>
                         </tr>
                         <% for (var i =0; i < data.areamanager.length;  i++ ) { %>
                             <tr>
-                                <td><a href="/webspecificareamanager/<%= data.areamanager[i].mobile %>"> <%= data.areamanager[i].firstname %>
-                                            <%= data.areamanager[i].lastname %></a></td>
+                                <td><a href="/webspecificareamanager/<%= data.areamanager[i].mobile %>"> <%= data.areamanager[i].name %></a></td>
                                 <td>
                                     <%= data.areamanager[i].mobile %>
                                 </td>
                                 <td>
-                                    <% for (var j =0; j < data.areamanager[i].mine.length;  j++ ) { %>
-                                        <%= data.areamanager[i].mine[j].name %> ,
+                                    <% for (var j =0; j < data.areamanager[i].mines.length;  j++ ) { %>
+                                        <%= data.areamanager[i].mines[j].name %> ,
                                             <% } %>
 
                                 </td>

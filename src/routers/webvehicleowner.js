@@ -28,7 +28,7 @@ router.get('/webvehicleownerall',async (req,res)=>{
         if(admin)
         {
 
-            const vehicleowner= await VehicleOwner.find({})  
+            const vehicleowner= await VehicleOwner.find({status:2}).exec()  
             let data ={
                 vehicleowner: []
             }
@@ -109,7 +109,7 @@ router.get("/vehicleownerrequest",async (req,res)=>{
         const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
         if(admin)
         {
-            const vehicleowner= await VehicleOwner.find({status: 1})  
+            const vehicleowner = await VehicleOwner.find({status: 1})  
             let data ={
                 vehicleowner: vehicleowner
             }
@@ -127,10 +127,69 @@ router.get("/vehicleownerrequest",async (req,res)=>{
   
 })
 
-router.post("/vehicleownerrequest",async (req,res)=>{
-    console.log(req.body)
+
+router.get("/vehicleowner_request_action/:mobile",async (req,res)=>{
+    try
+    {
+        const mobile =  req.params.mobile
+     const vehicleowner = await VehicleOwner.findOne({mobile})
+     if(vehicleowner)
+     {
+         // const obj  = {...req.body}
+        
+ 
+         vehicleowner["status"] = 2
+         await vehicleowner.save()
+        res.redirect('/vehicleownerrequest')
+     }
+    }
+    catch(e)
+    {
+        res.redirect('/vehicleownerrequest')
+    }
+ })
+
+router.post("/vehicleowner_request_action/:mobile",async (req,res)=>{
+   try
+   {
+       const mobile =  req.params.mobile
+    const vehicleowner = await VehicleOwner.findOne({mobile})
+    if(vehicleowner)
+    {
+        // const obj  = {...req.body}
+        const updates = Object.keys(req.body)
+       
+        updates.forEach((update)=>{
+            vehicleowner[update] = "NOT AVAILABLE",
+            vehicleowner[req.body[update]] = undefined
+        })
+
+        vehicleowner["status"] = 0
+        await vehicleowner.save()
+       res.redirect('/vehicleownerrequest')
+    }
+   }
+   catch(e)
+   {
+    res.redirect('/vehicleownerrequest')
+   }
 })
 
+
+router.get('/getvehicleownerdata/:mobile',async (req,res)=>{
+    const mobile = req.params.mobile
+    const vehicleowner = await VehicleOwner.findOne({mobile})
+    const object = vehicleowner.toObject()
+    
+    delete object.__v
+    delete object.tokens
+    delete object._id
+   
+    return res.send(object)
+
+
+
+})
 
 
 module.exports =  router

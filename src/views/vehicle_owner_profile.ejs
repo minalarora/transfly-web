@@ -49,8 +49,7 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <h3>
-                                    <%= data.vehicleowner.firstname %> >
-                                        <%= data.vehicleowner.lastname %>
+                                    <%= data.vehicleowner.name %>
                                 </h3>
                                 <p>(Vehicle Owner)</p>
                             </div>
@@ -80,9 +79,15 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>City:</th>
+                                        <th>Pan:</th>
                                         <td>
-                                            <%= data.vehicleowner.city %>
+                                            <%= data.vehicleowner.pan %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>TDS Declaration:</th>
+                                        <td>
+                                            <%= data.vehicleowner.tds %>
                                         </td>
                                     </tr>
                                 </table>

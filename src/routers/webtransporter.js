@@ -31,7 +31,7 @@ router.get('/webtransporterall',async (req,res)=>{
         const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
         if(admin)
         {
-            const transporter= await Transporter.find({})  
+            const transporter= await Transporter.find({status:2})  
         
             let data ={
                 transporter: []
@@ -45,9 +45,6 @@ router.get('/webtransporterall',async (req,res)=>{
               
             }
 
-           
-
-            console.log(data.transporter[0].mine)
 
             
             
@@ -77,9 +74,17 @@ router.get('/webspecifictransporter/:mobile',async (req,res)=>{
             const transporter = await Transporter.findOne({mobile})
              if(transporter!=null)
             {
-                let data = {
-                    transporter: transporter
+                // let data = {
+                //     transporter: transporter
+                // }
+                await transporter.populate('mines').execPopulate()
+                let t =  transporter.toObject()
+                t.mines = transporter.mines
+            let data ={
+                transporter: {...t }
                 }
+
+
                 return res.render('transporter_profile',{data})
                   
             }
@@ -125,8 +130,53 @@ router.get("/transporterrequest",async (req,res)=>{
   
 })
 
-router.post("/transporterrequest",async (req,res)=>{
-    console.log(req.body)
+
+router.get("/transporter_request_action/:mobile",async (req,res)=>{
+    try
+    {
+        const mobile =  req.params.mobile
+     const transporter = await Transporter.findOne({mobile})
+     if(transporter)
+     {
+         // const obj  = {...req.body}
+        
+ 
+         transporter["status"] = 2
+         await transporter.save()
+         res.redirect("/transporterrequest")
+         
+     }
+    }
+    catch(e)
+    {
+        res.redirect("/transporterrequest")
+    }
+ })
+
+router.post("/transporter_request_action/:mobile",async (req,res)=>{
+   try
+   {
+       const mobile =  req.params.mobile
+    const transporter = await Transporter.findOne({mobile})
+    if(transporter)
+    {
+        // const obj  = {...req.body}
+        const updates = Object.keys(req.body)
+       
+        updates.forEach((update)=>{
+            transporter[update] = "NOT AVAILABLE",
+            transporter[req.body[update]] = undefined
+        })
+
+        transporter["status"] = 0
+        await transporter.save()
+        res.redirect("/transporterrequest")
+    }
+   }
+   catch(e)
+   {
+    res.redirect("/transporterrequest")
+   }
 })
 
 
@@ -138,7 +188,7 @@ router.get('/gettransporterdata/:mobile',async (req,res)=>{
     delete object.__v
     delete object.tokens
     delete object._id
-    
+   
     return res.send(object)
 
 
@@ -146,19 +196,23 @@ router.get('/gettransporterdata/:mobile',async (req,res)=>{
 })
 
 
-router.get('/gettransporterimage/:mobile',async (req,res)=>{
-    const mobile = req.params.mobile
-    const transporter = await Transporter.findOne({mobile})
-     res.set('Content-Type','image/png')
-     res.send(transporter.staimage)
-})
 
 
-router.post('/transporter_request_action/:mobile',transporterUpload,async (req,res)=>
-{
-    console.log(req.body)
-    console.log("sds" + Object.keys(req.files))
-})
+
+
+// router.get('/gettransporterimage/:mobile',async (req,res)=>{
+//     const mobile = req.params.mobile
+//     const transporter = await Transporter.findOne({mobile})
+//      res.set('Content-Type','image/png')
+//      res.send(transporter.staimage)
+// })
+
+
+// router.post('/transporter_request_action/:mobile',transporterUpload,async (req,res)=>
+// {
+//     console.log(req.body)
+//     console.log("sds" + Object.keys(req.files))
+// })
 
 
 module.exports = router

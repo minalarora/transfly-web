@@ -32,58 +32,8 @@
     <!--------------------- side nav ------------------------------>
 
 
-    <!-- <%- include('../partials/structure.ejs') %> -->
-    <div class="sidenav">
-        <div class="row justify-content-center mb-4">
-            <img src="../images/logo.jpg" alt="logo here" width="70" height="70">
-        </div>
-        <a href="/webadmin">My Profile</a>
-        <a href="/webmine">Mines</a>
-        <a href="/">Add official</a>
-        <!-- finance menu -->
-        <button class="dropdown-btn align-self-baseline"> Finance Dept
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Finance official Request</a>
-            <a href="/webfinanceall">All Finance official</a>
-        </div>
-        <!-- transporter menu -->
-        <button class="dropdown-btn align-self-baseline"> Transporter Dept
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Transporter official Request</a>
-            <a href="/webtransporterall">All Transporter official</a>
-        </div>
-        <!--  Area Manager menu -->
-        <button class="dropdown-btn align-self-baseline"> Area Manager Dept
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#"> Area Manager official Request</a>
-            <a href="/webareamanagerall">All Area Manager official</a>
-        </div>
-        <!-- Field Staff menu -->
-        <button class="dropdown-btn align-self-baseline"> Field Staff Dept
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#"> Field Staff official Request</a>
-            <a href="/webfieldstaffall">All Field Staff official</a>
-        </div>
-        <a href="/webinvoiceall">Invoice Reports</a>
-        <!-- Vehicle Owner menu -->
-        <button class="dropdown-btn align-self-baseline"> Vechicle Owner
-            <i class="fa fa-caret-down mt-1"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">Vehicle Owner Request</a>
-            <a href="/webvehicleownerall">All Vehicle Owners</a>
-        </div>
-        <a href="resale.html">Resale</a>
-        <a href="#rewards">Rewards</a>
-    </div>
+    <%- include('../partials/structure.ejs') %>
+
 
     <!------------------------------- right content -------------------------------------------->
     <div class="main">
@@ -179,7 +129,7 @@
                 <div class="container mt-4 " style="display: none" id="addFinanceForm">
                     <div class="w-75 bg-white border rounded">
                         <h4 class="text-center p-2 text-white bg-success"> Finance Admin Form</h4>
-                        <form method="POST" class="p-4" action="/addNewFinance">
+                        <form method="POST" class="p-4"action="/addofficial/finance"  enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="email">Email address</label>
                                 <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -188,12 +138,8 @@
                                 </small>
                             </div>
                             <div class="form-group">
-                                <label for="first_name">First Name</label>
-                                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter First Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname">Last Name</label>
-                                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter Last name" required>
+                                <label for="first_name">Name</label>
+                                <input type="text" name="name" class="form-control" id="firstname" placeholder="Enter First Name" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
@@ -216,17 +162,20 @@
                                 <input type="text" name="bankname" class="form-control" id="bankname" placeholder="Enter Bank Name" required>
                             </div>
                             <div class="form-group">
-                                <label for="city">city</label>
-                                <input type="text" name="city" class="form-control" id="city" placeholder="Enter city" required>
-                            </div>
-                            <div class="form-group">
                                 <label for="pan">PAN</label>
                                 <input type="text" name="pan" class="form-control" id="pan" placeholder="Enter PAN" required>
+                            </div> <div class="form-group">
+                                <label for="files">Pan sacnned copy:</label>
+                                <input type="file" id="files" name="panimage"  >
                             </div>
                             <div class="form-group">
                                 <label for="Aadhar">Aadhar</label>
                                 <input type="text" name="aadhaar" class="form-control" id="aadhaar" placeholder="Enter Aadhar number" required>
                             </div>
+                            <div class="form-group">
+                                <label for="files">Aadhar sacnned copy:</label>
+                                <input type="file" id="files" name="aadhaarimage"  >
+                            </div>   
                             <div class="form-group">
                                 <label for="ename">Emergengy contact Person Name</label>
                                 <input type="text" name="ename" class="form-control" id="ename" placeholder="Emergengy contact Person Name" required>

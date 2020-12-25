@@ -3,6 +3,26 @@ const router  = new express.Router()
 const VehicleOwner = require('../models/vehicleowner')
 const auth = require('../auth/auth')
 const jwt =require('jsonwebtoken')
+var multer  = require('multer')
+var sharp = require('sharp')
+var upload = multer({
+    limits:
+    {
+        fileSize: 5000000
+    },
+    fileFilter: function (req, file, cb) {
+
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/))
+        {
+            return cb(new Error('only image'))
+        }
+            return cb(undefined, true);  
+
+    }
+})
+var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 },{ name: 'tdsimage', maxCount: 1 }])
+
+
 
 
 router.post("/vehicleowner",async (req,res)=>{
@@ -80,11 +100,48 @@ router.get("/vehicleowner/:mobile",auth,async (req,res)=>{
     })*/
 })
 
+router.patch("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
+    try
+    {
+        
+        const updates = Object.keys(req.body)
+        const imageupdates = Object.keys(req.files)
+        const allowedUpdates = ['name','mobile','email','password','status',
+        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
+        const isValidOperation = updates.every((update)=>{
+                return allowedUpdates.includes(update)
+        })
+        if(!isValidOperation && (updates.length > 0))
+        {
+            return res.status(400).send("Invalid")
+        }
+            
+            updates.forEach((update)=>{
+                req.user[update] = req.body[update] 
+             })
+
+             imageupdates.forEach((update)=>{
+                req.user[update] = req.files[update][0].buffer
+                
+            })
+            
+             await req.user.save()
+            res.status(200).send(req.user.getPublicProfile()) 
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+
+
+
 router.patch("/vehicleowner/:mobile",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
+        const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','city','pan','tds']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
@@ -164,32 +221,6 @@ router.get('/vehicleowner/me',auth,async (req,res)=>{
 })
 
 
-router.patch("/vehicleowner/me",auth,async (req,res)=>{
-    try
-    {
-        const updates = Object.keys(req.body)
-        const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','tds']
-        const isValidOperation = updates.every((update)=>{
-                return allowedUpdates.includes(update)
-        })
-        if(!isValidOperation)
-        {
-            return res.status(400).send("Invalid")
-        }
-            
-            updates.forEach((update)=>{
-                req.user[update] = req.body[update] 
-             })
-
-             await req.user.save()
-            res.status(200).send(req.user.getPublicProfile())  
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-})
 
 router.delete("/vehicleowner/me",auth,async (req,res)=>{
     try

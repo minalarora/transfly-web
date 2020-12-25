@@ -80,11 +80,39 @@ router.get("/finance/:mobile",auth,async (req,res)=>{
     })*/
 })
 
+router.patch("/finance/me",auth,async (req,res)=>{
+    try
+    {
+        const updates = Object.keys(req.body)
+        const allowedUpdates = ['name','mobile','email','password','status',
+        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
+        const isValidOperation = updates.every((update)=>{
+                return allowedUpdates.includes(update)
+        })
+        if(!isValidOperation)
+        {
+            return res.status(400).send("Invalid")
+        }
+            
+            updates.forEach((update)=>{
+                req.user[update] = req.body[update] 
+             })
+
+             await req.user.save()
+            res.status(200).send(req.user.getPublicProfile())  
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+
 router.patch("/finance/:mobile",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
+        const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
@@ -165,32 +193,6 @@ router.get('/finance/me',auth,async (req,res)=>{
 })
 
 
-router.patch("/finance/me",auth,async (req,res)=>{
-    try
-    {
-        const updates = Object.keys(req.body)
-        const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
-        const isValidOperation = updates.every((update)=>{
-                return allowedUpdates.includes(update)
-        })
-        if(!isValidOperation)
-        {
-            return res.status(400).send("Invalid")
-        }
-            
-            updates.forEach((update)=>{
-                req.user[update] = req.body[update] 
-             })
-
-             await req.user.save()
-            res.status(200).send(req.user.getPublicProfile())  
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-})
 
 router.delete("/admin/me",auth,async (req,res)=>{
     try

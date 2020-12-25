@@ -28,25 +28,24 @@ router.get('/webareamanagerall',async (req,res)=>{
         const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
         if(admin)
         {
-            const areamanager= await AreaManager.find({})  
+            const areamanager= await AreaManager.find({status:2})  
         
             let data ={
                 areamanager: []
             }
             for(var i = 0;i<areamanager.length;i++)
             {
-                await areamanager[i].populate('mines').execPopulate()
+              //  await areamanager[i].populate('mines').execPopulate()
+              console.log(areamanager[i].mobile)
+              var mines  = await Mine.find({areamanager: areamanager[i].mobile}).exec()
+                console.log("mines",mines)
                 let t =  areamanager[i].toObject()
-                t.mine = areamanager[i].mines
+               // t.mines = areamanager[i].mines
+               t.mines = mines
                 data.areamanager.push(t)
               
+              
             }
-
-           
-
-            console.log(data.areamanager[0].mine)
-
-            
             
            
            return res.render('area_manager_list',{data})
@@ -67,16 +66,17 @@ router.get('/webspecificareamanager/:mobile',async (req,res)=>{
     {
         const token = req.cookies['Authorization']
         const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token}).exec()
         if(admin)
         {
             const mobile = req.params.mobile
             const areamanager = await AreaManager.findOne({mobile})
              if(areamanager!=null)
             {
-                await areamanager.populate('mines').execPopulate()
+              //  await areamanager.populate('mines').execPopulate()
+              var mines  = await Mine.find({areamanager: areamanager.mobile}).exec()
                 let t =areamanager.toObject()
-                t.mines = areamanager.mines
+                t.mines = mines
 
 
                 let data = {
@@ -126,14 +126,73 @@ router.get("/areamanagerrequest",async (req,res)=>{
     {
         console.log(e)
     }
-   
+  
 })
 
-router.post("/areamanagerrequest",async (req,res)=>{
+
+router.get("/areamanager_request_action/:mobile",async (req,res)=>{
+    try
+    {
+        const mobile =  req.params.mobile
+     const areamanager = await AreaManager.findOne({mobile})
+     if(areamanager)
+     {
+         // const obj  = {...req.body}
+        
+ 
+         areamanager["status"] = 2
+         await areamanager.save()
+         res.redirect('/areamanagerrequest')
+     }
+    }
+    catch(e)
+    {
+        res.redirect('/areamanagerrequest')
+    }
+ })
+
+router.post("/areamanager_request_action/:mobile",async (req,res)=>{
+   try
+   {
+       const mobile =  req.params.mobile
+    const areamanager = await AreaManager.findOne({mobile})
+    if(areamanager)
+    {
+        // const obj  = {...req.body}
+        const updates = Object.keys(req.body)
+       
+        updates.forEach((update)=>{
+            areamanager[update] = "NOT AVAILABLE",
+            areamanager[req.body[update]] = undefined
+        })
+
+        areamanager["status"] = 0
+        await areamanager.save()
+        res.send({areamanager})
+        res.redirect('/areamanagerrequest')
+    }
+   }
+   catch(e)
+   {
+    res.redirect('/areamanagerrequest')
+   }
+})
+
+
+router.get('/getareamanagerdata/:mobile',async (req,res)=>{
+    const mobile = req.params.mobile
+    const areamanager = await AreaManager.findOne({mobile})
+    const object = areamanager.toObject()
     
-    console.log(req.body)
-})
+    delete object.__v
+    delete object.tokens
+    delete object._id
+   
+    return res.send(object)
 
+
+
+})
 
 
 module.exports =  router

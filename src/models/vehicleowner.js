@@ -69,6 +69,7 @@ const vehicleownerSchema  = mongoose.Schema({
     },
     tds:
     {
+        //tdsdeclaration
         type: String,
         default: "NOT AVAILABLE"
     

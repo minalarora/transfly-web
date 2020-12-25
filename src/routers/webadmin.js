@@ -17,14 +17,19 @@ const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 var multer  = require('multer')
+var sharp = require('sharp')
 var upload = multer({
+    limits:
+    {
+        fileSize: 5000000
+    },
     fileFilter: function (req, file, cb) {
 
-    
-
-        
-            return cb(null, true);
-        
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/))
+        {
+            return cb(new Error('only image'))
+        }
+            return cb(undefined, true);  
 
     }
 })
@@ -42,7 +47,7 @@ router.get('/webadmin', async (req,res)=>{
         if(admin)
         {
             var data = {
-                admin : admin.getPublicProfile()
+                admin : admin
             }
             console.log(data)
            return res.render("app_admin_profile",{data})
@@ -68,7 +73,7 @@ router.get('/webadminedit',async (req,res)=>{
         if(admin)
         {
             var data = {
-                admin : admin.getPublicProfile()
+                admin : admin
             }
            return res.render("app_admin_profile_update",{data})
         }
@@ -95,7 +100,7 @@ router.post('/webadminedit',async (req,res)=>{
         if(admin)
         {
             const updates = Object.keys(req.body)
-            const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
+            const allowedUpdates = ['name','mobile','email','password','status',
             'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
             const isValidOperation = updates.every((update)=>{
                                        return allowedUpdates.includes(update)
@@ -161,9 +166,35 @@ router.get("/addofficial",async (req,res)=>{
 router.post('/addofficial/:type',transporterUpload,async (req,res)=>{
     try
     {
-        console.log(req.body)
-    const imageupdates = Object.keys(req.files["panimage"][0].buffer)
-    console.log(imageupdates)
+
+
+        if(req.params.type == "admin")
+        {
+            const obj  = {...req.body}
+            const imageupdates = Object.keys(req.files)
+            imageupdates.forEach((update)=>{
+                obj[update] = req.files[update][0].buffer
+                
+            })
+    
+            const admin = new Admin(obj)
+            await admin.save()
+        }
+        else
+        {
+            const obj  = {...req.body}
+            const imageupdates = Object.keys(req.files)
+            imageupdates.forEach((update)=>{
+                obj[update] = req.files[update][0].buffer
+                
+            })
+    
+            const finance = new Finance(obj)
+            await finance.save()
+        }
+
+        res.redirect('/addofficial')
+      
     }
     catch(e)
     {
@@ -182,16 +213,38 @@ router.post('/addofficial/:type',transporterUpload,async (req,res)=>{
             // to uploading image of size greater than 
             // 1MB or uploading different file type) 
             console.log('df')
-            res.send(err)
+            res.send("Invalid Image Format")
         }
         else {
             console.log('f')
-            // SUCCESS, image successfully uploaded 
+            
             res.send("Success, Image uploaded!")
         }
     })
 })
 
+router.get('/logout',async (req,res)=>{
 
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            admin.tokens = admin.tokens.filter((t)=>{
+                return t.token != token
+            })
+            await admin.save()
+            res.redirect('/')
+        }
+    }
+    catch(e)
+    {
+
+    }
+   
+
+})
 
 module.exports = router

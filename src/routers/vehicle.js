@@ -5,7 +5,7 @@ const auth = require('../auth/auth')
 
 
 
-router.post("/vehicle",auth,async (req,res)=>{
+router.post("/vehicle",async (req,res)=>{
     try
     {
        
@@ -17,6 +17,7 @@ router.post("/vehicle",auth,async (req,res)=>{
     catch(e)
     {
         
+        console.log(e)
         res.status(400).send(e)
     }
     /*const vehicle  = new Vehicle(req.body)

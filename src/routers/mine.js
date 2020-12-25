@@ -4,7 +4,7 @@ const Mine = require('../models/mine')
 const jwt= require('jsonwebtoken')
 const auth = require('../auth/auth')
 
-router.post("/mine",auth,async (req,res)=>{
+router.post("/mine",async (req,res)=>{
     try
     {
         const mine  = new Mine(req.body)
@@ -13,6 +13,7 @@ router.post("/mine",auth,async (req,res)=>{
     }
     catch(e)
     {
+        console.log(e)
         res.status(400).send(e)
     }
    /* const mine  = new Mine(req.body)
@@ -77,12 +78,12 @@ router.get("/mine/:id",auth,async (req,res)=>{
     })*/
 })
 
-router.patch("/mine/:id",auth,async (req,res)=>{
+router.patch("/mine/:id",async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['id','name','area','trailer','active','tyres','bodytype','loading','rate','etl','latitude',
-        'longitude','landmark']
+        const allowedUpdates = ['name','area','trailer','active','tyres','bodytype','loading','rate','etl','latitude',
+        'longitude','landmark','areamanager','fieldstaff','transporter']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })

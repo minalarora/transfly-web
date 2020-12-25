@@ -31,10 +31,6 @@ const vehicleSchema = mongoose.Schema({
         required: true  ,
         ref : 'Vehicleowner'  
     } ,
-    rc:
-    {
-        type: String
-    },
     rcimage:
     {
         type: Buffer

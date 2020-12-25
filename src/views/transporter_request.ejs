@@ -79,31 +79,31 @@
                     <form method="POST" id="reject_form" class="p-4" action="">
                         <div class="form-check">
                             <label class="form-check-label" for="check1">
-                                <input type="checkbox" class="form-check-input" id="check1" name="aadhar" value="gst" checked>Aadhar
+                                <input type="checkbox" class="form-check-input" id="check1" name="aadhaar" value="aadhaarimage" checked>Aadhar
                                 incorrect
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="gst" value="gst">Problem
+                                <input type="checkbox" class="form-check-input" id="check2" name="gst" value="gstimage">Problem
                                 with GST
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="sta" value="sta">Problem
+                                <input type="checkbox" class="form-check-input" id="check2" name="sta" value="staimage">Problem
                                 with STA
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="mininglicence" value="mininglicence">Problem
+                                <input type="checkbox" class="form-check-input" id="check2" name="mininglicense" value="mininglicenseimage">Problem
                                 with Mining Liscense
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="pan" value="pan">Problem
+                                <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">Problem
                                 with Pan
                             </label>
                         </div>
@@ -176,7 +176,15 @@
                     <div class="col-12">
                         <img target="_blank" id="gstimage" alt="not avaliable">
                     </div>
-
+                    <div class="col-12">
+                        <img target="_blank" id="aadhaarimage" alt="not avaliable">
+                    </div>
+                    <div class="col-12">
+                        <img target="_blank" id="mininglicenseimage" alt="not avaliable">
+                    </div>
+                    <div class="col-12">
+                        <img target="_blank" id="panimage" alt="not avaliable">
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,8 +208,8 @@
                                     <%= data.transporter[i].name %> (
                                         <%= data.transporter[i].mobile %>)
                                 </h5>
-                                <p>City :
-                                    <%= data.transporter[i].city %>
+                                <p>Email :
+                                    <%= data.transporter[i].email %>
                                 </p>
                                 <a href="javascript:void(0)" onclick="showRequestDetails(<%= i %> , <%= data.transporter[i].mobile %>)" class="btn btn-primary">Show
                                     more details
@@ -277,11 +285,23 @@
         document.getElementById('sta').innerHTML = data.sta;
         document.getElementById('gst').innerHTML = data.gst;
         document.getElementById('ifsc').innerHTML = data.ifsc;
+
         document.getElementById('staimage').setAttribute('src', "data:image/png;base64," + data.staimage)
-        document.getElementById('gstimage').setAttribute('src', "data:image/png;base64," + data.gstimage)
         document.getElementById('staimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.staimage + " ', '_blank')");
 
-        document.getElementById("approve_btn").setAttribute('href', "/transporter_request_action?approved=true&id="+ mobile)
+        document.getElementById('gstimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.gstimage + " ', '_blank')");
+        document.getElementById('gstimage').setAttribute('src', "data:image/png;base64," + data.gstimage)
+
+        document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.aadhaarimage + " ', '_blank')");
+        document.getElementById('aadhaarimage').setAttribute('src', "data:image/png;base64," + data.aadhaarimage)
+
+        document.getElementById('mininglicenseimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.mininglicenseimage + " ', '_blank')");
+        document.getElementById('mininglicenseimage').setAttribute('src', "data:image/png;base64," + data.mininglicenseimage)
+
+        document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.panimage + " ', '_blank')");
+        document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
+
+        document.getElementById("approve_btn").setAttribute('href', "/transporter_request_action/"+ mobile)
         document.getElementById("reject_form").setAttribute('action', "/transporter_request_action/"+ mobile)
     }
 </script>

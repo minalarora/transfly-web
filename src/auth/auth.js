@@ -26,6 +26,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=admin
                 req.token=token
+                console.log('dsfds')
                 next()
                 break;
             }

@@ -61,14 +61,12 @@
                                     <th>Name</th>
                                     <th>Vehicle No</th>
                                     <th>Mobile</th>
-                                    <th>City</th>
                                 </tr>
                                 <% for (var i =0; i < data.vehicleowner.length;  i++ ) { %>
                                     <tr>
                                         <td><a href="/webspecificvehicleowner/<%= data.vehicleowner[i].mobile %>"> 
                                        
-                                            <%= data.vehicleowner[i].firstname %>
-                                                <%= data.vehicleowner[i].lastname %></a>
+                                            <%= data.vehicleowner[i].name %></a>
                                         </td>
                                         <td> <% for (var j =0; j < data.vehicleowner[i].vehicles.length;  j++ ) { %>
                                             <%= data.vehicleowner[i].vehicles[j].number %>
@@ -77,9 +75,6 @@
                                         </td>
                                         <td>
                                             <%= data.vehicleowner[i].mobile %>
-                                        </td>
-                                        <td>
-                                            <%= data.vehicleowner[i].city %>
                                         </td>
                                     </tr>
                                     <% } %>

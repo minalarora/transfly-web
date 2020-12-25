@@ -1,11 +1,15 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 7)
 
 const mineSchema  = mongoose.Schema({
     id:
     {
      type: Number,
-     default: 0 
+     default: () => {
+        return parseInt(nanoid())
+     }
     },
      name:{
          type: String,

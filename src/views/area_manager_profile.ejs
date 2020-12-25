@@ -53,8 +53,7 @@
                             </div>
                             <div class="d-flex flex-column">
                                 <h3>
-                                    <%= data.areamanager.firstname %>
-                                        <%= data.areamanager.lastname %>
+                                    <%= data.areamanager.name %>
                                 </h3>
                                 <p>(Area Manager)</p>
                             </div>
@@ -82,12 +81,7 @@
                                             <%= data.areamanager.email %>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>City:</th>
-                                        <td>
-                                            <%= data.areamanager.city %>
-                                        </td>
-                                    </tr>
+                                    
                                     <tr>
                                         <th>Pan:</th>
                                         <td>
@@ -98,6 +92,15 @@
                                         <th>Aadhar:</th>
                                         <td>
                                             <%= data.areamanager.aadhaar %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mines:</th>
+                                        <td>
+
+                                            <% for(var i =0 ; i< data.areamanager.mines.length ; i++){ %>
+                                            <%= data.areamanager.mines[i].name +"," %>
+                                            <% } %>
                                         </td>
                                     </tr>
                                 </table>

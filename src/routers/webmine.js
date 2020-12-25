@@ -113,7 +113,8 @@ router.post('/webspecificmine/:id',async (req,res)=>{
                 updates.forEach((update)=>{
                     if(update == "active")
                     {
-                       mine[update] = Boolean(req.body[update])
+                        console.log(req.body[update])
+                       mine[update] = (req.body[update] == "true")
                     }
                     else
                     {

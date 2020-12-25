@@ -67,6 +67,33 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>Trailer</th>
+                                    <td>:
+                                        <%= data.mine.trailer %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Body Type</th>
+                                    <td>:
+                                        <%= data.mine.bodytype %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Loadings</th>
+                                    <td>:
+                                        <% for (var i =0; i < data.mine.loading.length;  i++ ) { %>
+                                        <%= data.mine.loading[i] + " , " %>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>tyres</th>
+                                    <td>:
+                                        <%= data.mine.tyres %>
+                                    </td>
+                                </tr>
+
+                                <tr>
                                     <th>Mine active</th>
                                     <td>:
                                         <% if( data.mine.active == true) { %>
@@ -104,10 +131,10 @@
                             <div class=" p-2 bg-white">
                                 <form method="POST" action="/webspecificmine/<%= data.mine.id %>">
                                     <div class="form-group">
-                                        <input type="number" name="etl" class="form-control" id="etl" placeholder="Enter New etl">
+                                        <input type="number" name="etl" class="form-control" id="etl" value="<%= data.mine.etl %>" placeholder="Enter New etl" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" name="rate" class="form-control" id="rate" placeholder="Enter new rate" required>
+                                        <input type="number" name="rate" class="form-control" id="rate" value="<%= data.mine.rate %>" placeholder="Enter new rate" required>
                                     </div>
                                     <div class="radio">
                                         <label class="radio-inline "><input class="mr-1" type="radio" id="inactive" name="active"

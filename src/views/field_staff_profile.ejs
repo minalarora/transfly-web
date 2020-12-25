@@ -51,7 +51,7 @@
                                 <img src="../images/avatar.png" alt="">
                             </div>
                             <div class="d-flex flex-column">
-                                <h3> <%= data.fieldstaff.firstname %>  <%= data.fieldstaff.lastname %> </h3>
+                                <h3> <%= data.fieldstaff.name %> </h3>
                                 <p>(fieldstaff)</p>
                             </div>
                         </div>
@@ -79,12 +79,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>City:</th>
-                                        <td>
-                                            <%= data.fieldstaff.city %>
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <th>Pan:</th>
                                         <td>
                                             <%= data.fieldstaff.pan %>
@@ -94,6 +88,12 @@
                                         <th>Aadhar:</th>
                                         <td>
                                             <%= data.fieldstaff.aadhaar %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mines :</th>
+                                        <td>
+                                            <%= data.fieldstaff.mine %>
                                         </td>
                                     </tr>
                                 </table>
@@ -147,7 +147,7 @@
                                     <tr>
                                         <th>Emergency Relation:</th>
                                         <td>
-                                            <%= data.fieldstaff.relation %>
+                                            <%= data.fieldstaff.erelation %>
                                         </td>
                                     </tr>
                                 </table>

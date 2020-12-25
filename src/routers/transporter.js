@@ -4,8 +4,24 @@ const Transporter = require('../models/transporter')
 const auth = require('../auth/auth')
 const jwt = require("jsonwebtoken")
 var multer  = require('multer')
-var upload = multer({})
-var transporterUpload = upload.fields([{ name: 'gstimage', maxCount: 1 }, { name: 'staimage', maxCount: 1 }])
+var sharp = require('sharp')
+var upload = multer({
+    limits:
+    {
+        fileSize: 5000000
+    },
+    fileFilter: function (req, file, cb) {
+
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/))
+        {
+            return cb(new Error('only image'))
+        }
+            return cb(undefined, true);  
+
+    }
+})
+var transporterUpload = upload.fields([{ name: 'mininglicenseimage', maxCount: 1 },{ name: 'staimage', maxCount: 1 },{ name: 'gstimage', maxCount: 1 },{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
+
 
 router.post("/transporter",async (req,res)=>{
     try
@@ -80,6 +96,39 @@ router.get("/transporter/:mobile",auth,async (req,res)=>{
             }
     })*/
 })
+router.patch("/transporter/me",auth,transporterUpload,async (req,res)=>{
+    try
+    {
+        const updates = Object.keys(req.body)
+        const imageupdates = Object.keys(req.files)
+        const allowedUpdates = ['name','mobile','email','password','status',
+        'gst','sta','pan','aadhaar','mininglicense']
+        const isValidOperation = updates.every((update)=>{
+                return allowedUpdates.includes(update)
+        })
+        console.log(updates)
+        if(!isValidOperation && (updates.length > 0))
+        {
+            return res.status(400).send("Invalid")
+        }
+            
+            updates.forEach((update)=>{
+                req.user[update] = req.body[update] 
+             })
+
+             imageupdates.forEach((update)=>{
+                req.user[update] = req.files[update][0].buffer
+                
+            })
+
+             await req.user.save()
+            res.status(200).send(req.user.getPublicProfile())  
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
 
 router.patch("/transporter/:mobile",auth,transporterUpload,async (req,res)=>{
     try
@@ -87,7 +136,7 @@ router.patch("/transporter/:mobile",auth,transporterUpload,async (req,res)=>{
         console.log(Object.keys(req.files))
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
-        const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
+        const allowedUpdates = ['name','mobile','email','password','status',
         'gst','gstimage','sta','staimage','pan','panimage','aadhaar','aadhaarimage','mininglicense','mininglicenseimage']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
@@ -176,32 +225,6 @@ router.get('/transporter/me',auth,async (req,res)=>{
 })
 
 
-router.patch("/transporter/me",auth,async (req,res)=>{
-    try
-    {
-        const updates = Object.keys(req.body)
-        const allowedUpdates = ['firstname','lastname','mobile','email','password','status',
-        'gst','sta','pan','aadhaar','mininglicense']
-        const isValidOperation = updates.every((update)=>{
-                return allowedUpdates.includes(update)
-        })
-        if(!isValidOperation)
-        {
-            return res.status(400).send("Invalid")
-        }
-            
-            updates.forEach((update)=>{
-                req.user[update] = req.body[update] 
-             })
-
-             await req.user.save()
-            res.status(200).send(req.user.getPublicProfile())  
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-})
 
 router.delete("/transporter/me",auth,async (req,res)=>{
     try

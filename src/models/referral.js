@@ -28,6 +28,24 @@ const referralSchema = mongoose.Schema({
     timestamps: true
 })
 
+
+referralSchema.pre('save',async function(next){
+    const reward  = this
+    if(reward.text && reward.image)
+    {
+        reward.status = 1
+    }
+    else if(reward.text)
+    {
+        reward.status = 2
+    }
+    else if(reward.image)
+    {
+        reward.status = 3
+    }
+    
+    next()
+})
 const Referral  = mongoose.model('Referral',referralSchema)
 
 module.exports = Referral

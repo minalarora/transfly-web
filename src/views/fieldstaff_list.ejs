@@ -60,21 +60,16 @@
                         <tr class="header">
                             <th>Name</th>
                             <th>Mobile</th>
-                            <th>city</th>
                             <th>Mine</th>
                         </tr>
                         <% if(data.fieldstaff.length != 0) { %>
                         <% for (var i =0; i < data.fieldstaff.length;  i++ ) { %>
                             <tr>
                                 <td> <a href="/webspecificfieldstaff/<%= data.fieldstaff[i].mobile %>">
-                                    <%= data.fieldstaff[i].firstaname %>
-                                        <%= data.fieldstaff[i].lastname %></a>
+                                    <%= data.fieldstaff[i].name %></a>
                                 </td>
                                 <td>
                                     <%= data.fieldstaff[i].mobile %>
-                                </td>
-                                <td>
-                                    <%= data.fieldstaff[i].city %>
                                 </td>
                                 <td>
                                     <%= data.fieldstaff[i].mine %>

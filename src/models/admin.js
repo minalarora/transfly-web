@@ -148,7 +148,7 @@ adminSchema.methods.generateToken = async function(){
     return token
 }
 
-adminSchema.methods.getPublicProfile = function()
+adminSchema.methods.getPublicProfile = async function()
 {
     const user = this
     const userobject = user.toObject()

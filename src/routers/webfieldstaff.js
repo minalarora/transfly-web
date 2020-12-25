@@ -27,7 +27,7 @@ router.get('/webfieldstaffall',async (req,res)=>{
         const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
         if(admin)
         {
-            const fieldstaff= await Fieldstaff.find({})  
+            const fieldstaff= await Fieldstaff.find({status: 2}).exec()  
         
             let data ={
                 fieldstaff: []
@@ -84,11 +84,43 @@ router.get('/webspecificfieldstaff/:mobile',async (req,res)=>{
             const fieldstaff = await Fieldstaff.findOne({mobile})
              if(fieldstaff!=null)
             {
-                let data = {
-                    fieldstaff: fieldstaff
+                // await fieldstaff.populate('mines').execPopulate()
+                // if(fieldstaff.mines.length !=0 )
+                // {
+                // let data = {
+                //     fieldstaff: {...fieldstaff,mine:fieldstaff.mines[0].name  }
+                // }
+                // console.log(data)
+                // return res.render('field_staff_profile',{data})
+                // }
+                // else
+                // {
+                //     let data = {
+                //         fieldstaff: {...fieldstaff,mine:"NOT ALLOTTED"  }
+                //     }
+                //     return res.render('field_staff_profile',{data})
+                // }    
+                
+                
+
+                let data ={
+                    fieldstaff: {}
                 }
-                return res.render('field_staff_profile',{data})
-                  
+                    await fieldstaff.populate('mines').execPopulate()
+                    let t =  fieldstaff.toObject()
+                    
+                    if(fieldstaff.mines.length != 0)
+                    {
+                        t.mine = fieldstaff.mines[0].name
+                    }
+                    else
+                    {
+                        t.mine = "NOT ALLOTTED"
+                    }
+                   data.fieldstaff = t;
+                   console.log(data.fieldstaff.mine)
+                   return res.render('field_staff_profile',{data})
+    
             }
             else
             {
@@ -129,10 +161,71 @@ router.get("/fieldstaffrequest",async (req,res)=>{
     {
         console.log(e)
     }
+  
 })
 
-router.post("/fieldstaffrequest",async (req,res)=>{
-    console.log(req.body)
+
+router.get("/fieldstaff_request_action/:mobile",async (req,res)=>{
+    try
+    {
+        const mobile =  req.params.mobile
+     const fieldstaff = await Fieldstaff.findOne({mobile})
+     if(fieldstaff)
+     {
+         // const obj  = {...req.body}
+        
+ 
+         fieldstaff["status"] = 2
+         await fieldstaff.save()
+         res.redirect("/fieldstaffrequest")
+     }
+    }
+    catch(e)
+    {
+        res.redirect("/fieldstaffrequest")
+    }
+ })
+
+router.post("/fieldstaff_request_action/:mobile",async (req,res)=>{
+   try
+   {
+       const mobile =  req.params.mobile
+    const fieldstaff = await Fieldstaff.findOne({mobile})
+    if(fieldstaff)
+    {
+        // const obj  = {...req.body}
+        const updates = Object.keys(req.body)
+       
+        updates.forEach((update)=>{
+            fieldstaff[update] = "NOT AVAILABLE",
+            fieldstaff[req.body[update]] = undefined
+        })
+
+        fieldstaff["status"] = 0
+        await fieldstaff.save()
+        res.redirect("/fieldstaffrequest")
+    }
+   }
+   catch(e)
+   {
+    res.redirect("/fieldstaffrequest")
+   }
+})
+
+
+router.get('/getfieldstaffdata/:mobile',async (req,res)=>{
+    const mobile = req.params.mobile
+    const fieldstaff = await Fieldstaff.findOne({mobile})
+    const object = fieldstaff.toObject()
+    
+    delete object.__v
+    delete object.tokens
+    delete object._id
+   
+    return res.send(object)
+
+
+
 })
 
 

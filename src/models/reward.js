@@ -28,6 +28,25 @@ const rewardSchema = mongoose.Schema({
     timestamps: true
 })
 
+
+rewardSchema.pre('save',async function(next){
+    const reward  = this
+    if(reward.text && reward.image)
+    {
+        reward.status = 1
+    }
+    else if(reward.text)
+    {
+        reward.status = 2
+    }
+    else if(reward.image)
+    {
+        reward.status = 3
+    }
+    
+    next()
+})
+
 const Reward  = mongoose.model('Reward',rewardSchema)
 
 module.exports = Reward
