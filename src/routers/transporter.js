@@ -29,7 +29,7 @@ router.post("/transporter",async (req,res)=>{
         const transporter  = new Transporter(req.body)
         const token=await transporter.generateToken()
         await transporter.save()
-        res.status(201).send({token,user:transporter.getPublicProfile()}) 
+        res.status(200).send({token: "transporter:" + token ,...transporter.getPublicProfile()}) 
     }
     catch(e)
     {
@@ -64,39 +64,39 @@ router.get("/alltransporter",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/transporter/:mobile",auth,async (req,res)=>{
-    try
-    {
-        const mobile = req.params.mobile
-        const transporter = await Transporter.findOne({mobile})
-        if(transporter!=null)
-        {
-             res.status(200).send(transporter.getPublicProfile())   
-        }
-        else
-        {
-            res.status(400)
-        }       
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-  /*  const mobile = req.params.mobile
-    Transporter.findOne({mobile},(e, a)=>{
-            if(e)
-            {
-                res.status(400)
-                res.send(e)       
-            }
-            else
-            {
-                res.status(200)
-                res.send(a)
-            }
-    })*/
-})
-router.patch("/transporter/me",auth,transporterUpload,async (req,res)=>{
+// router.get("/transporter/:mobile",auth,async (req,res)=>{
+//     try
+//     {
+//         const mobile = req.params.mobile
+//         const transporter = await Transporter.findOne({mobile})
+//         if(transporter!=null)
+//         {
+//              res.status(200).send(transporter.getPublicProfile())   
+//         }
+//         else
+//         {
+//             res.status(400)
+//         }       
+//     }
+//     catch(e)
+//     {
+//         res.status(400).send(e)
+//     }
+//   /*  const mobile = req.params.mobile
+//     Transporter.findOne({mobile},(e, a)=>{
+//             if(e)
+//             {
+//                 res.status(400)
+//                 res.send(e)       
+//             }
+//             else
+//             {
+//                 res.status(200)
+//                 res.send(a)
+//             }
+//     })*/
+// })
+router.post("/transporter/me",auth,transporterUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
@@ -122,7 +122,7 @@ router.patch("/transporter/me",auth,transporterUpload,async (req,res)=>{
             })
 
              await req.user.save()
-            res.status(200).send(req.user.getPublicProfile())  
+            return res.status(200);  
     }
     catch(e)
     {
@@ -209,10 +209,7 @@ router.post("/transporter/login",async (req,res)=>{
                 return res.status(400)
             }
             const token  = await transporter.generateToken()
-            res.status(200).send({
-                user: transporter.getPublicProfile(),
-                token
-            })
+            res.status(200).send({token: "transporter:" + token ,...transporter.getPublicProfile()}) 
     }
     catch(e)
     {
@@ -221,7 +218,7 @@ router.post("/transporter/login",async (req,res)=>{
 })
 
 router.get('/transporter/me',auth,async (req,res)=>{
-    res.send(req.user.getPublicProfile())
+    res.status(200).send({token: "transporter:" + req.token ,...transporter.getPublicProfile()}) 
 })
 
 

@@ -30,7 +30,7 @@ router.post("/fieldstaff",async (req,res)=>{
         const fieldstaff  = new Fieldstaff(req.body)
         const token=await fieldstaff.generateToken()
         await fieldstaff.save()
-        res.status(201).send({token,user:fieldstaff.getPublicProfile()})
+        res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.getPublicProfile()})
     }
     catch(e)
     {
@@ -65,47 +65,47 @@ router.get("/allfieldstaff",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/fieldstaff/:mobile",auth,async (req,res)=>{
-    try
-    {
-        const mobile = req.params.mobile
-        const fieldstaff = await Fieldstaff.findOne({mobile})
-        if(fieldstaff!=null)
-        {
-             res.status(200).send(fieldstaff.getPublicProfile())   
-        }
-        else
-        {
-            res.status(400)
-        }    
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-   /* const mobile = req.params.mobile
-    Fieldstaff.findOne({mobile},(e, a)=>{
-            if(e)
-            {
-                res.status(400)
-                res.send(e)       
-            }
-            else
-            {
-                res.status(200)
-                res.send(a)
-            }
-    })*/
-})
+// router.get("/fieldstaff/:mobile",auth,async (req,res)=>{
+//     try
+//     {
+//         const mobile = req.params.mobile
+//         const fieldstaff = await Fieldstaff.findOne({mobile})
+//         if(fieldstaff!=null)
+//         {
+//              res.status(200).send(fieldstaff.getPublicProfile())   
+//         }
+//         else
+//         {
+//             res.status(400)
+//         }    
+//     }
+//     catch(e)
+//     {
+//         res.status(400).send(e)
+//     }
+//    /* const mobile = req.params.mobile
+//     Fieldstaff.findOne({mobile},(e, a)=>{
+//             if(e)
+//             {
+//                 res.status(400)
+//                 res.send(e)       
+//             }
+//             else
+//             {
+//                 res.status(200)
+//                 res.send(a)
+//             }
+//     })*/
+// })
 
-router.patch("/fieldstaff/me",auth,transporterUpload,async (req,res)=>{
+router.post("/fieldstaff/me",auth,transporterUpload,async (req,res)=>{
     try
     {
         
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
+        'accountno','ifsc','bankname','pan','aadhaar','ename','erelation','emobile']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -201,10 +201,7 @@ router.post("/fieldstaff/login",async (req,res)=>{
                 return res.status(400)
             }
             const token  = await fieldstaff.generateToken()
-            res.status(200).send({
-                user: fieldstaff.getPublicProfile(),
-                token
-            })
+            res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.getPublicProfile()})
     }
     catch(e)
     {
@@ -213,7 +210,7 @@ router.post("/fieldstaff/login",async (req,res)=>{
 })
 
 router.get('/fieldstaff/me',auth,async (req,res)=>{
-    res.send(req.user.getPublicProfile())
+    res.status(200).send({token: "fieldstaff:" + req.token ,...fieldstaff.getPublicProfile()})
 })
 
 

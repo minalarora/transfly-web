@@ -29,7 +29,7 @@ router.post("/areamanager",async (req,res)=>{
         const areamanager  = new AreaManager(req.body)
         const token=await areamanager.generateToken()
         await areamanager.save()
-        res.status(201).send({token,user:areamanager.getPublicProfile()})
+        res.status(200).send({token: "areamanager:" + token ,...areamanager.getPublicProfile()})
     }
     catch(e)
     {
@@ -65,46 +65,46 @@ router.get("/allareamanager",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/areamanager/:mobile",auth,async (req,res)=>{
-    try
-    {
-        const mobile = req.params.mobile
-        const areamanager = await Admin.findOne({mobile})
-        if(areamanager!=null)
-        {
-             res.status(200).send(areamanager.getPublicProfile())   
-        }
-        else
-        {
-            res.status(400)
-        }    
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-   /* const mobile = req.params.mobile
-    AreaManager.findOne({mobile},(e, a)=>{
-            if(e)
-            {
-                res.status(400)
-                res.send(e)       
-            }
-            else
-            {
-                res.status(200)
-                res.send(a)
-            }
-    })*/
-})
+// router.get("/areamanager/:mobile",auth,async (req,res)=>{
+//     try
+//     {
+//         const mobile = req.params.mobile
+//         const areamanager = await Admin.findOne({mobile})
+//         if(areamanager!=null)
+//         {
+//              res.status(200).send(areamanager.getPublicProfile())   
+//         }
+//         else
+//         {
+//             res.status(400)
+//         }    
+//     }
+//     catch(e)
+//     {
+//         res.status(400).send(e)
+//     }
+//    /* const mobile = req.params.mobile
+//     AreaManager.findOne({mobile},(e, a)=>{
+//             if(e)
+//             {
+//                 res.status(400)
+//                 res.send(e)       
+//             }
+//             else
+//             {
+//                 res.status(200)
+//                 res.send(a)
+//             }
+//     })*/
+// })
 
-router.patch("/areamanager/me",auth,transporterUpload,async (req,res)=>{
+router.post("/areamanager/me",auth,transporterUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
+        'accountno','ifsc','bankname','pan','aadhaar','ename','erelation','emobile']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -123,7 +123,7 @@ router.patch("/areamanager/me",auth,transporterUpload,async (req,res)=>{
             })
             
              await req.user.save()
-            res.status(200).send(req.user.getPublicProfile())  
+            return res.status(200)
     }
     catch(e)
     {
@@ -200,10 +200,7 @@ router.post("/areamanager/login",async (req,res)=>{
                 return res.status(400)
             }
             const token  = await areamanager.generateToken()
-            res.status(200).send({
-                user: areamanager.getPublicProfile(),
-                token
-            })
+            res.status(200).send({token: "areamanager:" + token ,...areamanager.getPublicProfile()})
     }
     catch(e)
     {
@@ -212,7 +209,7 @@ router.post("/areamanager/login",async (req,res)=>{
 })
 
 router.get('/areamanager/me',auth,async (req,res)=>{
-    res.send(req.user.getPublicProfile())
+    res.status(200).send({token: "areamanager:" + req.token ,...areamanager.getPublicProfile()})
 })
 
 

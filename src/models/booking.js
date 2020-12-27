@@ -19,6 +19,8 @@ const bookingSchema  = mongoose.Schema({
         type: Number,
         required: true
     },
+    //add mine name
+    
     loading:
     {
         type: String,

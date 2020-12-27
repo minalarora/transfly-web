@@ -65,7 +65,8 @@ const areamanagerSchema  = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer
+        type: Buffer,
+        default: null
     },
     aadhaar:
     {
@@ -75,7 +76,8 @@ const areamanagerSchema  = mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     ename: {
         type: String,
@@ -166,6 +168,8 @@ areamanagerSchema.methods.getPublicProfile = function()
     const userobject = user.toObject()
     delete userobject.password
     delete userobject.tokens
+    delete userobject.aadhaarimage
+    delete userobject.panimage
     return userobject
 }
 

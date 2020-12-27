@@ -20,10 +20,12 @@ var upload = multer({
 
     }
 })
-var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 },{ name: 'tdsimage', maxCount: 1 }])
+
+var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'bankimage', maxCount: 1 },{ name: 'tdsimage', maxCount: 1 }])
 
 
 
+//for creating transport
 
 router.post("/vehicleowner",async (req,res)=>{
     try
@@ -31,7 +33,7 @@ router.post("/vehicleowner",async (req,res)=>{
         const vehicleowner  = new VehicleOwner(req.body)
         const token=await vehicleowner.generateToken()
         await vehicleowner.save()
-        res.status(201).send({token,user:vehicleowner.getPublicProfile()})
+        res.status(200).send({token: "vehicleowner:" + token ,...vehicleowner.getPublicProfile()})
     }
     catch(e)
     {
@@ -67,47 +69,46 @@ router.get("/allvehicleowner",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/vehicleowner/:mobile",auth,async (req,res)=>{
-    try
-    {
-        const mobile = req.params.mobile
-        const vehicleowner = await VehicleOwner.findOne({mobile})
-        if(vehicleowner!=null)
-        {
-             res.status(200).send(vehicleowner.getPublicProfile())   
-        }
-        else
-        {
-            res.status(400)
-        }  
-    }
-    catch(e)
-    {
-        res.status(400).send(e)
-    }
-  /*  const mobile = req.params.mobile
-    Vehicleowner.findOne({mobile},(e, a)=>{
-            if(e)
-            {
-                res.status(400)
-                res.send(e)       
-            }
-            else
-            {
-                res.status(200)
-                res.send(a)
-            }
-    })*/
-})
+// router.get("/vehicleowner/:mobile",auth,async (req,res)=>{
+//     try
+//     {
+//         const mobile = req.params.mobile
+//         const vehicleowner = await VehicleOwner.findOne({mobile})
+//         if(vehicleowner!=null)
+//         {
+//              res.status(200).send(vehicleowner.getPublicProfile())   
+//         }
+//         else
+//         {
+//             res.status(400)
+//         }  
+//     }
+//     catch(e)
+//     {
+//         res.status(400).send(e)
+//     }
+//   /*  const mobile = req.params.mobile
+//     Vehicleowner.findOne({mobile},(e, a)=>{
+//             if(e)
+//             {
+//                 res.status(400)
+//                 res.send(e)       
+//             }
+//             else
+//             {
+//                 res.status(200)
+//                 res.send(a)
+//             }
+//     })*/
+// })
 
-router.patch("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
+router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
     try
     {
-        
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
+        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -126,7 +127,7 @@ router.patch("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
             })
             
              await req.user.save()
-            res.status(200).send(req.user.getPublicProfile()) 
+         return  res.status(200)
     }
     catch(e)
     {
@@ -205,10 +206,7 @@ router.post("/vehicleowner/login",async (req,res)=>{
                 return res.status(400)
             }
             const token  = await vehicleowner.generateToken()
-            res.status(200).send({
-                user: vehicleowner.getPublicProfile(),
-                token
-            })
+            res.status(200).send({token: "vehicleowner:" + token ,...vehicleowner.getPublicProfile()})
     }
     catch(e)
     {
@@ -217,7 +215,7 @@ router.post("/vehicleowner/login",async (req,res)=>{
 })
 
 router.get('/vehicleowner/me',auth,async (req,res)=>{
-    res.send(req.user.getPublicProfile())
+    res.status(200).send({token: "vehicleowner:" + req.token ,...vehicleowner.getPublicProfile()})
 })
 
 

@@ -14,7 +14,7 @@ const auth=async (req,res,next)=>{
         const usertype = data.split(':')[0]
         const token  = data.split(':')[1]
         const decoded=jwt.verify(token,'transfly')
-        console.log('running')
+        // console.log('running')
         switch(usertype)
         {
             case 'admin': {

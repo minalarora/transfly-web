@@ -39,11 +39,24 @@ const vehicleSchema = mongoose.Schema({
     {
         type: Number,
         default: 0
+    },
+    active:
+    {
+        type: Boolean,
+        default: true
     }
 }
 ,{
     timestamps: true
 })
+
+vehicleSchema.methods.toJSON = function()
+{
+    const vehicle = this
+    const vehicleobject = vehicle.toObject()
+    delete vehicleobject.rcimage
+    return vehicleobject
+}
 
 const vehicle  = mongoose.model('Vehicle',vehicleSchema)
 

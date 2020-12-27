@@ -6,9 +6,9 @@ const auth = require('../auth/auth')
 router.post("/ticket",auth,async (req,res)=>{
     try
     {
-        const ticket  = new Ticket(req.body)
+        const ticket  = new Ticket({...req.body,userid: req.user.mobile})
         await ticket.save()
-        res.status(201).send(ticket)        
+        return res.status(200)        
     }
     catch(e)
     {
@@ -27,8 +27,17 @@ router.post("/ticket",auth,async (req,res)=>{
 router.get("/allticket",auth,async (req,res)=>{
     try
     {
-        const tickets= await Ticket.find({})  
-        res.status(200).send(tickets)       
+        await Ticket.find({userid: req.user.mobile}).sort({date: -1}).execFind(function(err,tickets){ 
+            if(tickets)
+            {
+                res.status(200).send(tickets)    
+            }
+            else
+            {
+                   res.status(200).send([]) 
+            }
+        })  
+           
     }
     catch(e)
     {

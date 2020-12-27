@@ -170,6 +170,8 @@ fieldstaffSchema.methods.getPublicProfile = function()
     const userobject = user.toObject()
     delete userobject.password
     delete userobject.tokens
+    delete userobject.panimage
+    delete userobject.aadhaarimage
     return userobject
 }
 

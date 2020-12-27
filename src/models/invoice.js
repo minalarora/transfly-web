@@ -7,6 +7,7 @@ const invoiceSchema  = mongoose.Schema({
         type: Number,
         
     },
+    //minename and loading and vehicleownername
     vehicleno:
     {
         type: String,

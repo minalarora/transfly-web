@@ -9,10 +9,9 @@ router.post("/vehicle",async (req,res)=>{
     try
     {
        
-        const vehicle  = new Vehicle(req.body)
-        
+        const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile})
         await vehicle.save()
-        res.status(201).send(vehicle)      
+        return res.status(200)      
     }
     catch(e)
     {
@@ -33,7 +32,7 @@ router.post("/vehicle",async (req,res)=>{
 router.get("/allvehicle",auth,async (req,res)=>{
     try
     {
-        const vehicles= await Vehicle.find({})  
+        const vehicles= await Vehicle.find({driverid: req.user.mobile})  
         res.status(200).send(vehicles)      
     }
     catch(e)

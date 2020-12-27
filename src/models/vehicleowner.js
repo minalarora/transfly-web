@@ -58,6 +58,11 @@ const vehicleownerSchema  = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
+    bankimage:
+    {
+        type: Buffer,
+        default: null
+    },
     pan:
     {
         type: String,
@@ -65,7 +70,8 @@ const vehicleownerSchema  = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer
+        type: Buffer,
+        default: undefined
     },
     tds:
     {
@@ -76,7 +82,13 @@ const vehicleownerSchema  = mongoose.Schema({
     },
     tdsimage:
     {
-        type: Buffer
+        type: Buffer,
+        default: undefined
+    },
+    emergencycontact:
+    {
+        type: String,
+        default: ""
     },
     tokens: [
         {
@@ -100,7 +112,7 @@ const vehicleownerSchema  = mongoose.Schema({
 
 vehicleownerSchema.pre('save',async function(next){
     const user  = this
-    if(user.panimage  && user.tdsimage && (user.status == 0))
+    if(user.panimage  && user.tdsimage && user.bankimage && (user.status == 0))
     {
         user.status = 1
     }
@@ -122,6 +134,8 @@ vehicleownerSchema.statics.findByMobile = async (mobile,password)=>{
     }
 }
 
+
+
 vehicleownerSchema.methods.generateToken = async function(){
     const vehicleowner  = this
     const token  = jwt.sign({_id: vehicleowner.mobile},'transfly',{
@@ -133,13 +147,15 @@ vehicleownerSchema.methods.generateToken = async function(){
 }
 
 
-vehicleownerSchema.methods.getPublicProfile = function()
+vehicleownerSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()
     delete userobject.password
     delete userobject.tokens
-   
+    delete userobject.panimage
+    delete userobject.tdsimage
+    delete userobject.bankimage
     return userobject
 }
 

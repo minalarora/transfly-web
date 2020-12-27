@@ -171,6 +171,11 @@ transporterSchema.methods.getPublicProfile = function()
     const userobject = user.toObject()
     delete userobject.password
     delete userobject.tokens
+    delete userobject.gstimage
+    delete userobject.staimage
+    delete userobject.panimage
+    delete userobject.aadhaarimage
+    delete userobject.mininglicenseimage
     return userobject
 }
 
