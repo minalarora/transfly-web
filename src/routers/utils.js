@@ -1,4 +1,5 @@
 const jwt=require("jsonwebtoken")
+const auth = require('../auth/auth')
 const Admin = require("../models/admin")
 const AreaManager = require("../models/areamanager")
 const  Fieldstaff = require("../models/fieldstaff")
@@ -8,7 +9,7 @@ const VehicleOwner = require('../models/vehicleowner')
 const express = require('express')
 const router  = new express.Router()
 
-router.get("/me/pending",async (req,res)=>{
+router.get("/me/pending",auth,async (req,res)=>{
     try
     {
        var names=[];
