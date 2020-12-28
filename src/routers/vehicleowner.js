@@ -33,7 +33,7 @@ router.post("/vehicleowner",async (req,res)=>{
         const vehicleowner  = new VehicleOwner(req.body)
         const token=await vehicleowner.generateToken()
         await vehicleowner.save()
-        res.status(200).send({token: "vehicleowner:" + token ,...vehicleowner})
+        res.status(200).send({token: "vehicleowner:" + token ,...vehicleowner.toJSON})
     }
     catch(e)
     {
