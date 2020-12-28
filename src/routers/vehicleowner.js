@@ -74,6 +74,49 @@ router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
     }
 })
 
+router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
+    try
+    {
+        const updates = Object.keys(req.body)
+        let imageupdates
+        try
+        {
+             imageupdates = Object.keys(req.files)
+        }
+        catch(e)
+        {
+
+        }
+        
+        const allowedUpdates = ['name','mobile','email','password','status',
+        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact']
+        const isValidOperation = updates.every((update)=>{
+                return allowedUpdates.includes(update)
+        })
+        if(!isValidOperation && (updates.length > 0))
+        {
+            return res.status(400).send("Invalid")
+        }
+            
+            updates.forEach((update)=>{
+                req.user[update] = req.body[update] 
+             })
+
+             imageupdates.forEach((update)=>{
+                req.user[update] = req.files[update][0].buffer
+                
+            })
+            
+             await req.user.save()
+            return  res.status(200).send("done")
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+})
+
+
 router.get("/allvehicleowner",auth,async (req,res)=>{
     try
     {
