@@ -64,7 +64,8 @@ const fieldstaffSchema = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     aadhaar:
     {
@@ -74,7 +75,8 @@ const fieldstaffSchema = mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     ename: {
         type: String,
