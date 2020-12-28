@@ -45,6 +45,11 @@ router.post("/transporter",async (req,res)=>{
     })*/
 })
 
+router.get('/transporter/me',auth,async (req,res)=>{
+    res.status(200).send({token: "transporter:" + req.token ,...transporter.toJSON()}) 
+})
+
+
 router.get("/alltransporter",auth,async (req,res)=>{
     try
     {
@@ -217,9 +222,6 @@ router.post("/transporter/login",async (req,res)=>{
     }
 })
 
-router.get('/transporter/me',auth,async (req,res)=>{
-    res.status(200).send({token: "transporter:" + req.token ,...transporter.getPublicProfile()}) 
-})
 
 
 

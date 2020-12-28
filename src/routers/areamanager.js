@@ -46,6 +46,10 @@ router.post("/areamanager",async (req,res)=>{
     })*/
 })
 
+router.get('/areamanager/me',auth,async (req,res)=>{
+    res.status(200).send({token: "areamanager:" + req.token ,...areamanager.toJSON()})
+})
+
 router.get("/allareamanager",auth,async (req,res)=>{
     try
     {
@@ -208,9 +212,7 @@ router.post("/areamanager/login",async (req,res)=>{
     }
 })
 
-router.get('/areamanager/me',auth,async (req,res)=>{
-    res.status(200).send({token: "areamanager:" + req.token ,...areamanager.getPublicProfile()})
-})
+
 
 
 router.delete("/areamanager/me",auth,async (req,res)=>{
