@@ -47,7 +47,7 @@ router.post("/areamanager",async (req,res)=>{
 })
 
 router.get('/areamanager/me',auth,async (req,res)=>{
-    res.status(200).send({token: "areamanager:" + req.token ,...areamanager.toJSON()})
+    res.status(200).send({token: "areamanager:" + req.token ,...req.user.toJSON()})
 })
 
 router.get("/allareamanager",auth,async (req,res)=>{

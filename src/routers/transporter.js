@@ -46,7 +46,7 @@ router.post("/transporter",async (req,res)=>{
 })
 
 router.get('/transporter/me',auth,async (req,res)=>{
-    res.status(200).send({token: "transporter:" + req.token ,...transporter.toJSON()}) 
+    res.status(200).send({token: "transporter:" + req.token ,...req.user.toJSON()}) 
 })
 
 

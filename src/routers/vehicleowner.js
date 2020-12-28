@@ -51,7 +51,7 @@ router.post("/vehicleowner",async (req,res)=>{
 })
 
 router.get('/vehicleowner/me',auth,async (req,res)=>{
-    res.status(200).send({token: "vehicleowner:" + req.token ,...vehicleowner.toJSON()})
+    res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON()})
 })
 
 router.get("/allvehicleowner",auth,async (req,res)=>{
