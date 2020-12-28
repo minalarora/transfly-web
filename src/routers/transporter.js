@@ -49,6 +49,27 @@ router.get('/transporter/me',auth,async (req,res)=>{
     res.status(200).send({token: "transporter:" + req.token ,...req.user.toJSON()}) 
 })
 
+router.get('/transporter/me/pending',auth,async (req,res)=>{
+    try
+    {
+        var names=[];
+       for(key in req.user.toObject())
+       {
+           if(req.user[key] == null)
+            {
+                names.push(key.replace("image",""))
+            }
+       }
+       return res.status(200).send(names)
+    }
+    catch(e)
+    {
+        console.log(e)
+        res.status(400).send(e.message)
+    }
+})
+
+
 
 router.get("/alltransporter",auth,async (req,res)=>{
     try

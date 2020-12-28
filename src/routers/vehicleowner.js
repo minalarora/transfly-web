@@ -60,19 +60,17 @@ router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
         var names=[];
        for(key in req.user.toObject())
        {
-        //    if(req.user[key] == null)
-        //    {
-        //        names.push(key)
-        //    }
-           names.push(key)
-
+           if(req.user[key] == null)
+            {
+                names.push(key.replace("image",""))
+            }
        }
-
-       return res,status(200).send(names)
+       return res.status(200).send(names)
     }
     catch(e)
     {
-        res.status(400).send(e)
+        console.log(e)
+        res.status(400).send(e.message)
     }
 })
 
