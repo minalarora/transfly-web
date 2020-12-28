@@ -27,7 +27,7 @@ router.post("/ticket",auth,async (req,res)=>{
 router.get("/allticket",auth,async (req,res)=>{
     try
     {
-        await Ticket.find({userid: req.user.mobile}).sort({date: -1}).execFind(function(err,tickets){ 
+        await Ticket.find({userid: req.user.mobile}).sort({createdAt : -1}).execFind(function(err,tickets){ 
             if(tickets)
             {
                 res.status(200).send(tickets)    

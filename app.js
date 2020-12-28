@@ -19,6 +19,8 @@ const Ticket =  require('./src/routers/ticket')
 const Transporter = require('./src/routers/transporter')
 const Vehicle = require('./src/routers/vehicle')
 const VehicleOwner = require("./src/routers/vehicleowner")
+const Rating  = require('./src/routers/rating')
+
 const WebAdmin = require('./src/routers/webadmin')
 const WebAreaManager  = require('./src/routers/webareamanager')
 const WebFieldStaff =  require('./src/routers/webfieldstaff')
@@ -30,6 +32,7 @@ const WebResale =  require('./src/routers/webresale')
 const WebRewardReferral = require('./src/routers/webrewardreferral')
 const WebTransporter  =  require('./src/routers/webtransporter')
 const WebVehicleOwner  =  require('./src/routers/webvehicleowner')
+
 
 
 
@@ -96,6 +99,7 @@ app.use(Ticket)
 app.use(Transporter)
 app.use(Vehicle)
 app.use(VehicleOwner)
+app.use(Rating)
 
 app.use(helmet())
 app.use(compression())

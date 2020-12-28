@@ -164,7 +164,7 @@ fieldstaffSchema.methods.generateToken = async function(){
 }
 
 
-fieldstaffSchema.methods.getPublicProfile = function()
+fieldstaffSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()

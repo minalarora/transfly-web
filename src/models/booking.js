@@ -10,13 +10,30 @@ const bookingSchema  = mongoose.Schema({
            return parseInt(nanoid())
         }
     },
-    vehicleid:
+    vehicle:
     {
-       type: Number     
+       type: String   
     },
+
+    vehicleowner:
+    {
+        type: String
+    },
+
+    vehicleownermobile:
+    {
+        type:String
+    }
+,
     mineid:
     {
         type: Number,
+        required: true
+    },
+
+    minename:
+    {
+        type: String,
         required: true
     },
     //add mine name
@@ -29,7 +46,7 @@ const bookingSchema  = mongoose.Schema({
     status:
     {
         type: String,
-        enum : ['PENDING','ACTIVE'],
+        enum : ['PENDING','COMPLETED'],
         default: 'PENDING'
     },
     owner:

@@ -8,11 +8,30 @@ const invoiceSchema  = mongoose.Schema({
         
     },
     //minename and loading and vehicleownername
-    vehicleno:
+    vehicle:
     {
         type: String,
         required: true
     },
+    vehicleowner:
+    {
+        type: String
+    },
+
+    loading:
+    {
+        type: String
+    },
+    minename:
+    {
+        type: String
+    },
+ 
+    vehicleownermobile:
+    {
+        type:String
+    }
+,
     tonnage:
     {
         type: Number,

@@ -5,7 +5,7 @@ const auth = require('../auth/auth')
 
 
 
-router.post("/vehicle",async (req,res)=>{
+router.post("/vehicle",auth,async (req,res){
     try
     {
        

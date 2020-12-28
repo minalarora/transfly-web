@@ -2,13 +2,15 @@ const express = require('express')
 const router  = new express.Router()
 const Invoice = require('../models/invoice')
 const auth = require('../auth/auth')
+const Booking = require('../models/booking')
 
 router.post("/invoice",auth,async (req,res)=>{
     try
     {
         const invoice  = new Invoice({...req.body,owner: req.user._id})
+        await Booking.findOneAndUpdate({id: req.body.id},{status: "COMPLETED"})
         await invoice.save()
-        res.status(201).send(invoice)       
+        return res.status(200)       
     }
     catch(e)
     {
@@ -24,11 +26,22 @@ router.post("/invoice",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/allinvoice",auth,async (req,res)=>{
+router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
     try
     {
-        const invoices= await Invoice.find({})  
-         res.status(200).send(invoices)     
+        const invoices= await req.user.populate({
+            path: 'invoices',
+            match:{
+                status: 'COMPLETED'
+            }
+            ,options:{
+                sort: {
+                    createdAt: -1
+                }
+            }
+        }).execPopulate()
+
+        res.status(200).send(invoices)        
     }
     catch(e)
     {
