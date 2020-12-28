@@ -60,10 +60,12 @@ router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
         var names=[];
        for(key in req.user)
        {
-           if(req.user[key] == null)
-           {
-               names.push(key)
-           }
+        //    if(req.user[key] == null)
+        //    {
+        //        names.push(key)
+        //    }
+           names.push(key)
+
        }
 
        return res,status(200).send(names)
