@@ -54,6 +54,26 @@ router.get('/vehicleowner/me',auth,async (req,res)=>{
     res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON()})
 })
 
+router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
+    try
+    {
+        var names=[];
+       for(key in req.user)
+       {
+           if(req.user[key] == null)
+           {
+               names.push(key)
+           }
+       }
+
+       return res,status(200).send(names)
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
 router.get("/allvehicleowner",auth,async (req,res)=>{
     try
     {
