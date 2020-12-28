@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 7)
 
-const ratingtSchema  = mongoose.Schema({
+const ratingSchema  = mongoose.Schema({
     
     userid:
     {
