@@ -30,7 +30,7 @@ router.post("/fieldstaff",async (req,res)=>{
         const fieldstaff  = new Fieldstaff(req.body)
         const token=await fieldstaff.generateToken()
         await fieldstaff.save()
-        res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.getPublicProfile()})
+        res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.toJSON()})
     }
     catch(e)
     {

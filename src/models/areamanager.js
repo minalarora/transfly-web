@@ -162,7 +162,7 @@ areamanagerSchema.virtual('mines',{
     foreignField: 'areamanager'
   })
 
-areamanagerSchema.methods.getPublicProfile = function()
+areamanagerSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()

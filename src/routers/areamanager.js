@@ -29,7 +29,7 @@ router.post("/areamanager",async (req,res)=>{
         const areamanager  = new AreaManager(req.body)
         const token=await areamanager.generateToken()
         await areamanager.save()
-        res.status(200).send({token: "areamanager:" + token ,...areamanager.getPublicProfile()})
+        res.status(200).send({token: "areamanager:" + token ,...areamanager.toJSON()})
     }
     catch(e)
     {

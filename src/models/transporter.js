@@ -165,7 +165,7 @@ transporterSchema.virtual('mines',{
   })
 
 
-transporterSchema.methods.getPublicProfile = function()
+transporterSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()

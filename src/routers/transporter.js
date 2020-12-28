@@ -29,7 +29,7 @@ router.post("/transporter",async (req,res)=>{
         const transporter  = new Transporter(req.body)
         const token=await transporter.generateToken()
         await transporter.save()
-        res.status(200).send({token: "transporter:" + token ,...transporter.getPublicProfile()}) 
+        res.status(200).send({token: "transporter:" + token ,...transporter.toJSON()}) 
     }
     catch(e)
     {
