@@ -26,7 +26,7 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
        
         const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile})
         sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer().then((buffer)=>{
-            vehicle.rcimage = buffer
+            vehicle["rcimage"] = buffer
         }).catch((error)=>{
             rcimage = null
         })
