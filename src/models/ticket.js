@@ -22,7 +22,8 @@ const ticketSchema  = mongoose.Schema({
     },
     message:
     {
-        type: String
+        type: String,
+        default:null
     }
 },{
     timestamps: true

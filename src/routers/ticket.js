@@ -8,11 +8,11 @@ router.post("/ticket",auth,async (req,res)=>{
     {
         const ticket  = new Ticket({...req.body,userid: req.user.mobile})
         await ticket.save()
-        return res.status(200)        
+        return res.status(200).send('DONE')        
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*const ticket  = new Ticket(req.body)
     ticket.save().then((a)=>{
@@ -27,7 +27,7 @@ router.post("/ticket",auth,async (req,res)=>{
 router.get("/allticket",auth,async (req,res)=>{
     try
     {
-        await Ticket.find({userid: req.user.mobile}).sort({createdAt : -1}).execFind(function(err,tickets){ 
+        await Ticket.find({userid: req.user.mobile}).sort({createdAt : -1}).exec(function(err,tickets){ 
             if(tickets)
             {
                 res.status(200).send(tickets)    
@@ -41,7 +41,7 @@ router.get("/allticket",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*Ticket.find({}).then((a)=>{
         res.status(200)
