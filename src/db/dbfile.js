@@ -4,5 +4,6 @@ const connectionUrl = 'mongodb+srv://minal:123Password@cluster0.tvrlt.mongodb.ne
 mongoose.connect(connectionUrl,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 })

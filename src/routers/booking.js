@@ -2,6 +2,7 @@ const express = require('express')
 const router  = new express.Router()
 const Booking = require('../models/booking')
 const Vehicleowner = require('../models/vehicleowner')
+const Vehicle = require('../models/vehicle')
 const auth = require('../auth/auth')
 
 router.post("/booking",auth,async (req,res)=>{
@@ -9,11 +10,12 @@ router.post("/booking",auth,async (req,res)=>{
     {
         const booking  = new Booking({...req.body,owner: req.user._id,vehicleowner:req.user.name,vehicleownermobile:req.user.mobile})
         await booking.save()
-        return res.status(200)       
+        await Vehicle.findOneAndUpdate({number: req.body.vehicle},{active: false})
+        return res.status(200).send("done")       
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* const booking  = new Booking(req.body)
     booking.save().then((a)=>{
@@ -28,7 +30,7 @@ router.post("/booking",auth,async (req,res)=>{
 router.get("/allbooking/vehicleowner",auth,async (req,res)=>{
     try
     {
-        const bookings= await req.user.populate({
+        await req.user.populate({
             path: 'bookings',
             match:{
                 status: 'PENDING'
@@ -40,7 +42,7 @@ router.get("/allbooking/vehicleowner",auth,async (req,res)=>{
             }
         }).execPopulate()
 
-        res.status(200).send(bookings)        
+        res.status(200).send(req.user.bookings)        
         /**
          * await Ticket.find({userid: req.user.mobile}).sort({date: -1}).execFind(function(err,tickets){ 
             if(tickets)
@@ -57,7 +59,7 @@ router.get("/allbooking/vehicleowner",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Booking.find({}).then((a)=>{
         res.status(200)

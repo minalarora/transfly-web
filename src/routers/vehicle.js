@@ -23,15 +23,10 @@ var allupload = upload.fields([{ name: 'rcimage', maxCount: 1 }])
 router.post("/vehicle",auth,allupload,async (req,res)=>{
     try
     {
-       
-        const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile})
-        sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer().then((buffer)=>{
-            vehicle["rcimage"] = buffer
-        }).catch((error)=>{
-            rcimage = null
-        })
+       let buffer = await sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer();
+        const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile,rcimage:buffer})
         await vehicle.save()
-        return res.status(200).send("DONE")      
+        return res.status(200).send("DONE")  
     }
     catch(e)
     {
