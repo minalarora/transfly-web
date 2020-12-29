@@ -18,10 +18,6 @@ var upload = multer({
     },
     fileFilter: function (req, file, cb) {
 
-        if(!file.originalname.match(/\.(jpg|jpeg|png)$/))
-        {
-            return cb(new Error('only image'))
-        }
             return cb(undefined, true);  
 
     }
