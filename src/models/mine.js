@@ -50,12 +50,12 @@ const mineSchema  = mongoose.Schema({
      rate:
      {
          type: Number,
-         required: true
+         default: 0 
      },
      etl:
      {
          type: Number,
-         required: true,
+         default: 0,
          validate(value)
          {
             if(value > 24)
@@ -73,7 +73,19 @@ const mineSchema  = mongoose.Schema({
      {
          type: String,
          required: true
+     }
+     ,
+     arealatitude:
+     {
+         type: String,
+         required: true
      },
+     arealongitude:
+     {
+         type: String,
+         required: true
+     }
+     ,
      landmark:{
          type: String,
          default: "NOT AVAILABLE"
@@ -81,19 +93,19 @@ const mineSchema  = mongoose.Schema({
      transporter:
     {
         type: String,
-        default: undefined,
+        default: null,
         ref: 'Transporter' 
     },
     areamanager:
     {
         type: String,
-        default: undefined,
+        default: null,
         ref: 'AreaManager'
     },
     fieldstaff:
     {
         type:String,
-        default: undefined,
+        default: null,
         ref: 'Fieldstaff'
     }
  

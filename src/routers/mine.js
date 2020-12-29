@@ -9,12 +9,12 @@ router.post("/mine",async (req,res)=>{
     {
         const mine  = new Mine(req.body)
         await mine.save()
-        res.status(201).send(mine)         
+        res.status(200).send(mine)         
     }
     catch(e)
     {
-        console.log(e)
-        res.status(400).send(e)
+        
+        res.status(400).send(e.message)
     }
    /* const mine  = new Mine(req.body)
     mine.save().then((a)=>{
@@ -34,7 +34,7 @@ router.get("/allmine/vehicleowner",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Mine.find({}).then((a)=>{
         res.status(200)
