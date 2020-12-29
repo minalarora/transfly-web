@@ -210,13 +210,13 @@ router.delete("/booking/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            res.status(400).send("booking not found")
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
