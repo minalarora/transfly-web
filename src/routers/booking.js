@@ -89,7 +89,7 @@ router.get("/allbooking/fieldstaff",auth,async (req,res)=>{
                 return mine.id
          })   
          //mongoose.find({title: {$in: sd}})
-        const bookings = await Booking.find({mineid: {$in: minearray},status: 'PENDING'}).sort({createdAt: -1}).execFind(function(err,bookings){ 
+        const bookings = await Booking.find({mineid: {$in: minearray},status: 'PENDING'}).sort({createdAt: -1}).exec(function(err,bookings){ 
             if(bookings)
             {
                 res.status(200).send(bookings)    
@@ -105,10 +105,50 @@ router.get("/allbooking/fieldstaff",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
   
 })
+
+router.get("/allbooking/areamanager",auth,async (req,res)=>{
+    try
+    {
+         await req.user.populate(
+            {
+                path: 'mines',
+                options:{
+                    sort: {
+                        createdAt: -1
+                    }
+                }
+            }).execPopulate()
+
+         let minearray = req.user.mines.map((mine)=>{
+                return mine.id
+         })   
+         //mongoose.find({title: {$in: sd}})
+        const bookings = await Booking.find({mineid: {$in: minearray},status: 'PENDING'}).sort({createdAt: -1}).exec(function(err,bookings){ 
+            if(bookings)
+            {
+                res.status(200).send(bookings)    
+            }
+            else
+            {
+                
+                   res.status(200).send([]) 
+            }
+        }) 
+
+        
+        
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+  
+})
+
 
 router.get("/booking/vehicle/:mobile",auth,async (req,res)=>{
    

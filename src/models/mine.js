@@ -100,7 +100,7 @@ const mineSchema  = mongoose.Schema({
     {
         type: String,
         default: null,
-        ref: 'AreaManager'
+        ref: 'Areamanager'
     },
     fieldstaff:
     {
