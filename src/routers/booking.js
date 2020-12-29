@@ -206,6 +206,7 @@ router.delete("/booking/:id",auth,async (req,res)=>{
         const booking = await Booking.findOneAndDelete({id})
         if(booking!=null)
         {
+            await Vehicle.findOneAndUpdate({number: booking.vehicle},{active: true})
              res.status(200).send(booking)   
         }
         else
