@@ -64,7 +64,8 @@ const fieldstaffSchema = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     aadhaar:
     {
@@ -74,7 +75,8 @@ const fieldstaffSchema = mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     ename: {
         type: String,
@@ -164,7 +166,7 @@ fieldstaffSchema.methods.generateToken = async function(){
 }
 
 
-fieldstaffSchema.methods.getPublicProfile = function()
+fieldstaffSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()

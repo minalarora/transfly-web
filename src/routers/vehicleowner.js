@@ -33,11 +33,11 @@ router.post("/vehicleowner",async (req,res)=>{
         const vehicleowner  = new VehicleOwner(req.body)
         const token=await vehicleowner.generateToken()
         await vehicleowner.save()
-        res.status(200).send({token: "vehicleowner:" + token ,...vehicleowner.getPublicProfile()})
+        res.status(200).send({token: "vehicleowner:" + token ,...vehicleowner.toJSON()})
     }
     catch(e)
     {
-        console.log(e)
+      
         res.status(400).send(e)
     }
    /* const vehicleowner  = new Vehicleowner(req.body)
@@ -49,6 +49,73 @@ router.post("/vehicleowner",async (req,res)=>{
             res.send(e)
     })*/
 })
+
+router.get('/vehicleowner/me',auth,async (req,res)=>{
+    res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON()})
+})
+
+router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
+    try
+    {
+        var names=[];
+       for(key in req.user.toObject())
+       {
+           if(req.user[key] == null)
+            {
+                names.push(key.replace("image",""))
+            }
+       }
+       return res.status(200).send(names)
+    }
+    catch(e)
+    {
+        console.log(e)
+        res.status(400).send(e.message)
+    }
+})
+
+router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
+    try
+    {
+        const updates = Object.keys(req.body)
+        let imageupdates
+        try
+        {
+             imageupdates = Object.keys(req.files)
+        }
+        catch(e)
+        {
+
+        }
+        
+        const allowedUpdates = ['name','mobile','email','password','status',
+        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact']
+        const isValidOperation = updates.every((update)=>{
+                return allowedUpdates.includes(update)
+        })
+        if(!isValidOperation && (updates.length > 0))
+        {
+            return res.status(400).send("Invalid")
+        }
+            
+            updates.forEach((update)=>{
+                req.user[update] = req.body[update] 
+             })
+
+             imageupdates.forEach((update)=>{
+                req.user[update] = req.files[update][0].buffer
+                
+            })
+            
+             await req.user.save()
+            return  res.status(200).send("done")
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+})
+
 
 router.get("/allvehicleowner",auth,async (req,res)=>{
     try
@@ -214,9 +281,7 @@ router.post("/vehicleowner/login",async (req,res)=>{
     }
 })
 
-router.get('/vehicleowner/me',auth,async (req,res)=>{
-    res.status(200).send({token: "vehicleowner:" + req.token ,...vehicleowner.getPublicProfile()})
-})
+
 
 
 

@@ -1,5 +1,13 @@
 
+let arr = [1,2,3,4,5]
+let arr2 = arr.filter((i)=>{
+  return i%2==0
+})
 
+let arr3 = arr.map((i)=>{
+    return i*i;
+})
+console.log(arr3)
 // let nam = undefined
 // if(nam)
 // {

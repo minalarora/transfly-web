@@ -49,7 +49,8 @@ const transporterSchema  =  mongoose.Schema({
     },
     gstimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     sta:
     {
@@ -58,7 +59,8 @@ const transporterSchema  =  mongoose.Schema({
     },
     staimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     pan:
     {
@@ -68,7 +70,8 @@ const transporterSchema  =  mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     aadhaar:
     {
@@ -78,7 +81,8 @@ const transporterSchema  =  mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     mininglicense: {
         type: String,
@@ -86,7 +90,8 @@ const transporterSchema  =  mongoose.Schema({
     },
     mininglicenseimage:
     {
-        type: Buffer
+        type: Buffer,
+        default:null
     },
     tokens: [
         {
@@ -165,7 +170,7 @@ transporterSchema.virtual('mines',{
   })
 
 
-transporterSchema.methods.getPublicProfile = function()
+transporterSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()

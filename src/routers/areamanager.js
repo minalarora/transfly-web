@@ -29,7 +29,7 @@ router.post("/areamanager",async (req,res)=>{
         const areamanager  = new AreaManager(req.body)
         const token=await areamanager.generateToken()
         await areamanager.save()
-        res.status(200).send({token: "areamanager:" + token ,...areamanager.getPublicProfile()})
+        res.status(200).send({token: "areamanager:" + token ,...areamanager.toJSON()})
     }
     catch(e)
     {
@@ -45,6 +45,31 @@ router.post("/areamanager",async (req,res)=>{
             res.send(e)
     })*/
 })
+
+router.get('/areamanager/me',auth,async (req,res)=>{
+    res.status(200).send({token: "areamanager:" + req.token ,...req.user.toJSON()})
+})
+
+router.get('/areamanager/me/pending',auth,async (req,res)=>{
+    try
+    {
+        var names=[];
+       for(key in req.user.toObject())
+       {
+           if(req.user[key] == null)
+            {
+                names.push(key.replace("image",""))
+            }
+       }
+       return res.status(200).send(names)
+    }
+    catch(e)
+    {
+        console.log(e)
+        res.status(400).send(e.message)
+    }
+})
+
 
 router.get("/allareamanager",auth,async (req,res)=>{
     try
@@ -208,9 +233,7 @@ router.post("/areamanager/login",async (req,res)=>{
     }
 })
 
-router.get('/areamanager/me',auth,async (req,res)=>{
-    res.status(200).send({token: "areamanager:" + req.token ,...areamanager.getPublicProfile()})
-})
+
 
 
 router.delete("/areamanager/me",auth,async (req,res)=>{

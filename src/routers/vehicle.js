@@ -2,22 +2,35 @@ const express = require('express')
 const router  = new express.Router()
 const Vehicle = require('../models/vehicle')
 const auth = require('../auth/auth')
+var multer  = require('multer')
+var sharp = require('sharp')
+var upload = multer({
+    limits:
+    {
+        fileSize: 5000000
+    },
+    fileFilter: function (req, file, cb) {
+
+            return cb(undefined, true);  
+
+    }
+})
+
+var allupload = upload.fields([{ name: 'rcimage', maxCount: 1 }])
 
 
 
-router.post("/vehicle",async (req,res)=>{
+router.post("/vehicle",auth,allupload,async (req,res)=>{
     try
     {
-       
-        const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile})
+       let buffer = await sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer();
+        const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile,rcimage:buffer})
         await vehicle.save()
-        return res.status(200)      
+        return res.status(200).send("DONE")  
     }
     catch(e)
     {
-        
-        console.log(e)
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*const vehicle  = new Vehicle(req.body)
     vehicle.save().then((a)=>{
@@ -27,6 +40,8 @@ router.post("/vehicle",async (req,res)=>{
             res.status(400)
             res.send(e)
     })*/
+},(err,req,res,next)=>{
+    return res.status(400).send("middleware error")
 })
 
 router.get("/allvehicle",auth,async (req,res)=>{
@@ -37,7 +52,7 @@ router.get("/allvehicle",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Booking.find({}).then((a)=>{
         res.status(200)

@@ -29,7 +29,7 @@ router.post("/transporter",async (req,res)=>{
         const transporter  = new Transporter(req.body)
         const token=await transporter.generateToken()
         await transporter.save()
-        res.status(200).send({token: "transporter:" + token ,...transporter.getPublicProfile()}) 
+        res.status(200).send({token: "transporter:" + token ,...transporter.toJSON()}) 
     }
     catch(e)
     {
@@ -44,6 +44,32 @@ router.post("/transporter",async (req,res)=>{
             res.send(e)
     })*/
 })
+
+router.get('/transporter/me',auth,async (req,res)=>{
+    res.status(200).send({token: "transporter:" + req.token ,...req.user.toJSON()}) 
+})
+
+router.get('/transporter/me/pending',auth,async (req,res)=>{
+    try
+    {
+        var names=[];
+       for(key in req.user.toObject())
+       {
+           if(req.user[key] == null)
+            {
+                names.push(key.replace("image",""))
+            }
+       }
+       return res.status(200).send(names)
+    }
+    catch(e)
+    {
+        console.log(e)
+        res.status(400).send(e.message)
+    }
+})
+
+
 
 router.get("/alltransporter",auth,async (req,res)=>{
     try
@@ -217,9 +243,6 @@ router.post("/transporter/login",async (req,res)=>{
     }
 })
 
-router.get('/transporter/me',auth,async (req,res)=>{
-    res.status(200).send({token: "transporter:" + req.token ,...transporter.getPublicProfile()}) 
-})
 
 
 

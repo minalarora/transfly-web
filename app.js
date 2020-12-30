@@ -20,6 +20,9 @@ const Ticket = require('./src/routers/ticket')
 const Transporter = require('./src/routers/transporter')
 const Vehicle = require('./src/routers/vehicle')
 const VehicleOwner = require("./src/routers/vehicleowner")
+const Rating = require('./src/routers/rating')
+const Utils = require('./src/routers/utils')
+
 const WebAdmin = require('./src/routers/webadmin')
 const WebAreaManager = require('./src/routers/webareamanager')
 const WebFieldStaff = require('./src/routers/webfieldstaff')
@@ -34,13 +37,13 @@ const WebVehicleOwner = require('./src/routers/webvehicleowner')
 
 
 
+
 const viewsPath = path.join(__dirname, './src/views')
 app.set('view engine', 'ejs')
 app.set('views', viewsPath)
-
-
 // session 
 app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
+
 
 /*app.use((req,res,next)=>{
     /*  if(req.method == 'GET')
@@ -97,6 +100,8 @@ app.use(Ticket)
 app.use(Transporter)
 app.use(Vehicle)
 app.use(VehicleOwner)
+app.use(Rating)
+app.use(Utils)
 
 app.use(helmet())
 app.use(compression())

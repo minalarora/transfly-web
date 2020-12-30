@@ -71,7 +71,7 @@ const vehicleownerSchema  = mongoose.Schema({
     panimage:
     {
         type: Buffer,
-        default: undefined
+        default: null
     },
     tds:
     {
@@ -83,7 +83,7 @@ const vehicleownerSchema  = mongoose.Schema({
     tdsimage:
     {
         type: Buffer,
-        default: undefined
+        default: null
     },
     emergencycontact:
     {

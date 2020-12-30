@@ -12,7 +12,7 @@ router.post("/reward",auth,async (req,res)=>{
         const reward  = new Reward(req.body)
         
         await reward.save()
-        res.status(201).send(reward)      
+        res.status(200).send(reward)      
     }
     catch(e)
     {

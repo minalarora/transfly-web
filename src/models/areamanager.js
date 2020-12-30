@@ -156,13 +156,9 @@ areamanagerSchema.statics.findByMobile = async (mobile,password)=>{
     }
 }
 
-areamanagerSchema.virtual('mines',{
-    ref: 'Mine',
-    localField: 'mobile',
-    foreignField: 'areamanager'
-  })
 
-areamanagerSchema.methods.getPublicProfile = function()
+
+areamanagerSchema.methods.toJSON = function()
 {
     const user = this
     const userobject = user.toObject()
@@ -191,6 +187,6 @@ areamanagerSchema.methods.generateToken = async function(){
 
 
 
-const AreaManager = mongoose.model('AreaManager',areamanagerSchema)
+const AreaManager = mongoose.model('Areamanager',areamanagerSchema)
 
 module.exports = AreaManager

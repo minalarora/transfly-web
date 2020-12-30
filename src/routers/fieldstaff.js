@@ -30,7 +30,7 @@ router.post("/fieldstaff",async (req,res)=>{
         const fieldstaff  = new Fieldstaff(req.body)
         const token=await fieldstaff.generateToken()
         await fieldstaff.save()
-        res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.getPublicProfile()})
+        res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.toJSON()})
     }
     catch(e)
     {
@@ -44,6 +44,30 @@ router.post("/fieldstaff",async (req,res)=>{
             res.status(400)
             res.send(e)
     })*/
+})
+
+router.get('/fieldstaff/me',auth,async (req,res)=>{
+    res.status(200).send({token: "fieldstaff:" + req.token ,...req.user.toJSON()})
+})
+
+router.get('/fieldstaff/me/pending',auth,async (req,res)=>{
+    try
+    {
+        var names=[];
+       for(key in req.user.toObject())
+       {
+           if(req.user[key] == null)
+            {
+                names.push(key.replace("image",""))
+            }
+       }
+       return res.status(200).send(names)
+    }
+    catch(e)
+    {
+        console.log(e)
+        res.status(400).send(e.message)
+    }
 })
 
 router.get("/allfieldstaff",auth,async (req,res)=>{
@@ -209,9 +233,6 @@ router.post("/fieldstaff/login",async (req,res)=>{
     }
 })
 
-router.get('/fieldstaff/me',auth,async (req,res)=>{
-    res.status(200).send({token: "fieldstaff:" + req.token ,...fieldstaff.getPublicProfile()})
-})
 
 
 

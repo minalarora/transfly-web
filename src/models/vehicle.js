@@ -33,7 +33,8 @@ const vehicleSchema = mongoose.Schema({
     } ,
     rcimage:
     {
-        type: Buffer
+        type: Buffer,
+        default: null
     },
     status:
     {
