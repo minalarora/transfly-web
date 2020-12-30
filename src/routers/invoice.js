@@ -3,18 +3,20 @@ const router  = new express.Router()
 const Invoice = require('../models/invoice')
 const auth = require('../auth/auth')
 const Booking = require('../models/booking')
+const Vehicle = require('../models/vehicle')
 
 router.post("/invoice",auth,async (req,res)=>{
     try
     {
-        const invoice  = new Invoice({...req.body,owner: req.user._id})
-        await Booking.findOneAndUpdate({id: req.body.id},{status: "COMPLETED"})
+        const invoice  = new Invoice(req.body)
+        const booking =await Booking.findOneAndUpdate({id: req.body.id},{status: "COMPLETED"})
+        await Vehicle.findOneAndUpdate({number: booking.vehicle},{active: true})
         await invoice.save()
-        return res.status(200)       
+        return res.status(200).send("DONE")       
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* const invoice  = new Invoice(req.body)
     invoice.save().then((a)=>{

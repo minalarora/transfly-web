@@ -150,12 +150,15 @@ router.get("/allbooking/areamanager",auth,async (req,res)=>{
 })
 
 
+
+
 router.get("/booking/vehicle/:mobile",auth,async (req,res)=>{
    
     try
 {
     const mobile = req.params.mobile
-    const vehicles= await Vehicle.find({driverid: mobile})  
+    const vehicles= await Vehicle.find({driverid: mobile,
+    status: 1})  
     res.status(200).send(vehicles.map((vehicle)=>{
         return vehicle.number
     }))      

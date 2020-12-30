@@ -15,21 +15,30 @@ const invoiceSchema  = mongoose.Schema({
     },
     vehicleowner:
     {
-        type: String
+        type: String,
+        ref: 'Vehicleowner'
+    },
+    vehicleownermobile:
+    {
+        type:String
+    }
+,
+    mineid:
+    {
+        type: Number,
+        required: true,
+        ref: 'Mine'
+    },
+
+    minename:
+    {
+        type: String,
+        required: true
     },
 
     loading:
     {
         type: String
-    },
-    minename:
-    {
-        type: String
-    },
- 
-    vehicleownermobile:
-    {
-        type:String
     }
 ,
     tonnage:
@@ -94,18 +103,6 @@ const invoiceSchema  = mongoose.Schema({
         type: String,
         enum : ['PENDING','COMPLETED'],
         default: 'PENDING'
-    },
-    owner:
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Vehicleowner'
-    },
-    mine:
-    {
-        type: Number,
-        required: true,
-        ref: 'Mine'
     },
     date:
     {

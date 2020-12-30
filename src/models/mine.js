@@ -118,7 +118,7 @@ const mineSchema  = mongoose.Schema({
 mineSchema.virtual('invoices',{
     ref: 'Invoice',
     localField: 'id',
-    foreignField: 'mine'
+    foreignField: 'mineid'
 })
 
 
