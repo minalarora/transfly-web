@@ -1,0 +1,7 @@
+/* top nav profile pic round css &*/
+#profile-pic img{
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }

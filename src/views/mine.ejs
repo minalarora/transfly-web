@@ -2,241 +2,242 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
+        }
+    </style>
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-    <!-----------toggle switch ---------------->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
-    <%- include('../partials/structure.ejs') %>
-      <!------------------------------- right content -------------------------------------------->
-      <div class="main">
-        <div class="container-fluid">
-            <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-            </div>
-     <!---------------------------- main content row start here-------------------------------->
-            <div class="row p-3 ">
-                <div class="w-100 text-center text-danger border-bottom">
-                    <h3>
-                        <%= data.mine.name %>
-                    </h3>
-                </div>
+    <div class="d-flex" id="wrapper">
 
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="d-flex w-100 justify-content-end">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
                 <div class="container-fluid">
-                    <br><br>
-                    <div class="row justify-content-around">
-                        <div class="w-50 p-2 bg-white shadow">
-                            <h3 class="text-center">Details</h3>
-                            <table style="width:100%">
-                                <tr>
-                                    <th>Mine id</th>
-                                    <td>:
-                                        <%= data.mine.id %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Loation</th>
-                                    <td>:
-                                        <%= data.mine.area %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Trailer</th>
-                                    <td>:
-                                        <%= data.mine.trailer %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Body Type</th>
-                                    <td>:
-                                        <%= data.mine.bodytype %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Loadings</th>
-                                    <td>:
-                                        <% for (var i =0; i < data.mine.loading.length;  i++ ) { %>
-                                        <%= data.mine.loading[i] + " , " %>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>tyres</th>
-                                    <td>:
-                                        <%= data.mine.tyres %>
-                                    </td>
-                                </tr>
 
-                                <tr>
-                                    <th>Mine active</th>
-                                    <td>:
-                                        <% if( data.mine.active == true) { %>
-                                        Active
-                                        <% } else { %>
-                                            Inactive
-                                            <% }  %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Lat-long:</th>
-                                    <td>:
-                                        <%= data.mine.latitude %>
-                                            <%= data.mine.longitude %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Rate:</th>
-                                    <td>:
-                                        <%= data.mine.rate %> Rs/ sqft
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>ETL:</th>
-                                    <td>:
-                                        <%= data.mine.etl %> hours
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="w-25 shadow">
-                            <div class="bg-success p-2 text-center text-white">
-                                <h5>Update Rate , ETL </h5>
-                            </div>
-                            <div class=" p-2 bg-white">
-                                <form method="POST" action="/webspecificmine/<%= data.mine.id %>">
-                                    <div class="form-group">
-                                        <input type="number" name="etl" class="form-control" id="etl" value="<%= data.mine.etl %>" placeholder="Enter New etl" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" name="rate" class="form-control" id="rate" value="<%= data.mine.rate %>" placeholder="Enter new rate" required>
-                                    </div>
-                                    <div class="radio">
-                                        <label class="radio-inline "><input class="mr-1" type="radio" id="inactive" name="active"
-                                                value="false">Inactive</label>
-                                        <label class="radio-inline "><input class="mr-1" type="radio" id="active" name="active"
-                                                value="true">Active</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
-                        </div>
+                    <!-- Mine heading -->
+                    <div class="row d-flex mr-4 mt-4 ml-2 flex-wrap align-items-center justify-content-between">
 
-                        <!-- 
-                        <div class="w-25 shadow">
-                            <div class="bg-success p-2 text-center text-white">
-                                <h5>Update Rate , ETL </h5>
-                            </div>
-                            <div class=" p-2 bg-white">
-                                <form class="form-inline mb-2" action="/update">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" id="comment" name="text" placeholder="Enter New ETL">
-
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-primary">Update ETL</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <form class="form-inline mb-2" action="/update">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" id="comment" name="text" placeholder="Enter New Rate">
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-primary">Update Rate</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <form action="/action_page.php" class="bg-light rounded">
-                                    <small>Mine state (active/ inactive)</small>
-                                    <div class="radio">
-                                        <label class="radio-inline "><input class="mr-1" type="radio" id="inactive" name="status"
-                                                value="Inactive">Inactive</label>
-                                        <label class="radio-inline "><input class="mr-1" type="radio" id="active" name="status"
-                                                value="Active">Active</label>
-                                        <input type="submit" class="btn btn-primary" value="Update Status">
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div> -->
-                    </div>
-                    <br>
-                    <div class="row justify-content-center">
-                        <div class="w-75">
-                            <div class="p-2 bg-success text-white text-center">
-                                All Bookings in
+                        <div class="w-100 text-danger text-center ">
+                            <h3>
                                 <%= data.mine.name %>
+                            </h3>
+                        </div>
+                        <hr class="w-100">
+                    </div>
+
+                    <!-- mine details -->
+                    <div class="container-fluid">
+                        <br>
+                        <div class="row  justify-content-around">
+                            <!-- details div made a div inside it to show shadow sby giving padding or else col-6 col-6 interfere -->
+                            <div class="col-md-12 col-lg-6 ">
+                                <div class="p-4  bg-white shadow">
+                                    <h3 class="text-center">Details</h3>
+                                    <table class=" table-borderless" style="width:100%">
+                                        <tr>
+                                            <th>Mine id</th>
+                                            <td>:
+                                                <%= data.mine.id %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Loation</th>
+                                            <td>:
+                                                <%= data.mine.area %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Trailer</th>
+                                            <td>:
+                                                <%= data.mine.trailer %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Body Type</th>
+                                            <td>:
+                                                <%= data.mine.bodytype %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Loadings</th>
+                                            <td>:
+                                                <% for (var i =0; i < data.mine.loading.length;  i++ ) { %>
+                                                    <%= data.mine.loading[i] + " , " %>
+                                                        <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>tyres</th>
+                                            <td>:
+                                                <%= data.mine.tyres %>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Mine active</th>
+                                            <td>:
+                                                <% if( data.mine.active == true) { %>
+                                                    Active
+                                                    <% } else { %>
+                                                        Inactive
+                                                        <% }  %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Lat-long:</th>
+                                            <td>:
+                                                <%= data.mine.latitude %>
+                                                    <%= data.mine.longitude %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rate:</th>
+                                            <td>:
+                                                <%= data.mine.rate %> Rs/ sqft
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>ETL:</th>
+                                            <td>:
+                                                <%= data.mine.etl %> hours
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
                             </div>
-                            <div class="bg-white shadow p-2">
-                                <table style="width:100%">
-                                    <tr>
-                                        <th>Invoice Id</th>
-                                        <th>Booking date</th>
-                                        <th>Vehicle No</th>
-                                        <th>Tonnage</th>
-                                        <th>Rate</th>
-                                    </tr>
-                                    <% for (var i =0; i < data.invoices.length;  i++ ) { %>
-                                        <tr>  <td >
-                                            <a href="/webspecificinvoice/<%= data.invoices[i].id %>">
-                                            <%= data.invoices[i].id %></a>
-                                        </td>
-                                            <td>
-                                                <%= data.invoices[i].date %>
-                                            </td>
-                                            <td>
-                                                <%= data.invoices[i].vehicleno %>
-                                            </td>
-                                            <td>
-                                                <%= data.invoices[i].tonnage %>
-                                            </td>
-                                            <td>
-                                                <%= data.invoices[i].rate %>
-                                            </td>
-                                        </tr <% } %>
-                                </table>
+                            <!-- update mine form -->
+                            <div class="col-lg-4 my-4 col-md-12">
+                                <div class="bg-white shadow">
+                                    <div class="bg-success p-2 text-center text-white">
+                                        <h5>Update Rate , ETL </h5>
+                                    </div>
+                                    <div class=" p-2 bg-white">
+                                        <form method="POST" action="/webspecificmine/<%= data.mine.id %>">
+                                            <div class="form-group">
+                                                <input type="number" name="etl" class="form-control" id="etl" value="<%= data.mine.etl %>" placeholder="Enter New etl" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.mine.rate %>" placeholder="Enter new rate"
+                                                    required>
+                                            </div>
+                                            <div class="radio">
+                                                <label class="radio-inline "><input class="mr-1" type="radio" id="inactive"
+                                                        name="active" value="false">Inactive</label>
+                                                <label class="radio-inline "><input class="mr-1" type="radio" id="active"
+                                                        name="active" value="true">Active</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                        <br>
+
+                        <!-- table of bookings  -->
+                        <div class="row justify-content-center">
+                            <div class="mx-lg-4 mx-md-1 col-lg-12">
+                                <div class="p-2 bg-success text-white text-center">
+                                    All Bookings in
+                                    <%= data.mine.name %>
+                                </div>
+                                <div class="bg-white table-responsive shadow px-2">
+                                    <table class="table" style="width:100%">
+                                        <tr>
+                                            <th>Invoice Id</th>
+                                            <th>Booking date</th>
+                                            <th>Vehicle No</th>
+                                            <th>Tonnage</th>
+                                            <th>Rate</th>
+                                        </tr>
+                                        <% for (var i =0; i < data.invoices.length;  i++ ) { %>
+                                            <tr>
+                                                <td>
+                                                    <a href="/webspecificinvoice/<%= data.invoices[i].id %>">
+                                                        <%= data.invoices[i].id %></a>
+                                                </td>
+                                                <td>
+                                                    <%= data.invoices[i].date %>
+                                                </td>
+                                                <td>
+                                                    <%= data.invoices[i].vehicleno %>
+                                                </td>
+                                                <td>
+                                                    <%= data.invoices[i].tonnage %>
+                                                </td>
+                                                <td>
+                                                    <%= data.invoices[i].rate %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+
 
                 </div>
+                <!-- Page content end here  -->
             </div>
-        </div>
+            <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
 
-<!-----------toggle switch ---------------->
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
 
 </html>

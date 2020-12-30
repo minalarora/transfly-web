@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+    <!--Vendor CSS Files -->
+
+    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <link rel="stylesheet" type="text/css" href="../css/vehicle_owner_list.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+</head>
+
+<body>
+    <!--------------------- side nav ------------------------------>
+
+    <%- include('../partials/structure.ejs') %>
+
+        <!------------------------------- right content -------------------------------------------->
+        <div class="main">
+            <div class="container-fluid">
+                <div id="top-nav" class="row p-2 bg-white justify-content-end">
+                    <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
+                </div>
+                <!---------------------------- main content row start here ------------------------------------->
+                <div class="row p-3 ">
+                    <div class="w-100 text-center text-primary border-bottom">
+                        <h3><span class="text-success"> VERIFIED </span> Vehicle Owner List</h3>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <br>
+                        <div class="row justify-content-center">
+                            <div id="search-input-row" class="w-75">
+                                <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterInvoice()" placeholder="  Search for anything to filter data.."
+                                    title="Type in a name">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <table style="width: 100%;" id="invoiceTable">
+                                <tr class="header">
+                                    <th>Name</th>
+                                    <th>Vehicle No</th>
+                                    <th>Mobile</th>
+                                </tr>
+                                <% for (var i =0; i < data.vehicleowner.length;  i++ ) { %>
+                                    <tr>
+                                        <td><a href="/webspecificvehicleowner/<%= data.vehicleowner[i].mobile %>">
+
+                                                <%= data.vehicleowner[i].name %></a>
+                                        </td>
+                                        <td>
+                                            <% for (var j =0; j < data.vehicleowner[i].vehicles.length;  j++ ) { %>
+                                                <%= data.vehicleowner[i].vehicles[j].number %>
+                                                    <% } %>
+
+                                        </td>
+                                        <td>
+                                            <%= data.vehicleowner[i].mobile %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+<script src="../js/bootstrap/bootstrap.min.js"></script>
+<script src="../js/basic_structure.js"></script>
+
+</html>

@@ -2,51 +2,55 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <!--<link rel="stylesheet" type="text/css" href="./css/bootstrap/bootstrap.min.css" />-->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
 
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Bootstrap cdn -->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
+        }
+    </style>
 
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
+    <div class="d-flex" id="wrapper">
 
-    <%- include('../partials/structure.ejs') %>
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
 
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
 
-    <!------------------------------- right content -------------------------------------------->
-    <div class="main">
-        <div class="container-fluid">
-            <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-            </div>
-            <!---------------------------- main content row start here --------------------------------->
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 
-            <div class="row p-3 ">
-                <div class="container-fluid">
-                    <div class="row d-flex align-items-baseline">
-                        <h4 class="mr-2">Add a new </h4>
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="d-flex w-100 justify-content-end">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
+
+                <!-- select admin or finance -->
+                <div class="container-fluid my-4 mx-md-2 mx-4 ">
+                    <div class="row  align-items-baseline">
+                        <p class="mr-2">Add a new </p>
                         <a href="javascript:void(0)" class="btn btn-primary mr-2" onclick="addAdminForm()">Admin</a>
                         <p>Or</p>
                         <a href="javascript:void(0)" class="btn btn-success ml-2 mr-2" onclick="addFinanceForm()"> Finance
@@ -55,148 +59,174 @@
                     </div>
                 </div>
 
-                <div class="container mt-4" style="display: none" id="addAdminForm">
-                    <div class="w-75 bg-white border rounded">
-                        <h4 class="text-center p-2 bg-primary text-white"> App Admin Form</h4>
-                        <form method="POST" class="p-4" action="/addofficial/admin"  enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                                    else.
-                                </small>
-                            </div>
-                            <div class="form-group">
-                                <label for="first_name"> Name</label>
-                                <input type="text" name="name" class="form-control" id="firstname" placeholder="Enter First Name" required>
-                            </div>
-                           
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="text" name="password" class="form-control" id="password" placeholder="Enter new Password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobile">Mobile</label>
-                                <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="accountno">Account Number</label>
-                                <input type="text" name="accountno" class="form-control" id="accountno" placeholder="Enter Account number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="IFSC">IFSC Code</label>
-                                <input type="text" name="ifsc" class="form-control" id="ifsc" placeholder="Enter IFSC code" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="bankname">Bank Name</label>
-                                <input type="text" name="bankname" class="form-control" id="bankname" placeholder="Enter Bank Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="pan">PAN</label>
-                                <input type="text" name="pan" class="form-control" id="pan" placeholder="Enter PAN" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="files">Pan sacnned copy:</label>
-                                <input type="file" id="files" name="panimage"  >
-                            </div>
-                            <div class="form-group">
-                                <label for="Aadhar">Aadhar</label>
-                                <input type="text" name="aadhaar" class="form-control" id="aadhaar" placeholder="Enter Aadhar number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="files">Aadhar sacnned copy:</label>
-                                <input type="file" id="files" name="aadhaarimage"  >
-                            </div>                            
-                            <div class="form-group">
-                                <label for="ename">Emergengy contact Person Name</label>
-                                <input type="text" name="ename" class="form-control" id="ename" placeholder="Emergengy contact Person Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="erelation">Emergengy Relation with Emergengy Person</label>
-                                <input type="text" name="erelation" class="form-control" id="erelation" placeholder="Enter Realation with Emergency person"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="emobile">Emergency contact</label>
-                                <input type="text" name="emobile" class="form-control" id="emobile" placeholder="Enter Emergengy contact " required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                <!-- mesage of updated profile -->
+                <% if(data.message){ %>
+                    <div class="alert mb-4 alert-<%=data.color  %>">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Alert! </strong> <%= data.message %>
                     </div>
+                    <% } %>
 
-                </div>
+                        <!-- admin form -->
+                        <div class="container mt-4" style="display: none" id="addAdminForm">
+                            <div class="w-75 bg-white border rounded">
+                                <h4 class="text-center p-2 bg-primary text-white"> App Admin Form</h4>
+                                <form method="POST" class="p-4" action="/addofficial/admin" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="email">Email address</label>
+                                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                            anyone else.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first_name"> Name</label>
+                                        <input type="text" name="name" class="form-control" id="firstname" placeholder="Enter First Name" required>
+                                    </div>
 
-                <div class="container mt-4 " style="display: none" id="addFinanceForm">
-                    <div class="w-75 bg-white border rounded">
-                        <h4 class="text-center p-2 text-white bg-success"> Finance Admin Form</h4>
-                        <form method="POST" class="p-4"action="/addofficial/finance"  enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                                    else.
-                                </small>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="text" name="password" class="form-control" id="password" placeholder="Enter new Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile</label>
+                                        <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accountno">Account Number</label>
+                                        <input type="text" name="accountno" class="form-control" id="accountno" placeholder="Enter Account number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="IFSC">IFSC Code</label>
+                                        <input type="text" name="ifsc" class="form-control" id="ifsc" placeholder="Enter IFSC code" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bankname">Bank Name</label>
+                                        <input type="text" name="bankname" class="form-control" id="bankname" placeholder="Enter Bank Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pan">PAN</label>
+                                        <input type="text" name="pan" class="form-control" id="pan" placeholder="Enter PAN" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="files">Pan sacnned copy:</label>
+                                        <input type="file" id="files" name="panimage">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Aadhar">Aadhar</label>
+                                        <input type="text" name="aadhaar" class="form-control" id="aadhaar" placeholder="Enter Aadhar number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="files">Aadhar sacnned copy:</label>
+                                        <input type="file" id="files" name="aadhaarimage">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ename">Emergengy contact Person Name</label>
+                                        <input type="text" name="ename" class="form-control" id="ename" placeholder="Emergengy contact Person Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="erelation">Emergengy Relation with Emergengy Person</label>
+                                        <input type="text" name="erelation" class="form-control" id="erelation" placeholder="Enter Realation with Emergency person"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emobile">Emergency contact</label>
+                                        <input type="text" name="emobile" class="form-control" id="emobile" placeholder="Enter Emergengy contact " required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
                             </div>
-                            <div class="form-group">
-                                <label for="first_name">Name</label>
-                                <input type="text" name="name" class="form-control" id="firstname" placeholder="Enter First Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="text" name="password" class="form-control" id="password" placeholder="Enter new Password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="mobile">Mobile</label>
-                                <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="accountno">Account Number</label>
-                                <input type="text" name="accountno" class="form-control" id="accountno" placeholder="Enter Account number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="IFSC">IFSC Code</label>
-                                <input type="text" name="ifsc" class="form-control" id="ifsc" placeholder="Enter IFSC code" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="bankname">Bank Name</label>
-                                <input type="text" name="bankname" class="form-control" id="bankname" placeholder="Enter Bank Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="pan">PAN</label>
-                                <input type="text" name="pan" class="form-control" id="pan" placeholder="Enter PAN" required>
-                            </div> <div class="form-group">
-                                <label for="files">Pan sacnned copy:</label>
-                                <input type="file" id="files" name="panimage"  >
-                            </div>
-                            <div class="form-group">
-                                <label for="Aadhar">Aadhar</label>
-                                <input type="text" name="aadhaar" class="form-control" id="aadhaar" placeholder="Enter Aadhar number" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="files">Aadhar sacnned copy:</label>
-                                <input type="file" id="files" name="aadhaarimage"  >
-                            </div>   
-                            <div class="form-group">
-                                <label for="ename">Emergengy contact Person Name</label>
-                                <input type="text" name="ename" class="form-control" id="ename" placeholder="Emergengy contact Person Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="erelation">Emergengy Relation with Emergengy Person</label>
-                                <input type="text" name="erelation" class="form-control" id="erelation" placeholder="Enter Realation with Emergency person"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="emobile">Emergency contact</label>
-                                <input type="text" name="emobile" class="form-control" id="emobile" placeholder="Enter Emergengy contact " required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                    </div>
 
-                </div>
+                        </div>
+
+                        <!-- finannce form -->
+                        <div class="container  mt-4 " style="display: none" id="addFinanceForm">
+                            <div class="w-75 bg-white border rounded">
+                                <h4 class="text-center p-2 text-white bg-success"> Finance Admin Form</h4>
+                                <form method="POST" class="p-4" action="/addofficial/finance" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="email">Email address</label>
+                                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                            anyone else.
+                                        </small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first_name">Name</label>
+                                        <input type="text" name="name" class="form-control" id="firstname" placeholder="Enter First Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="text" name="password" class="form-control" id="password" placeholder="Enter new Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile</label>
+                                        <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Enter mobile number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="accountno">Account Number</label>
+                                        <input type="text" name="accountno" class="form-control" id="accountno" placeholder="Enter Account number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="IFSC">IFSC Code</label>
+                                        <input type="text" name="ifsc" class="form-control" id="ifsc" placeholder="Enter IFSC code" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bankname">Bank Name</label>
+                                        <input type="text" name="bankname" class="form-control" id="bankname" placeholder="Enter Bank Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pan">PAN</label>
+                                        <input type="text" name="pan" class="form-control" id="pan" placeholder="Enter PAN" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="files">Pan sacnned copy:</label>
+                                        <input type="file" id="files" name="panimage">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Aadhar">Aadhar</label>
+                                        <input type="text" name="aadhaar" class="form-control" id="aadhaar" placeholder="Enter Aadhar number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="files">Aadhar sacnned copy:</label>
+                                        <input type="file" id="files" name="aadhaarimage">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ename">Emergengy contact Person Name</label>
+                                        <input type="text" name="ename" class="form-control" id="ename" placeholder="Emergengy contact Person Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="erelation">Emergengy Relation with Emergengy Person</label>
+                                        <input type="text" name="erelation" class="form-control" id="erelation" placeholder="Enter Realation with Emergency person"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emobile">Emergency contact</label>
+                                        <input type="text" name="emobile" class="form-control" id="emobile" placeholder="Enter Emergengy contact " required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <!-- Page content end here  -->
             </div>
-        </div>
+            <!-- /#page-content-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
 
@@ -231,9 +261,5 @@
         }
     }
 </script>
-
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
-
 
 </html>

@@ -1,0 +1,26 @@
+<!-- Sidebar -->
+<div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading d-flex justify-content-center">
+        <img src="../images/logo.jpg" width="100" height="100" alt="">
+    </div>
+    <div class="list-group list-group-flush">
+        <a href="/webfinance" class="list-group-item list-group-item-action bg-light">My Profile</a>
+        <a href="/updatefinanceprofile" class="list-group-item list-group-item-action bg-light">Update your bank</a>
+
+        <a href="#" data-toggle="collapse" data-target="#transportermenu" class="list-group-item nav-link collapsed  list-group-item-action bg-light">
+            Invoice Reports
+            <i class="fa fa-caret-down mt-1"></i>
+        </a>
+        <div class="collapse" id="transportermenu" aria-expanded="false">
+            <ul class="flex-column nav pl-4">
+                <li class="nav-item">
+                    <a class="nav-link p-1" href="/webfinanceinvoice?status=PENDING&page=1"> Pending Invoice Request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-1" href="/webfinanceinvoice?status=COMPLETED&page=1">All Completed Invoices</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /#sidebar-wrapper -->

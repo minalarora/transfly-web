@@ -2,70 +2,82 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
-    <link href=".../static/vendor/icofont/icofont.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
-    <link rel="stylesheet" type="text/css" href="../css/employee_profile_general.css" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
+
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
+        }
+    </style>
 
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
-    <%- include('../partials/structure.ejs') %>
+    <div class="d-flex" id="wrapper">
 
-    <!------------------------------- right content -------------------------------------------->
-    <div class="main">
-        <div class="container-fluid">
-            <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-            </div>
-            <!---------------------------- main content row start here-->
-            <div class="row p-3 ">
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
 
-                <br>
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
                 <div class="container-fluid">
-                    <!-- profile photo with name -->
-                    <div class="row justify-content-between align-items-baseline">
-                        <div class="d-flex justify-content-start align-items-center mt-4">
+                    <!-- profile pic and names -->
+                    <div class="row d-flex mr-4 mt-4 ml-2 flex-wrap align-items-center justify-content-between">
+
+                        <div class="d-flex flex-wrap align-items-center justify-content-lg-start">
                             <div id="profile-pic" class="mr-4">
                                 <img src="../images/avatar.png" alt="">
                             </div>
                             <div class="d-flex flex-column">
-                                <h3> <%= data.fieldstaff.name %> </h3>
+                                <h3>
+                                    <%= data.fieldstaff.name %>
+                                </h3>
                                 <p>(fieldstaff)</p>
                             </div>
-                        </div>
-                        <div><img src="../images/fieldstaff.jpg" class="mr-4" width="130" height="90" alt=""></div>
 
+                        </div>
+                        <div class="mt-2">
+                            <img src="../images/truck.png" class="mr-4" width="100" height="70" alt="">
+                        </div>
                     </div>
+
+                    <!-- personal and bank details  -->
                     <br><br>
-                    <div id="profile-content" class="row justify-content-start">
-                        <div class="w-100 mr-4">
+                    <div id="profile-content" class="row justify-content-start mr-4">
+                        <div class="col-lg-6 mt-2 col-md-12">
                             <div class="pl-2 pt-3 pb-2 bg-primary text-light">
                                 <h5>Personal Details</h5>
                             </div>
-                            <div class="p-3 bg-white">
-                                <table style="width:100%">
+                            <div class="p-3 table-responsive shadow bg-light">
+                                <table class="table table-borderless" style="width:100%">
                                     <tr>
                                         <th>Mobile:</th>
                                         <td>
@@ -99,12 +111,13 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="w-50 bg-white">
+
+                        <div class="col-lg-6 mt-2 col-md-12 ">
                             <div class="pl-2 pt-2 pb-1 bg-success text-light">
                                 <h5>Bank Details</h5>
                             </div>
-                            <div class="p-3 bg-white">
-                                <table style="width:100%">
+                            <div class="p-3 table-responsive shadow bg-light ">
+                                <table class="table table-borderless" style="width:100%">
                                     <tr>
                                         <th>Ifsc:</th>
                                         <td>
@@ -125,13 +138,19 @@
                                     </tr>
                                 </table>
                             </div>
+
                         </div>
-                        <div class="w-50 bg-white">
+                    </div>
+
+                    <!--vehicle details table  -->
+                    <br>
+                    <div id="profile-content" class="row justify-content-start mr-4">
+                        <div class="col-md-12 col-lg-6 box-shadow">
                             <div class="pl-2 pt-2 pb-1 bg-success text-light">
                                 <h5>Emergency Contact Details</h5>
                             </div>
-                            <div class="p-3 bg-white">
-                                <table style="width:100%">
+                            <div class="p-3 table-responsive shadow bg-light">
+                                <table class="table table-borderless" style="width:100%">
                                     <tr>
                                         <th>Emergency person name:</th>
                                         <td>
@@ -154,101 +173,29 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-------    commented if needed uncomment it 
                     <br><br>
-                    <div class="row">
-                        <div class="w-50 bg-white">
-                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
-                                <h5>No of vehicles Details</h5>
-                            </div>
-                            <div class="p-3 bg-white">
-                                <table style="width:100%">
-                                    <tr>
-                                        <th>Vehicle Number:</th>
-                                        <th>RC number
-                                            </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mp05vd5667</td>
-                                        <td>3450997289958</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mp05vd5667</td>
-                                        <td>3450997289958</td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="row">
-                        <div class="w-75">
-                            <div class="pl-2 pt-3 pb-2 bg-primary text-center text-light">
-                                <h5>Invoice Details</h5>
-                            </div>
-                            <div id="vo_invoice_container" class="container-fluid bg-white">
-                                <div class="row p-2 justify-content-between">
-                                    <table style="width:100%">
-                                        <tr>
-                                            <th>Mine Id</th>
-                                            <th>Invoice id</th>
-                                            <th>Date</th>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                        <tr>
-                                            <td>234ertr</td>
-                                            <td>1234</td>
-                                            <td>28-nov-2020</td>
-                                        </tr>
-                                    </table>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
+                <!-- Page content end here  -->
             </div>
-        </div>
+            <!-- /#page-content-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
 
 </html>
