@@ -1,89 +1,73 @@
 const express = require('express')
-const router  = new express.Router()
+const router = new express.Router()
 const Admin = require('../models/admin')
 const AreaManager = require('../models/areamanager')
 const Booking = require('../models/booking')
 const Fieldstaff = require('../models/fieldstaff')
 const Finance = require('../models/finance')
-const Invoice  = require('../models/invoice')
-const Mine =  require('../models/mine')
-const Ticket =  require('../models/ticket')
+const Invoice = require('../models/invoice')
+const Mine = require('../models/mine')
+const Ticket = require('../models/ticket')
 const Transporter = require('../models/transporter')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
 
-const jwt= require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
- 
+
 router.use(cookieParser())
 
-router.get('/webfieldstaffall',async (req,res)=>{
-    try
-    {
+router.get('/webfieldstaffall', async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
-            const fieldstaff= await Fieldstaff.find({status: 2}).exec()  
-        
-            let data ={
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
+            const fieldstaff = await Fieldstaff.find({ status: 2 }).exec()
+
+            let data = {
                 fieldstaff: []
             }
-            for(var i = 0;i<fieldstaff.length;i++)
-            {
+            for (var i = 0; i < fieldstaff.length; i++) {
                 await fieldstaff[i].populate('mines').execPopulate()
-                let t =  fieldstaff[i].toObject()
-                
-                if(fieldstaff[i].mines.length != 0)
-                {
+                let t = fieldstaff[i].toObject()
+
+                if (fieldstaff[i].mines.length != 0) {
                     t.mine = fieldstaff[i].mines[0].name
                 }
-                else
-                {
+                else {
                     t.mine = "NOT ALLOTTED"
                 }
-               
+
                 data.fieldstaff.push(t)
-              
+
             }
 
 
-           
 
-            console.log(data.fieldstaff[0].mine)
-
-            
-            
-           
-           return res.render('fieldstaff_list',{data})
+            return res.render('fieldstaff_list', { data })
         }
-        else
-        {
+        else {
             console.log('admin not found in all area manager')
         }
 
     }
-    catch(e)
-    {
+    catch (e) {
         console.log(e)
     }
 })
 
-router.get('/webspecificfieldstaff/:mobile',async (req,res)=>{
-    try
-    {
+router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
             const mobile = req.params.mobile
-            const fieldstaff = await Fieldstaff.findOne({mobile})
-             if(fieldstaff!=null)
-            {
+            const fieldstaff = await Fieldstaff.findOne({ mobile })
+            if (fieldstaff != null) {
                 // await fieldstaff.populate('mines').execPopulate()
                 // if(fieldstaff.mines.length !=0 )
                 // {
@@ -100,128 +84,113 @@ router.get('/webspecificfieldstaff/:mobile',async (req,res)=>{
                 //     }
                 //     return res.render('field_staff_profile',{data})
                 // }    
-                
-                
 
-                let data ={
+
+
+                let data = {
                     fieldstaff: {}
                 }
-                    await fieldstaff.populate('mines').execPopulate()
-                    let t =  fieldstaff.toObject()
-                    
-                    if(fieldstaff.mines.length != 0)
-                    {
-                        t.mine = fieldstaff.mines[0].name
-                    }
-                    else
-                    {
-                        t.mine = "NOT ALLOTTED"
-                    }
-                   data.fieldstaff = t;
-                   console.log(data.fieldstaff.mine)
-                   return res.render('field_staff_profile',{data})
-    
+                await fieldstaff.populate('mines').execPopulate()
+                let t = fieldstaff.toObject()
+
+                if (fieldstaff.mines.length != 0) {
+                    t.mine = fieldstaff.mines[0].name
+                }
+                else {
+                    t.mine = "NOT ALLOTTED"
+                }
+                data.fieldstaff = t;
+                console.log(data.fieldstaff.mine)
+                return res.render('field_staff_profile', { data })
+
             }
-            else
-            {
+            else {
                 console.log('fieldstaff member not found')
-            }    
+            }
         }
-        else
-        {
+        else {
             console.log('admin not found in single fieldstaff')
         }
     }
-    catch(e)
-    {
+    catch (e) {
         console.log(e)
     }
 })
 
-router.get("/fieldstaffrequest",async (req,res)=>{
-    try
-    {
+router.get("/fieldstaffrequest", async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
-            const fieldstaff= await Fieldstaff.find({status: 1})  
-            let data ={
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
+            const fieldstaff = await Fieldstaff.find({ status: 1 })
+            let data = {
                 fieldstaff: fieldstaff
             }
-           return res.render('fieldstaff_request',{data})
+            return res.render('fieldstaff_request', { data })
         }
-        else
-        {
+        else {
             console.log('admin not found in all finance')
         }
     }
-    catch(e)
-    {
+    catch (e) {
         console.log(e)
     }
-  
+
 })
 
 
-router.get("/fieldstaff_request_action/:mobile",async (req,res)=>{
-    try
-    {
-        const mobile =  req.params.mobile
-     const fieldstaff = await Fieldstaff.findOne({mobile})
-     if(fieldstaff)
-     {
-         // const obj  = {...req.body}
-        
- 
-         fieldstaff["status"] = 2
-         await fieldstaff.save()
-         res.redirect("/fieldstaffrequest")
-     }
+router.get("/fieldstaff_request_action/:mobile", async (req, res) => {
+    try {
+        const mobile = req.params.mobile
+        const fieldstaff = await Fieldstaff.findOne({ mobile })
+        if (fieldstaff) {
+            // const obj  = {...req.body}
+
+
+            fieldstaff["status"] = 2
+            await fieldstaff.save()
+            res.redirect("/fieldstaffrequest")
+        }
     }
-    catch(e)
-    {
+    catch (e) {
         res.redirect("/fieldstaffrequest")
     }
- })
+})
 
-router.post("/fieldstaff_request_action/:mobile",async (req,res)=>{
-   try
-   {
-       const mobile =  req.params.mobile
-    const fieldstaff = await Fieldstaff.findOne({mobile})
-    if(fieldstaff)
-    {
-        // const obj  = {...req.body}
-        const updates = Object.keys(req.body)
-       
-        updates.forEach((update)=>{
-            fieldstaff[update] = "NOT AVAILABLE",
-            fieldstaff[req.body[update]] = undefined
-        })
+router.post("/fieldstaff_request_action/:mobile", async (req, res) => {
+    try {
+        const mobile = req.params.mobile
+        const fieldstaff = await Fieldstaff.findOne({ mobile })
+        if (fieldstaff) {
+            // const obj  = {...req.body}
+            const updates = Object.keys(req.body)
 
-        fieldstaff["status"] = 0
-        await fieldstaff.save()
+            updates.forEach((update) => {
+                fieldstaff[update] = "NOT AVAILABLE",
+                    fieldstaff[req.body[update]] = undefined
+            })
+
+            fieldstaff["status"] = 0
+            await fieldstaff.save()
+            res.redirect("/fieldstaffrequest")
+        }
+    }
+    catch (e) {
         res.redirect("/fieldstaffrequest")
     }
-   }
-   catch(e)
-   {
-    res.redirect("/fieldstaffrequest")
-   }
 })
 
 
-router.get('/getfieldstaffdata/:mobile',async (req,res)=>{
+router.get('/getfieldstaffdata/:mobile', async (req, res) => {
     const mobile = req.params.mobile
-    const fieldstaff = await Fieldstaff.findOne({mobile})
+    const fieldstaff = await Fieldstaff.findOne({ mobile })
     const object = fieldstaff.toObject()
-    
+
     delete object.__v
     delete object.tokens
     delete object._id
-   
+
     return res.send(object)
 
 
@@ -229,4 +198,4 @@ router.get('/getfieldstaffdata/:mobile',async (req,res)=>{
 })
 
 
-module.exports =  router
+module.exports = router

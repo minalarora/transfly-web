@@ -2,15 +2,25 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
+
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <style>
         .block {
@@ -21,22 +31,29 @@
             position: relative;
         }
     </style>
+
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
-    <%- include('../partials/structure.ejs') %>
+    <div class="d-flex" id="wrapper">
 
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
 
-        <!------------------------------- right content -------------------------------------------->
-        <div class="main">
-            <div class="container-fluid">
-                <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                    <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-                </div>
-                <!---------------------------- main content row start here ---------------------------->
-                <div class="container mt-4" id="addAdminForm">
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
+                <div class="container mt-4" id="addVehichle_resale">
+                    <!-- form  -->
                     <div class="w-75 bg-white border rounded">
                         <h4 class="text-center p-2 bg-primary text-white"> Add New Resale Vehicle</h4>
                         <form method="POST" class="p-4" action="/add_resale_vehicle" enctype="multipart/form-data">
@@ -52,10 +69,10 @@
                                 <label for="password">year</label>
                                 <input type="text" name="year" class="form-control" id="password" placeholder="Enter Year" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="files">Add photos:</label>
-                                <input type="file" id="files" name="vehicleimage" multiple >
+                                <input type="file" id="files" name="vehicleimage" multiple>
                             </div>
                             <div class="p-1">
                                 <div class="form-check">
@@ -70,63 +87,63 @@
                                         2
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="3" value="3">Option
                                         3
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="4" value="4">Option
                                         4
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="5" value="5">Option
                                         5
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="6" value="6">Option
                                         6
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="7" value="7">Option
                                         7
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="8" value="8">Option
                                         8
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="9" value="9">Option
                                         9
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="10" value="10">Option
                                         10
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="11" value="11">Option
@@ -134,14 +151,14 @@
                                     </label>
                                 </div>
 
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="12" value="12">Option
                                         12
                                     </label>
                                 </div>
-                                
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="check2">
                                         <input type="checkbox" class="form-check-input" id="check2" name="13" value="13">Option
@@ -152,17 +169,29 @@
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
-
+                    <br><br>
                 </div>
-                <!-------------------------- container of search and card end here --------------------->
+                <!-- Page content end here  -->
             </div>
+            <!-- /#page-content-wrapper -->
 
-        </div>
-        </div>
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
-
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
 
 </html>

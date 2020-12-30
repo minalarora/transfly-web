@@ -2,247 +2,234 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
 
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
     <link rel="stylesheet" type="text/css" href="../css/approval_request_general.css" />
+
+
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- bootstrap  -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        #right_side_pane
-{
-    position: absolute;
-    display: none;
-    height: 100vh;
-    overflow-y: scroll;
-    width: 0%;
-}
-#right_side_pane > div:first-child
-{
-    position: fixed;
-    z-index: 5;
-    width: 49%;
-    background: rgb(92, 86, 86);
-    
-}
-#right_side_pane > div:last-child
-{
-   margin-top: 100px;
-}
-#right_side_pane #document_container img
-{
-    width: inherit;
-    margin-bottom: 25px;
-}
-    </style>
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
- 
-    <%- include('../partials/structure.ejs') %>
 
-    <!-------------------------------main content other than basic structure ------------------------------>
+    <div class="d-flex" id="wrapper">
 
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
 
-    <!------------------------------------------ right content -------------------------------------------->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
 
-    <div id="rejection_form_model" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
 
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <h4>Please Select the reason for rejection </h4>
-                    <form method="POST" id="reject_form" class="p-4" action="">
-                        <div class="form-check">
-                            <label class="form-check-label" for="check1">
-                                <input type="checkbox" class="form-check-input" id="check1" name="aadhaar" value="aadhaarimage" checked>Aadhar
-                                incorrect
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="gst" value="gstimage">Problem
-                                with GST
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="sta" value="staimage">Problem
-                                with STA
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="mininglicense" value="mininglicenseimage">Problem
-                                with Mining Liscense
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label" for="check2">
-                                <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">Problem
-                                with Pan
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="bg-dark container" id="right_side_pane">
-        <div class="row justify-content-between p-4">
-            <div>
-                <a href="" id="approve_btn" class="btn btn-success mr-2">Approve</a>
-                <a href="javascript:void(0)" id="reject_btn" data-toggle="modal" data-target="#rejection_form_model" class="btn btn-danger mr-2">Reject</a>
-            </div>
-            <a href="javascript:void(0)" class="h2" onclick="close_side_pane()"><i class="fa fa-close text-danger"></i></a>
-        </div>
-        <div id="VehicleOwnerid" class="pl-4 pr-4 ">
-            <div class="p-3 text-white w-100">
-                <table>
-                    <tr>
-                        <th>Name:</th>
-                        <td id="name">8767876545</td>
-                    </tr>
-                    <tr>
-                        <th>Mobile:</th>
-                        <td id="email">8767876545</td>
-                    </tr>
-                    <tr>
-                        <th>Email:</th>
-                        <td id="mobile">8767876545</td>
-                    </tr>
-                    <tr>
-                        <th>accountno:</th>
-                        <td id="accountno">8767876545</td>
-                    </tr>
-                    <tr>
-                        <th>ifsc:</th>
-                        <td id="ifsc">xyz@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <th>gst:</th>
-                        <td id="gst">888766564434</td>
-                    </tr>
-                    <tr>
-                        <th>sta:</th>
-                        <td id="sta">Bhopal</td>
-                    </tr>
-                    <tr>
-                        <th>mininglicence:</th>
-                        <td id="mininglicence">Bhopal</td>
-                    </tr>
-                    <tr>
-                        <th>aadhar:</th>
-                        <td id="aadhaar">Bhopal</td>
-                    </tr>
-                    <tr>
-                        <th>pan:</th>
-                        <td id="pan">Bhopal</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="container" id="document_container">
-                <div class="row w-100">
-                    <div class="col-12">
-                        <img target="_blank" id="staimage" alt="not avaliable">
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class=" ">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
                     </div>
-                    <div class="col-12">
-                        <img target="_blank" id="gstimage" alt="not avaliable">
-                    </div>
-                    <div class="col-12">
-                        <img target="_blank" id="aadhaarimage" alt="not avaliable">
-                    </div>
-                    <div class="col-12">
-                        <img target="_blank" id="mininglicenseimage" alt="not avaliable">
-                    </div>
-                    <div class="col-12">
-                        <img target="_blank" id="panimage" alt="not avaliable">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </nav>
 
-    <div class="main">
-        <div class="container-fluid">
-            <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/logout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-            </div>
-            <!---------------------------- main content row start here-->
-            <div class="row p-3 ">
-                <div class="w-100 text-center text-primary border-bottom">
-                    <h3>Transporters Approval Request</h3>
-                </div>
-                <div class="container-fluid">
-                    <% for (var i =0; i < data.transporter.length;  i++ ) { %>
-                        <div id="request-card" class="row mb-4 d-flex align-items-end justify-content-between p-3 bg-white">
-                            <div id="">
-                                <h5>
-                                    <%= data.transporter[i].name %> (
-                                        <%= data.transporter[i].mobile %>)
-                                </h5>
-                                <p>Email :
-                                    <%= data.transporter[i].email %>
-                                </p>
-                                <a href="javascript:void(0)" onclick="showRequestDetails(<%= i %> , <%= data.transporter[i].mobile %>)" class="btn btn-primary">Show
-                                    more details
-                                </a>
+                <!-- rejection modal top  -->
+                <div id="rejection_form_model" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Heading</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <h4>Please Select the reason for rejection </h4>
+                                <form method="POST" id="reject_form" class="p-4" action="">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="check1">
+                                            <input type="checkbox" class="form-check-input" id="check1" name="aadhaar" value="aadhaarimage" checked>Aadhar
+                                            incorrect
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="check2">
+                                            <input type="checkbox" class="form-check-input" id="check2" name="gst" value="gstimage">Problem
+                                            with GST
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="check2">
+                                            <input type="checkbox" class="form-check-input" id="check2" name="sta" value="staimage">Problem
+                                            with STA
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="check2">
+                                            <input type="checkbox" class="form-check-input" id="check2" name="mininglicense" value="mininglicenseimage">Problem
+                                            with Mining Liscense
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="check2">
+                                            <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">Problem
+                                            with Pan
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
                         </div>
-                        <% } %>
+                    </div>
                 </div>
+
+                <!-- right side pane  -->
+                <div class="bg-dark w-md-100 w-sm-100 w-lg-50 container" id="right_side_pane">
+                    <div class="row justify-content-between p-4">
+                        <div>
+                            <a href="" id="approve_btn" class="btn btn-success mr-2">Approve</a>
+                            <a href="javascript:void(0)" id="reject_btn" data-toggle="modal" data-target="#rejection_form_model" class="btn btn-danger mr-2">Reject</a>
+                        </div>
+                        <a href="javascript:void(0)" class="h2" onclick="close_side_pane()"><i class="fa fa-close text-danger"></i></a>
+                    </div>
+                    <div id="VehicleOwnerid" class="pl-4 pr-4 ">
+                        <div class="p-3 text-white w-100">
+                            <table>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td id="name">8767876545</td>
+                                </tr>
+                                <tr>
+                                    <th>Mobile:</th>
+                                    <td id="email">8767876545</td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td id="mobile">8767876545</td>
+                                </tr>
+                                <tr>
+                                    <th>accountno:</th>
+                                    <td id="accountno">8767876545</td>
+                                </tr>
+                                <tr>
+                                    <th>ifsc:</th>
+                                    <td id="ifsc">xyz@gmail.com</td>
+                                </tr>
+                                <tr>
+                                    <th>gst:</th>
+                                    <td id="gst">888766564434</td>
+                                </tr>
+                                <tr>
+                                    <th>sta:</th>
+                                    <td id="sta">Bhopal</td>
+                                </tr>
+                                <tr>
+                                    <th>mininglicence:</th>
+                                    <td id="mininglicence">Bhopal</td>
+                                </tr>
+                                <tr>
+                                    <th>aadhar:</th>
+                                    <td id="aadhaar">Bhopal</td>
+                                </tr>
+                                <tr>
+                                    <th>pan:</th>
+                                    <td id="pan">Bhopal</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="container" id="document_container">
+                            <div class="row w-100">
+                                <div class="col-12">
+                                    <img target="_blank" id="staimage" alt="not avaliable">
+                                </div>
+                                <div class="col-12">
+                                    <img target="_blank" id="gstimage" alt="not avaliable">
+                                </div>
+                                <div class="col-12">
+                                    <img target="_blank" id="aadhaarimage" alt="not avaliable">
+                                </div>
+                                <div class="col-12">
+                                    <img target="_blank" id="mininglicenseimage" alt="not avaliable">
+                                </div>
+                                <div class="col-12">
+                                    <img target="_blank" id="panimage" alt="not avaliable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- page content start here -->
+                <div class="container-fluid">
+                    <div class="row p-3">
+                        <div class="w-100 mb-4 text-center text-primary border-bottom">
+                            <h3>Transporters Approval Request</h3>
+                        </div>
+                        <div class="container-fluid">
+                            <% for (var i =0; i < data.transporter.length;  i++ ) { %>
+                                <div id="request-card" class="row border shadow mb-4 d-flex align-items-end justify-content-between p-3 bg-white">
+                                    <div id="">
+                                        <h5>
+                                            <%= data.transporter[i].name %> (
+                                                <%= data.transporter[i].mobile %>)
+                                        </h5>
+                                        <p>Email :
+                                            <%= data.transporter[i].email %>
+                                        </p>
+                                        <a href="javascript:void(0)" onclick="showRequestDetails(<%= i %> , <%= data.transporter[i].mobile %>)" class="btn btn-primary">Show
+                                            more details
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <!-- Page content end here  -->
+
+
             </div>
-        </div>
-        <!-- <div class="bg-dark p-4 container-fluid" id="right_side_pane">
+            <!-- /#page-content-wrapper -->
 
-        </div> -->
     </div>
+    <!-- /#wrapper -->
 
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
-<!-------------------------------open side pane script ------------------------------------->
+
 
 <script>
-  
-        function showRequestDetails(index, mobile) {
-            var right_pane = document.getElementById("right_side_pane");
-            if (right_pane.style.display == "block") {
-                right_pane.style.width = "0%";
-                right_pane.style.display = "none";
-            }
-            else {
-                right_pane.style.width = "50%";
-                right_pane.style.right = "0";
-                right_pane.style.display = "block";
-                //send ajax request to a api
+
+    function showRequestDetails(index, mobile) {
+        var right_pane = document.getElementById("right_side_pane");
+        if (right_pane.style.display == "block") {
+            right_pane.style.display = "none";
+        }
+        else {
+            // right_pane.style.width = "50%";
+            right_pane.style.right = "0";
+            right_pane.style.display = "block";
+            //send ajax request to a api
             var xmlhttp = new XMLHttpRequest();
             var url = "/gettransporterdata/" + mobile;
             xmlhttp.onreadystatechange = function () {
@@ -254,21 +241,20 @@
             };
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
-            }
         }
+    }
     function close_side_pane() {
         var right_pane = document.getElementById("right_side_pane");
-        right_pane.style.width = "0%";
         right_pane.style.display = "none";
     }
-    function placeInPane(data,mobile) {
+    function placeInPane(data, mobile) {
         var i = 0;
 
         var keys = Object.keys(data)
         console.log(keys)
         // for (i = 0; i < keys.length; i++) {
         //     if (keys[i] != "aadhaarimage" || keys[i] != "panimage" || keys[i] != "staimage" || keys[i] != "gstimage" || keys[i] != "mininglicenseimage") {
-                
+
         //         console.log(keys[i])
         //         console.log(data.keys[i])
         //         document.getElementById(keys[i]).innerHTML = data[keys[i]];
@@ -287,34 +273,31 @@
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
         document.getElementById('staimage').setAttribute('src', "data:image/png;base64," + data.staimage)
-        document.getElementById('staimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.staimage + " ', '_blank')");
+        document.getElementById('staimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.staimage + " ', '_blank')");
 
-        document.getElementById('gstimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.gstimage + " ', '_blank')");
+        document.getElementById('gstimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.gstimage + " ', '_blank')");
         document.getElementById('gstimage').setAttribute('src', "data:image/png;base64," + data.gstimage)
 
-        document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.aadhaarimage + " ', '_blank')");
+        document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.aadhaarimage + " ', '_blank')");
         document.getElementById('aadhaarimage').setAttribute('src', "data:image/png;base64," + data.aadhaarimage)
 
-        document.getElementById('mininglicenseimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.mininglicenseimage + " ', '_blank')");
+        document.getElementById('mininglicenseimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.mininglicenseimage + " ', '_blank')");
         document.getElementById('mininglicenseimage').setAttribute('src', "data:image/png;base64," + data.mininglicenseimage)
 
-        document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.panimage + " ', '_blank')");
+        document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
         document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
 
-        document.getElementById("approve_btn").setAttribute('href', "/transporter_request_action/"+ mobile)
-        document.getElementById("reject_form").setAttribute('action', "/transporter_request_action/"+ mobile)
+        document.getElementById("approve_btn").setAttribute('href', "/transporter_request_action/" + mobile)
+        document.getElementById("reject_form").setAttribute('action', "/transporter_request_action/" + mobile)
     }
 </script>
 
 <script>
     function openImage(imgaddress) {
         console.log("hello");
-        window.open(imgaddress ,  '_blank');
+        window.open(imgaddress, '_blank');
 
     }
 </script>
-
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
 
 </html>

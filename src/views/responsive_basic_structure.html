@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
+
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
+                <div class="container-fluid">
+
+
+
+                </div>
+                <!-- Page content end here  -->
+            </div>
+            <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+</body>
+
+</html>

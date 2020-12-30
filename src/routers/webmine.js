@@ -1,143 +1,127 @@
 const express = require('express')
-const router  = new express.Router()
+const router = new express.Router()
 const Admin = require('../models/admin')
 const AreaManager = require('../models/areamanager')
 const Booking = require('../models/booking')
 const Fieldstaff = require('../models/fieldstaff')
 const Finance = require('../models/finance')
-const Invoice  = require('../models/invoice')
-const Mine =  require('../models/mine')
-const Ticket =  require('../models/ticket')
+const Invoice = require('../models/invoice')
+const Mine = require('../models/mine')
+const Ticket = require('../models/ticket')
 const Transporter = require('../models/transporter')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
 
-const jwt= require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
- 
+
 router.use(cookieParser())
 
 
-router.get('/webmine',async (req,res)=>{
-    try
-    {
+router.get('/webmine', async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
-            const mines= await Mine.find({})  
-        
-            let data ={
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
+            const mines = await Mine.find({})
+
+            let data = {
                 mine: mines,
-                cities: [ 'Bhopal','Funcity']
+                cities: ['Bhopal', 'Funcity']
             }
-           return res.render('mines_list',{data})
-            
+            return res.render('mines_list', { data })
+
         }
-        else
-        {
+        else {
             console.log('admin not found in web mine')
+            return res.redirect("/")
         }
     }
-    catch(e)
-    {
+    catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
 
-router.get('/webspecificmine/:id',async (req,res)=>{
-    try
-    {
+router.get('/webspecificmine/:id', async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
             const id = req.params.id
-            const mine = await Mine.findOne({id})
-            if(mine!=null)
-            {
+            const mine = await Mine.findOne({ id })
+            if (mine != null) {
                 await mine.populate('invoices').execPopulate()
                 let data = {
                     mine: mine,
                     invoices: mine.invoices
                 }
-              return  res.render('mine',{data})
-                 
-            }
-            else
-            {
-               console.log('mine not found')
-            }
-        }
-        else
-        {
-            console.log('admin not found in single mine')
-        }
-                 
-    }
-    catch(e)
-    {
-        console.log(e)
-    }
-})
+                return res.render('mine', { data })
 
-router.post('/webspecificmine/:id',async (req,res)=>{
-    try
-    {
-        const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
-            const updates = Object.keys(req.body)
-            const allowedUpdates =  ['id','name','area','trailer','active','tyres','bodytype','loading','rate','etl','latitude',
-            'longitude','landmark']
-            const isValidOperation = updates.every((update)=>{
-                                       return allowedUpdates.includes(update)
-                                                            })
-        if(!isValidOperation)
-        {
-            console.log('invalid operation')
-        }
-        else
-        {
-            const id = req.params.id
-            const mine = await Mine.findOne({id})
-            if(mine)
-            {
-                updates.forEach((update)=>{
-                    if(update == "active")
-                    {
-                        console.log(req.body[update])
-                       mine[update] = (req.body[update] == "true")
-                    }
-                    else
-                    {
-                    mine[update] = req.body[update] 
-                    }
-                    
-                })
-                await mine.save() 
-                return res.redirect('/webspecificmine/'+ id)
             }
-            else
-            {
+            else {
                 console.log('mine not found')
             }
         }
+        else {
+            console.log('admin not found in single mine')
+            return res.redirect("/")
         }
-        else
-        {
+
+    }
+    catch (e) {
+        console.log(e)
+        return res.redirect("/")
+    }
+})
+
+router.post('/webspecificmine/:id', async (req, res) => {
+    try {
+        const token = req.cookies['Authorization']
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
+            const updates = Object.keys(req.body)
+            const allowedUpdates = ['id', 'name', 'area', 'trailer', 'active', 'tyres', 'bodytype', 'loading', 'rate', 'etl', 'latitude',
+                'longitude', 'landmark']
+            const isValidOperation = updates.every((update) => {
+                return allowedUpdates.includes(update)
+            })
+            if (!isValidOperation) {
+                console.log('invalid operation')
+            }
+            else {
+                const id = req.params.id
+                const mine = await Mine.findOne({ id })
+                if (mine) {
+                    updates.forEach((update) => {
+                        if (update == "active") {
+                            console.log(req.body[update])
+                            mine[update] = (req.body[update] == "true")
+                        }
+                        else {
+                            mine[update] = req.body[update]
+                        }
+
+                    })
+                    await mine.save()
+                    return res.redirect('/webspecificmine/' + id)
+                }
+                else {
+                    console.log('mine not found')
+                }
+            }
+        }
+        else {
             console.log(e)
         }
     }
-    catch(e)
-    {
+    catch (e) {
         console.log(e)
     }
 })

@@ -4,8 +4,11 @@
     width: 100%;
     border: 1px solid #ddd;
     font-size: 18px;
+   
   }
-  
+  #EmployeesTable_row{
+    padding-left: 50px;
+  }
   #EmployeesTable th, #EmployeesTable td {
     text-align: left;
     padding: 12px;

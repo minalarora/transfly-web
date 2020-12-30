@@ -1,0 +1,3 @@
+1. made message box in login.ejs , changed weblogin.js added new renders and send data to message and changed redirect when admin not found.
+
+2.adding session variable to login  and destroying in logout

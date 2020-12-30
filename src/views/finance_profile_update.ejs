@@ -2,67 +2,102 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
 
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
+        }
+    </style>
 
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
-    <%- include('../partials/finance_nav_structure.ejs') %>
-  
-    <!------------------------------- right content -------------------------------------------->
-    <div class="main">
-        <div class="container-fluid">
-            <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/webfinancelogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-            </div>
-            <!---------------------------- main content row start here ----------------------->
-            <div class="row p-3 ">
-                <div class="w-100 border-bottom">
-                    <h3>Welcome
-                        <%= data.finance.name %>
-                    </h3>
-                </div>
+    <div class="d-flex" id="wrapper">
+
+        <%- include('../partials/responsive_side_bar_finance.ejs') %>
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="d-flex w-100 justify-content-end">
+                        <a href="/webfinancelogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
                 <div class="container-fluid">
-                    <div class="w-75 p-4">
-                        <form method="POST" action="/updatefinanceprofile">
-                            <div class="form-group">
-                                <label for="bankname">Bank Name</label>
-                                <input type="text" name="bankname" class="form-control" value="<%= data.finance.bankname %>" id="bankname" placeholder="Enter Bank Name"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="ifsc">ifsc</label>
-                                <input type="text" name="ifsc" class="form-control" value="<%= data.finance.ifsc %>" id="ifsc" placeholder="Enter ifsc" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="accountno">Account no</label>
-                                <input type="text" name="accountno" class="form-control" value="<%= data.finance.accountno %>" id="accountno" placeholder="Enter account no" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                    <div class="row p-3 ">
+                        <div class="w-100 border-bottom">
+                            <h3>Welcome
+                                <%= data.finance.name %>
+                            </h3>
+                        </div>
                     </div>
 
+                    <div class="row">
+                        <div class="w-75 p-4">
+                            <form method="POST" action="/updatefinanceprofile">
+                                <div class="form-group">
+                                    <label for="bankname">Bank Name</label>
+                                    <input type="text" name="bankname" class="form-control" value="<%= data.finance.bankname %>" id="bankname" placeholder="Enter Bank Name"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ifsc">ifsc</label>
+                                    <input type="text" name="ifsc" class="form-control" value="<%= data.finance.ifsc %>" id="ifsc" placeholder="Enter ifsc" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountno">Account no</label>
+                                    <input type="text" name="accountno" class="form-control" value="<%= data.finance.accountno %>" id="accountno" placeholder="Enter account no"
+                                        required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+                <!-- Page content end here  -->
             </div>
-        </div>
+            <!-- /#page-content-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
-
-
-
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
 
 </html>

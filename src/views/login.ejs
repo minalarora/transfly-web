@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Vendor CSS Files -->
 
   <link rel="stylesheet" type="text/css" href="../css/login.css" />
@@ -23,31 +25,38 @@
       <br>
       <div id="" class="row d-flex justify-content-center">
         <div id="form-div" class="col-lg-5 col-md-7 col-sm-10 p-4 rounded border shadow">
-          <!-- Login Form -->
-          <form method="POST" action="/">
-            <div class="form-group">
-              <label for="mobile">Mobile number:</label>
-              <input type="mobile" name="mobile" class="form-control" id="mobile">
+
+          <!-- warning messga efor wrong password or mobile  -->
+          <% if(data.message != ""){ %>
+            <div class="alert alert-<%=data.color %>">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Alert!</strong> <%= data.message %>
             </div>
-            <div class="form-group">
-              <label for="pwd">Password:</label>
-              <input type="password" name="password" class="form-control" id="pwd">
-            </div>
-            <div class="form-group">
-              <label for="select">Select Role:</label>
-              <select name="role" class="form-control" id="select">
-                <option value="admin">Transfly Admin</option>
-                <option value="finance">Finance Admin</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+            <% } %>
+              <!-- Login Form -->
+              <form method="POST" action="/">
+                <div class="form-group">
+                  <label for="mobile">Mobile number:</label>
+                  <input type="mobile" name="mobile" class="form-control" id="mobile">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Password:</label>
+                  <input type="password" name="password" class="form-control" id="pwd">
+                </div>
+                <div class="form-group">
+                  <label for="select">Select Role:</label>
+                  <select name="role" class="form-control" id="select">
+                    <option value="admin">Transfly Admin</option>
+                    <option value="finance">Finance Admin</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
         </div>
       </div>
     </div>
   </div>
 
 </body>
-<script src="../js/bootstrap/bootstrap.min.js"></script>
 
 </html>

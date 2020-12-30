@@ -2,99 +2,133 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
-   
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
-    <link rel="stylesheet" type="text/css" href="../css/mine_list.css" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
+        }
+    </style>
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
-    <%- include('../partials/structure.ejs') %>
-  <!------------------------------- right content -------------------------------------------->
-  <div class="main">
-    <div class="container-fluid">
-        <div id="top-nav" class="row p-2 bg-white justify-content-end">
-            <a href="/webadminlogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-        </div>
-            <!---------------------------- main content row start here------------>
-            <div class="row p-3 ">
-                <div class="w-100 text-primary text-center ">
-                    <h3>Mines</h3>
-                </div>
-                <br>
-              
+    <div class="d-flex" id="wrapper">
 
-                <hr class="w-100">
-                <!-------------- mines cards ------------>
-                <div class="w-100 d-flex flex-wrap">
-                    <% if(data.mine.length != 0) { %>
+        <%- include('../partials/responsive_side_bar_admin.ejs') %>
 
-                    <% for (var i =0; i <data.mine.length;  i++ ) { %>
-                        <div class="card m-2" style="width: 18rem;">
-                            <div class="card-body">
-                                <a class="card-title h4 text-primary" href="/webspecificmine/<%= data.mine[i].id %>"> <%= data.mine[i].name %></a>
-                                <h6 class="card-subtitle mb-2 text-muted">  <%= data.mine[i].area %> </h6>
-                                <table style="width:100%">
-                                    <tr>
-                                        <th>ETL:</th>
-                                        <td>
-                                            <%= data.mine[i].etl %> Hours
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Rate:</th>
-                                        <td>
-                                            <%= data.mine[i].rate %> Rs / sqft
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Active:</th>
-                                        <td>
-                                            <% if( data.mine.active == true) { %>
-                                                Active
-                                                <% } else { %>
-                                                    Inactive
-                                                    <% }  %>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="d-flex w-100 justify-content-end">
+                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
+                <div class="container-fluid">
+
+                    <!-- Mines heading -->
+                    <div class="row d-flex mr-4 mt-4 ml-2 flex-wrap align-items-center justify-content-between">
+
+                        <div class="w-100 text-primary text-center ">
+                            <h3>Mines</h3>
                         </div>
-                        <% } %>
-                        <% } else { %>
-                            <h2>No Mines found</h2>
-                            <% }  %>
+                        <hr class="w-100">
+                    </div>
+
+                    <!-- mines card list -->
+                    <div class="w-100 d-flex justify-content-center flex-wrap">
+                        <% if(data.mine.length != 0) { %>
+
+                            <% for (var i =0; i < data.mine.length;  i++ ) { %>
+                                <div class="card shadow-sm m-2" style="width: 20rem;">
+                                    <div class="card-body">
+                                        <a class="card-title h4 text-primary" href="/webspecificmine/<%= data.mine[i].id %>"> <%= data.mine[i].name %></a>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            <%= data.mine[i].area %>
+                                        </h6>
+                                        <table style="width:100%">
+                                            <tr>
+                                                <th>ETL:</th>
+                                                <td>
+                                                    <%= data.mine[i].etl %> Hours
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Rate:</th>
+                                                <td>
+                                                    <%= data.mine[i].rate %> Rs / sqft
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Active:</th>
+                                                <td>
+                                                    <% if( data.mine.active == true) { %>
+                                                        Active
+                                                        <% } else { %>
+                                                            Inactive
+                                                            <% }  %>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <% } %>
+
+                                    <% } else { %>
+                                        <h2>No Mines found</h2>
+                                        <% }  %>
+
+
+                    </div>
+                    <!-- mines card list ends -->
 
 
                 </div>
-
+                <!-- Page content end here  -->
             </div>
-        </div>
+            <!-- /#page-content-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+
+
+
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
+
 
 <script>
 
@@ -123,7 +157,12 @@
         }
     }
 </script>
-<script src="./js/bootstrap/bootstrap.min.js"></script>
-<script src="./js/basic_structure.js"></script>
+
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
 
 </html>
