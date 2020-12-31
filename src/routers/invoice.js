@@ -4,6 +4,7 @@ const Invoice = require('../models/invoice')
 const auth = require('../auth/auth')
 const Booking = require('../models/booking')
 const Vehicle = require('../models/vehicle')
+const Mine  = require('../models/mine')
 
 router.post("/invoice",auth,async (req,res)=>{
     try
@@ -31,11 +32,8 @@ router.post("/invoice",auth,async (req,res)=>{
 router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
     try
     {
-        const invoices= await req.user.populate({
-            path: 'invoices',
-            match:{
-                status: 'COMPLETED'
-            }
+         await req.user.populate({
+            path: 'invoices'
             ,options:{
                 sort: {
                     createdAt: -1
@@ -43,11 +41,11 @@ router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
             }
         }).execPopulate()
 
-        res.status(200).send(invoices)        
+        res.status(200).send(req.user.invoices)        
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Invoice.find({}).then((a)=>{
         res.status(200)
@@ -57,6 +55,93 @@ router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
         res.send(e)
     })*/
 })
+
+router.get("/allinvoice/areamanager",auth,async (req,res)=>{
+    try
+    {
+        await req.user.populate(
+            {
+                path: 'mines',
+                options:{
+                    sort: {
+                        createdAt: -1
+                    }
+                }
+            }).execPopulate()
+
+         let minearray = req.user.mines.map((mine)=>{
+                return mine.id
+         })   
+         //mongoose.find({title: {$in: sd}})
+        const invoices = await Invoice.find({mineid: {$in: minearray}}).sort({createdAt: -1}).exec(function(err,invoices){ 
+            if(invoices)
+            {
+                res.status(200).send(invoices)    
+            }
+            else
+            {   
+                   res.status(200).send([]) 
+            }
+        })         
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+   /* Invoice.find({}).then((a)=>{
+        res.status(200)
+        res.send(a)
+    }).catch((e)=>{
+        res.status(400)
+        res.send(e)
+    })*/
+})
+
+router.get("/allinvoice/transporter",auth,async (req,res)=>{
+    try
+    {
+    //    const mines =  await Invoice
+       
+    //    req.user.populate(
+    //         {
+    //             path: 'mines',
+    //             options:{
+    //                 sort: {
+    //                     createdAt: -1
+    //                 }
+    //             }
+    //         }).execPopulate()
+
+    //      let minearray = req.user.mines.map((mine)=>{
+    //             return mine.id
+    //      })   
+         //mongoose.find({title: {$in: sd}})
+       await Invoice.find({transporter: req.user.mobile}).sort({createdAt: -1}).exec(function(err,invoices){ 
+            if(invoices)
+            {
+                res.status(200).send(invoices)    
+            }
+            else
+            {
+                
+                   res.status(200).send([]) 
+            }
+        })         
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+   /* Invoice.find({}).then((a)=>{
+        res.status(200)
+        res.send(a)
+    }).catch((e)=>{
+        res.status(400)
+        res.send(e)
+    })*/
+})
+
+
 
 router.get("/invoice/:id",auth,async (req,res)=>{
     try

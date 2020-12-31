@@ -90,15 +90,9 @@ const mineSchema  = mongoose.Schema({
          type: String,
          default: "NOT AVAILABLE"
      },
-     transporter:
-    {
-        type: String,
-        default: null,
-        ref: 'Transporter' 
-    },
     areamanager:
     {
-        type: String,
+        type: [String],
         default: null,
         ref: 'Areamanager'
     },

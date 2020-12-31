@@ -146,25 +146,25 @@ transporterSchema.methods.generateToken = async function(){
     return token
 }
 
-transporterSchema.pre('remove',async function(next){
-    const user = this
-    await Mine.updateMany({
-        transporter : user.mobile
-    },
-    { $set : { transporter : undefined }},
-     function(err, result) {
-            if (err) {
-              console.log(err)
-            } else {
-              console.log(result)
-            }
-          })
-    next()
-})
+// transporterSchema.pre('remove',async function(next){
+//     const user = this
+//     await Mine.updateMany({
+//         transporter : user.mobile
+//     },
+//     { $set : { transporter : undefined }},
+//      function(err, result) {
+//             if (err) {
+//               console.log(err)
+//             } else {
+//               console.log(result)
+//             }
+//           })
+//     next()
+// })
 
 
-transporterSchema.virtual('mines',{
-    ref: 'Mine',
+transporterSchema.virtual('invoices',{
+    ref: 'Invoice',
     localField: 'mobile',
     foreignField: 'transporter'
   })

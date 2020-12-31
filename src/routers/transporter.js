@@ -74,12 +74,12 @@ router.get('/transporter/me/pending',auth,async (req,res)=>{
 router.get("/alltransporter",auth,async (req,res)=>{
     try
     {
-        const transporters= await Transporter.find({})  
+        const transporters= await Transporter.find({status:2})  
          res.status(200).send(transporters)     
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Transporter.find({}).then((a)=>{
         res.status(200)

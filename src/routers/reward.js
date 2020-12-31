@@ -2,22 +2,44 @@ const express = require('express')
 const router  = new express.Router()
 const Reward = require('../models/reward')
 const auth = require('../auth/auth')
+var multer  = require('multer')
+var sharp = require('sharp')
+var upload = multer({
+    limits:
+    {
+        fileSize: 5000000
+    },
+    fileFilter: function (req, file, cb) {
+
+            return cb(undefined, true);  
+
+    }
+})
 
 
 
-router.post("/reward",auth,async (req,res)=>{
+
+
+router.post("/reward",auth,upload.single('image'),async (req,res)=>{
     try
     {
-       
-        const reward  = new Reward(req.body)
-        
+       if(req.file)
+       {
+        const reward  = new Reward({...req.body,image: req.file.buffer})
         await reward.save()
-        res.status(200).send(reward)      
+        res.status(200).send("DONE") 
+       }
+       else
+       {
+        const reward  = new Reward(req.body)
+        await reward.save()
+        res.status(200).send("DONE")  
+       }     
     }
     catch(e)
     {
         
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*const vehicle  = new Vehicle(req.body)
     vehicle.save().then((a)=>{
@@ -32,12 +54,14 @@ router.post("/reward",auth,async (req,res)=>{
 router.get("/allreward",auth,async (req,res)=>{
     try
     {
-        const rewards = await Reward.find({})  
+        const rewards = await Reward.find({},null,{skip: 0 , limit : 2, sort: {
+            createdAt: -1
+        }}).exec()  
         res.status(200).send(rewards)      
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Booking.find({}).then((a)=>{
         res.status(200)

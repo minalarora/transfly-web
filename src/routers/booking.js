@@ -137,9 +137,7 @@ router.get("/allbooking/areamanager",auth,async (req,res)=>{
                 
                    res.status(200).send([]) 
             }
-        }) 
-
-        
+        })         
         
     }
     catch(e)

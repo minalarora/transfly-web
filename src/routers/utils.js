@@ -28,6 +28,54 @@ var allUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'banki
 {name: 'aadhaarimage', maxCount: 1 },{name: 'mininglicenseimage', maxCount: 1 },{name: 'gstimage', maxCount: 1 },{name: 'staimage', maxCount: 1 }])
 
 
+router.post("/who",async (req,res)=>{
+    try
+    {
+        let user  =  await VehicleOwner.findOne({mobile: req.body.mobile, password: req.body.password})
+        if(user)
+        {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "vehicleowner:" + token
+            })
+        }
+         user  =  await Fieldstaff.findOne({mobile: req.body.mobile, password: req.body.password})
+        if(user)
+        {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "fieldstaff:" + token
+            })
+        }
+         user  =  await AreaManager.findOne({mobile: req.body.mobile, password: req.body.password})
+        if(user)
+        {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "areamanager:" + token
+            })
+        }
+        user  =  await Transporter.findOne({mobile: req.body.mobile, password: req.body.password})
+        if(user)
+        {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "transporter:" + token
+            })
+        }
+        return res.status(400).send("User not found!")
+        
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+})
 
 router.get("/me/pending",auth,async (req,res)=>{
     try
@@ -44,7 +92,7 @@ router.get("/me/pending",auth,async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
+        
         res.status(400).send(e.message)
     }
 })
@@ -82,15 +130,24 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
 
              imageupdates.forEach((update)=>{
                  sharp(req.files[update][0].buffer).resize(200).png().toBuffer().then((buffer)=>{
+                     
                     req.user[update] = buffer
+                    req.user.save().then((user)=>{
+
+                        return  res.status(200).send("Done")
+                    }).catch((err)=>{
+                        return  res.status(400).send(err.message)
+                    })
                 }).catch((error)=>{
+                    console.log(error)
                     req.user[update] = null
+                    return res.status(400).send('Image Uploading Failed')
                 })
                 
             })
             
-             await req.user.save()
-            return  res.status(200).send("done")
+           
+            
     }
     catch(e)
     {

@@ -167,8 +167,8 @@ vehicleownerSchema.virtual('bookings',{
 
 vehicleownerSchema.virtual('invoices',{
     ref: 'Invoice',
-    localField: '_id',
-    foreignField: 'owner'
+    localField: 'mobile',
+    foreignField: 'vehicleownermobile'
 })
 
 vehicleownerSchema.virtual('vehicles',{

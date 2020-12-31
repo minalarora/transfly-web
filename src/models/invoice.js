@@ -16,11 +16,12 @@ const invoiceSchema  = mongoose.Schema({
     vehicleowner:
     {
         type: String,
-        ref: 'Vehicleowner'
+        
     },
     vehicleownermobile:
     {
-        type:String
+        type:String,
+        ref: 'Vehicleowner'
     }
 ,
     mineid:
@@ -107,6 +108,12 @@ const invoiceSchema  = mongoose.Schema({
     date:
     {
         type: String
+    },
+    transporter:
+    {
+        type: String,
+        required:true,
+        ref: 'Transporter'
     }
 
 }
