@@ -30,7 +30,8 @@
         /* multi select mine selct form css */
         .multiselect {
             width: 20em;
-            height: 100px;
+            height: 200px;
+            padding: 10px;
             border: solid 1px #c0c0c0;
             overflow: auto;
         }
@@ -141,11 +142,33 @@
                                 <h5>Allot mines</h5>
                             </div>
                             <div class="p-3 table-responsive shadow bg-light">
-                                <form action="/update_am_mines/<%= data.areamanager.mobile  %>">
+                                <form method="POST" action="/update_am_mines/<%= data.areamanager.mobile  %>">
                                     <div class="multiselect">
+                                        <!-- looping through mines -->
                                         <% for(var i =0 ; i< data.areamanager.allmines.length ; i++){ %>
-                                            <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
-                                                    value="<%= data.areamanager.allmines[i].name  %> " /><%= data.areamanager.allmines[i].name  %></label>
+                                            <div class="d-flex">
+
+                                                <!-- check if mine is null so enabke checkbox else disable it -->
+                                                <% if(data.areamanager.allmines[i].areamanager == null){ %>
+
+                                                    <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
+                                                            value="<%= data.areamanager.allmines[i].name  %> ">
+                                                        <%= data.areamanager.allmines[i].name  %></label>
+
+                                                    <% }  else {%>
+                                                        <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
+                                                                value="<%= data.areamanager.allmines[i].name  %> " disabled>
+                                                            <%= data.areamanager.allmines[i].name  %></label>
+                                                        <% } %>
+
+                                                            <!-- adding am infront of mines -->
+                                                            <% if(data.areamanager.allmines[i].areamanager != null ) { %>
+                                                                <p class="ml-1"> (
+                                                                    <%= data.areamanager.allmines[i].areamanager %> )
+                                                                </p>
+                                                                <% } %>
+                                            </div>
+
                                             <% } %>
                                     </div>
                                     <input type="submit" value="submit">
