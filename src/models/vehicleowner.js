@@ -6,27 +6,25 @@ const Vehicle = require('./vehicle')
 const jwt = require('jsonwebtoken')
 
 
-const vehicleownerSchema  = mongoose.Schema({
+const vehicleownerSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
         trim: true,
         uppercase: true
     },
-    mobile:{
+    mobile: {
         type: String,
         required: true,
-        maxlength: [12,"Invalid Mobile Number"]
+        maxlength: [12, "Invalid Mobile Number"]
     }
     ,
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true,
-        validate(value)
-        {
-            if(!validator.isEmail(value))
-            {
+        validate(value) {
+            if (!validator.isEmail(value)) {
                 throw new Error("Please fill valid email!")
             }
         }
@@ -41,7 +39,7 @@ const vehicleownerSchema  = mongoose.Schema({
     {
         type: Number,
         required: true,
-        default: 0 
+        default: 0
     },
     accountno:
     {
@@ -78,7 +76,7 @@ const vehicleownerSchema  = mongoose.Schema({
         //tdsdeclaration
         type: String,
         default: "NOT AVAILABLE"
-    
+
     },
     tdsimage:
     {
@@ -92,28 +90,27 @@ const vehicleownerSchema  = mongoose.Schema({
     },
     tokens: [
         {
-            token : {
+            token: {
                 type: String,
-                createdAt: { 
+                createdAt: {
                     type: Date,
-                     expires: '31d', 
+                    expires: '31d',
                     default: Date.now
-                 },
+                },
                 required: true
             }
         }
     ]
 
 }
-,{
-    timestamps: true
-})
+    , {
+        timestamps: true
+    })
 
 
-vehicleownerSchema.pre('save',async function(next){
-    const user  = this
-    if(user.panimage  && user.tdsimage && user.bankimage && (user.status == 0))
-    {
+vehicleownerSchema.pre('save', async function (next) {
+    const user = this
+    if (user.panimage && user.tdsimage && user.bankimage && (user.status == 0)) {
         user.status = 1
     }
     // invoice.amount = invoice.tonnage * invoice.rate
@@ -122,33 +119,30 @@ vehicleownerSchema.pre('save',async function(next){
     next()
 })
 
-vehicleownerSchema.statics.findByMobile = async (mobile,password)=>{
-    const vehicleowner  = await VehicleOwner.findOne({mobile,password})
-    if(!vehicleowner)
-    {
+vehicleownerSchema.statics.findByMobile = async (mobile, password) => {
+    const vehicleowner = await VehicleOwner.findOne({ mobile, password })
+    if (!vehicleowner) {
         throw new Error('unable to login')
     }
-    else
-    {
+    else {
         return vehicleowner
     }
 }
 
 
 
-vehicleownerSchema.methods.generateToken = async function(){
-    const vehicleowner  = this
-    const token  = jwt.sign({_id: vehicleowner.mobile},'transfly',{
+vehicleownerSchema.methods.generateToken = async function () {
+    const vehicleowner = this
+    const token = jwt.sign({ _id: vehicleowner.mobile }, 'transfly', {
         expiresIn: '30d'
     })
-    vehicleowner.tokens  = vehicleowner.tokens.concat({token})
+    vehicleowner.tokens = vehicleowner.tokens.concat({ token })
     await vehicleowner.save()
     return token
 }
 
 
-vehicleownerSchema.methods.toJSON = function()
-{
+vehicleownerSchema.methods.toJSON = function () {
     const user = this
     const userobject = user.toObject()
     delete userobject.password
@@ -159,27 +153,27 @@ vehicleownerSchema.methods.toJSON = function()
     return userobject
 }
 
-vehicleownerSchema.virtual('bookings',{
+vehicleownerSchema.virtual('bookings', {
     ref: 'Booking',
     localField: '_id',
     foreignField: 'owner'
 })
 
-vehicleownerSchema.virtual('invoices',{
+vehicleownerSchema.virtual('invoices', {
     ref: 'Invoice',
     localField: 'mobile',
     foreignField: 'vehicleownermobile'
 })
 
-vehicleownerSchema.virtual('vehicles',{
+vehicleownerSchema.virtual('vehicles', {
     ref: 'Vehicle',
     localField: 'mobile',
     foreignField: 'driverid'
-  })
+})
 
 
-vehicleownerSchema.pre('remove',async function(next){
-    const user  = this
+vehicleownerSchema.pre('remove', async function (next) {
+    const user = this
     await Booking.deleteMany({
         owner: user._id
     })
@@ -195,6 +189,6 @@ vehicleownerSchema.pre('remove',async function(next){
 
 
 
-const VehicleOwner = mongoose.model('Vehicleowner',vehicleownerSchema)
+const VehicleOwner = mongoose.model('Vehicleowner', vehicleownerSchema)
 
 module.exports = VehicleOwner

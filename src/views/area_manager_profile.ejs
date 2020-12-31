@@ -26,6 +26,26 @@
         .table-shadow {
             box-shadow: -1px 1px 7px #888888;
         }
+
+        /* multi select mine selct form css */
+        .multiselect {
+            width: 20em;
+            height: 100px;
+            border: solid 1px #c0c0c0;
+            overflow: auto;
+        }
+
+        .multiselect label {
+            display: block;
+            margin-bottom: 0px;
+        }
+
+        .multiselect-on {
+            color: #ffffff;
+            background-color: #000099;
+        }
+
+        /* multi select mine selct form css ends------------- */
     </style>
 
 </head>
@@ -117,32 +137,21 @@
                         </div>
 
                         <div class="col-lg-6 mt-2 col-md-12 ">
-                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
-                                <h5>Bank Details</h5>
+                            <div class="pl-2 pt-2 pb-1 bg-light border-bottom">
+                                <h5>Allot mines</h5>
                             </div>
-                            <div class="p-3 table-responsive shadow bg-light ">
-                                <table class="table table-borderless" style="width:100%">
-                                    <tr>
-                                        <th>Ifsc:</th>
-                                        <td>
-                                            <%= data.areamanager.ifsc %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Bank:</th>
-                                        <td>
-                                            <%= data.areamanager.bankname %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Acc no:</th>
-                                        <td>
-                                            <%= data.areamanager.accountno %>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                            <div class="p-3 table-responsive shadow bg-light">
+                                <form action="/update_am_mines/<%= data.areamanager.mobile  %>">
+                                    <div class="multiselect">
+                                        <% for(var i =0 ; i< data.areamanager.allmines.length ; i++){ %>
+                                            <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
+                                                    value="<%= data.areamanager.allmines[i].name  %> " /><%= data.areamanager.allmines[i].name  %></label>
+                                            <% } %>
+                                    </div>
+                                    <input type="submit" value="submit">
+                                </form>
 
+                            </div>
                         </div>
                     </div>
 
@@ -171,6 +180,38 @@
                                         <th>Emergency Relation:</th>
                                         <td>
                                             <%= data.areamanager.erelation %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bank Details  -->
+                    <br>
+                    <div id="profile-content" class="row justify-content-start mr-4">
+                        <div class="col-md-12 col-lg-6 box-shadow">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Bank Details</h5>
+                            </div>
+                            <div class="p-3 table-responsive shadow bg-light ">
+                                <table class="table table-borderless" style="width:100%">
+                                    <tr>
+                                        <th>Ifsc:</th>
+                                        <td>
+                                            <%= data.areamanager.ifsc %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank:</th>
+                                        <td>
+                                            <%= data.areamanager.bankname %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Acc no:</th>
+                                        <td>
+                                            <%= data.areamanager.accountno %>
                                         </td>
                                     </tr>
                                 </table>
@@ -237,14 +278,44 @@
 
 
 
-    <!-- Menu Toggle Script -->
-    <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
 
 </body>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+    jQuery.fn.multiselect = function () {
+        $(this).each(function () {
+            var checkboxes = $(this).find("input:checkbox");
+            checkboxes.each(function () {
+                var checkbox = $(this);
+                // Highlight pre-selected checkboxes
+                if (checkbox.prop("checked"))
+                    checkbox.parent().addClass("multiselect-on");
+
+                // Highlight checkboxes that the user selects
+                checkbox.click(function () {
+                    if (checkbox.prop("checked"))
+                        checkbox.parent().addClass("multiselect-on");
+                    else
+                        checkbox.parent().removeClass("multiselect-on");
+                });
+            });
+        });
+    };
+
+    $(function () {
+        $(".multiselect").multiselect();
+    });
+</script>
+
 
 </html>

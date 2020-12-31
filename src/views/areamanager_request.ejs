@@ -14,6 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- select bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
     <!-- Custom styles for this template -->
     <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
     <link rel="stylesheet" type="text/css" href="../css/approval_request_general.css" />
@@ -122,50 +126,41 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="container" id="document_container">
-                            <div class="row w-100">
-                                <div class="col-12">
-                                    <img target="_blank" id="aadhaarimage" alt="not avaliable">
-                                </div>
-                                <div class="col-12">
-                                    <img target="_blank" id="panimage" alt="not avaliable">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-                <!-- page content start here -->
-                <div class="container-fluid">
-                    <div class="row p-3 ">
-                        <div class="w-100 mb-4 text-center text-primary border-bottom">
-                            <h3>AreaManager Approval Request</h3>
-                        </div>
-                        <div class="container-fluid">
-                            <% for (var i =0; i < data.areamanager.length;  i++ ) { %>
-                                <div id="request-card" class="row border shadow mb-4 d-flex align-items-end justify-content-between p-3 bg-white">
-                                    <div id="">
-                                        <h5>
-                                            <%= data.areamanager[i].name %> (
-                                                <%= data.areamanager[i].mobile %>)
-                                        </h5>
-                                        <p>Email :
-                                            <%= data.areamanager[i].email %>
-                                        </p>
-                                        <a href="javascript:void(0)" onclick="showRequestDetails(<%= i %> , <%= data.areamanager[i].mobile %>)" class="btn btn-primary">Show
-                                            more details
-                                        </a>
-                                    </div>
-
-                                </div>
-                                <% } %>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Page content end here  -->
             </div>
-            <!-- /#page-content-wrapper -->
+
+            <!-- page content start here -->
+            <div class="container-fluid">
+                <div class="row p-3 ">
+                    <div class="w-100 mb-4 text-center text-primary border-bottom">
+                        <h3>AreaManager Approval Request</h3>
+                    </div>
+                    <div class="container-fluid">
+                        <% for (var i =0; i < data.areamanager.length;  i++ ) { %>
+                            <div id="request-card" class="row border shadow mb-4 d-flex align-items-end justify-content-between p-3 bg-white">
+                                <div id="">
+                                    <h5>
+                                        <%= data.areamanager[i].name %> (
+                                            <%= data.areamanager[i].mobile %>)
+                                    </h5>
+                                    <p>Email :
+                                        <%= data.areamanager[i].email %>
+                                    </p>
+                                    <a href="javascript:void(0)" onclick="showRequestDetails(<%= i %> , <%= data.areamanager[i].mobile %>)" class="btn btn-primary">Show
+                                        more details
+                                    </a>
+                                </div>
+
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Page content end here  -->
+    </div>
+    <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->
@@ -245,6 +240,7 @@
         window.open(imgaddress, '_blank');
 
     }
+    $('select').selectpicker();
 </script>
 
 </html>
