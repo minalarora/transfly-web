@@ -146,11 +146,12 @@ router.post('/update_am_mines/:mobile',async (req,res)=>{
             {
 
                 var newmines  = Object.keys(req.body)
-                var oldmines  = await Mine.find({areamanager: mobile}).map((mine)=>{
+                var oldminess  = await Mine.find({areamanager: mobile})
+                var oldmines =  oldminess.map((mine)=>{
                     return mine.id
                 })
                 newmines.forEach((mine)=>{
-                    await Mine.findOneAndUpdate({id: mine },{areamanager : mobile})
+                     Mine.findOneAndUpdate({id: mine },{areamanager : mobile})
                 })
 
                 var nullmines  = oldmines.filter((mine)=>{
@@ -158,15 +159,15 @@ router.post('/update_am_mines/:mobile',async (req,res)=>{
                 })
 
                 nullmines.forEach((mine)=>{
-                    await Mine.findOneAndUpdate({id: mine },{areamanager : null})
+                     Mine.findOneAndUpdate({id: mine },{areamanager : null})
                 })
 
-                res.redirect("/webspecificareamanager/" + mobile)
+                return res.redirect("/webspecificareamanager/" + mobile)
 
             }
             else
             {
-                
+                console.log('admin ')   
             }
 
         }
@@ -177,7 +178,7 @@ router.post('/update_am_mines/:mobile',async (req,res)=>{
     }
     catch(e)
     {
-
+            console.log(e.message)
     }
 })
 
