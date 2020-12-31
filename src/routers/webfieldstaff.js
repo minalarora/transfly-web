@@ -172,6 +172,26 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
     }
 })
 
+router.get('/revokemine/:name',async (req,res)=>{
+    try{
+
+        const token = req.cookies['Authorization']
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
+           
+            const name = req.params.name
+          let mine  = await Mine.findOneAndUpdate({name},{fieldstaff:null})
+          return res.redirect("/webspecificfieldstaff/" + mine.fieldstaff)
+
+        }
+    }
+    catch(e)
+    {
+
+    }
+})
+
 router.get("/fieldstaffrequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
