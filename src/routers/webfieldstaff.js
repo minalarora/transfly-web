@@ -99,7 +99,10 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
                 else {
                     t.mine = "NOT ALLOTTED"
                 }
+                var allmines = await Mine.find({}).exec()
+                t.allmines = allmines
                 data.fieldstaff = t;
+
                 console.log(data.fieldstaff.mine)
                 return res.render('field_staff_profile', { data })
 
@@ -114,6 +117,58 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
     }
     catch (e) {
         console.log(e)
+    }
+})
+
+
+router.post('/update_fs_mine/:mobile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            const mobile = req.params.mobile
+            console.log(req.body)
+            const areamanager  = await Fieldstaff.findOne({mobile})
+            if(areamanager)
+            {
+
+                var newmines  = Object.keys(req.body)
+                var oldminess  = await Mine.find({fieldstaff: mobile})
+                var oldmines =  oldminess.map((mine)=>{
+                    return mine.id
+                })
+                newmines.forEach((mine)=>{
+                     Mine.findOneAndUpdate({id: mine },{fieldstaff : mobile})
+                })
+
+                var nullmines  = oldmines.filter((mine)=>{
+                    return newmines.includes(mine) == false
+                })
+
+                nullmines.forEach((mine)=>{
+                     Mine.findOneAndUpdate({id: mine },{fieldstaff : null})
+                })
+
+                return res.redirect("/webspecificfieldstaff/" + mobile)
+
+            }
+            else
+            {
+                console.log('admin ')   
+            }
+
+        }
+        else
+        {
+            console.log('admin not found in all finance')
+        }
+    }
+    catch(e)
+    {
+            console.log(e.message)
     }
 })
 
