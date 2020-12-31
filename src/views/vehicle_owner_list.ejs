@@ -59,12 +59,23 @@
                     </div>
                     <br>
                     <!-- search input row -->
-                    <div class="row mb-4 justify-content-center">
+                    <div class="row  justify-content-center">
                         <div id="search-input-row" class="w-75">
                             <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterEmployee()" placeholder="  Search for anything to filter data.."
                                 title="Type in a name">
                         </div>
                     </div>
+
+                    <br>
+                    <!-- prev next button -->
+                    <div class="row p-2 d-flex align-items-baseline w-100">
+                        <a href="/webinvoiceall?page=<%= data.prev %>" class="btn mx-2 btn-primary">prev</a>
+                        <p>Page
+                            <%= data.page %>
+                        </p>
+                        <a href="/webinvoiceall?page=<%= data.next %>" class="btn mx-2 btn-primary">next</a>
+                    </div>
+                    <br>
 
                     <!-- complete table list row  -->
                     <div id="EmployeesTable_row" class="table-responsive ml-2 d-flex justify-content-center row">

@@ -65,57 +65,36 @@ router.get('/webinvoiceall', async (req, res) => {
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
-            
-            
-                let page = parseInt(req.query.page)
-                if (page < 1) {
-                    page = 1;
+
+
+            let page = parseInt(req.query.page)
+            if (page < 1) {
+                page = 1;
+            }
+            const invoice = await Invoice.find({}, null, { skip: (page * 1 - 1), limit: 1 }).exec()
+            let data = {
+                invoice
+            }
+            data.prev = page - 1
+            data.next = page + 1
+            data.page = page
+
+            //  when invocies finished or no invoices exist
+            if (invoice.length == 0) {
+                if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
+                    return res.render("invoicelist", { data })
                 }
-                const invoice = await Invoice.find({ }, null, { skip: (page * 10 - 10), limit: 10 }).exec()
-                let data = {
-                    invoice
+                else {
+
+                    res.redirect('/webinvoiceall?page=' + (page - 1))
                 }
-                data.prev = page - 1
-                data.next = page + 1
-                data.page = page
+            }
 
-              //  when invocies finished or no invoices exist
-                if (invoice.length == 0) {
-                    if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
-                        return res.render("invoicelist", { data })
-                    }
-                    else {
+            console.log(data)
+            return res.render('invoicelist', { data })
 
-                        res.redirect('/webinvoiceall?page=' + (page - 1))
-                    }
-                }
-                // for (var i = 0; i < invoice.length; i++) {
 
-                //     let t = invoice[i].toObject()
 
-                //     const mine = await Mine.findOne({ id: invoice[i].mine })
-                //     const vehicleowner = await VehicleOwner.findById({ _id: invoice[i].owner })
-                //     t.mine = mine.name
-                //     t.vehicleowner = vehicleowner.name
-                //     t.city = mine.area
-                //     data.invoice.push(t)
-
-                // }
-
-                // data.prev = page - 1
-                // data.next = page + 1
-                // data.page = page
-                // if (status == "PENDING") {
-                //     return res.render('finance_pending_invoices', { data })
-                // }
-                // else {
-                //     return res.render('finance_invoice_list', { data })
-                // }
-                console.log(data)
-               return res.render('invoicelist', { data })
-        
-            
-            
         }
         else {
             return res.redirect("/")
