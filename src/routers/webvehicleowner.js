@@ -26,10 +26,19 @@ router.get('/webvehicleownerall', async (req, res) => {
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
 
-            const vehicleowner = await VehicleOwner.find({ status: 2 }).exec()
+
+            let page = parseInt(req.query.page)
+            if (page < 1) {
+                page = 1;
+            }
+            const vehicleowner = await VehicleOwner.find({ status: 2 },null,{ skip: (page * 1 - 1), limit: 1 }).exec()
             let data = {
                 vehicleowner: []
             }
+            data.prev = page - 1
+            data.next = page + 1
+            data.page = page
+
             for (var i = 0; i < vehicleowner.length; i++) {
                 let v = await vehicleowner[i].populate('vehicles').execPopulate()
                 let t = vehicleowner[i].toObject()
@@ -38,6 +47,15 @@ router.get('/webvehicleownerall', async (req, res) => {
                     ...t,
                     vehicles: vehicleowner[i].vehicles
                 })
+            }
+            if (vehicleowner.length == 0) {
+                if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
+                    return res.render("vehicle_owner_list", { data })
+                }
+                else {
+
+                  return res.redirect('/webvehicleownerall?page=' + (page - 1))
+                }
             }
             // console.log("data",data.vehicleowner[0].mobile)
             return res.render('vehicle_owner_list', { data })
