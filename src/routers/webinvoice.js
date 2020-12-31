@@ -21,6 +21,7 @@ router.use(cookieParser())
 
 router.get('/webspecificinvoice/:id', async (req, res) => {
     try {
+        console.log("here1")
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
@@ -32,7 +33,7 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                     invoice: {}
                 }
 
-
+                console.log("here2")
                 let t = invoice.toObject()
 
                 const mine = await Mine.findOne({ id: invoice.mine })
@@ -41,8 +42,6 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
                 data.invoice = { ...t }
-
-
 
                 return res.render('invoice', { data })
 
@@ -77,9 +76,10 @@ router.get('/webinvoiceall', async (req, res) => {
                 let t = invoice[i].toObject()
 
                 const mine = await Mine.findOne({ id: invoice[i].mine })
+                console.log("hello1", invoice[i]);
                 const vehicleowner = await VehicleOwner.findById({ _id: invoice[i].owner })
                 t.mine = mine.name
-                t.vehicleowner = vehicleowner.firstname + " " + vehicleowner.lastname
+                t.vehicleowner = vehicleowner.name
                 t.city = mine.area
                 data.invoice.push(t)
 
