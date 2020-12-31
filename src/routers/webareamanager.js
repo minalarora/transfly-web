@@ -16,8 +16,6 @@ const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
-const Mine = require('../models/mine')
- 
 router.use(cookieParser())
 
 
@@ -135,6 +133,7 @@ router.get("/areamanager_request_action/:mobile",async (req,res)=>{
     try
     {
         const mobile =  req.params.mobile
+        
      const areamanager = await AreaManager.findOne({mobile})
      if(areamanager)
      {
