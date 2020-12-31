@@ -16,6 +16,7 @@ const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+const Mine = require('../models/mine')
  
 router.use(cookieParser())
 
@@ -187,6 +188,12 @@ router.get('/getareamanagerdata/:mobile',async (req,res)=>{
     delete object.__v
     delete object.tokens
     delete object._id
+
+    const mines  = Mine.find({areamanager: null})
+    object.mines = mines
+
+    
+
    
     return res.send(object)
 
