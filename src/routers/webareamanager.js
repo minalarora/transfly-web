@@ -74,8 +74,10 @@ router.get('/webspecificareamanager/:mobile',async (req,res)=>{
             {
               //  await areamanager.populate('mines').execPopulate()
               var mines  = await Mine.find({areamanager: areamanager.mobile}).exec()
+              var allmines = await Mine.find({}).exec()
                 let t =areamanager.toObject()
                 t.mines = mines
+                t.allmines = allmines
 
 
                 let data = {
@@ -126,6 +128,29 @@ router.get("/areamanagerrequest",async (req,res)=>{
         console.log(e)
     }
   
+})
+
+router.post('/update_am_mines/:mobile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            const mobile = req.params.mobile
+            console.log(req.body)
+
+        }
+        else
+        {
+            console.log('admin not found in all finance')
+        }
+    }
+    catch(e)
+    {
+
+    }
 })
 
 
