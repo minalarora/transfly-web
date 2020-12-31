@@ -92,7 +92,7 @@ const mineSchema  = mongoose.Schema({
      },
     areamanager:
     {
-        type: [String],
+        type: String,
         default: null,
         ref: 'Areamanager'
     },
