@@ -149,24 +149,23 @@
                                             <div class="d-flex">
 
                                                 <!-- check if mine is null so enabke checkbox else disable it -->
-                                                <% if(data.areamanager.allmines[i].areamanager == null){ %>
+                                                <% if(data.areamanager.allmines[i].areamanager == null ) { %>
 
                                                     <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
                                                             value="<%= data.areamanager.allmines[i].name  %> ">
                                                         <%= data.areamanager.allmines[i].name  %></label>
 
                                                     <% }  else {%>
-                                                        <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
-                                                                value="<%= data.areamanager.allmines[i].name  %> " disabled>
-                                                            <%= data.areamanager.allmines[i].name  %></label>
-                                                        <% } %>
+                                                        <% if(data.areamanager.allmines[i].areamanager == data.areamanager.mobile){ %>
+                                                            <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
+                                                                    value="<%= data.areamanager.allmines[i].name  %> " checked>
+                                                                <%= data.areamanager.allmines[i].name  %></label>
+                                                            <% }  else {%>
+                                                                <label><input type="checkbox" name="<%= data.areamanager.allmines[i].id  %>"
+                                                                        value="<%= data.areamanager.allmines[i].name  %> " disabled>
+                                                                    <%= data.areamanager.allmines[i].name  %></label>
+                                                                <% } } %>
 
-                                                            <!-- adding am infront of mines -->
-                                                            <% if(data.areamanager.allmines[i].areamanager != null ) { %>
-                                                                <p class="ml-1"> (
-                                                                    <%= data.areamanager.allmines[i].areamanager %> )
-                                                                </p>
-                                                                <% } %>
                                             </div>
 
                                             <% } %>
