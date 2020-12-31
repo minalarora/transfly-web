@@ -16,6 +16,7 @@ const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+const mine = require('../models/mine')
 router.use(cookieParser())
 
 
@@ -140,6 +141,33 @@ router.post('/update_am_mines/:mobile',async (req,res)=>{
         {
             const mobile = req.params.mobile
             console.log(req.body)
+            const areamanager  = await AreaManager.findOne({mobile})
+            if(areamanager)
+            {
+
+                var newmines  = Object.keys(req.body)
+                var oldmines  = await Mine.find({areamanager: mobile}).map((mine)=>{
+                    return mine.id
+                })
+                newmines.forEach((mine)=>{
+                    await Mine.findOneAndUpdate({id: mine },{areamanager : mobile})
+                })
+
+                var nullmines  = oldmines.filter((mine)=>{
+                    return newmines.includes(mine) == false
+                })
+
+                nullmines.forEach((mine)=>{
+                    await Mine.findOneAndUpdate({id: mine },{areamanager : null})
+                })
+
+                res.redirect("/webspecificareamanager/" + mobile)
+
+            }
+            else
+            {
+                
+            }
 
         }
         else
