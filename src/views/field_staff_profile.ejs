@@ -26,6 +26,27 @@
         .table-shadow {
             box-shadow: -1px 1px 7px #888888;
         }
+
+        /* multi select mine selct form css */
+        .multiselect {
+            width: 20em;
+            height: 200px;
+            padding: 10px;
+            border: solid 1px #c0c0c0;
+            overflow: auto;
+        }
+
+        .multiselect label {
+            display: block;
+            margin-bottom: 0px;
+        }
+
+        .multiselect-on {
+            color: #ffffff;
+            background-color: #000099;
+        }
+
+        /* multi select mine selct form css ends------------- */
     </style>
 
 </head>
@@ -112,40 +133,60 @@
                             </div>
                         </div>
 
+
                         <div class="col-lg-6 mt-2 col-md-12 ">
                             <div class="pl-2 pt-2 pb-1 bg-success text-light">
                                 <h5>Bank Details</h5>
                             </div>
                             <div class="p-3 table-responsive shadow bg-light ">
-                                <table class="table table-borderless" style="width:100%">
-                                    <tr>
-                                        <th>Ifsc:</th>
-                                        <td>
-                                            <%= data.fieldstaff.ifsc %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Bank:</th>
-                                        <td>
-                                            <%= data.fieldstaff.bankname %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Acc no:</th>
-                                        <td>
-                                            <%= data.fieldstaff.accountno %>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <form method="POST" action="/update_fs_mine/<%= data.fieldstaff.mobile  %>">
+                                    <div class="multiselect">
+                                        <!-- looping through mines -->
+                                        <% for(var i =0 ; i< data.fieldstaff.allmines.length ; i++){ %>
+                                            <div class="d-flex">
+
+                                                <!-- check if mine is null so enabke checkbox else disable it -->
+                                                <% if(data.fieldstaff.allmines[i].fieldstaff == null ) { %>
+
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" for="radio2">
+                                                            <input type="radio" class="form-check-input" id="mines" name="mine_alloted" value="<%= data.fieldstaff.allmines[i].id  %>">
+                                                            <%= data.fieldstaff.allmines[i].name  %>
+                                                        </label>
+                                                    </div>
+
+                                                    <% }  else {%>
+                                                        <% if(data.fieldstaff.allmines[i].fieldstaff == data.fieldstaff.mobile){ %>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label" for="radio2">
+                                                                    <input checked="checked" type="radio" class="form-check-input" id="mines" name="mine_alloted" value="<%= data.fieldstaff.allmines[i].id  %>">
+                                                                    <%= data.fieldstaff.allmines[i].name  %>
+                                                                </label>
+                                                            </div>
+                                                            <% }  else {%>
+                                                                <div class="form-check">
+                                                                    <label class="form-check-label" for="radio2">
+                                                                        <input disabled type="radio" class="form-check-input" id="mines" name="mine_alloted" value="<%= data.fieldstaff.allmines[i].id  %>">
+                                                                        <%= data.fieldstaff.allmines[i].name  %>
+                                                                    </label>
+                                                                </div>
+                                                                <% } } %>
+
+                                            </div>
+
+                                            <% } %>
+                                    </div>
+                                    <input type="submit" value="submit">
+                                </form>
                             </div>
 
                         </div>
                     </div>
 
-                    <!--vehicle details table  -->
+                    <!--Emergency details table  -->
                     <br>
                     <div id="profile-content" class="row justify-content-start mr-4">
-                        <div class="col-md-12 col-lg-6 box-shadow">
+                        <div class="col-md-12 mt-2 col-lg-6 box-shadow">
                             <div class="pl-2 pt-2 pb-1 bg-success text-light">
                                 <h5>Emergency Contact Details</h5>
                             </div>
@@ -172,12 +213,44 @@
                                 </table>
                             </div>
                         </div>
+
+
+                        <div class="col-lg-6 mt-2 col-md-12 ">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Bank Details</h5>
+                            </div>
+                            <div class="p-3 table-responsive shadow bg-light ">
+
+                                <table class="table table-borderless" style="width:100%">
+                                    <tr>
+                                        <th>Ifsc:</th>
+                                        <td>
+                                            <%= data.fieldstaff.ifsc %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank:</th>
+                                        <td>
+                                            <%= data.fieldstaff.bankname %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Acc no:</th>
+                                        <td>
+                                            <%= data.fieldstaff.accountno %>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
-                    <br><br>
                 </div>
-                <!-- Page content end here  -->
+                <br><br>
             </div>
-            <!-- /#page-content-wrapper -->
+            <!-- Page content end here  -->
+    </div>
+    <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->

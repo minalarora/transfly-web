@@ -121,54 +121,54 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
 })
 
 
-router.post('/update_fs_mine/:mobile',async (req,res)=>{
-    try
-    {
+router.post('/update_fs_mine/:mobile', async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
-        const decoded=jwt.verify(token,'transfly')
-        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
-        if(admin)
-        {
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        if (admin) {
             const mobile = req.params.mobile
             console.log(req.body)
-            const areamanager  = await Fieldstaff.findOne({mobile})
-            if(areamanager)
-            {
+            const areamanager = await Fieldstaff.findOne({ mobile })
+            if (areamanager) {
 
-                var newmines  = Object.keys(req.body)
-                var oldminess  = await Mine.find({fieldstaff: mobile})
-                var oldmines =  oldminess.map((mine)=>{
+                var newmines = Object.values(req.body)
+                console.log("new m", newmines);
+
+                var oldminess = await Mine.find({ fieldstaff: mobile })
+
+                var oldmines = oldminess.map((mine) => {
                     return mine.id
                 })
-                newmines.forEach((mine)=>{
-                     Mine.findOneAndUpdate({id: mine },{fieldstaff : mobile})
+                console.log("oldmines", oldmines);
+
+                newmines.forEach((mine) => {
+                    Mine.findOneAndUpdate({ id: parseInt(mine) }, { fieldstaff: mobile }).exec()
                 })
 
-                var nullmines  = oldmines.filter((mine)=>{
+                var nullmines = oldmines.filter((mine) => {
                     return newmines.includes(mine) == false
                 })
 
-                nullmines.forEach((mine)=>{
-                     Mine.findOneAndUpdate({id: mine },{fieldstaff : null})
+                console.log("null", nullmines);
+                nullmines.forEach((mine) => {
+                    Mine.findOneAndUpdate({ id: mine }, { fieldstaff: null }).exec()
                 })
 
                 return res.redirect("/webspecificfieldstaff/" + mobile)
 
             }
-            else
-            {
-                console.log('admin ')   
+            else {
+                console.log('admin ')
             }
 
         }
-        else
-        {
+        else {
             console.log('admin not found in all finance')
         }
     }
-    catch(e)
-    {
-            console.log(e.message)
+    catch (e) {
+        console.log(e.message)
     }
 })
 
