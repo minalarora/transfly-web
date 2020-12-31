@@ -180,7 +180,7 @@ router.get('/revokemine/:name',async (req,res)=>{
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
            
-            const name = req.params.name
+          const name = req.params.name
           let mine  = await Mine.findOneAndUpdate({name},{fieldstaff:null})
           return res.redirect("/webspecificfieldstaff/" + mine.fieldstaff)
 

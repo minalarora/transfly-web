@@ -33,7 +33,7 @@ rewardSchema.pre('save',async function(next){
     const reward  = this
     if(reward.text && reward.image)
     {
-        reward.status = 1
+        
     }
     else if(reward.text)
     {
