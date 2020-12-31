@@ -36,8 +36,8 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                 console.log("here2")
                 let t = invoice.toObject()
 
-                const mine = await Mine.findOne({ id: invoice.mine })
-                const vehicleowner = await VehicleOwner.findById({ _id: invoice.owner })
+                const mine = await Mine.findOne({ id: invoice.mineid })
+                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
@@ -75,9 +75,8 @@ router.get('/webinvoiceall', async (req, res) => {
 
                 let t = invoice[i].toObject()
 
-                const mine = await Mine.findOne({ id: invoice[i].mine })
-                console.log("hello1", invoice[i]);
-                const vehicleowner = await VehicleOwner.findById({ _id: invoice[i].owner })
+                const mine = await Mine.findOne({ id: invoice[i].mineid })
+                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice[i].vehicleownermobile })
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area

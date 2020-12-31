@@ -72,14 +72,15 @@ router.get("/allreferral",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/reward/:id",auth,async (req,res)=>{
+router.get("/referralimage/:id",async (req,res)=>{
     try
     {
         const id = req.params.id
-        const reward = await Reward.findOne({id})
+        const reward = await Referral.findOne({id})
         if(reward!=null)
         {
-             res.status(200).send(reward)   
+            res.set('Content-Type', 'image/png')
+            res.send(reward.image)
         }
         else
         {
@@ -104,6 +105,7 @@ router.get("/reward/:id",auth,async (req,res)=>{
             }
     })*/
 })
+
 
 router.patch("/reward/:id",auth,async (req,res)=>{
     try

@@ -38,7 +38,18 @@ const WebTransporter = require('./src/routers/webtransporter')
 const WebVehicleOwner = require('./src/routers/webvehicleowner')
 
 
-
+var fs = require('fs');
+var dir = path.join(__dirname, 'public');
+var mime = {
+    html: 'text/html',
+    txt: 'text/plain',
+    css: 'text/css',
+    gif: 'image/gif',
+    jpg: 'image/jpeg',
+    png: 'image/png',
+    svg: 'image/svg+xml',
+    js: 'application/javascript'
+};
 
 const viewsPath = path.join(__dirname, './src/views')
 app.set('view engine', 'ejs')

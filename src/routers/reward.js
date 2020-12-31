@@ -72,14 +72,15 @@ router.get("/allreward",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/reward/:id",auth,async (req,res)=>{
+router.get("/rewardimage/:id",async (req,res)=>{
     try
     {
         const id = req.params.id
         const reward = await Reward.findOne({id})
         if(reward!=null)
         {
-             res.status(200).send(reward)   
+            res.set('Content-Type', 'image/png')
+            res.send(reward.image)
         }
         else
         {

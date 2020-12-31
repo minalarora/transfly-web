@@ -16,7 +16,6 @@ const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
- 
 router.use(cookieParser())
 
 
@@ -75,8 +74,10 @@ router.get('/webspecificareamanager/:mobile',async (req,res)=>{
             {
               //  await areamanager.populate('mines').execPopulate()
               var mines  = await Mine.find({areamanager: areamanager.mobile}).exec()
+              var allmines = await Mine.find({}).exec()
                 let t =areamanager.toObject()
                 t.mines = mines
+                t.allmines = allmines
 
 
                 let data = {
@@ -129,11 +130,35 @@ router.get("/areamanagerrequest",async (req,res)=>{
   
 })
 
+router.post('/update_am_mines/:mobile',async (req,res)=>{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded=jwt.verify(token,'transfly')
+        const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+        if(admin)
+        {
+            const mobile = req.params.mobile
+            console.log(req.body)
+
+        }
+        else
+        {
+            console.log('admin not found in all finance')
+        }
+    }
+    catch(e)
+    {
+
+    }
+})
+
 
 router.get("/areamanager_request_action/:mobile",async (req,res)=>{
     try
     {
         const mobile =  req.params.mobile
+        
      const areamanager = await AreaManager.findOne({mobile})
      if(areamanager)
      {
@@ -187,6 +212,12 @@ router.get('/getareamanagerdata/:mobile',async (req,res)=>{
     delete object.__v
     delete object.tokens
     delete object._id
+
+    const mines  = Mine.find({areamanager: null})
+    object.mines = mines
+
+    
+
    
     return res.send(object)
 
