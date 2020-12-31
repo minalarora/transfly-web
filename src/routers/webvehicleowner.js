@@ -76,6 +76,10 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
+            let page = parseInt(req.query.page)
+            if (page < 1) {
+                page = 1;
+            }
             const mobile = req.params.mobile
             const vehicleowner = await VehicleOwner.findOne({ mobile })
 
@@ -84,8 +88,11 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
             }
 
             await vehicleowner.populate('vehicles').execPopulate()
-            await vehicleowner.populate('invoices').execPopulate()
+            await vehicleowner.populate({path: 'invoices'},null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
 
+            data.prev = page - 1
+            data.next = page + 1
+            data.page = page
             let t = vehicleowner.toObject()
             data.vehicleowner = {
                 ...t,
@@ -94,6 +101,15 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
 
             }
 
+            if (vehicleowner.invoices.length == 0) {
+                if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
+                    return res.render("vehicle_owner_profile", { data })
+                }
+                else {
+
+                    res.redirect('/webspecificvehicleowner/' + mobile + '?page=' + (page - 1))
+                }
+            }
 
 
 
