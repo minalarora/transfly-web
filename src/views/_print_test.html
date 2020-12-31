@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Transfly logistic
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        #invoice {
+            padding: 30px;
+        }
+
+        .invoice {
+            position: relative;
+            background-color: #FFF;
+            min-height: 680px;
+            padding: 15px
+        }
+
+        .invoice header {
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #3989c6
+        }
+
+        .invoice .company-details {
+            text-align: right
+        }
+
+        .invoice .company-details .name {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        .invoice .contacts {
+            margin-bottom: 20px
+        }
+
+        .invoice .invoice-to {
+            text-align: left
+        }
+
+        .invoice .invoice-to .to {
+            margin-top: 0;
+            margin-bottom: 0
+        }
+
+        .invoice .invoice-details {
+            text-align: right
+        }
+
+        .invoice .invoice-details .invoice-id {
+            margin-top: 0;
+            color: #3989c6
+        }
+
+        .invoice main {
+            padding-bottom: 50px
+        }
+
+        .invoice main .thanks {
+            margin-top: -100px;
+            font-size: 2em;
+            margin-bottom: 50px
+        }
+
+        .invoice main .notices {
+            padding-left: 6px;
+            border-left: 6px solid #3989c6
+        }
+
+        .invoice main .notices .notice {
+            font-size: 1.2em
+        }
+
+        .invoice table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px
+        }
+
+        .invoice table td,
+        .invoice table th {
+            padding: 15px;
+            background: #eee;
+            border-bottom: 1px solid #fff
+        }
+
+        .invoice table th {
+            white-space: nowrap;
+            font-weight: 400;
+            font-size: 16px
+        }
+
+        .invoice table td h3 {
+            margin: 0;
+            font-weight: 400;
+            color: #3989c6;
+            font-size: 1.2em
+        }
+
+        .invoice table .qty,
+        .invoice table .total,
+        .invoice table .unit {
+            text-align: right;
+            font-size: 1.2em
+        }
+
+        .invoice table .no {
+            color: #fff;
+            font-size: 1.6em;
+            background: #3989c6
+        }
+
+        .invoice table .unit {
+            background: #ddd
+        }
+
+        .invoice table .total {
+            background: #3989c6;
+            color: #fff
+        }
+
+        .invoice table tbody tr:last-child td {
+            border: none
+        }
+
+        .invoice table tfoot td {
+            background: 0 0;
+            border-bottom: none;
+            white-space: nowrap;
+            text-align: right;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-top: 1px solid #aaa
+        }
+
+        .invoice table tfoot tr:first-child td {
+            border-top: none
+        }
+
+        .invoice table tfoot tr:last-child td {
+            color: #3989c6;
+            font-size: 1.4em;
+            border-top: 1px solid #3989c6
+        }
+
+        .invoice table tfoot tr td:first-child {
+            border: none
+        }
+
+        .invoice footer {
+            width: 100%;
+            text-align: center;
+            color: #777;
+            border-top: 1px solid #aaa;
+            padding: 8px 0
+        }
+
+        @media print {
+            .invoice {
+                font-size: 11px !important;
+                overflow: hidden !important
+            }
+
+            .invoice footer {
+                position: absolute;
+                bottom: 10px;
+                page-break-after: always
+            }
+
+            .invoice>div:last-child {
+                page-break-before: always
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--Author      : @arboshiki-->
+    <button onclick="printinvoice()">print</button>
+    <div id="invoice_print" class="container">
+        <div class="card">
+            <div class="card-header">
+                Invoice
+                <strong>01/01/01/2018</strong>
+                <span class="float-right"> <strong>Status:</strong> Pending</span>
+
+            </div>
+            <div class="card-body">
+                <div class="row d-flex justify-content-between mb-4">
+                    <div class="">
+                        <h6 class="mb-3">From:</h6>
+                        <div>
+                            <strong>Webz Poland</strong>
+                        </div>
+                        <div>Madalinskiego 8</div>
+                        <div>71-101 Szczecin, Poland</div>
+                        <div>Email: info@webz.com.pl</div>
+                        <div>Phone: +48 444 666 3333</div>
+                    </div>
+
+                    <div class="">
+                        <h6 class="mb-3">To:</h6>
+                        <div>
+                            <strong>Bob Mart</strong>
+                        </div>
+                        <div>Attn: Daniel Marek</div>
+                        <div>43-190 Mikolow, Poland</div>
+                        <div>Email: marek@daniel.com</div>
+                        <div>Phone: +48 123 456 789</div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="center">#</th>
+                                <th>Item</th>
+                                <th>Description</th>
+
+                                <th class="right">Unit Cost</th>
+                                <th class="center">Qty</th>
+                                <th class="right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="center">1</td>
+                                <td class="left strong">Origin License</td>
+                                <td class="left">Extended License</td>
+
+                                <td class="right">$999,00</td>
+                                <td class="center">1</td>
+                                <td class="right">$999,00</td>
+                            </tr>
+                            <tr>
+                                <td class="center">2</td>
+                                <td class="left">Custom Services</td>
+                                <td class="left">Instalation and Customization (cost per hour)</td>
+
+                                <td class="right">$150,00</td>
+                                <td class="center">20</td>
+                                <td class="right">$3.000,00</td>
+                            </tr>
+                            <tr>
+                                <td class="center">3</td>
+                                <td class="left">Hosting</td>
+                                <td class="left">1 year subcription</td>
+
+                                <td class="right">$499,00</td>
+                                <td class="center">1</td>
+                                <td class="right">$499,00</td>
+                            </tr>
+                            <tr>
+                                <td class="center">4</td>
+                                <td class="left">Platinum Support</td>
+                                <td class="left">1 year subcription 24/7</td>
+
+                                <td class="right">$3.999,00</td>
+                                <td class="center">1</td>
+                                <td class="right">$3.999,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+
+                    </div>
+
+                    <div class="col-lg-4 col-sm-5 ml-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="left">
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td class="right">$8.497,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong>Discount (20%)</strong>
+                                    </td>
+                                    <td class="right">$1,699,40</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong>VAT (10%)</strong>
+                                    </td>
+                                    <td class="right">$679,76</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td class="right">
+                                        <strong>$7.477,36</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $('#printInvoice').click(function () {
+        Popup($('.invoice')[0].outerHTML);
+        function Popup(data) {
+            window.print();
+            return true;
+        }
+    });
+
+    function printinvoice() {
+        var invoice = document.getElementById("invoice_print").innerHTML;
+        var original = document.getElementById("invoice_print").innerHTML;
+        document.body.innerHTML = invoice;
+        window.print()
+        document.body.innerHTML = original;
+    }
+</script>
+
+</html>

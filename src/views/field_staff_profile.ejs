@@ -130,13 +130,17 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div class="d-flex justify-content-center">
+                                    <a href="/revokemine/<%=  data.fieldstaff.mine  %>" class="btn btn-danger">Revoke mine
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
 
                         <div class="col-lg-6 mt-2 col-md-12 ">
                             <div class="pl-2 pt-2 pb-1 bg-success text-light">
-                                <h5>Bank Details</h5>
+                                <h5>Assign Mine</h5>
                             </div>
                             <div class="p-3 table-responsive shadow bg-light ">
                                 <form method="POST" action="/update_fs_mine/<%= data.fieldstaff.mobile  %>">
