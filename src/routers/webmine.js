@@ -114,15 +114,18 @@ router.post('/webspecificmine/:id', async (req, res) => {
                 }
                 else {
                     console.log('mine not found')
+                    return res.redirect('/webmine')
                 }
             }
         }
         else {
             console.log(e)
+            return res.redirect('/')
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 

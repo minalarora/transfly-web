@@ -165,12 +165,21 @@
                         </div>
                     </div>
 
+
                     <!-- all invoices  -->
                     <br>
                     <div id="profile-content" class="row justify-content-start mr-4">
                         <div class="col-lg-12 box-shadow">
-                            <div class="pl-2 pt-3 pb-2 bg-primary text-center text-light">
+                            <div class="pl-2 pt-3 pb-2 text-center bg-primary text-light">
                                 <h5>Invoice Details</h5>
+                            </div>
+                            <!-- prev next button -->
+                            <div class="row p-2 align-items-baseline w-100">
+                                <a href="/webspecificvehicleowner/<%= data.vehicleowner.mobile %>?page=<%= data.prev %>" class="btn mx-2 btn-primary">prev</a>
+                                <p>Page
+                                    <%= data.page %>
+                                </p>
+                                <a href="/webspecificvehicleowner/<%= data.vehicleowner.mobile %>?page=<%= data.next %>" class="btn mx-2 btn-primary">next</a>
                             </div>
                             <div class="table-responsive p-2 shadow justify-content-between">
                                 <table class="table table-borderless" style="width:100%">
@@ -252,5 +261,12 @@
     </script>
 
 </body>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
+    }
+</script>
 
 </html>

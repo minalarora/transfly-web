@@ -72,6 +72,7 @@
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>email</th>
+                                <th>mininglicense</th>
                             </tr>
                             <% if(data.transporter.length != 0) { %>
                                 <% for (var i =0; i < data.transporter.length;  i++ ) { %>
@@ -81,9 +82,10 @@
                                             <%= data.transporter[i].mobile %>
                                         </td>
                                         <td>
-                                            <% for (var j =0; j < data.transporter[i].mine.length;  j++ ) { %>
-                                                <%= data.transporter[i].mine[j].name %> ,
-                                                    <% } %>
+                                            <%= data.transporter[i].email %>
+                                        </td>
+                                        <td>
+                                            <%= data.transporter[i].mininglicense %>
                                         </td>
                                     </tr>
                                     <% } %> >
@@ -124,5 +126,12 @@
     </script>
 
 </body>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
+    }
+</script>
 
 </html>

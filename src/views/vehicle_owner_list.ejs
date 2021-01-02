@@ -69,11 +69,11 @@
                     <br>
                     <!-- prev next button -->
                     <div class="row p-2 d-flex align-items-baseline w-100">
-                        <a href="/webinvoiceall?page=<%= data.prev %>" class="btn mx-2 btn-primary">prev</a>
+                        <a href="/webvehicleownerall?page=<%= data.prev %>" class="btn mx-2 btn-primary">prev</a>
                         <p>Page
                             <%= data.page %>
                         </p>
-                        <a href="/webinvoiceall?page=<%= data.next %>" class="btn mx-2 btn-primary">next</a>
+                        <a href="/webvehicleownerall?page=<%= data.next %>" class="btn mx-2 btn-primary">next</a>
                     </div>
                     <br>
 
@@ -88,7 +88,7 @@
                             <% if(data.vehicleowner.length != 0) { %>
                                 <% for (var i =0; i < data.vehicleowner.length;  i++ ) { %>
                                     <tr>
-                                        <td><a href="/webspecificvehicleowner/<%= data.vehicleowner[i].mobile %>">
+                                        <td><a href="/webspecificvehicleowner/<%= data.vehicleowner[i].mobile %>?page=0">
 
                                                 <%= data.vehicleowner[i].name %></a>
                                         </td>
@@ -167,6 +167,13 @@
             }
 
         }
+    }
+</script>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
     }
 </script>
 

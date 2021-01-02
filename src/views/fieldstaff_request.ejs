@@ -136,7 +136,7 @@
                 <!-- page content start here -->
                 <div class="container-fluid">
                     <div class="row p-3">
-                        <div class="w-100 text-center text-primary border-bottom">
+                        <div class="w-100 mb-4 text-center text-primary border-bottom">
                             <h3>FieldStaff Approval Request</h3>
                         </div>
                         <div class="container-fluid">
@@ -249,6 +249,13 @@
         console.log("hello");
         window.open(imgaddress, '_blank');
 
+    }
+</script>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
     }
 </script>
 

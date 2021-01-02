@@ -131,8 +131,7 @@ router.post('/webadminedit', async (req, res) => {
     }
     catch (e) {
         console.log(e)
-
-        return res.redirect("/webadmin")
+        return res.redirect("/webadmin?message=Some+error+occured+while+updating!!+please+try+again")
     }
 })
 
@@ -153,10 +152,12 @@ router.get('/webadminlogout', async (req, res) => {
         else {
             //admin not found
             console.log("admin not found to logout")
+            return res.redirect('/')
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 
@@ -172,8 +173,6 @@ router.get("/addofficial", async (req, res) => {
 
 router.post('/addofficial/:type', transporterUpload, async (req, res) => {
     try {
-
-
         if (req.params.type == "admin") {
             const obj = { ...req.body }
             const imageupdates = Object.keys(req.files)
@@ -219,7 +218,6 @@ router.post('/addofficial/:type', transporterUpload, async (req, res) => {
     upload(req, res, function (err) {
 
         if (err) {
-
             // ERROR occured (here it can be occured due 
             // to uploading image of size greater than 
             // 1MB or uploading different file type) 
@@ -228,7 +226,6 @@ router.post('/addofficial/:type', transporterUpload, async (req, res) => {
         }
         else {
             console.log('f')
-
             res.send("Success, Image uploaded!")
         }
     })
@@ -249,15 +246,16 @@ router.get('/logout', async (req, res) => {
             await admin.save()
             req.session.destroy((err) => {
                 if (err) {
+                    console.log(err);
                     return console.log(err);
                 }
                 res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-                res.redirect('/');
+                return res.redirect('/');
             });
         }
     }
     catch (e) {
-
+        return res.redirect('/');
     }
 
 

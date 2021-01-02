@@ -158,9 +158,6 @@
     </div>
 
 
-
-
-
     <!-- Menu Toggle Script -->
     <script>
         $("#menu-toggle").click(function (e) {
@@ -170,5 +167,12 @@
     </script>
 
 </body>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
+    }
+</script>
 
 </html>

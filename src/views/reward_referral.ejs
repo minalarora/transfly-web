@@ -60,7 +60,7 @@
                                 <form method="POST" class="p-4" action="/reward_referral/referral" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="displaytext">Display Text</label>
-                                        <textarea class="form-control" rows="5" name="text" id="displaytext"></textarea>
+                                        <textarea class="form-control" rows="4" name="text" id="displaytext"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="files">Display Images:</label>
@@ -78,8 +78,22 @@
                                 <form method="POST" class="p-4" action="/reward_referral/reward" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="displaytext">Display Text</label>
-                                        <textarea class="form-control" rows="5" name="text" id="displaytext"></textarea>
+                                        <textarea class="form-control" rows="4" name="text" id="displaytext"></textarea>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="files">Display Images:</label>
+                                        <input type="file" id="files" name="image">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- hot deals -->
+                        <div class="col-lg-5 mr-2  col-md-6 mt-4 col-sm-8">
+                            <div class="form p-2  bg-light shadow border rounded">
+                                <h4 class="text-center p-2 rounded-bottom bg-warning text-datk"> Update hotdeals</h4>
+                                <form method="POST" class="p-4" action="/reward_referral/hotdeals" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="files">Display Images:</label>
                                         <input type="file" id="files" name="image">
@@ -112,5 +126,12 @@
     </script>
 
 </body>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
+    }
+</script>
 
 </html>
