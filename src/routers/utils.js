@@ -102,7 +102,8 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        let imageupdates
+        console.log(req.body)
+        let imageupdates 
         try
         {
              imageupdates = Object.keys(req.files)
@@ -127,8 +128,11 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
             updates.forEach((update)=>{
                 req.user[update] = req.body[update] 
              })
+             await req.user.save()
 
-             imageupdates.forEach((update)=>{
+             if(imageupdates)
+             {
+             image6updates.forEach((update)=>{
                  sharp(req.files[update][0].buffer).resize(200).png().toBuffer().then((buffer)=>{
                      
                     req.user[update] = buffer
@@ -145,17 +149,63 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
                 })
                 
             })
+        }
+        else
+        {
+            return  res.status(200).send("Done")
+        }
             
            
             
     }
     catch(e)
     {
+        console.log(e)
         res.status(400).send(e.message)
     }
 },(err,req,res,next)=>{
     return res.status(400).send("middleware error")
 })
+
+
+router.post("/changepassword",async (req,res)=>{
+    try
+    {
+        let password = req.body["password"]
+        let user  =  await VehicleOwner.findOneAndUpdate({mobile: req.body.mobile},{password})
+        if(user)
+        {
+            await user.save()
+            return res.status(200).send("DONE")
+        }
+        user  =  await Fieldstaff.findOneAndUpdate({mobile: req.body.mobile},{password})
+        if(user)
+        {
+            await user.save()
+            return res.status(200).send("DONE")
+        }
+         user  =  await AreaManager.findOneAndUpdate({mobile: req.body.mobile},{password})
+        if(user)
+        {
+            await user.save()
+            return res.status(200).send("DONE")
+        }
+        user  =  await Transporter.findOneAndUpdate({mobile: req.body.mobile},{password})
+        if(user)
+        {
+            await user.save()
+            return res.status(200).send("DONE")
+        }
+        
+        return res.status(400).send("User not found!")
+     
+    }
+    catch(e)
+    {
+        return res.status(400).send(e.message)
+    }
+})
+
 
 
 module.exports = router

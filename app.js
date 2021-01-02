@@ -8,6 +8,7 @@ var session = require('express-session');
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 8080
 require("./src/db/dbfile")
+var CronJob = require('cron').CronJob
 
 const Admin = require('./src/routers/admin')
 const AreaManager = require('./src/routers/areamanager')
@@ -24,6 +25,7 @@ const Rating = require('./src/routers/rating')
 const Utils = require('./src/routers/utils')
 const Reward = require('./src/routers/reward')
 const Referral = require('./src/routers/referral')
+const Banner = require('./src/routers/banner')
 
 const WebAdmin = require('./src/routers/webadmin')
 const WebAreaManager = require('./src/routers/webareamanager')
@@ -117,6 +119,7 @@ app.use(VehicleOwner)
 app.use(Rating)
 app.use(Reward)
 app.use(Referral)
+app.use(Banner)
 
 app.use(helmet())
 app.use(compression())
@@ -134,6 +137,47 @@ return count
 .catch(e)
 */
 
+const MineModel = require('./src/models/mine')
+const job = new CronJob('00 30 18 * * *', async function() {
+	// const d = new Date();
+    // console.log('Midnight:', d);
+    let conditions = {};
+    let update = {
+        $set : {
+       active: true
+      }
+    };
+    let options = { multi: true, upsert: true };
+    MineModel.updateMany(conditions,update,options,(err,doc)=>{
+        if(doc)
+        {
+
+            
+        }
+        else
+        {
+            
+        }
+
+    })
+    
+}, null,true,'UTC');
+
+if(!job.running)
+{
+job.start();
+}
+
+
+// MineModel.findOne({id: 9249621}).then((mine)=>{
+    
+//     let md = new Date(mine.createdAt)  
+//     console.log(md.getDate() + "/" + md.getMonth())  
+// })
+// let timestamp = Date.now()
+// let d = new Date(timestamp)
+// console.log(d.getDate()+
+// "/" + d.getMonth())
 
 
 app.listen(port, () => {
