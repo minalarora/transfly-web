@@ -31,7 +31,7 @@ router.get('/webvehicleownerall', async (req, res) => {
             if (page < 1) {
                 page = 1;
             }
-            const vehicleowner = await VehicleOwner.find({ status: 2 },null,{ skip: (page * 1 - 1), limit: 1 }).exec()
+            const vehicleowner = await VehicleOwner.find({ status: 2 }, null, { skip: (page * 1 - 1), limit: 1 }).exec()
             let data = {
                 vehicleowner: []
             }
@@ -54,7 +54,7 @@ router.get('/webvehicleownerall', async (req, res) => {
                 }
                 else {
 
-                  return res.redirect('/webvehicleownerall?page=' + (page - 1))
+                    return res.redirect('/webvehicleownerall?page=' + (page - 1))
                 }
             }
             // console.log("data",data.vehicleowner[0].mobile)
@@ -62,10 +62,12 @@ router.get('/webvehicleownerall', async (req, res) => {
         }
         else {
             console.log('admin not found in all invoice')
+            return res.redirect('/')
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 
@@ -88,7 +90,8 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
             }
 
             await vehicleowner.populate('vehicles').execPopulate()
-            await vehicleowner.populate({path: 'invoices'},null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
+            let invoices = await Invoice.find({ vehicleownermobile: mobile }, null, { skip: (page * 1 - 1), limit: 1 }).exec()
+            //vehicleowner.populate({ path: 'invoices' }, null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
 
             data.prev = page - 1
             data.next = page + 1
@@ -96,12 +99,12 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
             let t = vehicleowner.toObject()
             data.vehicleowner = {
                 ...t,
-                invoices: vehicleowner.invoices,
+                invoices: invoices,
                 vehicles: vehicleowner.vehicles
 
             }
 
-            if (vehicleowner.invoices.length == 0) {
+            if (invoices.length == 0) {
                 if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
                     return res.render("vehicle_owner_profile", { data })
                 }
@@ -119,10 +122,12 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
         }
         else {
             console.log('admin not found in all invoice')
+            return res.redirect('/')
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 
@@ -140,10 +145,12 @@ router.get("/vehicleownerrequest", async (req, res) => {
         }
         else {
             console.log('admin not found in all finance')
+            return res.redirect('/')
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 
 })
@@ -201,8 +208,6 @@ router.get('/getvehicleownerdata/:mobile', async (req, res) => {
     delete object._id
 
     return res.send(object)
-
-
 
 })
 

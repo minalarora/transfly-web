@@ -47,15 +47,18 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
 
             }
             else {
-                console.log('invoice member not found')
+                console.log('invoice number not found')
+                return res.redirect("/webinvoiceall")
             }
         }
         else {
             console.log('admin not found in single invoice')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
@@ -93,8 +96,6 @@ router.get('/webinvoiceall', async (req, res) => {
             console.log(data)
             return res.render('invoicelist', { data })
 
-
-
         }
         else {
             return res.redirect("/")
@@ -128,6 +129,7 @@ router.get('/webinvoiceall', async (req, res) => {
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
@@ -192,14 +194,16 @@ router.get('/webfinanceinvoice', async (req, res) => {
             }
             else {
                 console.log('admin not found in all invoice')
+                return res.redirect("/webfinance")
             }
         }
         else {
-            return res.redirect('/webfinance')
+            return res.redirect('/')
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 
@@ -232,11 +236,13 @@ router.get('/webupdatependinginvoice/:id', async (req, res) => {
             }
             else {
                 console.log('invoice member not found')
+                return res.redirect('/')
             }
         }
     }
     catch (e) {
-
+        console.log(e);
+        return res.redirect('/')
     }
 })
 
@@ -281,11 +287,13 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
             }
             else {
                 console.log('invoice not found')
+                return res.redirect('/')
             }
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 
@@ -318,10 +326,13 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
             }
             else {
                 console.log('invoice member not found')
+                return res.redirect('/')
             }
         }
     }
     catch (e) {
+        console.log(e);
+        return res.redirect('/')
 
     }
 })
@@ -356,11 +367,13 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
             }
             else {
                 console.log('invoice member not found')
+                return res.redirect('/')
             }
         }
     }
     catch (e) {
-
+        console.log(e);
+        return res.redirect('/')
     }
 })
 
@@ -406,11 +419,13 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
             }
             else {
                 console.log('invoice not found')
+                return res.redirect('/');
             }
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect('/')
     }
 })
 

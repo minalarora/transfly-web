@@ -33,11 +33,13 @@ router.get('/webfinance', async (req, res) => {
         }
         else {
             console.log('admin not found in web finance')
+            return res.redirect("/")
         }
 
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
@@ -55,11 +57,11 @@ router.get('/updatefinanceprofile', async (req, res) => {
             return res.render("finance_profile_update", { data })
         }
         else {
-
+            return res.redirect("/")
         }
     }
     catch (e) {
-
+        return res.redirect("/")
     }
 })
 
@@ -91,11 +93,13 @@ router.post('/updatefinanceprofile', async (req, res) => {
         }
         else {
             console.log('admin not found')
+            return res.redirect("/")
         }
 
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
@@ -113,16 +117,18 @@ router.get('/webfinancelogout', async (req, res) => {
         }
         else {
             //admin not found
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
 
 
-//////////for admin
+//////////for admins super admin
 router.get('/webfinanceall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
@@ -137,10 +143,12 @@ router.get('/webfinanceall', async (req, res) => {
         }
         else {
             console.log('admin not found in all finance')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 
@@ -161,14 +169,17 @@ router.get('/webspecificfinance/:mobile', async (req, res) => {
             }
             else {
                 console.log('finance member not found')
+                return res.redirect("/webfinanceall")
             }
         }
         else {
             console.log('admin not found in single finance')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/")
     }
 })
 

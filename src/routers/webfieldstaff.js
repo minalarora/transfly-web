@@ -44,18 +44,17 @@ router.get('/webfieldstaffall', async (req, res) => {
                 data.fieldstaff.push(t)
 
             }
-
-
-
             return res.render('fieldstaff_list', { data })
         }
         else {
             console.log('admin not found in all area manager')
+            return res.redirect("/")
         }
 
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/webfieldstaffall")
     }
 })
 
@@ -109,14 +108,18 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
             }
             else {
                 console.log('fieldstaff member not found')
+                return res.redirect("/webfieldstaffall")
             }
         }
         else {
             console.log('admin not found in single fieldstaff')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/webfieldstaffall")
+
     }
 })
 
@@ -159,35 +162,39 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
 
             }
             else {
-                console.log('admin ')
+                console.log('fs not found ')
+                return res.redirect("/webspecificfieldstaff/" + mobile)
             }
 
         }
         else {
             console.log('admin not found in all finance')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e.message)
+        return res.redirect("/webfieldstaffall")
     }
 })
 
-router.get('/revokemine/:name',async (req,res)=>{
-    try{
+router.get('/revokemine/:name', async (req, res) => {
+    try {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
-           
-          const name = req.params.name
-          let mine  = await Mine.findOneAndUpdate({name},{fieldstaff:null})
-          return res.redirect("/webspecificfieldstaff/" + mine.fieldstaff)
+
+            const name = req.params.name
+            let mine = await Mine.findOneAndUpdate({ name }, { fieldstaff: null })
+            return res.redirect("/webspecificfieldstaff/" + mine.fieldstaff)
 
         }
     }
-    catch(e)
-    {
+    catch (e) {
+        console.log(e)
+        return res.redirect("/webfieldstaffall")
 
     }
 })
@@ -206,10 +213,13 @@ router.get("/fieldstaffrequest", async (req, res) => {
         }
         else {
             console.log('admin not found in all finance')
+            return res.redirect("/")
+
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/fieldstaffrequest")
     }
 
 })
@@ -267,8 +277,6 @@ router.get('/getfieldstaffdata/:mobile', async (req, res) => {
     delete object._id
 
     return res.send(object)
-
-
 
 })
 

@@ -125,18 +125,11 @@
                                             <%= data.transporter.sta %>
                                         </td>
                                     </tr>
+
                                     <tr>
                                         <th>Mining liscence no:</th>
                                         <td>
                                             <%= data.transporter.mininglicense %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Mines</th>
-                                        <td>
-                                            <% for (var j =0; j < data.transporter.mines.length;  j++ ) { %>
-                                                <%= data.transporter.mines[j].name %> ,
-                                                    <% } %>
                                         </td>
                                     </tr>
 
@@ -169,5 +162,12 @@
     </script>
 
 </body>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
+    }
+</script>
 
 </html>

@@ -40,19 +40,17 @@ router.get('/webareamanagerall', async (req, res) => {
                 // t.mines = areamanager[i].mines
                 t.mines = mines
                 data.areamanager.push(t)
-
-
             }
-
-
             return res.render('area_manager_list', { data })
         }
         else {
             console.log('admin not found in all area manager')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/webareamanagerall")
     }
 })
 
@@ -72,7 +70,6 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
                 t.mines = mines
                 t.allmines = allmines
 
-
                 let data = {
                     areamanager: t
                 }
@@ -82,14 +79,17 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
             }
             else {
                 console.log('areamanager member not found')
+                return res.redirect("/areamanagerall")
             }
         }
         else {
             console.log('admin not found in single areamanager')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/areamanagerall")
     }
 })
 
@@ -108,10 +108,13 @@ router.get("/areamanagerrequest", async (req, res) => {
         }
         else {
             console.log('admin not found in all finance')
+            return res.redirect("/")
+
         }
     }
     catch (e) {
         console.log(e)
+        return res.redirect("/areamanagerrequest")
     }
 
 })
@@ -159,16 +162,18 @@ router.post('/update_am_mines/:mobile', async (req, res) => {
 
             }
             else {
-                console.log('admin ')
+                return res.send("area manager not found")
             }
 
         }
         else {
             console.log('admin not found in all finance')
+            return res.redirect("/")
         }
     }
     catch (e) {
         console.log(e.message)
+        return res.redirect("/")
     }
 })
 
@@ -229,13 +234,8 @@ router.get('/getareamanagerdata/:mobile', async (req, res) => {
     const mines = Mine.find({ areamanager: null })
     object.mines = mines
 
-
-
-
+    //ajax api made to sedn data of request of area manager
     return res.send(object)
-
-
-
 })
 
 
