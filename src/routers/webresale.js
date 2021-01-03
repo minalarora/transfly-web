@@ -50,7 +50,18 @@ router.get("/add_resale_vehicle",async (req,res)=>{
 router.post("/add_resale_vehicle",resaleupload,async (req,res)=>{
     try
     {
-        const obj  = {...req.body}
+        const obj  = {}
+        const objkeys = Object.keys(req.body)
+        objkeys.forEach((update) =>{
+            if(req.body[update] == update)
+            {
+                obj[update] = true
+            }
+            else
+            {
+                obj[update] = false
+            }
+        })
         const imageupdates = Object.keys(req.files)
         var vimg = []
         imageupdates.forEach((update)=>{

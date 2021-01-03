@@ -33,84 +33,84 @@ const resaleSchema  = mongoose.Schema({
     },
     1:
     {
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     2:
     {
        
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     3:
     {
         
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     4:
     {
         
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     5:
     {
        
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     6:
     {
       
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     7:
     {
         
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     8:
     {
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     9:
     {
-       
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     10:
     {
-        
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     11:
     {
       
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     },
     12:
     {
-        
-        type: String,
-        default: '0'
-    },
-    13:
-    {
-        
-        type: String,
-        default: '0'
+        type: Boolean,
+        default: false
     }
     
 },{
     timestamps: true
 })
+
+resaleSchema.methods.toJSON = function () {
+    const resale = this
+    const resaleobject = resale.toObject()
+    resaleobject["totalimage"] = resaleobject.vehicleimage.length
+    delete resaleobject.vehicleimage
+    
+    return resaleobject
+}
 
 const resale = mongoose.model('Resale',resaleSchema)
 
