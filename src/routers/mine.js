@@ -100,6 +100,19 @@ router.get("/areaimage/:id",async (req,res)=>{
  
 })
 
+router.post("/mineimage/:id",async (req,res)=>{
+    try
+    {
+            const id = req.params.id
+            const mine = await Mine.findOne({id})
+            
+    }
+    catch(e)
+    {
+
+    }
+})
+
 router.patch("/mine/:id",async (req,res)=>{
     try
     {

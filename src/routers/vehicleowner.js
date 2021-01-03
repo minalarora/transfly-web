@@ -78,7 +78,7 @@ router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        let imageupdates
+        let imageupdates = []
         try
         {
              imageupdates = Object.keys(req.files)

@@ -122,13 +122,21 @@ router.post("/transporter/me",auth,transporterUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const imageupdates = Object.keys(req.files)
+        let imageupdates = []
+        try
+        {
+             imageupdates = Object.keys(req.files)
+        }
+        catch(e)
+        {
+
+        }
         const allowedUpdates = ['name','mobile','email','password','status',
         'gst','sta','pan','aadhaar','mininglicense']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
-        console.log(updates)
+      
         if(!isValidOperation && (updates.length > 0))
         {
             return res.status(400).send("Invalid")

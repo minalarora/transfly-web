@@ -127,7 +127,15 @@ router.post("/areamanager/me",auth,transporterUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const imageupdates = Object.keys(req.files)
+        let imageupdates = []
+        try
+        {
+             imageupdates = Object.keys(req.files)
+        }
+        catch(e)
+        {
+
+        }
         const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','pan','aadhaar','ename','erelation','emobile']
         const isValidOperation = updates.every((update)=>{
