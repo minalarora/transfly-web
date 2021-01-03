@@ -18,6 +18,7 @@ var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 var multer  = require('multer')
 var sharp = require('sharp')
+const { update } = require('../models/admin')
 var upload = multer({
     limits:
     {
@@ -71,6 +72,10 @@ router.post("/add_resale_vehicle",resaleupload,async (req,res)=>{
             }
          })
 
+         const allowedUpdates = ['vehiclename','company','year']
+         allowedUpdates.forEach((update) =>{
+             obj[update] = req.body[update]
+         })
          obj["vehicleimage"] = vimg
          const resale = new Resale(obj)
          await resale.save()

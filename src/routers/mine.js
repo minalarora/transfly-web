@@ -78,6 +78,28 @@ router.get("/mine/:id",auth,async (req,res)=>{
     })*/
 })
 
+router.get("/areaimage/:id",async (req,res)=>{
+    try
+    {
+        const id = req.params.id
+        const mine = await Mine.findOne({id})
+        if(mine!=null)
+        {
+            res.set('Content-Type', 'image/png')
+            res.send(mine.areaimage)
+        }
+        else
+        {
+            return res.status(400).send("DONE")
+        }         
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+ 
+})
+
 router.patch("/mine/:id",async (req,res)=>{
     try
     {

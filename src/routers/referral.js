@@ -161,7 +161,7 @@ router.delete("/reward/:id",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 

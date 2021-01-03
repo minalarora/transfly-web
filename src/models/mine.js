@@ -20,6 +20,10 @@ const mineSchema  = mongoose.Schema({
          type: String,
          required: true
      },
+     areaimage:
+     {
+        type: Buffer
+     },
      trailer:
      {
          type: Boolean,
@@ -115,6 +119,14 @@ mineSchema.virtual('invoices',{
     foreignField: 'mineid'
 })
 
+mineSchema.methods.toJSON = function()
+{
+    const user = this
+    const userobject = user.toObject()
+    delete userobject.areaimage
+    userobject["areaimageurl"] = "https://transfly-ftr2t.ondigitalocean.app/areaimage/" + userobject.id 
+    return userobject
+}
 
 
 

@@ -84,26 +84,14 @@ router.get("/rewardimage/:id",async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }         
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
-  /*  const id = req.params.id
-    Vehicle.findOne({id},(e, a)=>{
-            if(e)
-            {
-                res.status(400)
-                res.send(e)       
-            }
-            else
-            {
-                res.status(200)
-                res.send(a)
-            }
-    })*/
+ 
 })
 
 router.patch("/reward/:id",auth,async (req,res)=>{
