@@ -100,9 +100,10 @@ router.get("/areaimage/:id",async (req,res)=>{
  
 })
 
-router.post("/nearme",auth,async (req,res)=>{
+router.post("/nearme/mine",auth,async (req,res)=>{
     try
     {
+        console.log("near me")
         const mines  =  await Mine.find({})
         let shortestpath  = 99999
         let areaname = null

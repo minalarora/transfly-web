@@ -141,6 +141,22 @@ router.get("/allinvoice/transporter",auth,async (req,res)=>{
     })*/
 })
 
+router.get("/invoice/timestamp/:timestamp",auth,async (req,res)=>{
+    try
+    {
+        const timestamp = req.params.timestamp
+        const invoices  = await Invoice.find({
+            createdAt: {
+                $gte: new Date(2012, 7, 14), 
+                $lt: new Date(2012, 7, 15)
+            }
+        })
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+})
 
 
 router.get("/invoice/:id",auth,async (req,res)=>{
@@ -175,6 +191,7 @@ router.get("/invoice/:id",auth,async (req,res)=>{
             }
     })*/
 })
+
 
 router.patch("/invoice/:id",auth,async (req,res)=>{
     try
