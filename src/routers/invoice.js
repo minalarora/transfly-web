@@ -147,10 +147,11 @@ router.get("/invoice/timestamp/:timestamp",auth,async (req,res)=>{
         const timestamp = req.params.timestamp
         const invoices  = await Invoice.find({
             createdAt: {
-                $gte: new Date(2012, 7, 14), 
-                $lt: new Date(2012, 7, 15)
+                $gte: toTimestamp(new Date(2020, 12, 31)),
+                $lte: toTimestamp(new Date(2020, 12, 31))
             }
         })
+        res.status(200).send(invoices)
     }
     catch(e)
     {
