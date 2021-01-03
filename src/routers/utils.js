@@ -103,7 +103,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
     {
         const updates = Object.keys(req.body)
         console.log(req.body)
-        let imageupdates = []
+        let imageupdates 
         try
         {
              imageupdates = Object.keys(req.files)
@@ -132,7 +132,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
 
              if(imageupdates)
              {
-             image6updates.forEach((update)=>{
+             imageupdates.forEach((update)=>{
                  sharp(req.files[update][0].buffer).resize(200).png().toBuffer().then((buffer)=>{
                      
                     req.user[update] = buffer
