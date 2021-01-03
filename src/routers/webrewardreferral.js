@@ -13,6 +13,7 @@ const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
 const Reward =  require('../models/reward')
 const Referral =  require('../models/referral')
+const Banner  = require('../models/banner')
 
 const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
@@ -65,7 +66,7 @@ router.post("/reward_referral/:type",upload.single('image'),async (req,res)=>{
             const r = new Reward(obj)
             await r.save()
         }
-        else
+        else if(req.params.type == "referral")
         {
             const obj  = {...req.body}
             if(req.file)
@@ -75,6 +76,11 @@ router.post("/reward_referral/:type",upload.single('image'),async (req,res)=>{
     
             const r = new Referral(obj)
             await r.save()
+        }
+        else
+        {
+            const obj = new Banner({image: req.file.buffer})
+            await obj.save()
         }
 
         res.redirect('/reward_referral')
