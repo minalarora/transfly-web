@@ -66,6 +66,17 @@ router.get("/resaleimage/:id/:number",async (req,res)=>{
     })*/
 })
 
+router.post("/resale/contact",auth,async (req,res)=>{
+    try
+    {
+        return res.status(200).send("DONE")
+    }
+    catch(e)
+    {
+        return res.status(400).send(e.message)
+    }
+})
+
 
 
 
