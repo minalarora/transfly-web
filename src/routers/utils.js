@@ -103,7 +103,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
     {
         const updates = Object.keys(req.body)
         console.log(req.body)
-        let imageupdates 
+        let imageupdates = []
         try
         {
              imageupdates = Object.keys(req.files)
