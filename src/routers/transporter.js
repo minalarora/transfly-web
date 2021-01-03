@@ -9,11 +9,6 @@ var upload = multer({
     limits:
     {
         fileSize: 5000000
-    },
-    fileFilter: function (req, file, cb) {
-
-            return cb(undefined, true);  
-
     }
 })
 var transporterUpload = upload.fields([{ name: 'mininglicenseimage', maxCount: 1 },{ name: 'staimage', maxCount: 1 },{ name: 'gstimage', maxCount: 1 },{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
