@@ -136,6 +136,9 @@
                                 <div class="col-12">
                                     <img target="_blank" id="tdsimage" alt="not avaliable">
                                 </div>
+                                 <div class="col-12">
+                                    <img target="_blank" id="bankimage" alt="not avaliable">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -234,8 +237,8 @@
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
 
-        // document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.aadhaarimage + " ', '_blank')");
-        // document.getElementById('aadhaarimage').setAttribute('src', "data:image/png;base64," + data.aadhaarimage)
+        document.getElementById('bankimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.bankimage + " ', '_blank')");
+        document.getElementById('bankimage').setAttribute('src', "data:image/png;base64," + data.bankimage)
 
         document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
         document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
