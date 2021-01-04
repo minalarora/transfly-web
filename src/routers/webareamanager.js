@@ -230,9 +230,9 @@ router.get('/getareamanagerdata/:mobile', async (req, res) => {
     delete object.__v
     delete object.tokens
     delete object._id
-
-    const mines = Mine.find({ areamanager: null })
-    object.mines = mines
+    console.log("hello", object)
+    // const mines = Mine.find({ areamanager: null })
+    // object.mines = mines
 
     //ajax api made to sedn data of request of area manager
     return res.send(object)

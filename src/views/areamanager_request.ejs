@@ -126,6 +126,16 @@
                                 </tr>
                             </table>
                         </div>
+                        <div class="container" id="document_container">
+                            <div class="row w-100">
+                                <div class="col-12">
+                                    <img target="_blank" id="aadhaarimage" alt="not avaliable">
+                                </div>
+                                <div class="col-12">
+                                    <img target="_blank" id="panimage" alt="not avaliable">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,6 +190,7 @@
 <script>
 
     function showRequestDetails(index, mobile) {
+        console.log("hello");
         var right_pane = document.getElementById("right_side_pane");
         if (right_pane.style.display == "block") {
             right_pane.style.display = "none";
@@ -190,9 +201,10 @@
             var xmlhttp = new XMLHttpRequest();
             var url = "/getareamanagerdata/" + mobile;
             xmlhttp.onreadystatechange = function () {
+                console.log(this.status)
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    console.log(data)
+
                     placeInPane(data, mobile);
                 }
             };
@@ -210,13 +222,13 @@
         var i = 0;
 
         var keys = Object.keys(data)
-        console.log(keys)
+        console.log(data)
 
-        document.getElementById('name').innerHTML = data.sta;
+        document.getElementById('name').innerHTML = data.name;
         document.getElementById('email').innerHTML = data.email;
         document.getElementById('aadhaar').innerHTML = data.aadhaar;
         document.getElementById('mobile').innerHTML = data.mobile;
-        document.getElementById('pan').innerHTML = data.sta;
+        document.getElementById('pan').innerHTML = data.pan;
         document.getElementById('accountno').innerHTML = data.accountno;
         document.getElementById('bankname').innerHTML = data.bankname;
         document.getElementById('ifsc').innerHTML = data.ifsc;
