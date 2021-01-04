@@ -39,6 +39,7 @@ const WebResale = require('./src/routers/webresale')
 const WebRewardReferral = require('./src/routers/webrewardreferral')
 const WebTransporter = require('./src/routers/webtransporter')
 const WebVehicleOwner = require('./src/routers/webvehicleowner')
+const WebVehicle = require('./src/routers/webvehicle')
 
 
 var fs = require('fs');
@@ -101,6 +102,7 @@ app.use(WebResale)
 app.use(WebRewardReferral)
 app.use(WebTransporter)
 app.use(WebVehicleOwner)
+app.use(WebVehicle)
 
 
 app.use(express.json())
