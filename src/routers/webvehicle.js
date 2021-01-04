@@ -19,7 +19,7 @@ const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get("/getvehicledata", async (req, res) => {
+router.get("/vehiclerequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -27,9 +27,9 @@ router.get("/getvehicledata", async (req, res) => {
         if (admin) {
             const vehicle = await Vehicle.find({ status: 0 })
             let data = {
-                vehicle: vehicle
+                vehicles: vehicles
             }
-            return res.render('vehicle_request_action', { data })
+            return res.render('vehicle_request_list', { data })
         }
         else {
             console.log('admin not found in all finance')
@@ -43,6 +43,25 @@ router.get("/getvehicledata", async (req, res) => {
 
 })
 
+router.get('/getvehicledata/:id',async (req,res)=>{
+    try
+    {
+        const id = req.params.id
+        const vehicle = await Vehicle.findOne({ id })
+        const object = vehicle.toObject()
+
+        delete object.__v
+        delete object._id
+
+    return res.send(object)
+        
+        
+    }
+    catch(e)
+    {
+
+    }
+})
 router.get("/vehicle_request_action/:id", async (req, res) => {
     try {
         const id = req.params.id
