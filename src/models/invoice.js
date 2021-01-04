@@ -1,11 +1,11 @@
-const validator =  require("validator")
+const validator = require("validator")
 const mongoose = require('mongoose')
 
-const invoiceSchema  = mongoose.Schema({
+const invoiceSchema = mongoose.Schema({
     id:
     {
         type: Number,
-        
+
     },
     //minename and loading and vehicleownername
     vehicle:
@@ -16,14 +16,14 @@ const invoiceSchema  = mongoose.Schema({
     vehicleowner:
     {
         type: String,
-        
+
     },
     vehicleownermobile:
     {
-        type:String,
+        type: String,
         ref: 'Vehicleowner'
     }
-,
+    ,
     mineid:
     {
         type: Number,
@@ -40,8 +40,8 @@ const invoiceSchema  = mongoose.Schema({
     loading:
     {
         type: String
-    }
-,
+    },
+
     tonnage:
     {
         type: Number,
@@ -54,9 +54,9 @@ const invoiceSchema  = mongoose.Schema({
     },
     amount:
     {
-        type:Number,
+        type: Number,
         default: 0
-       
+
     },
     hsd:
     {
@@ -102,7 +102,7 @@ const invoiceSchema  = mongoose.Schema({
     status:
     {
         type: String,
-        enum : ['PENDING','COMPLETED'],
+        enum: ['PENDING', 'COMPLETED'],
         default: 'PENDING'
     },
     date:
@@ -112,18 +112,18 @@ const invoiceSchema  = mongoose.Schema({
     transporter:
     {
         type: String,
-        required:true,
+        required: true,
         ref: 'Transporter'
     }
 
 }
-,{
-    timestamps: true
-}
+    , {
+        timestamps: true
+    }
 )
 
-invoiceSchema.pre('save',async function(next){
-    const invoice  = this
+invoiceSchema.pre('save', async function (next) {
+    const invoice = this
     invoice.amount = invoice.tonnage * invoice.rate
     invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
     invoice.date = invoice.createdAt.toString().split("GM")[0]
@@ -132,7 +132,7 @@ invoiceSchema.pre('save',async function(next){
 
 
 
-const invoice = mongoose.model("Invoice",invoiceSchema)
+const invoice = mongoose.model("Invoice", invoiceSchema)
 
 
 module.exports = invoice
