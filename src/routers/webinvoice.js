@@ -171,7 +171,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 for (var i = 0; i < invoice.length; i++) {
 
                     let t = invoice[i].toObject()
-
+                    console.log("here");
                     const mine = await Mine.findOne({ id: invoice[i].mine })
                     const vehicleowner = await VehicleOwner.findById({ _id: invoice[i].owner })
                     t.mine = mine.name
@@ -185,6 +185,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 data.next = page + 1
                 data.page = page
                 if (status == "PENDING") {
+                    console.log("here2");
                     return res.render('finance_pending_invoices', { data })
                 }
                 else {

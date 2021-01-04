@@ -2,54 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />
-    <!--Vendor CSS Files -->
-    <link rel="stylesheet" type="text/css" href="../css/basic_structure.css" />
-    <link rel="stylesheet" type="text/css" href="../css/invoice.css" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
+
+    <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
     <style>
-        .block {
-            box-shadow: 2px 3px 13px -6px black;
+        .table-shadow {
+            box-shadow: -1px 1px 7px #888888;
         }
     </style>
+
 </head>
 
 <body>
-    <!--------------------- side nav ------------------------------>
 
-    <%- include('../partials/finance_nav_structure.ejs') %>
-    
-    <!------------------------------- right content -------------------------------------------->
-    <div class="main">
-        <div class="container-fluid">
-            <div id="top-nav" class="row p-2 bg-white justify-content-end">
-                <a href="/webfinancelogout" class="btn btn-danger p-2 rounded mr-4">Logout</a>
-            </div>
-            <!---------------------------- main content row start here-->
-            <div class="row p-3 ">
-                <div class="w-100 border-bottom text-center text-primary">
-                    <h4>Invoice No : {{
-                        <%= data.invoice.id %> }}
-                    </h4>
-                </div>
-                <div class="w-100 justify-content-end">
-                    <a href="/webupdatecompletedinvoice/<%= data.invoice.id %>" class="btn btn-warning">Update Invoice</a>
-                </div>
+    <div class="d-flex" id="wrapper">
+
+        <%- include('../partials/responsive_side_bar_finance.ejs') %>
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+
+                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                    <div class="">
+                        <a href="/webfinancelogout" class="btn btn-danger">Logout</a>
+                    </div>
+                </nav>
+
+                <!-- page content start here -->
                 <div class="container-fluid">
+                    <!-- invoice heading -->
+                    <div class="w-100 border-bottom text-center text-primary">
+                        <h4>Invoice No : {{
+                            <%= data.invoice.id %> }}
+                        </h4>
+                    </div>
+                    <!-- complete invoice details  -->
                     <br>
-                    <div class="row p-2 justify-content-center">
-                        <div class="w-75 block">
+                    <div id="profile-content" class="row justify-content-start mr-4">
+                        <div class="col-lg-6 mt-2 col-md-12">
                             <div class="pl-2 pt-2 pb-1 bg-primary text-light">
                                 <h5>Details</h5>
                             </div>
-                            <div class="p-3 bg-white ">
-                                <table style="width:100%">
+                            <div class="p-3 table-responsive shadow bg-light ">
+                                <table class="table" style="width:100%">
                                     <tr>
                                         <th>Invoice id </th>
                                         <td>
@@ -61,13 +75,6 @@
                                         <th>Vehicle no</th>
                                         <td>
                                             <%= data.invoice.vehicleno %>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <th>Vehicle Owner</th>
-                                        <td>
-                                            <%= data.invoice.vehicleowner %>
                                         </td>
 
                                     </tr>
@@ -156,18 +163,35 @@
 
                                 </table>
                             </div>
-
                         </div>
                     </div>
 
                 </div>
+                <!-- Page content end here  -->
             </div>
+            <!-- /#page-content-wrapper -->
 
-        </div>
     </div>
+    <!-- /#wrapper -->
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 
 </body>
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/basic_structure.js"></script>
+<script>
+    var perfEntries = performance.getEntriesByType("navigation");
+
+    if (perfEntries[0].type === "back_forward") {
+        location.reload(true);
+    }
+</script>
 
 </html>
