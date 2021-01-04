@@ -49,7 +49,6 @@ router.get('/getvehicledata/:id',async (req,res)=>{
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
         const object = vehicle.toObject()
-
         delete object.__v
         delete object._id
 
