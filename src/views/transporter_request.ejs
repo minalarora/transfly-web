@@ -127,7 +127,7 @@
                                 </tr>
                                 <tr>
                                     <th>mininglicence:</th>
-                                    <td id="mininglicence">Bhopal</td>
+                                    <td id="mininglicense">Bhopal</td>
                                 </tr>
                                 <tr>
                                     <th>aadhar:</th>
@@ -262,6 +262,8 @@
         document.getElementById('mobile').innerHTML = data.mobile;
         document.getElementById('sta').innerHTML = data.sta;
         document.getElementById('gst').innerHTML = data.gst;
+        document.getElementById('mininglicense').innerHTML = data.mininglicense;
+        document.getElementById('pan').innerHTML = data.pan;
 
         document.getElementById('staimage').setAttribute('src', "data:image/png;base64," + data.staimage)
         document.getElementById('staimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.staimage + " ', '_blank')");

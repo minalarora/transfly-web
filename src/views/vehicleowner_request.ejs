@@ -112,10 +112,6 @@
                                     <td id="ifsc">xyz@gmail.com</td>
                                 </tr>
                                 <tr>
-                                    <th>aadhar:</th>
-                                    <td id="aadhaar">Bhopal</td>
-                                </tr>
-                                <tr>
                                     <th>pan:</th>
                                     <td id="pan">Bhopal</td>
                                 </tr>
@@ -136,7 +132,7 @@
                                 <div class="col-12">
                                     <img target="_blank" id="tdsimage" alt="not avaliable">
                                 </div>
-                                 <div class="col-12">
+                                <div class="col-12">
                                     <img target="_blank" id="bankimage" alt="not avaliable">
                                 </div>
                             </div>
@@ -228,7 +224,6 @@
 
         document.getElementById('name').innerHTML = data.name;
         document.getElementById('email').innerHTML = data.email;
-        document.getElementById('aadhaar').innerHTML = data.aadhaar;
         document.getElementById('mobile').innerHTML = data.mobile;
         document.getElementById('pan').innerHTML = data.pan;
         document.getElementById('tds').innerHTML = data.tds;
@@ -237,7 +232,7 @@
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
 
-        document.getElementById('bankimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.bankimage + " ', '_blank')");
+        document.getElementById('bankimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.bankimage + " ', '_blank')");
         document.getElementById('bankimage').setAttribute('src', "data:image/png;base64," + data.bankimage)
 
         document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");

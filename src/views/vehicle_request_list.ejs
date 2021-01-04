@@ -63,7 +63,8 @@
                                 <form method="POST" id="reject_form" class="p-4" action="">
                                     <div class="form-check">
                                         <label class="form-check-label" for="check2">
-                                            <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">* I Confirm the rejection
+                                            <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">*
+                                            I Confirm the rejection
                                         </label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -122,7 +123,7 @@
                 <div class="container-fluid">
                     <div class="row p-3 ">
                         <div class="w-100 text-center text-primary border-bottom">
-                            <h3>Vehicle Owner Approval Request</h3>
+                            <h3>Vehicle Approval Request</h3>
                         </div>
                         <div class="container-fluid">
                             <% for (var i =0; i < data.vehicle.length;  i++ ) { %>
@@ -157,7 +158,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function(e) {
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
@@ -178,7 +179,7 @@
             var xmlhttp = new XMLHttpRequest();
             var url = "/getvehicledata/" + id;
             console.log("here1", url)
-            xmlhttp.onreadystatechange = function() {
+            xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
                     console.log(data)

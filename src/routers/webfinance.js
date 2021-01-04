@@ -105,15 +105,25 @@ router.post('/updatefinanceprofile', async (req, res) => {
 
 router.get('/webfinancelogout', async (req, res) => {
     try {
+        console.log("called ---------------------------");
+
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
         if (finance) {
+            console.log("in here")
             finance.tokens = finance.tokens.filter((t) => {
                 return t.token != token
             })
             await finance.save()
-            res.redirect('/')
+            req.session.destroy((err) => {
+                if (err) {
+                    console.log(err);
+                    return console.log(err);
+                }
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                return res.redirect('/');
+            });
         }
         else {
             //admin not found

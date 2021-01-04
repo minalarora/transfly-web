@@ -19,7 +19,7 @@ const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get('/webvehicleownerall', async(req, res) => {
+router.get('/webvehicleownerall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -31,7 +31,7 @@ router.get('/webvehicleownerall', async(req, res) => {
             if (page < 1) {
                 page = 1;
             }
-            const vehicleowner = await VehicleOwner.find({ status: 2 }, null, { skip: (page * 1 - 1), limit: 1 }).exec()
+            const vehicleowner = await VehicleOwner.find({ status: 2 }, null, { skip: (page * 50 - 50), limit: 50 }).exec()
             let data = {
                 vehicleowner: []
             }
@@ -69,7 +69,7 @@ router.get('/webvehicleownerall', async(req, res) => {
 })
 
 
-router.get('/webspecificvehicleowner/:mobile', async(req, res) => {
+router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -87,8 +87,8 @@ router.get('/webspecificvehicleowner/:mobile', async(req, res) => {
             }
 
             await vehicleowner.populate('vehicles').execPopulate()
-            let invoices = await Invoice.find({ vehicleownermobile: mobile }, null, { skip: (page * 1 - 1), limit: 1 }).exec()
-                //vehicleowner.populate({ path: 'invoices' }, null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
+            let invoices = await Invoice.find({ vehicleownermobile: mobile }, null, { skip: (page * 20 - 20), limit: 20 }).exec()
+            //vehicleowner.populate({ path: 'invoices' }, null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
 
             data.prev = page - 1
             data.next = page + 1
@@ -125,7 +125,7 @@ router.get('/webspecificvehicleowner/:mobile', async(req, res) => {
     }
 })
 
-router.get("/vehicleownerrequest", async(req, res) => {
+router.get("/vehicleownerrequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -148,7 +148,7 @@ router.get("/vehicleownerrequest", async(req, res) => {
 })
 
 
-router.get("/vehicleowner_request_action/:mobile", async(req, res) => {
+router.get("/vehicleowner_request_action/:mobile", async (req, res) => {
     try {
         const mobile = req.params.mobile
         const vehicleowner = await VehicleOwner.findOne({ mobile })
@@ -165,7 +165,7 @@ router.get("/vehicleowner_request_action/:mobile", async(req, res) => {
     }
 })
 
-router.post("/vehicleowner_request_action/:mobile", async(req, res) => {
+router.post("/vehicleowner_request_action/:mobile", async (req, res) => {
     try {
         const mobile = req.params.mobile
         const vehicleowner = await VehicleOwner.findOne({ mobile })
@@ -188,7 +188,7 @@ router.post("/vehicleowner_request_action/:mobile", async(req, res) => {
 })
 
 
-router.get('/getvehicleownerdata/:mobile', async(req, res) => {
+router.get('/getvehicleownerdata/:mobile', async (req, res) => {
     const mobile = req.params.mobile
     const vehicleowner = await VehicleOwner.findOne({ mobile })
     const object = vehicleowner.toObject()

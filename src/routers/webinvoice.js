@@ -19,7 +19,7 @@ const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get('/webspecificinvoice/:id', async(req, res) => {
+router.get('/webspecificinvoice/:id', async (req, res) => {
     try {
         console.log("here1")
         const token = req.cookies['Authorization']
@@ -41,7 +41,7 @@ router.get('/webspecificinvoice/:id', async(req, res) => {
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = {...t }
+                data.invoice = { ...t }
 
                 return res.render('invoice', { data })
 
@@ -59,7 +59,7 @@ router.get('/webspecificinvoice/:id', async(req, res) => {
     }
 })
 
-router.get('/webinvoiceall', async(req, res) => {
+router.get('/webinvoiceall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -71,7 +71,7 @@ router.get('/webinvoiceall', async(req, res) => {
             if (page < 1) {
                 page = 1;
             }
-            const invoice = await Invoice.find({}, null, { skip: (page * 1 - 1), limit: 1 }).exec()
+            const invoice = await Invoice.find({}, null, { skip: (page * 50 - 50), limit: 50 }).exec()
             let data = {
                 invoice
             }
@@ -129,7 +129,7 @@ router.get('/webinvoiceall', async(req, res) => {
 
 
 
-router.get('/webfinanceinvoice', async(req, res) => {
+router.get('/webfinanceinvoice', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -141,7 +141,7 @@ router.get('/webfinanceinvoice', async(req, res) => {
                 if (page < 1) {
                     page = 1;
                 }
-                const invoice = await Invoice.find({ status: req.query.status }, null, { skip: (page * 10 - 10), limit: 10 }).exec()
+                const invoice = await Invoice.find({ status: req.query.status }, null, { skip: (page * 50 - 50), limit: 50 }).exec()
                 let data = {
                     invoice: []
                 }
@@ -197,7 +197,7 @@ router.get('/webfinanceinvoice', async(req, res) => {
     }
 })
 
-router.get('/webupdatependinginvoice/:id', async(req, res) => {
+router.get('/webupdatependinginvoice/:id', async (req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -219,7 +219,7 @@ router.get('/webupdatependinginvoice/:id', async(req, res) => {
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = {...t }
+                data.invoice = { ...t }
                 return res.render('update_pending_invoice', { data })
 
             } else {
@@ -233,7 +233,7 @@ router.get('/webupdatependinginvoice/:id', async(req, res) => {
     }
 })
 
-router.post('/webupdatependinginvoice/:id', async(req, res) => {
+router.post('/webupdatependinginvoice/:id', async (req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -282,7 +282,7 @@ router.post('/webupdatependinginvoice/:id', async(req, res) => {
     }
 })
 
-router.get('/webcompletedinvoice/:id', async(req, res) => {
+router.get('/webcompletedinvoice/:id', async (req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -305,7 +305,7 @@ router.get('/webcompletedinvoice/:id', async(req, res) => {
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = {...t }
+                data.invoice = { ...t }
                 return res.render('finance_completed_invoice', { data })
 
             } else {
@@ -321,7 +321,7 @@ router.get('/webcompletedinvoice/:id', async(req, res) => {
 })
 
 
-router.get('/webupdatecompletedinvoice/:id', async(req, res) => {
+router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -344,7 +344,7 @@ router.get('/webupdatecompletedinvoice/:id', async(req, res) => {
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = {...t }
+                data.invoice = { ...t }
                 return res.render('finance_update_completed_invoice', { data })
 
             } else {
@@ -358,7 +358,7 @@ router.get('/webupdatecompletedinvoice/:id', async(req, res) => {
     }
 })
 
-router.post('/webupdatecompletedinvoice/:id', async(req, res) => {
+router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
     try {
 
         const token = req.cookies['Authorization']
