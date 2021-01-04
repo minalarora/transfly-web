@@ -47,7 +47,9 @@ router.get('/getvehicledata/:id', async(req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
-        const object = vehicle.toObject()
+        const vehicleowner  = await VehicleOwner.findOne({mobile: vehicle.driverid})
+        vehicle["vehicleownername"] = vehicleowner.name
+        vehicle["vehicleownermobile"] = vehicleowner.mobile
         delete object.__v
         delete object._id
 
