@@ -118,14 +118,6 @@
                                     <td id="mobile">8767876545</td>
                                 </tr>
                                 <tr>
-                                    <th>accountno:</th>
-                                    <td id="accountno">8767876545</td>
-                                </tr>
-                                <tr>
-                                    <th>ifsc:</th>
-                                    <td id="ifsc">xyz@gmail.com</td>
-                                </tr>
-                                <tr>
                                     <th>gst:</th>
                                     <td id="gst">888766564434</td>
                                 </tr>
@@ -270,7 +262,6 @@
         document.getElementById('mobile').innerHTML = data.mobile;
         document.getElementById('sta').innerHTML = data.sta;
         document.getElementById('gst').innerHTML = data.gst;
-        document.getElementById('ifsc').innerHTML = data.ifsc;
 
         document.getElementById('staimage').setAttribute('src', "data:image/png;base64," + data.staimage)
         document.getElementById('staimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.staimage + " ', '_blank')");

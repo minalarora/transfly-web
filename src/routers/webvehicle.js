@@ -19,31 +19,48 @@ const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get("/getvehicledata", async (req, res) => {
+router.get("/vehiclerequest", async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
-            const vehicle = await Vehicle.find({ status: 0 })
+            const vehicles = await Vehicle.find({ status: 0 })
             let data = {
-                vehicle: vehicle
+                vehicle: vehicles
             }
-            return res.render('vehicle_request_action', { data })
-        }
-        else {
+            return res.render('vehicle_request_list', { data })
+        } else {
             console.log('admin not found in all finance')
             return res.redirect('/')
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }
 
 })
 
-router.get("/vehicle_request_action/:id", async (req, res) => {
+router.get('/getvehicledata/:id', async(req, res) => {
+    try {
+        const id = req.params.id
+        const vehicle = await Vehicle.findOne({ id })
+        const object = vehicle.toObject();
+        const vehicleowner = await VehicleOwner.findOne({ mobile: vehicle.driverid })
+        object["vehicleownername"] = vehicleowner.name
+        object["vehicleownermobile"] = vehicleowner.mobile
+        delete object.__v
+        delete object._id
+        console.log(object);
+
+        return res.send(object)
+
+
+    } catch (e) {
+
+    }
+})
+router.get("/vehicle_request_action/:id", async(req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
@@ -53,27 +70,25 @@ router.get("/vehicle_request_action/:id", async (req, res) => {
 
             vehicle["status"] = 1
             await vehicle.save()
-            res.redirect('/getvehicledata')
+            res.redirect('/vehiclerequest')
         }
-    }
-    catch (e) {
-        res.redirect('/getvehicledata')
+    } catch (e) {
+        res.redirect('/vehiclerequest')
     }
 })
 
-router.post("/vehicle_request_action/:id", async (req, res) => {
+router.post("/vehicle_request_action/:id", async(req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
         if (vehicle) {
             // const obj  = {...req.body}
-            
+
             await vehicle.remove()
-            res.redirect('/getvehicledata')
+            res.redirect('/vehiclerequest')
         }
-    }
-    catch (e) {
-        res.redirect('/getvehicledata')
+    } catch (e) {
+        res.redirect('/vehiclerequest')
     }
 })
 

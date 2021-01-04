@@ -1,79 +1,67 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
-const jwt= require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
-const adminSchema  = mongoose.Schema({
+const adminSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
         trim: true,
         uppercase: true
     },
-    mobile:{
+    mobile: {
         type: String,
         required: true,
         unique: true,
-        maxlength: [12,"Invalid Mobile Number"]
-    }
-    ,
-    email:{
+        maxlength: [12, "Invalid Mobile Number"]
+    },
+    email: {
         type: String,
         required: true,
         unique: true,
-        validate(value)
-        {
-            if(!validator.isEmail(value))
-            {
+        validate(value) {
+            if (!validator.isEmail(value)) {
                 throw new Error("Please fill valid email!")
             }
         }
 
     },
-    password:
-    {
+    password: {
         type: String,
         required: true
     },
-    status:
-    {
+    status: {
         type: Number,
         required: true,
-        default: 0 
-        
+        default: 0
+
     },
-    accountno:
-    {
+    accountno: {
         type: String,
         default: "NOT AVAILABLE"
     },
-    ifsc:
-    {
+    ifsc: {
         type: String,
         default: "NOT AVAILABLE"
     },
-    bankname:
-    {
+    bankname: {
         type: String,
         default: "NOT AVAILABLE"
     },
-    pan:
-    {
+    pan: {
         type: String,
         default: "NOT AVAILABLE"
-       
+
     },
-    panimage:
-    {
+    panimage: {
         type: Buffer
     },
-    aadhaar:
-    {
+    aadhaar: {
         type: String,
         default: "NOT AVAILABLE"
-       
+
     },
-    aadhaarimage:
-    {
+    aadhaarimage: {
         type: Buffer
     },
     ename: {
@@ -82,42 +70,38 @@ const adminSchema  = mongoose.Schema({
         uppercase: true,
         default: "NOT AVAILABLE"
     },
-    erelation: 
-    {
+    erelation: {
         type: String,
         trim: true,
-        uppercase: true  ,
+        uppercase: true,
         default: "NOT AVAILABLE"
     },
-    emobile:{
+    emobile: {
         type: String,
-        maxlength: [20,"Invalid Mobile Number"],
+        maxlength: [20, "Invalid Mobile Number"],
         default: "NOT AVAILABLE"
     },
-    tokens: [
-        {
-            token : {
-                type: String,
-                createdAt: { 
-                    type: Date,
-                     expires: '31d', 
-                    default: Date.now
-                 },
-                required: true
-                
-            }
+    tokens: [{
+        token: {
+            type: String,
+            createdAt: {
+                type: Date,
+                expires: '31d',
+                default: Date.now
+            },
+            required: true
+
         }
-    ]
-},{
+    }]
+}, {
     timestamps: true
 })
 
 
-adminSchema.pre('save',async function(next){
-    const user  = this
-    if(user.panimage && user.aadhaarimage && (user.status == 0))
-    {
-        user.status = 1
+adminSchema.pre('save', async function(next) {
+    const user = this
+    if (user.panimage && user.aadhaarimage && (user.status == 0)) {
+        user.status = 2
     }
     // invoice.amount = invoice.tonnage * invoice.rate
     // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
@@ -126,30 +110,26 @@ adminSchema.pre('save',async function(next){
 })
 
 
-adminSchema.statics.findByMobile = async (mobile,password)=>{
-    const admin  = await Admin.findOne({mobile,password})
-    if(!admin)
-    {
+adminSchema.statics.findByMobile = async(mobile, password) => {
+    const admin = await Admin.findOne({ mobile, password })
+    if (!admin) {
         throw new Error('unable to login')
-    }
-    else
-    {
+    } else {
         return admin
     }
 }
 
-adminSchema.methods.generateToken = async function(){
-    const admin  = this
-    const token  = jwt.sign({_id: admin.mobile},'transfly',{
+adminSchema.methods.generateToken = async function() {
+    const admin = this
+    const token = jwt.sign({ _id: admin.mobile }, 'transfly', {
         expiresIn: '30d'
     })
-    admin.tokens  = admin.tokens.concat({token})
+    admin.tokens = admin.tokens.concat({ token })
     await admin.save()
     return token
 }
 
-adminSchema.methods.getPublicProfile = async function()
-{
+adminSchema.methods.getPublicProfile =  function() {
     const user = this
     const userobject = user.toObject()
     delete userobject.password
@@ -157,6 +137,6 @@ adminSchema.methods.getPublicProfile = async function()
     return userobject
 }
 
-const Admin = mongoose.model('Admin',adminSchema)
+const Admin = mongoose.model('Admin', adminSchema)
 
 module.exports = Admin

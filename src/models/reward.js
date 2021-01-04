@@ -41,7 +41,7 @@ rewardSchema.pre('save',async function(next){
     }
     else if(reward.image)
     {
-        reward.status = 3
+        reward.status = 1
     }
     
     next()

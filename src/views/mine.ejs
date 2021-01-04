@@ -152,8 +152,7 @@
                                                 <input type="number" name="etl" class="form-control" id="etl" value="<%= data.mine.etl %>" placeholder="Enter New etl" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.mine.rate %>" placeholder="Enter new rate"
-                                                    required>
+                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.mine.rate %>" placeholder="Enter new rate" required>
                                             </div>
                                             <div class="radio">
                                                 <label class="radio-inline "><input class="mr-1" type="radio" id="inactive"
@@ -190,13 +189,14 @@
                                             <tr>
                                                 <td>
                                                     <a href="/webspecificinvoice/<%= data.invoices[i].id %>">
-                                                        <%= data.invoices[i].id %></a>
+                                                        <%= data.invoices[i].id %>
+                                                    </a>
                                                 </td>
                                                 <td>
                                                     <%= data.invoices[i].date %>
                                                 </td>
                                                 <td>
-                                                    <%= data.invoices[i].vehicleno %>
+                                                    <%= data.invoices[i].vehicle %>
                                                 </td>
                                                 <td>
                                                     <%= data.invoices[i].tonnage %>
@@ -231,7 +231,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function (e) {
+        $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });

@@ -136,6 +136,9 @@
                                 <div class="col-12">
                                     <img target="_blank" id="tdsimage" alt="not avaliable">
                                 </div>
+                                 <div class="col-12">
+                                    <img target="_blank" id="bankimage" alt="not avaliable">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,19 +226,19 @@
         var keys = Object.keys(data)
         console.log(keys)
 
-        document.getElementById('name').innerHTML = data.sta;
+        document.getElementById('name').innerHTML = data.name;
         document.getElementById('email').innerHTML = data.email;
         document.getElementById('aadhaar').innerHTML = data.aadhaar;
         document.getElementById('mobile').innerHTML = data.mobile;
-        document.getElementById('pan').innerHTML = data.sta;
+        document.getElementById('pan').innerHTML = data.pan;
         document.getElementById('tds').innerHTML = data.tds;
         document.getElementById('accountno').innerHTML = data.accountno;
         document.getElementById('bankname').innerHTML = data.bankname;
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
 
-        // document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.aadhaarimage + " ', '_blank')");
-        // document.getElementById('aadhaarimage').setAttribute('src', "data:image/png;base64," + data.aadhaarimage)
+        document.getElementById('bankimage').setAttribute('onclick', "window.open('data:image/png;base64"+ data.bankimage + " ', '_blank')");
+        document.getElementById('bankimage').setAttribute('src', "data:image/png;base64," + data.bankimage)
 
         document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
         document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)

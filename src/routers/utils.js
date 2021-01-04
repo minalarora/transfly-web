@@ -110,9 +110,9 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
         }
         catch(e)
         {
-
+            imageupdates = []
         }
-        
+        console.log(imageupdates)
         const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','pan','tds','emergencycontact','gst','sta','mininglicense','aadhaar',
              'ename','erelation','emobile']
@@ -130,8 +130,10 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
              })
              await req.user.save()
 
-             if(imageupdates)
+             if(imageupdates.length > 0)
              {
+               
+                console.log("if")
              imageupdates.forEach((update)=>{
                  sharp(req.files[update][0].buffer).resize(200).png().toBuffer().then((buffer)=>{
                      
@@ -143,16 +145,17 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
                         return  res.status(400).send(err.message)
                     })
                 }).catch((error)=>{
-                    console.log(error)
+                    
                     req.user[update] = null
                     return res.status(400).send('Image Uploading Failed')
                 })
                 
             })
-        }
+            }
         else
         {
-            return  res.status(200).send("Done")
+            console.log("else")
+            res.status(200).send("Done")
         }
             
            
@@ -160,7 +163,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
+        
         res.status(400).send(e.message)
     }
 },(err,req,res,next)=>{

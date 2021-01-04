@@ -33,7 +33,7 @@ referralSchema.pre('save',async function(next){
     const reward  = this
     if(reward.text && reward.image)
     {
-        reward.status = 1
+        reward.status = 0
     }
     else if(reward.text)
     {
@@ -41,7 +41,7 @@ referralSchema.pre('save',async function(next){
     }
     else if(reward.image)
     {
-        reward.status = 3
+        reward.status = 1
     }
     
     next()

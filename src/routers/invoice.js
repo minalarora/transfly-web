@@ -61,6 +61,8 @@ router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
 router.get("/allinvoice/areamanager/:timestamp",auth,async (req,res)=>{
     try
     {
+        if(req.user.status == 2)
+        {
         const timestamp = req.params.timestamp
         const date = new Date(parseInt(timestamp))
         const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
@@ -93,7 +95,12 @@ router.get("/allinvoice/areamanager/:timestamp",auth,async (req,res)=>{
             {   
                    res.status(200).send([]) 
             }
-        })         
+        }) 
+    }
+    else
+    {
+        res.status(200).send([]) 
+    }        
     }
     catch(e)
     {
@@ -127,6 +134,8 @@ router.get("/allinvoice/transporter/:timestamp",auth,async (req,res)=>{
     //             return mine.id
     //      })   
          //mongoose.find({title: {$in: sd}})
+         if(req.user.status == 2)
+         {
          const timestamp = req.params.timestamp
         const date = new Date(parseInt(timestamp))
         const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
@@ -147,6 +156,11 @@ router.get("/allinvoice/transporter/:timestamp",auth,async (req,res)=>{
             }
         })         
     }
+    else
+    {
+        res.status(200).send([])  
+    }
+}
     catch(e)
     {
         res.status(400).send(e.message)

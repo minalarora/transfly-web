@@ -19,7 +19,7 @@ const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get('/webspecificinvoice/:id', async (req, res) => {
+router.get('/webspecificinvoice/:id', async(req, res) => {
     try {
         console.log("here1")
         const token = req.cookies['Authorization']
@@ -41,28 +41,25 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = { ...t }
+                data.invoice = {...t }
 
                 return res.render('invoice', { data })
 
-            }
-            else {
+            } else {
                 console.log('invoice number not found')
                 return res.redirect("/webinvoiceall")
             }
-        }
-        else {
+        } else {
             console.log('admin not found in single invoice')
             return res.redirect("/")
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect("/")
     }
 })
 
-router.get('/webinvoiceall', async (req, res) => {
+router.get('/webinvoiceall', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -84,10 +81,9 @@ router.get('/webinvoiceall', async (req, res) => {
 
             //  when invocies finished or no invoices exist
             if (invoice.length == 0) {
-                if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
+                if (page == 1) { // this runs when no invoice exist so just rendering page with empty data
                     return res.render("invoicelist", { data })
-                }
-                else {
+                } else {
 
                     res.redirect('/webinvoiceall?page=' + (page - 1))
                 }
@@ -96,8 +92,7 @@ router.get('/webinvoiceall', async (req, res) => {
             console.log(data)
             return res.render('invoicelist', { data })
 
-        }
-        else {
+        } else {
             return res.redirect("/")
         }
         // if (admin) {
@@ -126,8 +121,7 @@ router.get('/webinvoiceall', async (req, res) => {
         // else {
         //     console.log('admin not found in all invoice')
         // }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect("/")
     }
@@ -135,7 +129,7 @@ router.get('/webinvoiceall', async (req, res) => {
 
 
 
-router.get('/webfinanceinvoice', async (req, res) => {
+router.get('/webfinanceinvoice', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -157,13 +151,11 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
                 //when invocies finished or no invoices exist
                 if (invoice.length == 0) {
-                    if (page == 1 && status == "PENDING") {    // this runs when no invoice exist so just rendering page with empty data
+                    if (page == 1 && status == "PENDING") { // this runs when no invoice exist so just rendering page with empty data
                         return res.render("finance_pending_invoices", { data })
-                    }
-                    else if (page == 1 && status == "COMPLETED") {
+                    } else if (page == 1 && status == "COMPLETED") {
                         return res.render("finance_invoice_list", { data })
-                    }
-                    else {
+                    } else {
 
                         res.redirect('/webfinanceinvoice?status=' + status + '&page=' + (page - 1))
                     }
@@ -172,8 +164,8 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
                     let t = invoice[i].toObject()
                     console.log("here");
-                    const mine = await Mine.findOne({ id: invoice[i].mine })
-                    const vehicleowner = await VehicleOwner.findById({ _id: invoice[i].owner })
+                    const mine = await Mine.findOne({ id: invoice[i].mineid })
+                    const vehicleowner = await VehicleOwner.findOne({ mobile: invoice[i].vehicleownermobile })
                     t.mine = mine.name
                     t.vehicleowner = vehicleowner.name
                     t.city = mine.area
@@ -187,28 +179,25 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 if (status == "PENDING") {
                     console.log("here2");
                     return res.render('finance_pending_invoices', { data })
-                }
-                else {
+                } else {
+                    console.log("here-----------------------------------", data);
                     return res.render('finance_invoice_list', { data })
                 }
 
-            }
-            else {
+            } else {
                 console.log('admin not found in all invoice')
                 return res.redirect("/webfinance")
             }
-        }
-        else {
+        } else {
             return res.redirect('/')
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }
 })
 
-router.get('/webupdatependinginvoice/:id', async (req, res) => {
+router.get('/webupdatependinginvoice/:id', async(req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -225,29 +214,26 @@ router.get('/webupdatependinginvoice/:id', async (req, res) => {
 
                 let t = invoice.toObject()
 
-                const mine = await Mine.findOne({ id: invoice.mine })
-                const vehicleowner = await VehicleOwner.findById({ _id: invoice.owner })
-                console.log(vehicleowner)
+                const mine = await Mine.findOne({ id: invoice.mineid })
+                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = { ...t }
+                data.invoice = {...t }
                 return res.render('update_pending_invoice', { data })
 
-            }
-            else {
+            } else {
                 console.log('invoice member not found')
                 return res.redirect('/')
             }
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         return res.redirect('/')
     }
 })
 
-router.post('/webupdatependinginvoice/:id', async (req, res) => {
+router.post('/webupdatependinginvoice/:id', async(req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -261,14 +247,14 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                 const updates = Object.keys(req.body)
                 console.log(req.body)
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
-                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status']
+                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
+                ]
                 const isValidOperation = updates.every((update) => {
                     return allowedUpdates.includes(update)
                 })
                 if (!isValidOperation) {
                     console.log('invalid operation')
-                }
-                else {
+                } else {
 
 
                     updates.forEach((update) => {
@@ -285,20 +271,18 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
 
                 }
 
-            }
-            else {
+            } else {
                 console.log('invoice not found')
                 return res.redirect('/')
             }
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }
 })
 
-router.get('/webcompletedinvoice/:id', async (req, res) => {
+router.get('/webcompletedinvoice/:id', async(req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -315,23 +299,21 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
 
                 let t = invoice.toObject()
 
-                const mine = await Mine.findOne({ id: invoice.mine })
-                const vehicleowner = await VehicleOwner.findById({ _id: invoice.owner })
+                const mine = await Mine.findOne({ id: invoice.mineid })
+                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
                 console.log(vehicleowner)
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = { ...t }
+                data.invoice = {...t }
                 return res.render('finance_completed_invoice', { data })
 
-            }
-            else {
+            } else {
                 console.log('invoice member not found')
                 return res.redirect('/')
             }
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         return res.redirect('/')
 
@@ -339,7 +321,7 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
 })
 
 
-router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
+router.get('/webupdatecompletedinvoice/:id', async(req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -356,29 +338,27 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                 let t = invoice.toObject()
 
-                const mine = await Mine.findOne({ id: invoice.mine })
-                const vehicleowner = await VehicleOwner.findById({ _id: invoice.owner })
+                const mine = await Mine.findOne({ id: invoice.mineid })
+                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
                 console.log(vehicleowner)
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
-                data.invoice = { ...t }
+                data.invoice = {...t }
                 return res.render('finance_update_completed_invoice', { data })
 
-            }
-            else {
+            } else {
                 console.log('invoice member not found')
                 return res.redirect('/')
             }
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         return res.redirect('/')
     }
 })
 
-router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
+router.post('/webupdatecompletedinvoice/:id', async(req, res) => {
     try {
 
         const token = req.cookies['Authorization']
@@ -392,14 +372,14 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
                 const updates = Object.keys(req.body)
                 console.log(req.body)
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
-                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status']
+                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
+                ]
                 const isValidOperation = updates.every((update) => {
                     return allowedUpdates.includes(update)
                 })
                 if (!isValidOperation) {
                     console.log('invalid operation')
-                }
-                else {
+                } else {
 
 
                     updates.forEach((update) => {
@@ -417,14 +397,12 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                 }
 
-            }
-            else {
+            } else {
                 console.log('invoice not found')
                 return res.redirect('/');
             }
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }

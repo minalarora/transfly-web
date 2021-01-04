@@ -75,6 +75,8 @@ router.get("/allbooking/vehicleowner",auth,async (req,res)=>{
 router.get("/allbooking/fieldstaff",auth,async (req,res)=>{
     try
     {
+        if(req.user.status == 2)
+        {
          await req.user.populate(
             {
                 path: 'mines',
@@ -99,6 +101,11 @@ router.get("/allbooking/fieldstaff",auth,async (req,res)=>{
                    res.status(200).send([]) 
             }
         }) 
+    }
+    else
+    {
+        res.status(200).send([])
+    }
 
         
         
@@ -113,6 +120,8 @@ router.get("/allbooking/fieldstaff",auth,async (req,res)=>{
 router.get("/allbooking/areamanager",auth,async (req,res)=>{
     try
     {
+        if(req.user.status == 2)
+        {
          await req.user.populate(
             {
                 path: 'mines',
@@ -137,7 +146,12 @@ router.get("/allbooking/areamanager",auth,async (req,res)=>{
                 
                    res.status(200).send([]) 
             }
-        })         
+        }) 
+    }
+    else
+    {
+        res.status(200).send([]) 
+    }        
         
     }
     catch(e)
