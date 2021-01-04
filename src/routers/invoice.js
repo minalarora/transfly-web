@@ -41,6 +41,8 @@ router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
             }
         }).execPopulate()
 
+
+
         res.status(200).send(req.user.invoices)        
     }
     catch(e)
@@ -56,9 +58,12 @@ router.get("/allinvoice/vehicleowner",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/allinvoice/areamanager",auth,async (req,res)=>{
+router.get("/allinvoice/areamanager/:timestamp",auth,async (req,res)=>{
     try
     {
+        const timestamp = req.params.timestamp
+        const date = new Date(parseInt(timestamp))
+        const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
         await req.user.populate(
             {
                 path: 'mines',
@@ -76,7 +81,13 @@ router.get("/allinvoice/areamanager",auth,async (req,res)=>{
         const invoices = await Invoice.find({mineid: {$in: minearray}}).sort({createdAt: -1}).exec(function(err,invoices){ 
             if(invoices)
             {
-                res.status(200).send(invoices)    
+                const selectedinvoices = invoices.filter((invoice)=>{
+                    let mineDate = new Date(invoice.createdAt) 
+                    let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
+                    console.log(mineDateString)
+                    return datestring == mineDateString
+                })
+                res.status(200).send(selectedinvoices)    
             }
             else
             {   
@@ -97,7 +108,7 @@ router.get("/allinvoice/areamanager",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/allinvoice/transporter",auth,async (req,res)=>{
+router.get("/allinvoice/transporter/:timestamp",auth,async (req,res)=>{
     try
     {
     //    const mines =  await Invoice
@@ -116,10 +127,18 @@ router.get("/allinvoice/transporter",auth,async (req,res)=>{
     //             return mine.id
     //      })   
          //mongoose.find({title: {$in: sd}})
+         const timestamp = req.params.timestamp
+        const date = new Date(parseInt(timestamp))
+        const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
        await Invoice.find({transporter: req.user.mobile}).sort({createdAt: -1}).exec(function(err,invoices){ 
             if(invoices)
             {
-                res.status(200).send(invoices)    
+                const selectedinvoices = invoices.filter((invoice)=>{
+                    let mineDate = new Date(invoice.createdAt) 
+                    let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
+                    return datestring == mineDateString
+                })
+                res.status(200).send(selectedinvoices)    
             }
             else
             {
@@ -145,13 +164,18 @@ router.get("/invoice/timestamp/:timestamp",auth,async (req,res)=>{
     try
     {
         const timestamp = req.params.timestamp
-        const invoices  = await Invoice.find({
-            createdAt: {
-                $gte: toTimestamp(new Date(2020, 12, 31)),
-                $lte: toTimestamp(new Date(2020, 12, 31))
-            }
+        console.log(timestamp)
+        const date = new Date(parseInt(timestamp))
+        const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
+        console.log(datestring)
+        const invoices  = await Invoice.find()
+        const selectedinvoices = invoices.filter((invoice)=>{
+            let mineDate = new Date(invoice.createdAt) 
+            let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
+            console.log(mineDateString)
+            return datestring == mineDateString
         })
-        res.status(200).send(invoices)
+        res.status(200).send(selectedinvoices)
     }
     catch(e)
     {
