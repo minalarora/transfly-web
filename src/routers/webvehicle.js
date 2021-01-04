@@ -23,10 +23,8 @@ router.get("/vehiclerequest", async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        console.log("her1");
         const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
         if (admin) {
-            console.log("her2");
             const vehicles = await Vehicle.find({ status: 0 })
             let data = {
                 vehicle: vehicles
@@ -47,11 +45,13 @@ router.get('/getvehicledata/:id', async(req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
-        const vehicleowner  = await VehicleOwner.findOne({mobile: vehicle.driverid})
-        vehicle["vehicleownername"] = vehicleowner.name
-        vehicle["vehicleownermobile"] = vehicleowner.mobile
+        const object = vehicle.toObject();
+        const vehicleowner = await VehicleOwner.findOne({ mobile: vehicle.driverid })
+        object["vehicleownername"] = vehicleowner.name
+        object["vehicleownermobile"] = vehicleowner.mobile
         delete object.__v
         delete object._id
+        console.log(object);
 
         return res.send(object)
 
@@ -70,10 +70,10 @@ router.get("/vehicle_request_action/:id", async(req, res) => {
 
             vehicle["status"] = 1
             await vehicle.save()
-            res.redirect('/getvehicledata')
+            res.redirect('/vehiclerequest')
         }
     } catch (e) {
-        res.redirect('/getvehicledata')
+        res.redirect('/vehiclerequest')
     }
 })
 
@@ -85,10 +85,10 @@ router.post("/vehicle_request_action/:id", async(req, res) => {
             // const obj  = {...req.body}
 
             await vehicle.remove()
-            res.redirect('/getvehicledata')
+            res.redirect('/vehiclerequest')
         }
     } catch (e) {
-        res.redirect('/getvehicledata')
+        res.redirect('/vehiclerequest')
     }
 })
 

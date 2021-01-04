@@ -21,7 +21,12 @@
     <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
+    <style>
+        #rcimage {
+            width: 50%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -54,18 +59,11 @@
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                                <h4>Please Select the reason for rejection </h4>
+                                <h4>Please confirm rejection </h4>
                                 <form method="POST" id="reject_form" class="p-4" action="">
                                     <div class="form-check">
-                                        <label class="form-check-label" for="check1">
-                                            <input type="checkbox" class="form-check-input" id="check1" name="tds" value="tdsimage" checked>                                            issue
-                                            to TDS Declaration
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
                                         <label class="form-check-label" for="check2">
-                                            <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">Problem
-                                            with Pan
+                                            <input type="checkbox" class="form-check-input" id="check2" name="pan" value="panimage">* I Confirm the rejection
                                         </label>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -100,12 +98,12 @@
                                     <td id="rc">8767876545</td>
                                 </tr>
                                 <tr>
-                                    <th>Vehicle Owner phone:</th>
-                                    <td id="vehicleowner">xyz@gmail.com</td>
+                                    <th>Vehicle Owner:</th>
+                                    <td id="vehicleownermobile">xyz@gmail.com</td>
                                 </tr>
                                 <tr>
-                                    <th>Active:</th>
-                                    <td id="active">8767876545</td>
+                                    <th>Vehicle Owner phone:</th>
+                                    <td id="vehicleownername">xyz@gmail.com</td>
                                 </tr>
                             </table>
                         </div>
@@ -207,15 +205,15 @@
         document.getElementById('number').innerHTML = data.number;
         document.getElementById('vehiclename').innerHTML = data.vehiclename;
         document.getElementById('rc').innerHTML = data.rc;
-        document.getElementById('vehicleowner').innerHTML = data.vehicleowner;
-        document.getElementById('active').innerHTML = data.active;
+        document.getElementById('vehicleownername').innerHTML = data["vehicleownername"];
+        document.getElementById('vehicleownermobile').innerHTML = data["vehicleownermobile"];
 
         // image set
         document.getElementById('rcimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.rcimage + " ', '_blank')");
         document.getElementById('rcimage').setAttribute('src', "data:image/png;base64," + data.rcimage)
 
         document.getElementById("approve_btn").setAttribute('href', "/vehicle_request_action/" + id)
-        document.getElementById("reject_form").setAttribute('action', "/vehicl_request_action/" + id)
+        document.getElementById("reject_form").setAttribute('action', "/vehicle_request_action/" + id)
 
     }
 </script>

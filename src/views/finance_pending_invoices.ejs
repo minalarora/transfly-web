@@ -61,8 +61,7 @@
                     <!-- search input row -->
                     <div class="row mb-4 justify-content-center">
                         <div id="search-input-row" class="w-75">
-                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterEmployee()" placeholder="  Search for anything to filter data.."
-                                title="Type in a name">
+                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterEmployee()" placeholder="  Search for anything to filter data.." title="Type in a name">
                         </div>
                     </div>
 
@@ -89,9 +88,13 @@
                             </tr>
                             <% for (var i =0; i < data.invoice.length;  i++ ) { %>
                                 <tr>
-                                    <td><a href="/webspecificinvoice/<%= data.invoice[i].id %>"> <%= data.invoice[i].id %></a></td>
                                     <td>
-                                        <%= data.invoice[i].vehicleno %>
+                                        <a href="/webupdatependinginvoice/<%= data.invoice[i].id %>">
+                                            <%= data.invoice[i].id %>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].vehicle %>
                                     </td>
                                     <td>
                                         <%= data.invoice[i].mine %>
@@ -131,7 +134,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function (e) {
+        $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
@@ -140,7 +143,6 @@
 </body>
 
 <script>
-
     function filterInvoice() {
         var input, filter, table, tr, td, i, j, txtValue, no_of_col;
         input = document.getElementById("searchInput");

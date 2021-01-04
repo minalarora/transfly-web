@@ -1,29 +1,27 @@
-#page-content-wrapper
-{
+#page-content-wrapper {
     position: relative;
 }
-#right_side_pane
-{
+
+#right_side_pane {
     position: absolute;
     display: none;
     height: 100vh;
     right: 0px;
     overflow-y: scroll;
 }
-#right_side_pane > div:first-child
-{
+
+#right_side_pane>div:first-child {
     position: absolute;
     width: inherit;
     z-index: 5;
     background: rgb(92, 86, 86);
-    
 }
-#right_side_pane > div:last-child
-{
-   margin-top: 100px;
+
+#right_side_pane>div:last-child {
+    margin-top: 100px;
 }
-#right_side_pane #document_container img
-{
-    width: inherit;
+
+#right_side_pane #document_container img {
+    /* width: inherit; */
     margin-bottom: 25px;
 }

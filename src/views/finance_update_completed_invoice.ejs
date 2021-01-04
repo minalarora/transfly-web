@@ -72,7 +72,7 @@
                                 <tr>
                                     <th>Vehicle no</th>
                                     <td>
-                                        <%= data.invoice.vehicleno %>
+                                        <%= data.invoice.vehicle %>
                                     </td>
                                 </tr>
                                 <tr>
@@ -134,23 +134,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="officecharge">Office Charge</label>
-                                    <input type="number" name="officecharge" class="form-control" value="<%= data.invoice.officecharge %>" id="officecharge"
-                                        placeholder="Enter Office Charge" required>
+                                    <input type="number" name="officecharge" class="form-control" value="<%= data.invoice.officecharge %>" id="officecharge" placeholder="Enter Office Charge" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="shortage">Shortage</label>
-                                    <input type="number" name="shortage" class="form-control" value="<%= data.invoice.shortage %>" id="shortage" placeholder="Enter Shortage"
-                                        required>
+                                    <input type="number" name="shortage" class="form-control" value="<%= data.invoice.shortage %>" id="shortage" placeholder="Enter Shortage" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="challantotransporter">Challan to Transporter</label>
-                                    <input type="date" name="challantotransporter" class="form-control" value="<%= data.invoice.challantotransporter %>" id="challantotransporter"
-                                        placeholder="Enter city" required>
+                                    <input type="date" name="challantotransporter" class="form-control" value="<%= data.invoice.challantotransporter %>" id="challantotransporter" placeholder="Enter city" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="balanceamountcleared">Balance Amount Cleared</label>
-                                    <input type="date" name="balanceamountcleared" class="form-control" value="<%= data.invoice.balanceamountcleared %>" id="balanceamountcleared"
-                                        placeholder="Enter PAN" required>
+                                    <input type="date" name="balanceamountcleared" class="form-control" value="<%= data.invoice.balanceamountcleared %>" id="balanceamountcleared" placeholder="Enter PAN" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -173,7 +169,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function (e) {
+        $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
