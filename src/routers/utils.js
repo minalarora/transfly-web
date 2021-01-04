@@ -110,7 +110,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
         }
         catch(e)
         {
-            imageupdates = undefined
+            imageupdates = []
         }
         console.log(imageupdates)
         const allowedUpdates = ['name','mobile','email','password','status',
