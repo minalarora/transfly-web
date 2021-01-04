@@ -9,15 +9,15 @@ router.post("/admin",async (req,res)=>{
     
     try
     {
-        console.log(req.body)
+        
         const admin  = new Admin(req.body)
         const token=await admin.generateToken()
         await admin.save()
-        res.status(201).send({token,user:admin.getPublicProfile()})    
+        res.status(200).send({token,user:admin.getPublicProfile()})    
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*const admin  = new Admin(req.body)
     admin.save().then((a)=>{

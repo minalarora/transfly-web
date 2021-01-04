@@ -129,7 +129,7 @@ adminSchema.methods.generateToken = async function() {
     return token
 }
 
-adminSchema.methods.getPublicProfile = async function() {
+adminSchema.methods.getPublicProfile =  function() {
     const user = this
     const userobject = user.toObject()
     delete userobject.password

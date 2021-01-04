@@ -3,6 +3,15 @@ const router  = new express.Router()
 const Mine = require('../models/mine')
 const jwt= require('jsonwebtoken')
 const auth = require('../auth/auth')
+var multer  = require('multer')
+var sharp = require('sharp')
+var upload = multer({
+    limits:
+    {
+        fileSize: 5000000
+    }
+})
+
 
 router.post("/mine",async (req,res)=>{
     try
@@ -160,6 +169,22 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 //     }
 // })
 
+
+router.patch("/mine/image/:id",upload.single("areaimage"),async (req,res)=>{
+    try
+    {
+
+            const id = req.params.id
+            const mine  = await Mine.findOne({id})
+            mine.areaimage = await sharp(req.file.buffer).resize(200).png().toBuffer();
+            await mine.save()
+            return res.status(200).send("DONE")
+    }
+    catch(e)
+    {
+        return res.status(400).send(e.message)
+    }
+})
 router.patch("/mine/:id",async (req,res)=>{
     try
     {
