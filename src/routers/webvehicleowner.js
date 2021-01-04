@@ -4,7 +4,7 @@ const Admin = require('../models/admin')
 const AreaManager = require('../models/areamanager')
 const Booking = require('../models/booking')
 const Fieldstaff = require('../models/fieldstaff')
-const Finance = requicre('../models/finance')
+const Finance = require('../models/finance')
 const Invoice = require('../models/invoice')
 const Mine = require('../models/mine')
 const Ticket = require('../models/ticket')
@@ -19,7 +19,7 @@ const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get('/webvehicleownerall', async (req, res) => {
+router.get('/webvehicleownerall', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -49,30 +49,27 @@ router.get('/webvehicleownerall', async (req, res) => {
                 })
             }
             if (vehicleowner.length == 0) {
-                if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
+                if (page == 1) { // this runs when no invoice exist so just rendering page with empty data
                     return res.render("vehicle_owner_list", { data })
-                }
-                else {
+                } else {
 
                     return res.redirect('/webvehicleownerall?page=' + (page - 1))
                 }
             }
             // console.log("data",data.vehicleowner[0].mobile)
             return res.render('vehicle_owner_list', { data })
-        }
-        else {
+        } else {
             console.log('admin not found in all invoice')
             return res.redirect('/')
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }
 })
 
 
-router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
+router.get('/webspecificvehicleowner/:mobile', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -91,7 +88,7 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
 
             await vehicleowner.populate('vehicles').execPopulate()
             let invoices = await Invoice.find({ vehicleownermobile: mobile }, null, { skip: (page * 1 - 1), limit: 1 }).exec()
-            //vehicleowner.populate({ path: 'invoices' }, null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
+                //vehicleowner.populate({ path: 'invoices' }, null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
 
             data.prev = page - 1
             data.next = page + 1
@@ -105,10 +102,9 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
             }
 
             if (invoices.length == 0) {
-                if (page == 1) {    // this runs when no invoice exist so just rendering page with empty data
+                if (page == 1) { // this runs when no invoice exist so just rendering page with empty data
                     return res.render("vehicle_owner_profile", { data })
-                }
-                else {
+                } else {
 
                     res.redirect('/webspecificvehicleowner/' + mobile + '?page=' + (page - 1))
                 }
@@ -119,19 +115,17 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
 
             console.log("data", data)
             return res.render('vehicle_owner_profile', { data })
-        }
-        else {
+        } else {
             console.log('admin not found in all invoice')
             return res.redirect('/')
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }
 })
 
-router.get("/vehicleownerrequest", async (req, res) => {
+router.get("/vehicleownerrequest", async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -142,13 +136,11 @@ router.get("/vehicleownerrequest", async (req, res) => {
                 vehicleowner: vehicleowner
             }
             return res.render('vehicleowner_request', { data })
-        }
-        else {
+        } else {
             console.log('admin not found in all finance')
             return res.redirect('/')
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
         return res.redirect('/')
     }
@@ -156,7 +148,7 @@ router.get("/vehicleownerrequest", async (req, res) => {
 })
 
 
-router.get("/vehicleowner_request_action/:mobile", async (req, res) => {
+router.get("/vehicleowner_request_action/:mobile", async(req, res) => {
     try {
         const mobile = req.params.mobile
         const vehicleowner = await VehicleOwner.findOne({ mobile })
@@ -168,13 +160,12 @@ router.get("/vehicleowner_request_action/:mobile", async (req, res) => {
             await vehicleowner.save()
             res.redirect('/vehicleownerrequest')
         }
-    }
-    catch (e) {
+    } catch (e) {
         res.redirect('/vehicleownerrequest')
     }
 })
 
-router.post("/vehicleowner_request_action/:mobile", async (req, res) => {
+router.post("/vehicleowner_request_action/:mobile", async(req, res) => {
     try {
         const mobile = req.params.mobile
         const vehicleowner = await VehicleOwner.findOne({ mobile })
@@ -191,14 +182,13 @@ router.post("/vehicleowner_request_action/:mobile", async (req, res) => {
             await vehicleowner.save()
             res.redirect('/vehicleownerrequest')
         }
-    }
-    catch (e) {
+    } catch (e) {
         res.redirect('/vehicleownerrequest')
     }
 })
 
 
-router.get('/getvehicleownerdata/:mobile', async (req, res) => {
+router.get('/getvehicleownerdata/:mobile', async(req, res) => {
     const mobile = req.params.mobile
     const vehicleowner = await VehicleOwner.findOne({ mobile })
     const object = vehicleowner.toObject()
