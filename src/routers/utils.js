@@ -31,41 +31,134 @@ var allUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'banki
 router.post("/who",async (req,res)=>{
     try
     {
-        let user  =  await VehicleOwner.findOne({mobile: req.body.mobile, password: req.body.password})
+        let user  =  await VehicleOwner.findOne({mobile: req.body.mobile})
         if(user)
         {
+            if(user.password.localCompare(req.body.password))
+            {
             const token = await user.generateToken()
             await user.save()
             return res.status(200).send({
                 token: "vehicleowner:" + token
             })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
         }
-         user  =  await Fieldstaff.findOne({mobile: req.body.mobile, password: req.body.password})
+        user  =  await VehicleOwner.findOne({email: req.body.mobile})
         if(user)
         {
+            if(user.password.localCompare(req.body.password))
+            {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "vehicleowner:" + token
+            })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
+        }
+
+        user  =  await Fieldstaff.findOne({mobile: req.body.mobile})
+        if(user)
+        {
+            if(user.password.localCompare(req.body.password))
+            {
             const token = await user.generateToken()
             await user.save()
             return res.status(200).send({
                 token: "fieldstaff:" + token
             })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
         }
-         user  =  await AreaManager.findOne({mobile: req.body.mobile, password: req.body.password})
+        user  =  await Fieldstaff.findOne({email: req.body.mobile})
         if(user)
         {
+            if(user.password.localCompare(req.body.password))
+            {
             const token = await user.generateToken()
             await user.save()
             return res.status(200).send({
-                token: "areamanager:" + token
+                token: "fieldstaff:" + token
             })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
         }
-        user  =  await Transporter.findOne({mobile: req.body.mobile, password: req.body.password})
+        user  =  await Transporter.findOne({mobile: req.body.mobile})
         if(user)
         {
+            if(user.password.localCompare(req.body.password))
+            {
             const token = await user.generateToken()
             await user.save()
             return res.status(200).send({
                 token: "transporter:" + token
             })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
+        }
+        user  =  await Transporter.findOne({email: req.body.mobile})
+        if(user)
+        {
+            if(user.password.localCompare(req.body.password))
+            {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "transporter:" + token
+            })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
+        }
+        user  =  await AreaManager.findOne({mobile: req.body.mobile})
+        if(user)
+        {
+            if(user.password.localCompare(req.body.password))
+            {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "areamanager:" + token
+            })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
+        }
+        user  =  await AreaManager.findOne({email: req.body.mobile})
+        if(user)
+        {
+            if(user.password.localCompare(req.body.password))
+            {
+            const token = await user.generateToken()
+            await user.save()
+            return res.status(200).send({
+                token: "areamanager:" + token
+            })
+            }
+            else 
+            {
+                return res.status(202).send("PASSWORD MISMATCH")
+            }
         }
         return res.status(400).send("User not found!")
         
@@ -208,6 +301,8 @@ router.post("/changepassword",async (req,res)=>{
         return res.status(400).send(e.message)
     }
 })
+
+
 
 
 
