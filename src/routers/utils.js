@@ -44,7 +44,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         user  =  await VehicleOwner.findOne({email: req.body.mobile})
@@ -60,7 +60,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
 
@@ -77,7 +77,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         user  =  await Fieldstaff.findOne({email: req.body.mobile})
@@ -93,7 +93,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         user  =  await Transporter.findOne({mobile: req.body.mobile})
@@ -109,7 +109,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         user  =  await Transporter.findOne({email: req.body.mobile})
@@ -125,7 +125,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         user  =  await AreaManager.findOne({mobile: req.body.mobile})
@@ -141,7 +141,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         user  =  await AreaManager.findOne({email: req.body.mobile})
@@ -157,7 +157,7 @@ router.post("/who",async (req,res)=>{
             }
             else 
             {
-                return res.status(202).send("PASSWORD MISMATCH")
+                return res.status(402).send("PASSWORD MISMATCH")
             }
         }
         return res.status(400).send("User not found!")
