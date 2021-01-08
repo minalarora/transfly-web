@@ -34,7 +34,7 @@ router.post("/who",async (req,res)=>{
         let user  =  await VehicleOwner.findOne({mobile: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -50,7 +50,7 @@ router.post("/who",async (req,res)=>{
         user  =  await VehicleOwner.findOne({email: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -67,7 +67,7 @@ router.post("/who",async (req,res)=>{
         user  =  await Fieldstaff.findOne({mobile: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -83,7 +83,7 @@ router.post("/who",async (req,res)=>{
         user  =  await Fieldstaff.findOne({email: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -99,7 +99,7 @@ router.post("/who",async (req,res)=>{
         user  =  await Transporter.findOne({mobile: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -115,7 +115,7 @@ router.post("/who",async (req,res)=>{
         user  =  await Transporter.findOne({email: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -131,7 +131,7 @@ router.post("/who",async (req,res)=>{
         user  =  await AreaManager.findOne({mobile: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
@@ -147,7 +147,7 @@ router.post("/who",async (req,res)=>{
         user  =  await AreaManager.findOne({email: req.body.mobile})
         if(user)
         {
-            if(user.password.localCompare(req.body.password))
+            if(user.password == req.body.password)
             {
             const token = await user.generateToken()
             await user.save()
