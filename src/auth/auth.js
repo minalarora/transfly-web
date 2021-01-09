@@ -19,7 +19,7 @@ const auth=async (req,res,next)=>{
         {
             case 'admin': {
             
-                const admin=await Admin.findOne({mobile:decoded._id,"tokens.token" : token})
+                const admin=await Admin.findOne({id:decoded._id,"tokens.token" : token})
                 if(!admin)
                 {
                     throw new Error("Authentication Failed!")
@@ -32,7 +32,7 @@ const auth=async (req,res,next)=>{
             }
 
             case 'areamanager':{
-                const areamanager=await AreaManager.findOne({mobile:decoded._id,"tokens.token" : token})
+                const areamanager=await AreaManager.findOne({id:decoded._id,"tokens.token" : token})
                 if(!areamanager)
                 {
                     throw new Error("Authentication Failed!")
@@ -45,7 +45,7 @@ const auth=async (req,res,next)=>{
             }
 
             case 'fieldstaff':{
-                const fieldstaff=await Fieldstaff.findOne({mobile:decoded._id,"tokens.token" : token})
+                const fieldstaff=await Fieldstaff.findOne({id:decoded._id,"tokens.token" : token})
                 if(!fieldstaff)
                 {
                     throw new Error("Authentication Failed!")
@@ -58,7 +58,7 @@ const auth=async (req,res,next)=>{
             }
 
             case 'finance':{
-                const finance=await Finance.findOne({mobile:decoded._id,"tokens.token" : token})
+                const finance=await Finance.findOne({id:decoded._id,"tokens.token" : token})
                 if(!finance)
                 {
                     throw new Error("Authentication Failed!")
@@ -70,7 +70,7 @@ const auth=async (req,res,next)=>{
             }
 
             case 'transporter':{
-                const transporter=await Transporter.findOne({mobile:decoded._id,"tokens.token" : token})
+                const transporter=await Transporter.findOne({id:decoded._id,"tokens.token" : token})
                 if(!transporter)
                 {
                     throw new Error("Authentication Failed!")
@@ -83,7 +83,7 @@ const auth=async (req,res,next)=>{
             }
 
             case 'vehicleowner':{
-                const vehicleowner=await VehicleOwner.findOne({mobile:decoded._id,"tokens.token" : token})
+                const vehicleowner=await VehicleOwner.findOne({id:decoded._id,"tokens.token" : token})
                 if(!vehicleowner)
                 {
                     throw new Error("Authentication Failed!")

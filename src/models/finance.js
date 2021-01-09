@@ -1,8 +1,24 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 5)
 
 const financeSchema = mongoose.Schema({
+    id:
+    {
+        type: String,
+        unique: true,
+     default: () => {
+        return "FS:" + nanoid()
+        }
+    },
+
+    firebase:
+    {
+        type: String,
+        default: null
+    },
     name: {
         type: String,
         required: true,
@@ -53,7 +69,7 @@ const financeSchema = mongoose.Schema({
     },
     panimage: {
         type: Buffer,
-        default: undefined
+        default: null
     },
     aadhaar: {
         type: String,
@@ -62,7 +78,7 @@ const financeSchema = mongoose.Schema({
     },
     aadhaarimage: {
         type: Buffer,
-        default: undefined
+        default: null
     },
     ename: {
         type: String,
@@ -118,7 +134,7 @@ financeSchema.statics.findByMobile = async(mobile, password) => {
 
 financeSchema.methods.generateToken = async function() {
     const finance = this
-    const token = jwt.sign({ _id: finance.mobile }, 'transfly', {
+    const token = jwt.sign({ _id: finance.id }, 'transfly', {
         expiresIn: '30d'
     })
     finance.tokens = finance.tokens.concat({ token })
@@ -130,18 +146,34 @@ financeSchema.methods.generateToken = async function() {
 financeSchema.methods.getPublicProfile = function() {
     const user = this
     const userobject = user.toObject()
+    try
+    {
     delete userobject.password
     delete userobject.tokens
+    delete userobject.panimage
+    delete userobject.aadhaarimage
+    }
+    catch(e)
+    {
+
+    }
     return userobject
 }
 
 financeSchema.methods.getWebProfile = function() {
     const user = this
     const userobject = user.toObject()
+    try
+    {
     delete userobject.password
     delete userobject.tokens
     delete userobject.panimage
     delete userobject.aadhaarimage
+    }
+    catch(e)
+    {
+        
+    }
     return userobject
 }
 

@@ -1,12 +1,29 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 5)
+
 
 const adminSchema = mongoose.Schema({
+    id:
+    {
+        type: String,
+        unique: true,
+     default: () => {
+        return "AD:" + nanoid()
+        }
+    },
+
+    firebase:
+    {
+        type: String,
+        default: null
+    },
     name: {
         type: String,
         required: true,
-        trim: true,
+        trim: true, 
         uppercase: true
     },
     mobile: {
@@ -54,7 +71,7 @@ const adminSchema = mongoose.Schema({
 
     },
     panimage: {
-        type: Buffer
+        type: Buffer,
     },
     aadhaar: {
         type: String,
@@ -121,7 +138,7 @@ adminSchema.statics.findByMobile = async(mobile, password) => {
 
 adminSchema.methods.generateToken = async function() {
     const admin = this
-    const token = jwt.sign({ _id: admin.mobile }, 'transfly', {
+    const token = jwt.sign({ _id: admin.id }, 'transfly', {
         expiresIn: '30d'
     })
     admin.tokens = admin.tokens.concat({ token })
@@ -132,8 +149,17 @@ adminSchema.methods.generateToken = async function() {
 adminSchema.methods.getPublicProfile =  function() {
     const user = this
     const userobject = user.toObject()
+    try
+    {
     delete userobject.password
     delete userobject.tokens
+    delete userobject.panimage
+    delete userobject.aadhaarimage
+    }
+    catch(e)
+    {
+        
+    }
     return userobject
 }
 

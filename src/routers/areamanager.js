@@ -29,8 +29,8 @@ router.post("/areamanager",async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
-        res.status(400).send(e)
+        // console.log(e)
+        res.status(400).send(e.message)
     }
    /* const areamanager  = new AreaManager(req.body)
     areamanager.save().then((a)=>{
@@ -61,7 +61,7 @@ router.get('/areamanager/me/pending',auth,async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
+        // console.log(e)
         res.status(400).send(e.message)
     }
 })
@@ -75,7 +75,7 @@ router.get("/allareamanager",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* AreaManager.find({}).then((a)=>{
         res.status(200)
@@ -156,12 +156,12 @@ router.post("/areamanager/me",auth,transporterUpload,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
 
-router.patch("/areamanager/:mobile",auth,async (req,res)=>{
+router.patch("/areamanager/:id",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
@@ -174,12 +174,12 @@ router.patch("/areamanager/:mobile",auth,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const mobile = req.params.mobile
+        const id = req.params.id
       /*  const areamanager = await AreaManager.findOneAndUpdate({mobile},req.body,{
             new : true,
             runValidators: true
         })*/
-        const areamanager = await AreaManager.findOne({mobile})
+        const areamanager = await AreaManager.findOne({id})
         if(areamanager!=null)
         {
             updates.forEach((update)=>{
@@ -190,33 +190,33 @@ router.patch("/areamanager/:mobile",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
-router.delete("/areamanager/:mobile",auth,async (req,res)=>{
+router.delete("/areamanager/:id",auth,async (req,res)=>{
     try
     {
-        const mobile = req.params.mobile
-        const areamanager = await Admin.findOneAndDelete({mobile})
+        const id = req.params.id
+        const areamanager = await Admin.findOneAndDelete({id})
         if(admin!=null)
         {
              res.status(200).send(areamanager.getPublicProfile())   
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -233,7 +233,7 @@ router.post("/areamanager/login",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+       return res.status(400).send(e.message)
     }
 })
 
@@ -249,7 +249,7 @@ router.delete("/areamanager/me",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -261,12 +261,12 @@ router.post('/areamanager/logout',auth,async (req,res)=>{
             return token.token != req.token 
         })
         await req.user.save()
-        res.status(200).send()
+        res.status(200).send("DONE")
 
     }
     catch(e)
     {
-        res.status(400)
+       return res.status(400)
     }
 })
 

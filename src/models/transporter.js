@@ -2,8 +2,24 @@ const validator =  require('validator')
 const mongoose =  require('mongoose')
 const jwt = require("jsonwebtoken")
 const Mine  = require('../models/mine')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 5)
 
 const transporterSchema  =  mongoose.Schema({
+    id:
+    {
+        type: String,
+        unique: true,
+     default: () => {
+        return "TS:" + nanoid()
+        }
+    },
+
+    firebase:
+    {
+        type: String,
+        default: null
+    },
     name: {
         type: String,
         required: true,
@@ -138,7 +154,7 @@ transporterSchema.statics.findByMobile = async (mobile,password)=>{
 
 transporterSchema.methods.generateToken = async function(){
     const transporter  = this
-    const token  = jwt.sign({_id: transporter.mobile},'transfly',{
+    const token  = jwt.sign({_id: transporter.id},'transfly',{
         expiresIn: '30d'
     })
     transporter.tokens  = transporter.tokens.concat({token})
@@ -165,7 +181,7 @@ transporterSchema.methods.generateToken = async function(){
 
 transporterSchema.virtual('invoices',{
     ref: 'Invoice',
-    localField: 'mobile',
+    localField: 'id',
     foreignField: 'transporter'
   })
 

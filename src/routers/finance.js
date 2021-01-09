@@ -11,11 +11,11 @@ router.post("/finance",async (req,res)=>{
         const finance  = new Finance(req.body)
         const token=await finance.generateToken()
         await finance.save()
-        res.status(201).send({token,user:finance.getPublicProfile()})      
+        res.status(200).send({token,user:finance.getPublicProfile()})      
     }
     catch(e)
     {
-        console.log(e)
+        // console.log(e)
         res.status(400).send(e)
     }
    /* const finance  = new Finance(req.body)
@@ -36,7 +36,7 @@ router.get("/allfinance",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* Finance.find({}).then((a)=>{
         res.status(200)
@@ -47,23 +47,23 @@ router.get("/allfinance",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/finance/:mobile",auth,async (req,res)=>{
+router.get("/finance/:id",auth,async (req,res)=>{
     try
     {
-        const mobile = req.params.mobile
-        const finance = await Finance.findOne({mobile})
+        const id = req.params.id
+        const finance = await Finance.findOne({id})
         if(finance!=null)
         {
              res.status(200).send(finance.getPublicProfile())   
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }    
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*const mobile = req.params.mobile
     Finance.findOne({mobile},(e, a)=>{
@@ -103,12 +103,12 @@ router.patch("/finance/me",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
 
-router.patch("/finance/:mobile",auth,async (req,res)=>{
+router.patch("/finance/:id",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
@@ -121,12 +121,12 @@ router.patch("/finance/:mobile",auth,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const mobile = req.params.mobile
+        const id = req.params.id
        /* const finance = await Finance.findOneAndUpdate({mobile},req.body,{
             new : true,
             runValidators: true
         })*/
-        const finance = await Finance.findOne({mobile})
+        const finance = await Finance.findOne({id})
         if(finance!=null)
         {
             updates.forEach((update)=>{
@@ -137,33 +137,33 @@ router.patch("/finance/:mobile",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
-router.delete("/finance/:mobile",auth,async (req,res)=>{
+router.delete("/finance/:id",auth,async (req,res)=>{
     try
     {
-        const mobile = req.params.mobile
-        const finance = await Finance.findOneAndDelete({mobile})
+        const id = req.params.id
+        const finance = await Finance.findOneAndDelete({id})
         if(finance!=null)
         {
              res.status(200).send(finance.getPublicProfile())   
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -184,7 +184,7 @@ router.post("/finance/login",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+       return res.status(400)
     }
 })
 
@@ -203,7 +203,7 @@ router.delete("/admin/me",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 

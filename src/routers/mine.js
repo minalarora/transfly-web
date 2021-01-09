@@ -65,12 +65,12 @@ router.get("/mine/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
   /*  const id = req.params.id
     Mine.findOne({id},(e, a)=>{
@@ -112,7 +112,7 @@ router.get("/areaimage/:id",async (req,res)=>{
 router.post("/nearme/mine",auth,async (req,res)=>{
     try
     {
-        console.log("near me")
+        // console.log("near me")
         const mines  =  await Mine.find({})
         let shortestpath  = 99999
         let areaname = null
@@ -214,12 +214,12 @@ router.patch("/mine/:id",async (req,res)=>{
         }
         else
         {
-            res.status(400)
+          return  res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -234,13 +234,13 @@ router.delete("/mine/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 

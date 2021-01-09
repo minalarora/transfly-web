@@ -7,6 +7,12 @@ const invoiceSchema = mongoose.Schema({
         type: Number,
 
     },
+    owner:
+    {
+        type: String,
+        required: true,
+        ref: 'Vehicleowner'
+    },
     //minename and loading and vehicleownername
     vehicle:
     {
@@ -21,7 +27,7 @@ const invoiceSchema = mongoose.Schema({
     vehicleownermobile:
     {
         type: String,
-        ref: 'Vehicleowner'
+        
     }
     ,
     mineid:

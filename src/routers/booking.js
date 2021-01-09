@@ -8,10 +8,17 @@ const auth = require('../auth/auth')
 router.post("/booking",auth,async (req,res)=>{
     try
     {
-        const booking  = new Booking({...req.body,owner: req.user._id,vehicleowner:req.user.name,vehicleownermobile:req.user.mobile})
+        if(req.user.status == 2)
+        {
+        const booking  = new Booking({...req.body,owner: req.user.id,vehicleowner:req.user.name,vehicleownermobile:req.user.mobile})
         await booking.save()
         await Vehicle.findOneAndUpdate({number: req.body.vehicle},{active: false})
-        return res.status(200).send("done")       
+        return res.status(200).send("done") 
+        }
+        else
+        {
+            res.status(402).send("COMPLETE YOUR KYC FIRST")
+        }      
     }
     catch(e)
     {
@@ -164,12 +171,12 @@ router.get("/allbooking/areamanager",auth,async (req,res)=>{
 
 
 
-router.get("/booking/vehicle/:mobile",auth,async (req,res)=>{
+router.get("/booking/vehicle/:id",auth,async (req,res)=>{
    
     try
 {
-    const mobile = req.params.mobile
-    const vehicles= await Vehicle.find({driverid: mobile,
+    const id = req.params.id
+    const vehicles= await Vehicle.find({driverid: id,
     status: 1})  
     res.status(200).send(vehicles.map((vehicle)=>{
         return vehicle.number
@@ -177,7 +184,7 @@ router.get("/booking/vehicle/:mobile",auth,async (req,res)=>{
 }
 catch(e)
 {
-    res.status(400).send(e)
+    res.status(400).send(e.message)
 }
 
 })
@@ -194,12 +201,12 @@ router.get("/booking/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }      
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
  /*   const id = req.params.id
     Booking.findOne({id},(e, a)=>{
@@ -241,16 +248,16 @@ router.patch("/booking/:id",auth,async (req,res)=>{
                 booking[update] = req.body[update] 
             })
             await booking.save() 
-             res.status(200)
+           return   res.status(200)
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -284,7 +291,7 @@ router.get("/booking/me",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
  /*   const id = req.params.id
     Booking.findOne({id},(e, a)=>{

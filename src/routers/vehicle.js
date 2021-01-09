@@ -24,7 +24,7 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
     try
     {
        let buffer = await sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer();
-        const vehicle  = new Vehicle({...req.body,driverid: req.user.mobile,rcimage:buffer})
+        const vehicle  = new Vehicle({...req.body,driverid: req.user.id,rcimage:buffer})
         await vehicle.save()
         return res.status(200).send("DONE")  
     }
@@ -47,7 +47,7 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
 router.get("/allvehicle",auth,async (req,res)=>{
     try
     {
-        const vehicles= await Vehicle.find({driverid: req.user.mobile})  
+        const vehicles= await Vehicle.find({driverid: req.user.id})  
         res.status(200).send(vehicles)      
     }
     catch(e)
@@ -74,12 +74,12 @@ router.get("/vehicle/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }         
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
   /*  const id = req.params.id
     Vehicle.findOne({id},(e, a)=>{
@@ -124,12 +124,12 @@ router.patch("/vehicle/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+          return  res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -144,7 +144,7 @@ router.delete("/vehicle/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
          
     }

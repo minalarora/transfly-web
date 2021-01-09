@@ -2,10 +2,26 @@ const validator = require("validator")
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const Mine = require('../models/mine')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 5)
 
 
 const areamanagerSchema  = mongoose.Schema({
 
+    id:
+    {
+        type: String,
+        unique: true,
+     default: () => {
+        return "AM:" + nanoid()
+        }
+    },
+
+    firebase:
+    {
+        type: String,
+        default: null
+    },
     name: {
         type: String,
         required: true,
@@ -119,16 +135,13 @@ const areamanagerSchema  = mongoose.Schema({
 areamanagerSchema.pre('remove',async function(next){
     const user = this
     await Mine.updateMany({
-        areamanager : user.mobile
+        areamanager : user.id
     },
-    { $set : { areamanager : undefined }},
+    { $set : { areamanager : null }},
      function(err, result) {
-            if (err) {
-              console.log(err)
-            } else {
-              console.log(result)
-            }
+            
           })
+
     next()
 })
 
@@ -171,13 +184,13 @@ areamanagerSchema.methods.toJSON = function()
 
 areamanagerSchema.virtual('mines',{
     ref: 'Mine',
-    localField: 'mobile',
+    localField: 'id',
     foreignField: 'areamanager'
   })
 
 areamanagerSchema.methods.generateToken = async function(){
     const areamanager  = this
-    const token  = jwt.sign({_id: areamanager.mobile},'transfly',{
+    const token  = jwt.sign({_id: areamanager.id},'transfly',{
         expiresIn: '30d'
     })
     areamanager.tokens  = areamanager.tokens.concat({token})

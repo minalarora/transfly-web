@@ -30,7 +30,7 @@ router.post("/fieldstaff",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*const fieldstaff  = new Fieldstaff(req.body)
     fieldstaff.save().then((a)=>{
@@ -61,7 +61,7 @@ router.get('/fieldstaff/me/pending',auth,async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
+        // console.log(e)
         res.status(400).send(e.message)
     }
 })
@@ -74,7 +74,7 @@ router.get("/allfieldstaff",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
     /*Fieldstaff.find({}).then((a)=>{
         res.status(200)
@@ -156,12 +156,12 @@ router.post("/fieldstaff/me",auth,transporterUpload,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
 
-router.patch("/fieldstaff/:mobile",auth,async (req,res)=>{
+router.patch("/fieldstaff/:id",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
@@ -174,12 +174,12 @@ router.patch("/fieldstaff/:mobile",auth,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const mobile = req.params.mobile
+        const id = req.params.id
         /*const fieldstaff = await Fieldstaff.findOneAndUpdate({mobile},req.body,{
             new : true,
             runValidators: true
         })*/
-        const fieldstaff = await Fieldstaff.findOne({mobile})
+        const fieldstaff = await Fieldstaff.findOne({id})
         if(fieldstaff!=null)
         {
             updates.forEach((update)=>{
@@ -190,33 +190,34 @@ router.patch("/fieldstaff/:mobile",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+         
+         return  res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
-router.delete("/fieldstaff/:mobile",auth,async (req,res)=>{
+router.delete("/fieldstaff/:id",auth,async (req,res)=>{
     try
     {
-        const mobile = req.params.mobile
-        const fieldstaff = await Fieldstaff.findOneAndDelete({mobile})
+        const id = req.params.id
+        const fieldstaff = await Fieldstaff.findOneAndDelete({id})
         if(fieldstaff!=null)
         {
              res.status(200).send(fieldstaff.getPublicProfile())   
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -233,7 +234,7 @@ router.post("/fieldstaff/login",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+        return res.status(400)
     }
 })
 

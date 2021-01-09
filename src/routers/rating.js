@@ -7,7 +7,7 @@ router.post("/rating",auth,async (req,res)=>{
     try
     {
        
-        const rating  = new Rating({...req.body,userid: req.user.mobile})
+        const rating  = new Rating({...req.body,userid: req.user.id})
         await rating.save()
         return res.status(200).send("DONE")     
     }

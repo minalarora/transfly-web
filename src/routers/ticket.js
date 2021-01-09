@@ -6,7 +6,7 @@ const auth = require('../auth/auth')
 router.post("/ticket",auth,async (req,res)=>{
     try
     {
-        const ticket  = new Ticket({...req.body,userid: req.user.mobile})
+        const ticket  = new Ticket({...req.body,userid: req.user.id})
         await ticket.save()
         return res.status(200).send('DONE')        
     }
@@ -27,7 +27,7 @@ router.post("/ticket",auth,async (req,res)=>{
 router.get("/allticket",auth,async (req,res)=>{
     try
     {
-        await Ticket.find({userid: req.user.mobile}).sort({createdAt : -1}).exec(function(err,tickets){ 
+        await Ticket.find({userid: req.user.id}).sort({createdAt : -1}).exec(function(err,tickets){ 
             if(tickets)
             {
                 res.status(200).send(tickets)    
@@ -63,7 +63,7 @@ router.get("/ticket/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }         
     }
     catch(e)
@@ -113,12 +113,12 @@ router.patch("/ticket/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -133,13 +133,13 @@ router.delete("/ticket/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 

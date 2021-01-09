@@ -24,7 +24,7 @@ router.post("/transporter",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
   /*  const transporter  = new Transporter(req.body)
     transporter.save().then((a)=>{
@@ -55,7 +55,7 @@ router.get('/transporter/me/pending',auth,async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
+        // console.log(e)
         res.status(400).send(e.message)
     }
 })
@@ -151,14 +151,14 @@ router.post("/transporter/me",auth,transporterUpload,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
-router.patch("/transporter/:mobile",auth,transporterUpload,async (req,res)=>{
+router.patch("/transporter/:id",auth,transporterUpload,async (req,res)=>{
     try
     {
-        console.log(Object.keys(req.files))
+        // console.log(Object.keys(req.files))
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['name','mobile','email','password','status',
@@ -170,12 +170,12 @@ router.patch("/transporter/:mobile",auth,transporterUpload,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const mobile = req.params.mobile
+        const id = req.params.id
         /*const transporter = await Transporter.findOneAndUpdate({mobile},req.body,{
             new : true,
             runValidators: true
         })*/
-        const transporter = await Transporter.findOne({mobile})
+        const transporter = await Transporter.findOne({id})
         if(transporter!=null)
         {
             updates.forEach((update)=>{
@@ -194,16 +194,16 @@ router.patch("/transporter/:mobile",auth,transporterUpload,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+          return  res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
-router.delete("/transporter/:mobile",auth,async (req,res)=>{
+router.delete("/transporter/:id",auth,async (req,res)=>{
     try
     {
         const mobile = req.params.mobile
@@ -214,13 +214,13 @@ router.delete("/transporter/:mobile",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -238,7 +238,7 @@ router.post("/transporter/login",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+        return res.status(400)
     }
 })
 
@@ -254,7 +254,7 @@ router.delete("/transporter/me",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -270,7 +270,7 @@ router.post('/transporter/logout',auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+       return res.status(400)
     }
 })
 

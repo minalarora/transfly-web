@@ -29,7 +29,7 @@ router.post("/vehicleowner",async (req,res)=>{
     catch(e)
     {
       
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* const vehicleowner  = new Vehicleowner(req.body)
     vehicleowner.save().then((a)=>{
@@ -60,7 +60,7 @@ router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
     }
     catch(e)
     {
-        console.log(e)
+       
         res.status(400).send(e.message)
     }
 })
@@ -80,7 +80,7 @@ router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
         }
         
         const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact']
+        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact','firebase']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -116,7 +116,7 @@ router.get("/allvehicleowner",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
   /*  Vehicleowner.find({}).then((a)=>{
         res.status(200)
@@ -166,7 +166,7 @@ router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact']
+        'accountno','ifsc','bankname','bankimage','pan','panimage','tds','tdsimage','emergencycontact','firebase']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -189,19 +189,19 @@ router.post("/vehicleowner/me",auth,transporterUpload,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
 
 
 
-router.patch("/vehicleowner/:mobile",auth,async (req,res)=>{
+router.patch("/vehicleowner/:id",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
         const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','tds']
+        'accountno','ifsc','bankname','city','pan','tds','firebase']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -209,12 +209,12 @@ router.patch("/vehicleowner/:mobile",auth,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const mobile = req.params.mobile
+        const id = req.params.id
         /*const vehicleowner = await vehicleOwner.findOneAndUpdate({mobile},req.body,{
             new : true,
             runValidators: true
         })*/
-        const vehicleowner = await VehicleOwner.findOne({mobile})
+        const vehicleowner = await VehicleOwner.findOne({id})
         if(vehicleowner!=null)
         {
             updates.forEach((update)=>{
@@ -225,33 +225,33 @@ router.patch("/vehicleowner/:mobile",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+            return res.status(400)
         }
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
-router.delete("/vehicleowner/:mobile",auth,async (req,res)=>{
+router.delete("/vehicleowner/:id",auth,async (req,res)=>{
     try
     {
-        const mobile = req.params.mobile
-        const vehicleowner = await VehicleOwner.findOneAndDelete({mobile})
+        const id = req.params.id
+        const vehicleowner = await VehicleOwner.findOneAndDelete({id})
         if(vehicleowner!=null)
         {
              res.status(200).send(vehicleowner.getPublicProfile())   
         }
         else
         {
-            res.status(400)
+           return res.status(400)
         }
          
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -268,7 +268,7 @@ router.post("/vehicleowner/login",async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+        return res.status(400)
     }
 })
 
@@ -285,7 +285,7 @@ router.delete("/vehicleowner/me",auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
@@ -302,7 +302,7 @@ router.post('/vehicleowner/logout',auth,async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400)
+       return res.status(400)
     }
 })
 

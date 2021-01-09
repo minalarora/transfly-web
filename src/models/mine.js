@@ -119,6 +119,12 @@ mineSchema.virtual('invoices',{
     foreignField: 'mineid'
 })
 
+mineSchema.virtual('bookings',{
+    ref: 'Booking',
+    localField: 'id',
+    foreignField: 'mineid'
+})
+
 mineSchema.methods.toJSON = function()
 {
     const user = this

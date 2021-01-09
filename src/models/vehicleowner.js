@@ -4,9 +4,24 @@ const Booking = require('./booking')
 const Invoice = require('./invoice')
 const Vehicle = require('./vehicle')
 const jwt = require('jsonwebtoken')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 5)
 
 
 const vehicleownerSchema = mongoose.Schema({
+    id:
+    {
+        type: String,
+        unique: true,
+     default: () => {
+        return "VO:" + nanoid()
+        }
+    },
+    firebase:
+    {
+        type: String,
+        default: null
+    },
     name: {
         type: String,
         required: true,
@@ -133,7 +148,7 @@ vehicleownerSchema.statics.findByMobile = async (mobile, password) => {
 
 vehicleownerSchema.methods.generateToken = async function () {
     const vehicleowner = this
-    const token = jwt.sign({ _id: vehicleowner.mobile }, 'transfly', {
+    const token = jwt.sign({ _id: vehicleowner.id }, 'transfly', {
         expiresIn: '30d'
     })
     vehicleowner.tokens = vehicleowner.tokens.concat({ token })
@@ -155,19 +170,19 @@ vehicleownerSchema.methods.toJSON = function () {
 
 vehicleownerSchema.virtual('bookings', {
     ref: 'Booking',
-    localField: '_id',
+    localField: 'id',
     foreignField: 'owner'
 })
 
 vehicleownerSchema.virtual('invoices', {
     ref: 'Invoice',
-    localField: 'mobile',
-    foreignField: 'vehicleownermobile'
+    localField: 'id',
+    foreignField: 'owner'
 })
 
 vehicleownerSchema.virtual('vehicles', {
     ref: 'Vehicle',
-    localField: 'mobile',
+    localField: 'id',
     foreignField: 'driverid'
 })
 
@@ -175,11 +190,15 @@ vehicleownerSchema.virtual('vehicles', {
 vehicleownerSchema.pre('remove', async function (next) {
     const user = this
     await Booking.deleteMany({
-        owner: user._id
+        owner: user.id
+    })
+    await Invoice.deleteMany({
+        owner: user.id
     })
     await Vehicle.deleteMany({
-        driverid: mobile
+        driverid: id
     })
+    
 
     next()
 

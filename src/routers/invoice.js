@@ -9,11 +9,18 @@ const Mine  = require('../models/mine')
 router.post("/invoice",auth,async (req,res)=>{
     try
     {
+        if(req.user.status == 2)
+        {
         const invoice  = new Invoice(req.body)
         const booking =await Booking.findOneAndUpdate({id: req.body.id},{status: "COMPLETED"})
         await Vehicle.findOneAndUpdate({number: booking.vehicle},{active: true})
         await invoice.save()
-        return res.status(200).send("DONE")       
+        return res.status(200).send("DONE")  
+       }
+        else
+        {
+        res.status(402).send("COMPLETE YOUR KYC FIRST")
+        }          
     }
     catch(e)
     {
@@ -86,7 +93,7 @@ router.get("/allinvoice/areamanager/:timestamp",auth,async (req,res)=>{
                 const selectedinvoices = invoices.filter((invoice)=>{
                     let mineDate = new Date(invoice.createdAt) 
                     let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
-                    console.log(mineDateString)
+                    // console.log(mineDateString)
                     return datestring == mineDateString
                 })
                 res.status(200).send(selectedinvoices)    
@@ -178,15 +185,12 @@ router.get("/invoice/timestamp/:timestamp",auth,async (req,res)=>{
     try
     {
         const timestamp = req.params.timestamp
-        console.log(timestamp)
         const date = new Date(parseInt(timestamp))
         const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
-        console.log(datestring)
         const invoices  = await Invoice.find()
         const selectedinvoices = invoices.filter((invoice)=>{
             let mineDate = new Date(invoice.createdAt) 
             let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
-            console.log(mineDateString)
             return datestring == mineDateString
         })
         res.status(200).send(selectedinvoices)
@@ -209,12 +213,12 @@ router.get("/invoice/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+           return  res.status(400)
         }      
     }
     catch(e)
     {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
    /* const id = req.params.id
     Invoice.findOne({id},(e, a)=>{
@@ -261,7 +265,7 @@ router.patch("/invoice/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+          return  res.status(400)
         }
     }
     catch(e)
@@ -281,7 +285,7 @@ router.delete("/invoice/:id",auth,async (req,res)=>{
         }
         else
         {
-            res.status(400)
+          return  res.status(400)
         }
          
     }

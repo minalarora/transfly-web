@@ -10,6 +10,13 @@ const bookingSchema  = mongoose.Schema({
            return parseInt(nanoid())
         }
     },
+
+    owner:
+    {
+        type: String,
+        required:true,
+        ref: 'Vehicleowner'
+    },
     vehicle:
     {
        type: String   
@@ -23,12 +30,13 @@ const bookingSchema  = mongoose.Schema({
     vehicleownermobile:
     {
         type:String
-    }
-,
+    },
+
     mineid:
     {
         type: Number,
-        required: true
+        required: true,
+        ref: 'Mine'
     },
 
     minename:
@@ -48,12 +56,6 @@ const bookingSchema  = mongoose.Schema({
         type: String,
         enum : ['PENDING','COMPLETED'],
         default: 'PENDING'
-    },
-    owner:
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Vehicleowner'
     }
 },{
     timestamps: true

@@ -195,7 +195,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        console.log(req.body)
+        // console.log(req.body)
         let imageupdates 
         try
         {
@@ -208,7 +208,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
         console.log(imageupdates)
         const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','pan','tds','emergencycontact','gst','sta','mininglicense','aadhaar',
-             'ename','erelation','emobile']
+             'ename','erelation','emobile','firebase']
 
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
@@ -247,7 +247,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
             }
         else
         {
-            console.log("else")
+            
             res.status(200).send("Done")
         }
             

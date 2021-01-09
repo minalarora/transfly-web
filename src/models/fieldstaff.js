@@ -2,8 +2,24 @@ const validator = require("validator")
 const mongoose = require('mongoose')
 const jwt =  require('jsonwebtoken')
 const Mine  = require("../models/mine")
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 5)
 
 const fieldstaffSchema = mongoose.Schema({
+    id:
+    {
+        type: String,
+        unique: true,
+     default: () => {
+        return "FS:" + nanoid()
+        }
+    },
+
+    firebase:
+    {
+        type: String,
+        default: null
+    },
     name: {
         type: String,
         required: true,
@@ -117,14 +133,14 @@ const fieldstaffSchema = mongoose.Schema({
 fieldstaffSchema.pre('remove',async function(next){
     const user = this
     await Mine.updateMany({
-        fieldstaff : user.mobile
+        fieldstaff : user.id
     },
-    { $set : { fieldstaff : undefined }},
+    { $set : { fieldstaff : null }},
      function(err, result) {
             if (err) {
-              console.log(err)
+            //   console.log(err)
             } else {
-              console.log(result)
+            //   console.log(result)
             }
           })
     next()
@@ -157,7 +173,7 @@ fieldstaffSchema.statics.findByMobile = async (mobile,password)=>{
 
 fieldstaffSchema.methods.generateToken = async function(){
     const fieldstaff  = this
-    const token  = jwt.sign({_id: fieldstaff.mobile},'transfly',{
+    const token  = jwt.sign({_id: fieldstaff.id},'transfly',{
         expiresIn: '30d'
     })
     fieldstaff.tokens  = fieldstaff.tokens.concat({token})
@@ -179,7 +195,7 @@ fieldstaffSchema.methods.toJSON = function()
 
 fieldstaffSchema.virtual('mines',{
     ref: 'Mine',
-    localField: 'mobile',
+    localField: 'id',
     foreignField: 'fieldstaff'
   })
 
