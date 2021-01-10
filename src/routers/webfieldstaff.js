@@ -23,7 +23,7 @@ router.get('/webfieldstaffall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const fieldstaff = await Fieldstaff.find({ status: 2 }).exec()
 
@@ -47,13 +47,13 @@ router.get('/webfieldstaffall', async (req, res) => {
             return res.render('fieldstaff_list', { data })
         }
         else {
-            console.log('admin not found in all area manager')
+           
             return res.redirect("/")
         }
 
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/webfieldstaffall")
     }
 })
@@ -62,7 +62,7 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const mobile = req.params.mobile
             const fieldstaff = await Fieldstaff.findOne({ mobile })
@@ -102,22 +102,22 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
                 t.allmines = allmines
                 data.fieldstaff = t;
 
-                console.log(data.fieldstaff.mine)
+                
                 return res.render('field_staff_profile', { data })
 
             }
             else {
-                console.log('fieldstaff member not found')
+              
                 return res.redirect("/webfieldstaffall")
             }
         }
         else {
-            console.log('admin not found in single fieldstaff')
+            
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e)
+      
         return res.redirect("/webfieldstaffall")
 
     }
@@ -128,32 +128,32 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const mobile = req.params.mobile
-            console.log(req.body)
+          
             const areamanager = await Fieldstaff.findOne({ mobile })
             if (areamanager) {
 
                 var newmines = Object.values(req.body)
-                console.log("new m", newmines);
+               
 
                 var oldminess = await Mine.find({ fieldstaff: mobile })
 
                 var oldmines = oldminess.map((mine) => {
                     return mine.id
                 })
-                console.log("oldmines", oldmines);
+               
 
                 newmines.forEach((mine) => {
-                    Mine.findOneAndUpdate({ id: parseInt(mine) }, { fieldstaff: mobile }).exec()
+                    Mine.findOneAndUpdate({ id: parseInt(mine) }, { fieldstaff: areamanager.id }).exec()
                 })
 
                 var nullmines = oldmines.filter((mine) => {
                     return newmines.includes(mine) == false
                 })
 
-                console.log("null", nullmines);
+              
                 nullmines.forEach((mine) => {
                     Mine.findOneAndUpdate({ id: mine }, { fieldstaff: null }).exec()
                 })
@@ -162,18 +162,18 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
 
             }
             else {
-                console.log('fs not found ')
+             
                 return res.redirect("/webspecificfieldstaff/" + mobile)
             }
 
         }
         else {
-            console.log('admin not found in all finance')
+          
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e.message)
+       
         return res.redirect("/webfieldstaffall")
     }
 })
@@ -183,7 +183,7 @@ router.get('/revokemine/:name', async (req, res) => {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
 
             const name = req.params.name
@@ -193,7 +193,7 @@ router.get('/revokemine/:name', async (req, res) => {
         }
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/webfieldstaffall")
 
     }
@@ -212,13 +212,13 @@ router.get("/fieldstaffrequest", async (req, res) => {
             return res.render('fieldstaff_request', { data })
         }
         else {
-            console.log('admin not found in all finance')
+         
             return res.redirect("/")
 
         }
     }
     catch (e) {
-        console.log(e)
+        
         return res.redirect("/fieldstaffrequest")
     }
 

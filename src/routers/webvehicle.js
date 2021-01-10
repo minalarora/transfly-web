@@ -23,7 +23,7 @@ router.get("/vehiclerequest", async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const vehicles = await Vehicle.find({ status: 0 })
             let data = {
@@ -31,11 +31,11 @@ router.get("/vehiclerequest", async(req, res) => {
             }
             return res.render('vehicle_request_list', { data })
         } else {
-            console.log('admin not found in all finance')
+           
             return res.redirect('/')
         }
     } catch (e) {
-        console.log(e)
+      
         return res.redirect('/')
     }
 
@@ -46,12 +46,12 @@ router.get('/getvehicledata/:id', async(req, res) => {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
         const object = vehicle.toObject();
-        const vehicleowner = await VehicleOwner.findOne({ mobile: vehicle.driverid })
+        const vehicleowner = await VehicleOwner.findOne({ id: vehicle.driverid })
         object["vehicleownername"] = vehicleowner.name
         object["vehicleownermobile"] = vehicleowner.mobile
         delete object.__v
         delete object._id
-        console.log(object);
+      
 
         return res.send(object)
 

@@ -23,7 +23,7 @@ router.get('/webvehicleownerall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
 
 
@@ -59,11 +59,9 @@ router.get('/webvehicleownerall', async (req, res) => {
             // console.log("data",data.vehicleowner[0].mobile)
             return res.render('vehicle_owner_list', { data })
         } else {
-            console.log('admin not found in all invoice')
             return res.redirect('/')
         }
     } catch (e) {
-        console.log(e)
         return res.redirect('/')
     }
 })
@@ -73,7 +71,7 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             let page = parseInt(req.query.page)
             if (page < 1) {
@@ -87,7 +85,7 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
             }
 
             await vehicleowner.populate('vehicles').execPopulate()
-            let invoices = await Invoice.find({ vehicleownermobile: mobile }, null, { skip: (page * 20 - 20), limit: 20 }).exec()
+            let invoices = await Invoice.find({ owner : vehicleowner.id }, null, { skip: (page * 20 - 20), limit: 20 }).exec()
             //vehicleowner.populate({ path: 'invoices' }, null, { skip: (page * 1 - 1), limit: 1 }).execPopulate()
 
             data.prev = page - 1
@@ -113,14 +111,14 @@ router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
 
 
 
-            console.log("data", data)
+          
             return res.render('vehicle_owner_profile', { data })
         } else {
-            console.log('admin not found in all invoice')
+            
             return res.redirect('/')
         }
     } catch (e) {
-        console.log(e)
+       
         return res.redirect('/')
     }
 })
@@ -129,7 +127,7 @@ router.get("/vehicleownerrequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const vehicleowner = await VehicleOwner.find({ status: 1 })
             let data = {
@@ -137,11 +135,11 @@ router.get("/vehicleownerrequest", async (req, res) => {
             }
             return res.render('vehicleowner_request', { data })
         } else {
-            console.log('admin not found in all finance')
+           
             return res.redirect('/')
         }
     } catch (e) {
-        console.log(e)
+        
         return res.redirect('/')
     }
 

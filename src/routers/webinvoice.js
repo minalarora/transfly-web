@@ -21,10 +21,10 @@ router.use(cookieParser())
 
 router.get('/webspecificinvoice/:id', async (req, res) => {
     try {
-        console.log("here1")
+      
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const id = req.params.id
             const invoice = await Invoice.findOne({ id })
@@ -33,11 +33,11 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                     invoice: {}
                 }
 
-                console.log("here2")
+             
                 let t = invoice.toObject()
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
-                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
+                const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
@@ -46,15 +46,15 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                 return res.render('invoice', { data })
 
             } else {
-                console.log('invoice number not found')
+                
                 return res.redirect("/webinvoiceall")
             }
         } else {
-            console.log('admin not found in single invoice')
+            
             return res.redirect("/")
         }
     } catch (e) {
-        console.log(e)
+       
         return res.redirect("/")
     }
 })
@@ -63,7 +63,7 @@ router.get('/webinvoiceall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
 
 
@@ -89,7 +89,7 @@ router.get('/webinvoiceall', async (req, res) => {
                 }
             }
 
-            console.log(data)
+           
             return res.render('invoicelist', { data })
 
         } else {
@@ -122,7 +122,7 @@ router.get('/webinvoiceall', async (req, res) => {
         //     console.log('admin not found in all invoice')
         // }
     } catch (e) {
-        console.log(e)
+        
         return res.redirect("/")
     }
 })
@@ -133,7 +133,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             let status = req.query.status;
             if (status) {
@@ -163,9 +163,9 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 for (var i = 0; i < invoice.length; i++) {
 
                     let t = invoice[i].toObject()
-                    console.log("here");
+                 
                     const mine = await Mine.findOne({ id: invoice[i].mineid })
-                    const vehicleowner = await VehicleOwner.findOne({ mobile: invoice[i].vehicleownermobile })
+                    const vehicleowner = await VehicleOwner.findOne({ id: invoice[i].owner })
                     t.mine = mine.name
                     t.vehicleowner = vehicleowner.name
                     t.city = mine.area
@@ -177,22 +177,22 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 data.next = page + 1
                 data.page = page
                 if (status == "PENDING") {
-                    console.log("here2");
+                    
                     return res.render('finance_pending_invoices', { data })
                 } else {
-                    console.log("here-----------------------------------", data);
+                  
                     return res.render('finance_invoice_list', { data })
                 }
 
             } else {
-                console.log('admin not found in all invoice')
+                
                 return res.redirect("/webfinance")
             }
         } else {
             return res.redirect('/')
         }
     } catch (e) {
-        console.log(e)
+      
         return res.redirect('/')
     }
 })
@@ -202,7 +202,7 @@ router.get('/webupdatependinginvoice/:id', async (req, res) => {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             const id = req.params.id
             const invoice = await Invoice.findOne({ id })
@@ -215,7 +215,7 @@ router.get('/webupdatependinginvoice/:id', async (req, res) => {
                 let t = invoice.toObject()
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
-                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
+                const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
@@ -223,12 +223,12 @@ router.get('/webupdatependinginvoice/:id', async (req, res) => {
                 return res.render('update_pending_invoice', { data })
 
             } else {
-                console.log('invoice member not found')
+               
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        console.log(e);
+        
         return res.redirect('/')
     }
 })
@@ -238,14 +238,14 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
 
             const id = req.params.id
             const invoice = await Invoice.findOne({ id })
             if (invoice != null) {
                 const updates = Object.keys(req.body)
-                console.log(req.body)
+               
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
                     'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
                 ]
@@ -253,7 +253,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                     return allowedUpdates.includes(update)
                 })
                 if (!isValidOperation) {
-                    console.log('invalid operation')
+                  
                 } else {
 
 
@@ -272,12 +272,12 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                 }
 
             } else {
-                console.log('invoice not found')
+                
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        console.log(e)
+        
         return res.redirect('/')
     }
 })
@@ -287,7 +287,7 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             const id = req.params.id
             const invoice = await Invoice.findOne({ id })
@@ -300,8 +300,8 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
                 let t = invoice.toObject()
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
-                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
-                console.log(vehicleowner)
+                const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
+                
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
@@ -309,12 +309,12 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
                 return res.render('finance_completed_invoice', { data })
 
             } else {
-                console.log('invoice member not found')
+               
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        console.log(e);
+       
         return res.redirect('/')
 
     }
@@ -326,7 +326,7 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             const id = req.params.id
             const invoice = await Invoice.findOne({ id })
@@ -339,7 +339,7 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
                 let t = invoice.toObject()
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
-                const vehicleowner = await VehicleOwner.findOne({ mobile: invoice.vehicleownermobile })
+                const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
                 console.log(vehicleowner)
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
@@ -348,12 +348,12 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
                 return res.render('finance_update_completed_invoice', { data })
 
             } else {
-                console.log('invoice member not found')
+              
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        console.log(e);
+        
         return res.redirect('/')
     }
 })
@@ -363,14 +363,14 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
 
             const id = req.params.id
             const invoice = await Invoice.findOne({ id })
             if (invoice != null) {
                 const updates = Object.keys(req.body)
-                console.log(req.body)
+              
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
                     'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
                 ]
@@ -378,7 +378,7 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
                     return allowedUpdates.includes(update)
                 })
                 if (!isValidOperation) {
-                    console.log('invalid operation')
+                   
                 } else {
 
 
@@ -392,18 +392,16 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                     await invoice.save()
 
-                    console.log('hellooooooooo')
-                    return res.redirect('/webcompletedinvoice/' + id)
+                   return res.redirect('/webcompletedinvoice/' + id)
 
                 }
 
             } else {
-                console.log('invoice not found')
-                return res.redirect('/');
+               return res.redirect('/');
             }
         }
     } catch (e) {
-        console.log(e)
+       
         return res.redirect('/')
     }
 })

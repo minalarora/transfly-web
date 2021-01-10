@@ -23,22 +23,22 @@ router.get('/webfinance', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             var data = {
                 finance: finance.getWebProfile()
             }
-            console.log(data)
+           
             return res.render("finance_admin_profile", { data })
         }
         else {
-            console.log('admin not found in web finance')
+            
             return res.redirect("/")
         }
 
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/")
     }
 })
@@ -48,12 +48,12 @@ router.get('/updatefinanceprofile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             var data = {
                 finance: finance.getWebProfile()
             }
-            console.log(data)
+         
             return res.render("finance_profile_update", { data })
         }
         else {
@@ -78,7 +78,7 @@ router.post('/updatefinanceprofile', async (req, res) => {
                 return allowedUpdates.includes(update)
             })
             if (!isValidOperation) {
-                console.log('invalid operation')
+               
             }
             else {
                 updates.forEach((update) => {
@@ -92,26 +92,26 @@ router.post('/updatefinanceprofile', async (req, res) => {
 
         }
         else {
-            console.log('admin not found')
+          
             return res.redirect("/")
         }
 
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/")
     }
 })
 
 router.get('/webfinancelogout', async (req, res) => {
     try {
-        console.log("called ---------------------------");
+        
 
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const finance = await Finance.findOne({ mobile: decoded._id, "tokens.token": token })
+        const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
-            console.log("in here")
+           
             finance.tokens = finance.tokens.filter((t) => {
                 return t.token != token
             })
@@ -131,7 +131,7 @@ router.get('/webfinancelogout', async (req, res) => {
         }
     }
     catch (e) {
-        console.log(e)
+      
         return res.redirect("/")
     }
 })
@@ -143,7 +143,7 @@ router.get('/webfinanceall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const finance = await Finance.find({})
             let data = {
@@ -152,12 +152,12 @@ router.get('/webfinanceall', async (req, res) => {
             return res.render('finance_official_list', { data })
         }
         else {
-            console.log('admin not found in all finance')
+            
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e)
+        
         return res.redirect("/")
     }
 })
@@ -166,7 +166,7 @@ router.get('/webspecificfinance/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const mobile = req.params.mobile
             const finance = await Finance.findOne({ mobile })
@@ -178,17 +178,17 @@ router.get('/webspecificfinance/:mobile', async (req, res) => {
 
             }
             else {
-                console.log('finance member not found')
+             
                 return res.redirect("/webfinanceall")
             }
         }
         else {
-            console.log('admin not found in single finance')
+          
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e)
+        
         return res.redirect("/")
     }
 })

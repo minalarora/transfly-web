@@ -27,7 +27,7 @@ router.get('/webtransporterall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const transporter = await Transporter.find({ status: 2 })
 
@@ -44,12 +44,12 @@ router.get('/webtransporterall', async (req, res) => {
             return res.render('transporter_list', { data })
         }
         else {
-            console.log('admin not found in all transporter')
+            
             return res.redirect('/')
         }
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect('/')
     }
 })
@@ -58,7 +58,7 @@ router.get('/webspecifictransporter/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const mobile = req.params.mobile
             const transporter = await Transporter.findOne({ mobile })
@@ -76,17 +76,16 @@ router.get('/webspecifictransporter/:mobile', async (req, res) => {
 
             }
             else {
-                console.log('transporter member not found')
+                
                 return res.redirect('/webtransporterall')
             }
         }
         else {
-            console.log('admin not found in single transporter')
-            return res.redirect('/')
+             return res.redirect('/')
         }
     }
     catch (e) {
-        console.log(e)
+        
         return res.redirect('/')
     }
 })
@@ -95,7 +94,7 @@ router.get("/transporterrequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id : decoded._id, "tokens.token": token })
         if (admin) {
             const transporter = await Transporter.find({ status: 1 })
             let data = {
@@ -104,12 +103,12 @@ router.get("/transporterrequest", async (req, res) => {
             return res.render('transporter_request', { data })
         }
         else {
-            console.log('admin not found in all finance')
+          
             return res.redirect('/')
         }
     }
     catch (e) {
-        console.log(e)
+      
         return res.redirect('/')
     }
 

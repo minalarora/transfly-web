@@ -23,7 +23,7 @@ var ssn;
 
 router.get('/', async (req, res) => {
     ssn = req.session;
-    console.log("session :", ssn)
+   
 
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     if (ssn.role == "admin") {
@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
     }
     catch (e) {
         //error
-        console.log("error occured in finding admin/maybe admin not found", e)
+        
         data.message = "mobile or password wrong";
         data.color = "danger";
         console.log(data)

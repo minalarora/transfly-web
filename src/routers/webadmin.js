@@ -44,7 +44,7 @@ router.get('/webadmin', async (req, res) => {
         // if (req.session.role == "admin") {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             var data = {
                 admin: admin,
@@ -53,11 +53,9 @@ router.get('/webadmin', async (req, res) => {
             if (req.query.message) {
                 data.message = req.query.message;
             }
-            console.log(data)
             return res.render("app_admin_profile", { data })
         }
         else {
-            console.log('admin not found in webadmin')
             return res.redirect("/")
         }
         // }
@@ -66,7 +64,7 @@ router.get('/webadmin', async (req, res) => {
         // }
     }
     catch (e) {
-        console.log(e)
+      
         return res.redirect("/")
     }
 })
@@ -75,7 +73,7 @@ router.get('/webadminedit', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             var data = {
                 admin: admin
@@ -84,12 +82,12 @@ router.get('/webadminedit', async (req, res) => {
             return res.render("app_admin_profile_update", { data })
         }
         else {
-            console.log('admin not found in web admin edit')
+            
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e)
+      
         return res.redirect("/webadmin")
     }
 })
@@ -101,7 +99,7 @@ router.post('/webadminedit', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const updates = Object.keys(req.body)
             const allowedUpdates = ['name', 'mobile', 'email', 'password', 'status',
@@ -110,7 +108,7 @@ router.post('/webadminedit', async (req, res) => {
                 return allowedUpdates.includes(update)
             })
             if (!isValidOperation) {
-                console.log('invalid operation')
+              
             }
             else {
                 updates.forEach((update) => {
@@ -124,13 +122,13 @@ router.post('/webadminedit', async (req, res) => {
 
         }
         else {
-            console.log('admin not found in post webadminedit')
+            
             return res.redirect("/")
         }
 
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/webadmin?message=Some+error+occured+while+updating!!+please+try+again")
     }
 })
@@ -139,24 +137,24 @@ router.get('/webadminlogout', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             admin.tokens = admin.tokens.filter((t) => {
                 return t.token != token
             })
             await admin.save()
             req.session.role = null;
-            console.log(req.session)
+            
             res.redirect('/')
         }
         else {
             //admin not found
-            console.log("admin not found to logout")
+            
             return res.redirect('/')
         }
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect('/')
     }
 })
@@ -207,7 +205,7 @@ router.post('/addofficial/:type', transporterUpload, async (req, res) => {
     catch (e) {
         var message = "Failed to add new Finance/admin person"
         var color = "danger"
-        console.log(e)
+       
         res.redirect('/addofficial?message=' + message + "&&color=" + color)
     }
 
@@ -221,11 +219,11 @@ router.post('/addofficial/:type', transporterUpload, async (req, res) => {
             // ERROR occured (here it can be occured due 
             // to uploading image of size greater than 
             // 1MB or uploading different file type) 
-            console.log('df')
+          
             res.send("Invalid Image Format")
         }
         else {
-            console.log('f')
+           
             res.send("Success, Image uploaded!")
         }
     })
@@ -238,7 +236,7 @@ router.get('/logout', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             admin.tokens = admin.tokens.filter((t) => {
                 return t.token != token
@@ -246,7 +244,7 @@ router.get('/logout', async (req, res) => {
             await admin.save()
             req.session.destroy((err) => {
                 if (err) {
-                    console.log(err);
+                    
                     return console.log(err);
                 }
                 res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');

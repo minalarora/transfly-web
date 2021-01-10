@@ -24,7 +24,7 @@ router.get('/webareamanagerall', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const areamanager = await AreaManager.find({ status: 2 })
 
@@ -33,9 +33,9 @@ router.get('/webareamanagerall', async (req, res) => {
             }
             for (var i = 0; i < areamanager.length; i++) {
                 //  await areamanager[i].populate('mines').execPopulate()
-                console.log(areamanager[i].mobile)
-                var mines = await Mine.find({ areamanager: areamanager[i].mobile }).exec()
-                console.log("mines", mines)
+               
+                var mines = await Mine.find({ areamanager: areamanager[i].id }).exec()
+               
                 let t = areamanager[i].toObject()
                 // t.mines = areamanager[i].mines
                 t.mines = mines
@@ -44,12 +44,12 @@ router.get('/webareamanagerall', async (req, res) => {
             return res.render('area_manager_list', { data })
         }
         else {
-            console.log('admin not found in all area manager')
+           
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e)
+      
         return res.redirect("/webareamanagerall")
     }
 })
@@ -58,13 +58,13 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token }).exec()
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token }).exec()
         if (admin) {
             const mobile = req.params.mobile
             const areamanager = await AreaManager.findOne({ mobile })
             if (areamanager != null) {
                 //  await areamanager.populate('mines').execPopulate()
-                var mines = await Mine.find({ areamanager: areamanager.mobile }).exec()
+                var mines = await Mine.find({ areamanager: areamanager.id }).exec()
                 var allmines = await Mine.find({}).exec()
                 let t = areamanager.toObject()
                 t.mines = mines
@@ -73,22 +73,22 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
                 let data = {
                     areamanager: t
                 }
-                console.log(data)
+              
                 return res.render('area_manager_profile', { data })
 
             }
             else {
-                console.log('areamanager member not found')
+               
                 return res.redirect("/areamanagerall")
             }
         }
         else {
-            console.log('admin not found in single areamanager')
+            
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/areamanagerall")
     }
 })
@@ -98,7 +98,7 @@ router.get("/areamanagerrequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const areamanager = await AreaManager.find({ status: 1 })
             let data = {
@@ -107,13 +107,13 @@ router.get("/areamanagerrequest", async (req, res) => {
             return res.render('areamanager_request', { data })
         }
         else {
-            console.log('admin not found in all finance')
+           
             return res.redirect("/")
 
         }
     }
     catch (e) {
-        console.log(e)
+       
         return res.redirect("/areamanagerrequest")
     }
 
@@ -123,40 +123,39 @@ router.post('/update_am_mines/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const mobile = req.params.mobile
-            console.log(req.body)
             const areamanager = await AreaManager.findOne({ mobile })
             if (areamanager) {
 
                 var newminess = Object.keys(req.body)
-                console.log("newminess", newminess);
+               
 
                 var newmines = newminess.map((mine) => {
                     return parseInt(mine)
                 })
-                console.log("newmines", newmines);
+               
 
-                var oldminess = await Mine.find({ areamanager: mobile })
+                var oldminess = await Mine.find({ areamanager: areamanager.id })
                 var oldmines = oldminess.map((mine) => {
                     return mine.id
                 })
-                console.log("old", oldmines);
+              
 
                 newmines.forEach((mine) => {
-                    Mine.findOneAndUpdate({ id: mine }, { areamanager: mobile }).exec()
+                    Mine.findOneAndUpdate({ id: mine }, { areamanager: areamanager.id }).exec()
                 })
 
                 var nullmines = oldmines.filter((mine) => {
                     return (newmines.includes(mine) == false)
                 })
-                console.log("nullmines", nullmines);
+             
 
                 nullmines.forEach((mine) => {
                     Mine.findOneAndUpdate({ id: mine }, { areamanager: null }).exec()
                 })
-                console.log("updated");
+               
 
                 return res.redirect("/webspecificareamanager/" + mobile)
 
@@ -167,12 +166,12 @@ router.post('/update_am_mines/:mobile', async (req, res) => {
 
         }
         else {
-            console.log('admin not found in all finance')
+         
             return res.redirect("/")
         }
     }
     catch (e) {
-        console.log(e.message)
+       
         return res.redirect("/")
     }
 })
@@ -230,7 +229,7 @@ router.get('/getareamanagerdata/:mobile', async (req, res) => {
     delete object.__v
     delete object.tokens
     delete object._id
-    console.log("hello", object)
+   
     // const mines = Mine.find({ areamanager: null })
     // object.mines = mines
 
