@@ -36,6 +36,11 @@ const vehicleSchema = mongoose.Schema({
         type: Buffer,
         default: null
     },
+    tyres:
+    {
+        type: String,
+        required:true
+    },
     status:
     {
         type: Number,
