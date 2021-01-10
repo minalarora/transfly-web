@@ -46,6 +46,10 @@ const vehicleSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    date:
+    {
+        type: String
+    },
     active:
     {
         type: Boolean,
@@ -54,6 +58,12 @@ const vehicleSchema = mongoose.Schema({
 }
 ,{
     timestamps: true
+})
+
+vehicleSchema.pre('save', async function (next) {
+    const invoice = this
+    invoice.date = invoice.createdAt.toString().split("GM")[0]
+    next()
 })
 
 vehicleSchema.methods.toJSON = function()
