@@ -88,12 +88,12 @@ router.get("/allinvoice/vehicleowner/:status",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/allinvoice/areamanager/:status",auth,async (req,res)=>{
+router.get("/allinvoice/areamanager/",auth,async (req,res)=>{
     try
     {
         if(req.user.status == 2)
         {
-        const status = req.params.status
+        
         // const date = new Date(parseInt(timestamp))
         // const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
         await req.user.populate(
@@ -111,7 +111,7 @@ router.get("/allinvoice/areamanager/:status",auth,async (req,res)=>{
                 return mine.id
          })   
          //mongoose.find({title: {$in: sd}})
-        const invoices = await Invoice.find({mineid: {$in: minearray},status}).sort({createdAt: -1}).exec(function(err,invoices){ 
+        const invoices = await Invoice.find({mineid: {$in: minearray}}).sort({createdAt: -1}).exec(function(err,invoices){ 
             if(invoices)
             {
                 if(req.query.from && req.query.to)
@@ -160,7 +160,7 @@ router.get("/allinvoice/areamanager/:status",auth,async (req,res)=>{
     })*/
 })
 
-router.get("/allinvoice/transporter/:status",auth,async (req,res)=>{
+router.get("/allinvoice/transporter/",auth,async (req,res)=>{
     try
     {
     //    const mines =  await Invoice
@@ -181,10 +181,10 @@ router.get("/allinvoice/transporter/:status",auth,async (req,res)=>{
          //mongoose.find({title: {$in: sd}})
          if(req.user.status == 2)
          {
-         const status = req.params.status
+        
         // const date = new Date(parseInt(timestamp))
         // const datestring = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
-       await Invoice.find({transporter: req.user.id,status}).sort({createdAt: -1}).exec(function(err,invoices){ 
+       await Invoice.find({transporter: req.user.id}).sort({createdAt: -1}).exec(function(err,invoices){ 
             if(invoices)
             {
                 if(req.query.from && req.query.to)
