@@ -203,8 +203,10 @@ router.get("/fieldstaffrequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
-        const admin = await Admin.findOne({ mobile: decoded._id, "tokens.token": token })
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
+        
         if (admin) {
+            console.log("admin found")
             const fieldstaff = await Fieldstaff.find({ status: 1 })
             let data = {
                 fieldstaff: fieldstaff

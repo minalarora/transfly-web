@@ -31,6 +31,7 @@ const vehicleownerSchema = mongoose.Schema({
     mobile: {
         type: String,
         required: true,
+        unique:true,
         maxlength: [12, "Invalid Mobile Number"]
     }
     ,
