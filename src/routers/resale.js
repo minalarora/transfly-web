@@ -20,7 +20,21 @@ var upload = multer({
 router.get('/allresale',auth,async (req,res)=>{
     try
     {
-        const resale = await Resale.find({},null,{sort: {
+        const resale = await Resale.find({type:"RESALE"},null,{sort: {
+            createdAt: -1
+        }}).exec()  
+        res.status(200).send(resale) 
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+})
+
+router.get('/alllease',auth,async (req,res)=>{
+    try
+    {
+        const resale = await Resale.find({type:"LEASE"},null,{sort: {
             createdAt: -1
         }}).exec()  
         res.status(200).send(resale) 

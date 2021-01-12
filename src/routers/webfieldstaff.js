@@ -206,7 +206,7 @@ router.get("/fieldstaffrequest", async (req, res) => {
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         
         if (admin) {
-            console.log("admin found")
+            
             const fieldstaff = await Fieldstaff.find({ status: 1 })
             let data = {
                 fieldstaff: fieldstaff

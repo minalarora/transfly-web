@@ -31,6 +31,13 @@ const resaleSchema  = mongoose.Schema({
     {
         type: [Buffer],
     },
+    type:
+    {
+        type: String,
+        enum: ['LEASE', 'RESALE'],
+        default: 'RESALE'
+
+    },
     1:
     {
         type: Boolean,
