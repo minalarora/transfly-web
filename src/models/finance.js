@@ -62,6 +62,11 @@ const financeSchema = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
+    bankpersonname:
+    {
+        type: String,
+        default: "NOT AVAILABLE"
+    },
     pan: {
         type: String,
         default: "NOT AVAILABLE",

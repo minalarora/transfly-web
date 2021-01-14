@@ -77,6 +77,12 @@ const vehicleownerSchema = mongoose.Schema({
         type: Buffer,
         default: null
     },
+    
+    bankpersonname:
+    {
+        type: String,
+        default: "NOT AVAILABLE"
+    },
     pan:
     {
         type: String,
