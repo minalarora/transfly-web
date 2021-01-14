@@ -126,7 +126,7 @@ const vehicleownerSchema = mongoose.Schema({
 
 vehicleownerSchema.pre('save', async function (next) {
     const user = this
-    if (user.panimage && user.tdsimage && user.bankimage && (user.status == 0)) {
+    if (user.panimage  && user.bankimage && (user.status == 0)) {
         user.status = 1
     }
     // invoice.amount = invoice.tonnage * invoice.rate
