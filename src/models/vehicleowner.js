@@ -105,11 +105,25 @@ const vehicleownerSchema = mongoose.Schema({
         type: Buffer,
         default: null
     },
-    emergencycontact:
+    ename: {
+        type: String,
+        trim: true,
+        uppercase: true,
+        default: "NOT AVAILABLE"
+    },
+    erelation: 
     {
         type: String,
-        default: ""
+        trim: true,
+        uppercase: true,
+        default: "NOT AVAILABLE"  
     },
+    emobile:{
+        type: String,
+        default: "NOT AVAILABLE",
+        maxlength: [20,"Invalid Mobile Number"]
+    },
+   
     tokens: [
         {
             token: {
