@@ -20,7 +20,7 @@ const vehicle = require('../models/vehicle')
 router.use(cookieParser())
 
 
-router.get('/webmine', async (req, res) => {
+router.get('/webmine', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -34,20 +34,48 @@ router.get('/webmine', async (req, res) => {
             }
             return res.render('mines_list', { data })
 
-        }
-        else {
-            
+        } else {
+
             return res.redirect("/")
         }
+    } catch (e) {
+
+        return res.redirect("/")
     }
-    catch (e) {
-        
+})
+
+router.get('/web_specific_mine_loadings/:id', async(req, res) => {
+    try {
+        const token = req.cookies['Authorization']
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
+        if (admin) {
+            const id = req.params.id
+            const mine = await Mine.findOne({ id })
+            if (mine != null) {
+                await mine.populate('invoices').execPopulate()
+                let data = {
+                    mine: mine,
+                    invoices: mine.invoices
+                }
+                return res.render('mine_loading', { data })
+
+            } else {
+                console.log("there is some error mine not found with id..")
+            }
+        } else {
+            console.log("Admin not found in web minesloadings list")
+            return res.redirect("/")
+        }
+
+    } catch (e) {
+        console.log("got some error in web minesloadings list")
         return res.redirect("/")
     }
 })
 
 
-router.get('/webspecificmine/:id', async (req, res) => {
+router.get('/webspecificmine/:id', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -63,24 +91,21 @@ router.get('/webspecificmine/:id', async (req, res) => {
                 }
                 return res.render('mine', { data })
 
+            } else {
+
             }
-            else {
-               
-            }
-        }
-        else {
-          
+        } else {
+
             return res.redirect("/")
         }
 
-    }
-    catch (e) {
-       
+    } catch (e) {
+
         return res.redirect("/")
     }
 })
 
-router.post('/webspecificmine/:id', async (req, res) => {
+router.post('/webspecificmine/:id', async(req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -88,43 +113,39 @@ router.post('/webspecificmine/:id', async (req, res) => {
         if (admin) {
             const updates = Object.keys(req.body)
             const allowedUpdates = ['id', 'name', 'area', 'trailer', 'active', 'tyres', 'bodytype', 'loading', 'rate', 'etl', 'latitude',
-                'longitude', 'landmark']
+                'longitude', 'landmark'
+            ]
             const isValidOperation = updates.every((update) => {
                 return allowedUpdates.includes(update)
             })
             if (!isValidOperation) {
-               
-            }
-            else {
+
+            } else {
                 const id = req.params.id
                 const mine = await Mine.findOne({ id })
                 if (mine) {
                     updates.forEach((update) => {
                         if (update == "active") {
-                          
+
                             mine[update] = (req.body[update] == "true")
-                        }
-                        else {
+                        } else {
                             mine[update] = req.body[update]
                         }
 
                     })
                     await mine.save()
                     return res.redirect('/webspecificmine/' + id)
-                }
-                else {
-                 
+                } else {
+
                     return res.redirect('/webmine')
                 }
             }
-        }
-        else {
-            
+        } else {
+
             return res.redirect('/')
         }
-    }
-    catch (e) {
-       
+    } catch (e) {
+
         return res.redirect('/')
     }
 })

@@ -64,7 +64,10 @@
                             <% for (var i =0; i < data.mine.length;  i++ ) { %>
                                 <div class="card shadow-sm m-2" style="width: 20rem;">
                                     <div class="card-body">
-                                        <a class="card-title h4 text-primary" href="/webspecificmine/<%= data.mine[i].id %>"> <%= data.mine[i].name %></a>
+                                        <!-- <a class="card-title h4 text-primary" href="/webspecificmine/<%= data.mine[i].id %>"> -->
+                                        <a class="card-title h4 text-primary" href="/web_specific_mine_loadings/<%= data.mine[i].id %>">
+                                            <%= data.mine[i].name %>
+                                        </a>
                                         <h6 class="card-subtitle mb-2 text-muted">
                                             <%= data.mine[i].area %>
                                         </h6>
@@ -121,7 +124,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function (e) {
+        $("#menu-toggle").click(function(e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
@@ -131,7 +134,6 @@
 
 
 <script>
-
     function filterEmployee() {
         var input, filter, table, tr, td, i, j, txtValue, no_of_col;
         input = document.getElementById("searchInput");
@@ -159,7 +161,7 @@
 </script>
 
 <script>
-    $("#menu-toggle").click(function (e) {
+    $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
