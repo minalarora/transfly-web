@@ -208,7 +208,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
         console.log(imageupdates)
         const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','pan','tds','emergencycontact','gst','sta','mininglicense','aadhaar',
-             'ename','erelation','emobile','firebase']
+             'ename','erelation','emobile','firebase','bankpersonname']
 
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
