@@ -18,7 +18,7 @@ const transporterSchema  =  mongoose.Schema({
     firebase:
     {
         type: String,
-        default: null
+        default: ""
     },
     name: {
         type: String,
