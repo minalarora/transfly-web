@@ -41,6 +41,11 @@ const vehicleSchema = mongoose.Schema({
         type: String,
         required:true
     },
+    contact:
+    {
+        type: String,
+        required: true
+    },
     status:
     {
         type: Number,
