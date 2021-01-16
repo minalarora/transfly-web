@@ -47,27 +47,44 @@ const mineSchema  = mongoose.Schema({
      },
      loading:
      {
-         type: [String],
-         required: true,
-         validate: [arrayLimit, 'Atleast one loading is required']
-     },
-     rate:
-     {
-         type: Number,
-         default: 0 
-     },
-     etl:
-     {
-         type: Number,
-         default: 0,
-         validate(value)
-         {
-            if(value > 24)
+         type: [{
+             loadingname:
+             {
+                 type: String,
+                 required: true
+             },
+             rate:
+             {
+                 type: Number,
+                 default:0
+             }
+            ,
+            etl:
             {
-                throw new Error("Invalid Estimate Time of Loading")
+                type: Number,
+                default:0
             }
-         }
+         }],
+        //  required: true,
+        //  validate: [arrayLimit, 'Atleast one loading is required']
      },
+    //  rate:
+    //  {
+    //      type: Number,
+    //      default: 0 
+    //  },
+    //  etl:
+    //  {
+    //      type: Number,
+    //      default: 0,
+    //      validate(value)
+    //      {
+    //         if(value > 24)
+    //         {
+    //             throw new Error("Invalid Estimate Time of Loading")
+    //         }
+    //      }
+    //  },
      latitude:
      {
          type: String,
