@@ -8,6 +8,7 @@ var session = require('express-session');
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 8080
 require("./src/db/dbfile")
+require("./src/telegrambot")
 var CronJob = require('cron').CronJob
 
 const Admin = require('./src/routers/admin')

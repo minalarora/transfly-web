@@ -92,3 +92,6 @@
 // )
 
 // bot.launch()
+
+let arr= []
+console.log(1 =="1")
