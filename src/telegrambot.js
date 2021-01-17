@@ -146,22 +146,10 @@ bot.on('text',(ctx)=>{
         else if(option == "8")
         {
 
-            let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-            let message = ""
-            for(let i = 0;i<vehiclearray.length;i++)
-            {
-                 message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-            }
-            if(vehiclearray.length > 0)
-            {
-                ctx.reply(message)
-                ctx.data.message.unshift("three")
-            }
-            else 
-            {
-                ctx.reply("Kindly registered the vehicles through Transfly app") 
-                ctx.data.message = []
-            }
+            ctx.data.message = []
+            ctx.data.message.unshift("registereduser")
+            ctx.reply("Select the following options: \n Press 1 for new booking \n Press 2 to know information on last challan cleared status \n" + 
+            " Press 3 for On-Road Assistance \n Press  9 for go back to main menu ")
         }
         else if(option == "9")
         {
@@ -259,7 +247,7 @@ bot.on('text',(ctx)=>{
         }
         else if(option == "8")
         {
-
+            ctx.data.message = []
             ctx.data.message.unshift("registereduser")
             ctx.reply("Select the following options: \n Press 1 for new booking \n Press 2 to know information on last challan cleared status \n" + 
             " Press 3 for On-Road Assistance \n Press  9 for go back to main menu ")
