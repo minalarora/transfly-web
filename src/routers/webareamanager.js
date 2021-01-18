@@ -110,7 +110,7 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
             }
             else {
 
-                return res.redirect("/areamanagerall")
+                return res.redirect("/webareamanagerall")
             }
         }
         else {
@@ -120,7 +120,7 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
     }
     catch (e) {
 
-        return res.redirect("/areamanagerall")
+        return res.redirect("/webareamanagerall")
     }
 })
 

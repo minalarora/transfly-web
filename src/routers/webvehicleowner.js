@@ -66,6 +66,36 @@ router.get('/webvehicleownerall', async (req, res) => {
     }
 })
 
+router.get('/webvehicleowner/activate/:mobile/:activate', async (req, res) => {
+    try {
+        const token = req.cookies['Authorization']
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token }).exec()
+        if (admin) {
+            const mobile = req.params.mobile
+            const activate = req.params.activate
+            const areamanager = await VehicleOwner.findOne({ mobile })
+            if (areamanager) {
+                let isActive = (activate == 'true')
+                areamanager.active = isActive
+                await areamanager.save()
+                return res.redirect("/webvehicleownerall")
+            }
+            else {
+                return res.redirect("/webvehicleownerall")
+            }
+
+        }
+        else {
+            return res.redirect("/")
+        }
+    }
+    catch (e) {
+        return res.redirect("/webvehicleownerall")
+    }
+})
+
+
 
 router.get('/webspecificvehicleowner/:mobile', async (req, res) => {
     try {

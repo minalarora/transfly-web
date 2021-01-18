@@ -162,6 +162,38 @@ router.get('/webfinanceall', async (req, res) => {
     }
 })
 
+
+
+router.get('/webfinance/activate/:mobile/:activate', async (req, res) => {
+    try {
+        const token = req.cookies['Authorization']
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token }).exec()
+        if (admin) {
+            const mobile = req.params.mobile
+            const activate = req.params.activate
+            const areamanager = await Finance.findOne({ mobile })
+            if (areamanager) {
+                let isActive = (activate == 'true')
+                areamanager.active = isActive
+                await areamanager.save()
+                return res.redirect("/webfinanceall")
+            }
+            else {
+                return res.redirect("/webfinanceall")
+            }
+
+        }
+        else {
+            return res.redirect("/")
+        }
+    }
+    catch (e) {
+        return res.redirect("/webfinanceall")
+    }
+})
+
+
 router.get('/webspecificfinance/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
