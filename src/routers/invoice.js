@@ -64,6 +64,7 @@ router.get("/allinvoice/vehicleowner/:status",auth,async (req,res)=>{
        
         let filterInvoices  = req.user.invoices.filter((invoice)=>{
             let invoiceDate  = new Date(invoice.createdAt) 
+            
             return (invoiceDate >= from && invoiceDate <= to)
         })
         return res.status(200).send(filterInvoices)    
