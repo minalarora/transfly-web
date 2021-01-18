@@ -89,11 +89,11 @@
                                         </td>
                                         <% if(data.areamanager[i].active == true) { %>
                                             <td>
-                                                <a href="javascript:void(0)" onclick="deactivate('')" class="btn btn-danger">Deactivate</a>
+                                                <a href="/webareamanager/activate/<%= data.areamanager[i].mobile %>/false" class="btn btn-danger">Deactivate</a>
                                             </td>
                                             <% } else { %>
                                                 <td>
-                                                    <a href="javascript:void(0)" onclick="activate('')" class="btn btn-success">Activate</a>
+                                                    <a href="/webareamanager/activate/<%= data.areamanager[i].mobile %>/true" class="btn btn-success">Activate</a>
                                                 </td>
                                                 <% } %>
                                     </tr>

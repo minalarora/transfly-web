@@ -34,9 +34,9 @@ router.get('/webareamanagerall', async (req, res) => {
             }
             for (var i = 0; i < areamanager.length; i++) {
                 //  await areamanager[i].populate('mines').execPopulate()
-               
+
                 var mines = await Mine.find({ areamanager: areamanager[i].id }).exec()
-               
+
                 let t = areamanager[i].toObject()
                 // t.mines = areamanager[i].mines
                 t.mines = mines
@@ -45,49 +45,43 @@ router.get('/webareamanagerall', async (req, res) => {
             return res.render('area_manager_list', { data })
         }
         else {
-           
+
             return res.redirect("/")
         }
     }
     catch (e) {
-      
+
         return res.redirect("/webareamanagerall")
     }
 })
 
 
-router.get('/webareamanager/activate/:mobile/:activate', async (req,res)=>
-{
-    try
-    {
+router.get('/webareamanager/activate/:mobile/:activate', async (req, res) => {
+    try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token }).exec()
-        if(admin)
-        {
-            const mobile  = req.params.mobile
+        if (admin) {
+            const mobile = req.params.mobile
             const activate = req.params.activate
             const areamanager = await AreaManager.findOne({ mobile })
-            if(areamanager)
-            {
+            if (areamanager) {
                 let isActive = (activate == 'true')
                 areamanager.active = isActive
                 await areamanager.save()
+                return res.redirect("/webareamanagerall")
             }
-            else 
-            {
-                return res.redirect("/areamanagerall")
+            else {
+                return res.redirect("/webareamanagerall")
             }
 
         }
-        else
-        {
+        else {
             return res.redirect("/")
         }
     }
-    catch(e)
-    {
-        return res.redirect("/areamanagerall")
+    catch (e) {
+        return res.redirect("/webareamanagerall")
     }
 })
 
@@ -110,22 +104,22 @@ router.get('/webspecificareamanager/:mobile', async (req, res) => {
                 let data = {
                     areamanager: t
                 }
-              
+
                 return res.render('area_manager_profile', { data })
 
             }
             else {
-               
+
                 return res.redirect("/areamanagerall")
             }
         }
         else {
-            
+
             return res.redirect("/")
         }
     }
     catch (e) {
-       
+
         return res.redirect("/areamanagerall")
     }
 })
@@ -144,13 +138,13 @@ router.get("/areamanagerrequest", async (req, res) => {
             return res.render('areamanager_request', { data })
         }
         else {
-           
+
             return res.redirect("/")
 
         }
     }
     catch (e) {
-       
+
         return res.redirect("/areamanagerrequest")
     }
 
@@ -167,18 +161,18 @@ router.post('/update_am_mines/:mobile', async (req, res) => {
             if (areamanager) {
 
                 var newminess = Object.keys(req.body)
-               
+
 
                 var newmines = newminess.map((mine) => {
                     return parseInt(mine)
                 })
-               
+
 
                 var oldminess = await Mine.find({ areamanager: areamanager.id })
                 var oldmines = oldminess.map((mine) => {
                     return mine.id
                 })
-              
+
 
                 newmines.forEach((mine) => {
                     Mine.findOneAndUpdate({ id: mine }, { areamanager: areamanager.id }).exec()
@@ -187,12 +181,12 @@ router.post('/update_am_mines/:mobile', async (req, res) => {
                 var nullmines = oldmines.filter((mine) => {
                     return (newmines.includes(mine) == false)
                 })
-             
+
 
                 nullmines.forEach((mine) => {
                     Mine.findOneAndUpdate({ id: mine }, { areamanager: null }).exec()
                 })
-               
+
 
                 return res.redirect("/webspecificareamanager/" + mobile)
 
@@ -203,12 +197,12 @@ router.post('/update_am_mines/:mobile', async (req, res) => {
 
         }
         else {
-         
+
             return res.redirect("/")
         }
     }
     catch (e) {
-       
+
         return res.redirect("/")
     }
 })
@@ -266,7 +260,7 @@ router.get('/getareamanagerdata/:mobile', async (req, res) => {
     delete object.__v
     delete object.tokens
     delete object._id
-   
+
     // const mines = Mine.find({ areamanager: null })
     // object.mines = mines
 
