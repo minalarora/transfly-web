@@ -56,6 +56,12 @@ const transporterSchema  =  mongoose.Schema({
         type: Number,
         required: true,
         default: 0 
+    }
+    ,
+    active:
+    {
+        type: Boolean,
+        default: true
     },
     gst:
     {

@@ -53,6 +53,11 @@ const adminSchema = mongoose.Schema({
         default: 0
 
     },
+    active:
+    {
+        type: Boolean,
+        default: true
+    },
     accountno: {
         type: String,
         default: "NOT AVAILABLE"

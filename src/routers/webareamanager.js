@@ -17,6 +17,7 @@ const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 const mine = require('../models/mine')
+const { findOneAndUpdate } = require('../models/mine')
 router.use(cookieParser())
 
 
@@ -51,6 +52,42 @@ router.get('/webareamanagerall', async (req, res) => {
     catch (e) {
       
         return res.redirect("/webareamanagerall")
+    }
+})
+
+
+router.get('/webareamanager/activate/:mobile/:activate', async (req,res)=>
+{
+    try
+    {
+        const token = req.cookies['Authorization']
+        const decoded = jwt.verify(token, 'transfly')
+        const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token }).exec()
+        if(admin)
+        {
+            const mobile  = req.params.mobile
+            const activate = req.params.activate
+            const areamanager = await AreaManager.findOne({ mobile })
+            if(areamanager)
+            {
+                let isActive = (activate == 'true')
+                areamanager.active = isActive
+                await areamanager.save()
+            }
+            else 
+            {
+                return res.redirect("/areamanagerall")
+            }
+
+        }
+        else
+        {
+            return res.redirect("/")
+        }
+    }
+    catch(e)
+    {
+        return res.redirect("/areamanagerall")
     }
 })
 
