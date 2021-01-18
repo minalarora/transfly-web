@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const { customAlphabet }  =  require('nanoid')
+const { customAlphabet } = require('nanoid')
 const nanoid = customAlphabet('1234567890', 7)
 
 const bannerSchema = mongoose.Schema({
@@ -8,18 +8,21 @@ const bannerSchema = mongoose.Schema({
     {
         type: Number,
         default: () => {
-           return parseInt(nanoid())
+            return parseInt(nanoid())
         }
     },
     image:
     {
         type: Buffer
     }
-    
+    , bannertype: {
+        type: String,
+        default: null,
+    }
 }
-,{
-    timestamps: true
-})
+    , {
+        timestamps: true
+    })
 
 // bannerSchema.pre('save', async function (next) {
 //     const banner = this
@@ -40,6 +43,6 @@ bannerSchema.methods.toJSON = function () {
     return bannerobject
 }
 
-const Banner = mongoose.model('Banner',bannerSchema)
+const Banner = mongoose.model('Banner', bannerSchema)
 
 module.exports = Banner

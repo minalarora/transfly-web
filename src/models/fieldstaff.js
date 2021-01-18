@@ -1,8 +1,8 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
-const jwt =  require('jsonwebtoken')
-const Mine  = require("../models/mine")
-const { customAlphabet }  =  require('nanoid')
+const jwt = require('jsonwebtoken')
+const Mine = require("../models/mine")
+const { customAlphabet } = require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
 
 const fieldstaffSchema = mongoose.Schema({
@@ -10,8 +10,8 @@ const fieldstaffSchema = mongoose.Schema({
     {
         type: String,
         unique: true,
-     default: () => {
-        return "FS:" + nanoid()
+        default: () => {
+            return "FS:" + nanoid()
         }
     },
 
@@ -26,21 +26,19 @@ const fieldstaffSchema = mongoose.Schema({
         trim: true,
         uppercase: true
     },
-    mobile:{
-        type: String,
-        required: true,
-        unique:true,
-        maxlength: [12,"Invalid Mobile Number"]
-    }
-    ,
-    email:{
+    mobile: {
         type: String,
         required: true,
         unique: true,
-        validate(value)
-        {
-            if(!validator.isEmail(value))
-            {
+        maxlength: [12, "Invalid Mobile Number"]
+    }
+    ,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
                 throw new Error("Please fill valid email!")
             }
         }
@@ -51,12 +49,17 @@ const fieldstaffSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    
+
     status:
     {
         type: Number,
         required: true,
-        default: 0 
+        default: 0
+    },
+    active:
+    {
+        type: Boolean,
+        default: true
     },
     accountno:
     {
@@ -73,7 +76,7 @@ const fieldstaffSchema = mongoose.Schema({
         type: String,
         default: "NOT AVAILABLE"
     },
-     
+
     bankpersonname:
     {
         type: String,
@@ -83,23 +86,23 @@ const fieldstaffSchema = mongoose.Schema({
     {
         type: String,
         default: "NOT AVAILABLE",
-       
+
     },
     panimage:
     {
         type: Buffer,
-        default:null
+        default: null
     },
     aadhaar:
     {
         type: String,
         default: "NOT AVAILABLE"
-        
+
     },
     aadhaarimage:
     {
         type: Buffer,
-        default:null
+        default: null
     },
     ename: {
         type: String,
@@ -107,57 +110,56 @@ const fieldstaffSchema = mongoose.Schema({
         trim: true,
         uppercase: true
     },
-    erelation: 
+    erelation:
     {
         type: String,
         default: "NOT AVAILABLE",
         trim: true,
-        uppercase: true  
+        uppercase: true
     },
-    emobile:{
+    emobile: {
         type: String,
         default: "NOT AVAILABLE",
-        maxlength: [20,"Invalid Mobile Number"]
+        maxlength: [20, "Invalid Mobile Number"]
     },
     tokens: [
         {
-            token : {
+            token: {
                 type: String,
                 required: true,
-                createdAt: { 
+                createdAt: {
                     type: Date,
-                     expires: '31d', 
+                    expires: '31d',
                     default: Date.now
-                 }
+                }
             }
         }
     ]
-},{
-    timestamps: true
-})
+}, {
+        timestamps: true
+    })
 
 
-fieldstaffSchema.pre('remove',async function(next){
+fieldstaffSchema.pre('remove', async function (next) {
     const user = this
     await Mine.updateMany({
-        fieldstaff : user.id
+        fieldstaff: user.id
     },
-    { $set : { fieldstaff : null }},
-     function(err, result) {
+        { $set: { fieldstaff: null } },
+        function (err, result) {
             if (err) {
-            //   console.log(err)
+                //   console.log(err)
             } else {
-            //   console.log(result)
+                //   console.log(result)
             }
-          })
+        })
     next()
 })
 
 
-fieldstaffSchema.pre('save',async function(next){
-    const user  = this
-    if(user.panimage && user.aadhaarimage && (user.status == 0))
-    {
+fieldstaffSchema.pre('save', async function (next) {
+    const user = this
+    if (user.panimage && user.aadhaarimage && (user.status == 0)) {
         user.status = 1
     }
     // invoice.amount = invoice.tonnage * invoice.rate
@@ -166,31 +168,28 @@ fieldstaffSchema.pre('save',async function(next){
     next()
 })
 
-fieldstaffSchema.statics.findByMobile = async (mobile,password)=>{
-    const fieldstaff  = await Fieldstaff.findOne({mobile,password})
-    if(!fieldstaff)
-    {
+fieldstaffSchema.statics.findByMobile = async (mobile, password) => {
+    const fieldstaff = await Fieldstaff.findOne({ mobile, password })
+    if (!fieldstaff) {
         throw new Error('unable to login')
     }
-    else
-    {
+    else {
         return fieldstaff
     }
 }
 
-fieldstaffSchema.methods.generateToken = async function(){
-    const fieldstaff  = this
-    const token  = jwt.sign({_id: fieldstaff.id},'transfly',{
+fieldstaffSchema.methods.generateToken = async function () {
+    const fieldstaff = this
+    const token = jwt.sign({ _id: fieldstaff.id }, 'transfly', {
         expiresIn: '30d'
     })
-    fieldstaff.tokens  = fieldstaff.tokens.concat({token})
+    fieldstaff.tokens = fieldstaff.tokens.concat({ token })
     await fieldstaff.save()
     return token
 }
 
 
-fieldstaffSchema.methods.toJSON = function()
-{
+fieldstaffSchema.methods.toJSON = function () {
     const user = this
     const userobject = user.toObject()
     delete userobject.password
@@ -200,12 +199,12 @@ fieldstaffSchema.methods.toJSON = function()
     return userobject
 }
 
-fieldstaffSchema.virtual('mines',{
+fieldstaffSchema.virtual('mines', {
     ref: 'Mine',
     localField: 'id',
     foreignField: 'fieldstaff'
-  })
+})
 
-const Fieldstaff = mongoose.model('Fieldstaff',fieldstaffSchema)
+const Fieldstaff = mongoose.model('Fieldstaff', fieldstaffSchema)
 
 module.exports = Fieldstaff

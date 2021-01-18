@@ -95,9 +95,7 @@
                                         <tr>
                                             <th>Loadings</th>
                                             <td>:
-                                                <% for (var i =0; i < data.mine.loading.length;  i++ ) { %>
-                                                    <%= data.mine.loading[i] + " , " %>
-                                                        <% } %>
+                                                <%= data.loading.loadingname  %>
                                             </td>
                                         </tr>
                                         <tr>
@@ -127,13 +125,13 @@
                                         <tr>
                                             <th>Rate:</th>
                                             <td>:
-                                                <%= data.mine.rate %> Rs/ sqft
+                                                <%= data.loading.rate %> Rs/ sqft
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>ETL:</th>
                                             <td>:
-                                                <%= data.mine.etl %> hours
+                                                <%= data.loading.etl %> hours
                                             </td>
                                         </tr>
                                     </table>
@@ -147,12 +145,14 @@
                                         <h5>Update Rate , ETL </h5>
                                     </div>
                                     <div class=" p-2 bg-white">
-                                        <form method="POST" action="/webspecificmine/<%= data.mine.id %>">
+                                        <form method="POST" action="/webspecificmine/<%= data.mine.id %>/<%= data.loading.loadingname  %>">
                                             <div class="form-group">
-                                                <input type="number" name="etl" class="form-control" id="etl" value="<%= data.mine.etl %>" placeholder="Enter New etl" required>
+                                                <input type="number" name="etl" class="form-control" id="etl" value="<%= data.loading.etl %>" placeholder="Enter New etl"
+                                                    required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.mine.rate %>" placeholder="Enter new rate" required>
+                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.loading.rate %>" placeholder="Enter new rate"
+                                                    required>
                                             </div>
                                             <div class="radio">
                                                 <label class="radio-inline "><input class="mr-1" type="radio" id="inactive"
@@ -231,7 +231,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function(e) {
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });

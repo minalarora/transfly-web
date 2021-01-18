@@ -20,7 +20,7 @@ const vehicle = require('../models/vehicle')
 router.use(cookieParser())
 
 
-router.get('/webmine', async(req, res) => {
+router.get('/webmine', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -44,7 +44,7 @@ router.get('/webmine', async(req, res) => {
     }
 })
 
-router.get('/web_specific_mine_loadings/:id', async(req, res) => {
+router.get('/web_specific_mine_loadings/:id', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -75,20 +75,27 @@ router.get('/web_specific_mine_loadings/:id', async(req, res) => {
 })
 
 
-router.get('/webspecificmine/:id', async(req, res) => {
+router.get('/webspecificmine/:id/:loading', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const id = req.params.id
+            const loadingname = req.params.loading
             const mine = await Mine.findOne({ id })
             if (mine != null) {
                 await mine.populate('invoices').execPopulate()
                 let data = {
                     mine: mine,
-                    invoices: mine.invoices
+                    invoices: mine.invoices.filter((invoice) => {
+                        return invoice.loading == loadingname;
+                    }),
+                    loading: mine.loading.filter((loadingpoint) => {
+                        return loadingpoint.loadingname == loadingname
+                    })[0]
                 }
+                console.log("--------------", data)
                 return res.render('mine', { data })
 
             } else {
@@ -105,7 +112,7 @@ router.get('/webspecificmine/:id', async(req, res) => {
     }
 })
 
-router.post('/webspecificmine/:id', async(req, res) => {
+router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -122,6 +129,8 @@ router.post('/webspecificmine/:id', async(req, res) => {
 
             } else {
                 const id = req.params.id
+                const loadingname = req.params.loadingname
+
                 const mine = await Mine.findOne({ id })
                 if (mine) {
                     updates.forEach((update) => {
@@ -129,12 +138,17 @@ router.post('/webspecificmine/:id', async(req, res) => {
 
                             mine[update] = (req.body[update] == "true")
                         } else {
-                            mine[update] = req.body[update]
+                            // mine[update] = req.body[update]
+                            mine.loading.forEach((loading) => {
+                                if (loading.loadingname == loadingname) {
+                                    loading[update] = req.body[update]
+                                }
+                            })
                         }
 
                     })
                     await mine.save()
-                    return res.redirect('/webspecificmine/' + id)
+                    return res.redirect('/webspecificmine/' + id + "/" + loadingname)
                 } else {
 
                     return res.redirect('/webmine')
