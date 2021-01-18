@@ -72,6 +72,7 @@
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Mine</th>
+                                <th></th>
                             </tr>
                             <% if(data.areamanager.length != 0) { %>
                                 <% for (var i =0; i < data.areamanager.length;  i++ ) { %>
@@ -86,6 +87,15 @@
                                                     <% } %>
 
                                         </td>
+                                        <% if(data.areamanager[i].active == true) { %>
+                                            <td>
+                                                <a href="javascript:void(0)" onclick="deactivate('')" class="btn btn-danger">Deactivate</a>
+                                            </td>
+                                            <% } else { %>
+                                                <td>
+                                                    <a href="javascript:void(0)" onclick="activate('')" class="btn btn-success">Activate</a>
+                                                </td>
+                                                <% } %>
                                     </tr>
                                     <% } %>
                                         <% } else { %>
