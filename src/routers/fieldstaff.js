@@ -43,16 +43,16 @@ router.post("/fieldstaff",async (req,res)=>{
 })
 
 router.get('/fieldstaff/me',auth,async (req,res)=>{
-    res.status(200).send({token: "fieldstaff:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/fieldstaff/profile/" + req.user.id})
+    res.status(200).send({token: "fieldstaff:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/fieldstaff/profile/" + req.user.mobile})
 
 
 })
 
-router.get('/fieldstaff/profile/:id',async (req,res)=>{
+router.get('/fieldstaff/profile/:mobile',async (req,res)=>{
     try
     {
-        const id = req.params.id
-        const user = await Fieldstaff.findOne({id})
+        const mobile = req.params.mobile
+        const user = await Fieldstaff.findOne({mobile})
         if(user!=null)
         {
             res.set('Content-Type', 'image/png')

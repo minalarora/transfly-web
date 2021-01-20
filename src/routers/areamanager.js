@@ -56,7 +56,7 @@ router.get('/areamanager/profile/:mobile',async (req,res)=>{
         const user = await AreaManager.findOne({mobile})
         if(user!=null)
         {
-            res.set('Content-Type', 'image/png')
+            res.set('Content-Type','image/png')
             res.send(user.profile)
         }
         else

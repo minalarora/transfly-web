@@ -37,14 +37,14 @@ router.post("/transporter",async (req,res)=>{
 })
 
 router.get('/transporter/me',auth,async (req,res)=>{
-    res.status(200).send({token: "transporter:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/transporter/profile/" + req.user.id}) 
+    res.status(200).send({token: "transporter:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/transporter/profile/" + req.user.mobile}) 
 })
 
-router.get('/transporter/profile/:id',async (req,res)=>{
+router.get('/transporter/profile/:mobile',async (req,res)=>{
     try
     {
-        const id = req.params.id
-        const user = await Transporter.findOne({id})
+        const mobile = req.params.mobile
+        const user = await Transporter.findOne({mobile})
         if(user!=null)
         {
             res.set('Content-Type', 'image/png')

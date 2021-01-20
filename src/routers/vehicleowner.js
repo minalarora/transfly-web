@@ -42,14 +42,14 @@ router.post("/vehicleowner",async (req,res)=>{
 })
 
 router.get('/vehicleowner/me',auth,async (req,res)=>{
-    res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/vehicleowner/profile/" + req.user.id})
+    res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/vehicleowner/profile/" + req.user.mobile})
 })
 
-router.get('/vehicleowner/profile/:id',async (req,res)=>{
+router.get('/vehicleowner/profile/:mobile',async (req,res)=>{
     try
     {
-        const id = req.params.id
-        const user = await VehicleOwner.findOne({id})
+        const mobile = req.params.mobile
+        const user = await VehicleOwner.findOne({mobile})
         if(user)
         {
            
