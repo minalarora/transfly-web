@@ -22,6 +22,11 @@ const vehicleownerSchema = mongoose.Schema({
         type: [String],
         default:[]
     },
+    profile:
+    {
+        type: Buffer,
+        default: null
+    },
     name: {
         type: String,
         required: true,
