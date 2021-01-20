@@ -65,6 +65,7 @@
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>email</th>
+                                <th></th>
                             </tr>
                             <% if(data.finance.length != 0) { %>
                                 <% for (var i =0; i < data.finance.length;  i++ ) { %>
@@ -78,6 +79,16 @@
                                         <td>
                                             <%= data.finance[i].email %>
                                         </td>
+                                        <% if(data.finance[i].active == true) { %>
+                                            <td>
+                                                <a href="/webfinance/activate/<%= data.finance[i].mobile %>/false" class="btn btn-danger">Deactivate</a>
+                                            </td>
+                                            <% } else { %>
+                                                <td>
+                                                    <a href="/webfinance/activate/<%= data.finance[i].mobile %>/true" class="btn btn-success">Activate</a>
+                                                </td>
+                                                <% } %>
+
                                     </tr>
                                     <% } %>
                                         <% } else { %>

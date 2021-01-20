@@ -232,13 +232,14 @@
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
 
-        document.getElementById('bankimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.bankimage + " ', '_blank')");
+        document.getElementById('bankimage').setAttribute('onclick', "openImage('data:image/png;base64," + data.bankimage + " ', '_blank')");
         document.getElementById('bankimage').setAttribute('src', "data:image/png;base64," + data.bankimage)
 
-        document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
+        // document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
+        document.getElementById('panimage').setAttribute('onclick', "openImage('data:image/png;base64," + data.panimage + " ', '_blank')");
         document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
 
-        document.getElementById('tdsimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.tdsimage + " ', '_blank')");
+        document.getElementById('tdsimage').setAttribute('onclick', "window.open('data:image/png;base64," + data.tdsimage + " ', '_blank')");
         document.getElementById('tdsimage').setAttribute('src', "data:image/png;base64," + data.tdsimage)
 
         document.getElementById("approve_btn").setAttribute('href', "/vehicleowner_request_action/" + mobile)
@@ -250,7 +251,10 @@
 <script>
     function openImage(imgaddress) {
         console.log("hello");
-        window.open(imgaddress, '_blank');
+        var newTab = window.open();
+        newTab.document.body.innerHTML = `<div style="background:black;display:flex;align-items:center;justify-content:center;width:100%;height:100%">` +
+            `<img src="${imgaddress}" alt="es" style="height">` +
+            ` </div>`
 
     }
 </script>
