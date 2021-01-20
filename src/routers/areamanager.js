@@ -45,15 +45,15 @@ router.post("/areamanager",async (req,res)=>{
 })
 
 router.get('/areamanager/me',auth,async (req,res)=>{
-    res.status(200).send({token: "areamanager:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/areamanager/profile/" + req.user.id})
+    res.status(200).send({token: "areamanager:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/areamanager/profile/" + req.user.mobile})
 })
 
 
-router.get('/areamanager/profile/:id',async (req,res)=>{
+router.get('/areamanager/profile/:mobile',async (req,res)=>{
     try
     {
-        const id = req.params.id
-        const user = await AreaManager.findOne({id})
+        const mobile = req.params.mobile
+        const user = await AreaManager.findOne({mobile})
         if(user!=null)
         {
             res.set('Content-Type', 'image/png')
