@@ -4,6 +4,8 @@ const AreaManager = require('../models/areamanager')
 const auth = require('../auth/auth')
 const jwt = require('jsonwebtoken')
 var multer  = require('multer')
+const Mines  = require('../models/mine')
+const Fieldstaff = require('../models/fieldstaff')
 var sharp = require('sharp')
 var upload = multer({
     limits:
@@ -63,6 +65,68 @@ router.get('/areamanager/me/pending',auth,async (req,res)=>{
     {
         // console.log(e)
         res.status(400).send(e.message)
+    }
+})
+
+
+router.get('/areamanager/mines',auth,async (req,res)=>{
+    try
+    {
+        await req.user.populate(
+            {
+                path: 'mines'
+                ,
+                options:{
+                    sort: {
+                        createdAt: -1
+                    }
+                }
+            }).execPopulate()
+
+        return    res.status(200).send(req.user.mines) 
+
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e) 
+    }
+})
+
+router.get('/areamanager/allfieldstaff',auth,async (req,res)=>{
+    try
+    {
+        let fieldstafflist  = await Fieldstaff.find({active: true,status: 2})
+        return res.status(200).send(fieldstafflist)
+    }
+    catch(e)
+    {
+        return res.status(400).send(e)
+    }
+})
+
+router.post('/areamanager/confirm',auth,async (req,res)=>{
+    try
+    {
+        const fieldstaff = await Fieldstaff.findOne({ id: req.body.fieldstaffid })
+        if(fieldstaff)
+        {
+            let newmine  = await Mines.findOne({id: parseInt(req.body.mineid)})
+            let oldmine  = await Mines.findOne({fieldstaff:fieldstaff.id })
+            oldmine.fieldstaff = null
+            newmine.fieldstaff = fieldstaff.id
+            await oldmine.save()
+            await newmine.save()
+            return res.status(200).send("DONE")
+        }
+        else
+        {
+            return res.status(400).send("error")
+        }
+    }
+    catch(e)
+    {
+        return res.status(400).send(e)
     }
 })
 

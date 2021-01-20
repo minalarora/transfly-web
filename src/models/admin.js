@@ -17,8 +17,8 @@ const adminSchema = mongoose.Schema({
 
     firebase:
     {
-        type: String,
-        default: null
+        type: [String],
+        default:[]
     },
     name: {
         type: String,

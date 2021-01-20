@@ -4,6 +4,7 @@ const Booking = require('../models/booking')
 const Vehicleowner = require('../models/vehicleowner')
 const Vehicle = require('../models/vehicle')
 const auth = require('../auth/auth')
+const firebase  = require('../values')
 
 router.post("/booking",auth,async (req,res)=>{
     try
@@ -13,6 +14,17 @@ router.post("/booking",auth,async (req,res)=>{
         const booking  = new Booking({...req.body,owner: req.user.id,vehicleowner:req.user.name,vehicleownermobile:req.user.mobile})
         await booking.save()
         await Vehicle.findOneAndUpdate({number: req.body.vehicle},{active: false})
+        req.user.firebase.forEach((token)=>{
+            try
+            {
+                firebase.sendFirebaseMessage(token,"TRANSFLY","Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created.")
+       
+            }
+            catch(e)
+            {
+
+            }
+         })
         return res.status(200).send("done") 
         }
         else

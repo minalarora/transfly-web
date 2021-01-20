@@ -15,7 +15,8 @@ const bannerSchema = mongoose.Schema({
     {
         type: Buffer
     }
-    , bannertype: {
+    ,
+     bannertype: {
         type: String,
         default: null,
     }

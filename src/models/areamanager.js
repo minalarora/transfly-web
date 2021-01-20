@@ -19,8 +19,8 @@ const areamanagerSchema  = mongoose.Schema({
 
     firebase:
     {
-        type: String,
-        default: ""
+        type: [String],
+        default:[]
     },
     name: {
         type: String,

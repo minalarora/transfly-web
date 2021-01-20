@@ -191,6 +191,29 @@ router.get("/me/pending",auth,async (req,res)=>{
     }
 })
 
+router.post("/me/delete",auth,async (req,res)=>{
+    try
+    {
+        let token  = req.body.firebase
+        /**
+         *  req.user.tokens=req.user.tokens.filter((token)=>{
+            return token.token!=req.token
+        })
+        await req.user.save()
+         */
+        req.user.firebase = req.user.firebase.filter((t)=>{
+            return t!=token
+        })
+        await req.user.save()
+        return res.status(200).send("DONE")
+
+    }
+    catch(e)
+    {
+        return res.status(400).send(e)
+    }
+})
+
 router.post("/me/update",auth,allUpload,async (req,res)=>{
 
     try
@@ -220,7 +243,27 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
         }
             
             updates.forEach((update)=>{
+                if(update == "firebase")
+                {
+                    if(req.user.firebase == null || !(Array.isArray(req.user.firebase)))
+                    {
+                        req.user.firebase = []
+                    }
+                  //  areamanager.tokens  = areamanager.tokens.concat({token})
+                  if(req.user.firebase.includes(req.body.firebase))
+                  {
+
+                  }
+                  else
+                  {
+                  req.user.firebase  = req.user.firebase.concat(req.body.firebase)
+                  }
+                }
+                else
+                {
                 req.user[update] = req.body[update] 
+                }
+                
              })
              await req.user.save()
 

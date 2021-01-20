@@ -1,6 +1,7 @@
 const {Telegraf} = require('telegraf')
 const LocalSession = require('telegraf-session-local')
 const mine = require('./models/mine')
+const TelegramUtils = require('./values')
 
 const bot = new Telegraf('1596154496:AAF0DedWgR0WCCKRNhK-o2LWAbt6wDm3XvI')
 
@@ -40,13 +41,17 @@ bot.use((ctx, next) => {
         ctx.data.message = []
            
     }
+    if(!ctx.data.number)
+    {
+        ctx.data.number = null
+    }
     return next()
   })
 
 
 bot.start((ctx)=>{
        
-    ctx.reply("Welcome to Transfly Bot")
+    ctx.reply("Welcome to Transfly Bot. Press any key to continue")
 }
 )
 
@@ -75,29 +80,60 @@ bot.on('text',(ctx)=>{
             
         //     ctx.reply("Mobile number not found! Please try again")
         // }
+        ctx.data.message = [] 
+        ctx.data.number = null
 
     }
     else if(ctx.data.message[1] == "invoice")
     {
         let option = ctx.message.text
-        let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-        for(let i = 0;i<vehiclearray.length;i++)
-        {
+        TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+            if(val)
+            {
+                let vehiclearray = val
+           for(let i = 0;i<vehiclearray.length;i++)
+            {
             if(option == i)
             {
                 ctx.data.message.unshift(vehiclearray[i])
             }
-        }
-        if(ctx.data.message[2] == "invoice")
-        {
-              ctx.reply("Invoice id:- 1234423\nFrom:- KP Mines\nTo:- Raipur\nDate:- 12/12/20\nStatus:- Cleared")
-              ctx.data.message = []  
-        }
-        else
-        {
-            ctx.reply("Please select a valid option")
-        }
-
+            }
+            if(ctx.data.message[2] == "invoice")
+            {
+              TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
+                  if(val)
+                  {
+                    ctx.reply(val)
+                    ctx.data.message = []  
+                    ctx.data.number = null
+                  }
+                  else
+                  {
+                    ctx.data.message = []  
+                    ctx.data.number = null
+                  }
+              }).catch((e)=>{
+                ctx.data.message = []  
+                ctx.data.number = null
+              })  
+             
+            }
+            else
+             {
+                ctx.data.message = []  
+                ctx.data.number = null
+               ctx.reply("Please select a valid option")
+            }
+            }
+            else
+            {
+                ctx.data.message = []  
+                ctx.data.number = null
+            }
+        }).catch((e)=>{
+            ctx.data.message = []  
+            ctx.data.number = null
+        })
     }
     else if(ctx.data.message[0] == "invoice")
     {
@@ -105,7 +141,10 @@ bot.on('text',(ctx)=>{
         let option  = ctx.message.text
         if(option == "1")
         {
-            let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
+            TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+                if(val)
+                {
+                let vehiclearray = val
                 let message = ""
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
@@ -120,9 +159,18 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.reply("Kindly registered the vehicles through Transfly app") 
                     ctx.data.message = []
+                    ctx.data.number = null
                 }
-
-           
+                }
+                else
+                {
+                    ctx.data.message = []
+                    ctx.data.number = null
+                }
+            }).catch((e)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+            })
         }
         // else if(option == "2")
         // {
@@ -156,17 +204,23 @@ bot.on('text',(ctx)=>{
 
             ctx.reply("Press 1 for English")
             ctx.data.message = []
+            ctx.data.number = null
             ctx.data.message.unshift("language")
         }
         else 
         {
+            ctx.data.message = []
+            ctx.data.number = null
             ctx.reply("Please select a valid option")
         }
     }
     else if(ctx.data.message[1] == "ticket")
     {
         let option = ctx.message.text
-        let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
+        TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+            if(val)
+            {
+                let vehiclearray = val
         for(let i = 0;i<vehiclearray.length;i++)
         {
             if(option == i)
@@ -176,21 +230,57 @@ bot.on('text',(ctx)=>{
         }
         if(ctx.data.message[2] == "ticket")
         {
-              ctx.reply("Thank you, our emergency response team will soon get in touch with you")
-              ctx.data.message = []  
+            TelegramUtils.createTicket(ctx.data.number,ctx.data.message[0],ctx.data.message[1]).then((val)=>{
+                if(val)
+                {
+                    ctx.reply("Thank you, our emergency response team will soon get in touch with you")
+                    ctx.data.message = [] 
+                    ctx.data.number = null
+                }
+                else
+                {
+                    ctx.data.message = [] 
+                    ctx.data.number = null
+                }
+            }).catch((e)=>{
+                ctx.data.message = [] 
+                ctx.data.number = null
+            })
+              
         }
         else
         {
             ctx.reply("Please select a valid option")
+            ctx.data.message = [] 
+            ctx.data.number = null
         }
+            }
+            else
+            {
+                ctx.data.message = [] 
+                ctx.data.number = null
+            }
+        })
+
+        
     }
     else if(ctx.data.message[0] == "ticket")
     {
 
+        /**
+         *  "Press 1 to raise a ticket for vehicle breakdown assistance" + "\n" +
+                "Press 2 to raise a ticket for vehicle accident assistance" + "\n" +
+                "Press 3 to raise a ticket for any other onroad assistance" + "\n" +
+         * 
+         */
         let option  = ctx.message.text
         if(option == "1")
         {
-            let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
+            TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+                if(val)
+                {
+                    
+            let vehiclearray = val
             let message = ""
             for(let i = 0;i<vehiclearray.length;i++)
             {
@@ -199,17 +289,32 @@ bot.on('text',(ctx)=>{
             if(vehiclearray.length > 0)
             {
                 ctx.reply(message)
-                ctx.data.message.unshift("one")
+                ctx.data.message.unshift("vehicle breakdown")
             }
             else 
             {
                 ctx.reply("Kindly registered the vehicles through Transfly app") 
-                ctx.data.message = []
+                ctx.data.message = [] 
+                ctx.data.number = null
             }
+                }
+                else 
+                {
+                    ctx.data.message = [] 
+                    ctx.data.number = null
+                }
+            }).catch((e)=>{
+                ctx.data.message = [] 
+                ctx.data.number = null
+            })
+
         }
         else if(option == "2")
         {
-            let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
+            TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+                if(val)
+                {
+                    let vehiclearray = val
                 let message = ""
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
@@ -218,32 +323,59 @@ bot.on('text',(ctx)=>{
                 if(vehiclearray.length > 0)
                 {
                     ctx.reply(message)
-                    ctx.data.message.unshift("two")
+                    ctx.data.message.unshift("vehicle accident")
                 }
                 else 
                 {
                     ctx.reply("Kindly registered the vehicles through Transfly app") 
-                    ctx.data.message = []
+                    ctx.data.message = [] 
+                    ctx.data.number = null
                 }
+                }
+                else 
+                {
+                    ctx.data.message = [] 
+                    ctx.data.number = null
+                }
+            }).catch((e)=>{
+                ctx.data.message = [] 
+                ctx.data.number = null
+            })
+            
         }
         else if(option == "3")
         {
-            let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-            let message = ""
-            for(let i = 0;i<vehiclearray.length;i++)
-            {
-                 message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-            }
-            if(vehiclearray.length > 0)
-            {
-                ctx.reply(message)
-                ctx.data.message.unshift("three")
-            }
-            else 
-            {
-                ctx.reply("Kindly registered the vehicles through Transfly app") 
-                ctx.data.message = []
-            }
+            TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+                if(val)
+                {
+                    let vehiclearray = val
+                    let message = ""
+                    for(let i = 0;i<vehiclearray.length;i++)
+                    {
+                         message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
+                    }
+                    if(vehiclearray.length > 0)
+                    {
+                        ctx.reply(message)
+                        ctx.data.message.unshift("other")
+                    }
+                    else 
+                    {
+                        ctx.reply("Kindly registered the vehicles through Transfly app") 
+                        ctx.data.message = [] 
+                         ctx.data.number = null
+                    }
+                }
+                else 
+                {
+                    ctx.data.message = [] 
+                    ctx.data.number = null
+                }
+            }).catch((e)=>{
+                ctx.data.message = [] 
+                ctx.data.number = null
+            })
+           
         }
         else if(option == "8")
         {
@@ -257,18 +389,23 @@ bot.on('text',(ctx)=>{
 
             ctx.reply("Press 1 for English")
             ctx.data.message = []
+            ctx.data.number = null
             ctx.data.message.unshift("language")
         }
         else 
         {
+            ctx.data.message = []
+            ctx.data.number = null
             ctx.reply("Please select a valid option")
         }
     }
     else if(ctx.data.message[3] == "booking")
     {
         let option = ctx.message.text
-        let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-        for(let i = 0;i<vehiclearray.length;i++)
+        TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+
+            let vehiclearray = val
+           for(let i = 0;i<vehiclearray.length;i++)
                 {
                     if(option == i)
                     {
@@ -282,9 +419,38 @@ bot.on('text',(ctx)=>{
             let area  = ctx.data.message[2]
             let loading = ctx.data.message[3]
             //confirm booking
-            ctx.reply("Thank you, your booking has been received")
+            TelegramUtils.createBooking(ctx.data.number,vehicle,mine,loading).then((val)=>{
+                if(val)
+                {
+                    ctx.reply("Thank you, your booking has been received")
+                    ctx.data.message = [] 
+                    ctx.data.number = null
+                }
+                else
+                {
+                    ctx.data.message = []
+                    ctx.data.number = null
+                }
+            }).catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+            })
+            
+        }
+        else
+        {
             ctx.data.message = []
+            ctx.data.number = null
         }        
+
+        })
+        .catch((val)=>{
+            ctx.data.message = []
+            ctx.data.number = null
+
+        })
+
+        
 
     
     }
@@ -294,8 +460,11 @@ bot.on('text',(ctx)=>{
 
         if(ctx.data.message[0] == "Joda")
         {
-            let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-            for(let i = 0; i < minearray.length ; i++)
+            TelegramUtils.getMinesByArea("Joda").then((val)=>{
+                if(val)
+                {
+                    let minearray = val
+                    for(let i = 0; i < minearray.length ; i++)
             {
                 if(option == i)
                 {
@@ -308,32 +477,60 @@ bot.on('text',(ctx)=>{
                 // "Press 2 to generate list from the Database"
                 // )
 
-                let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-                let message = ""
-                for(let i = 0;i<vehiclearray.length;i++)
-                {
-                     message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-                }
-                if(vehiclearray.length > 0)
-                {
-                    ctx.reply(message)
-                }
-                else 
-                {
-                    ctx.reply("Kindly registered the vehicles through Transfly app") 
-                }
+                TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+
+                    let vehiclearray = val
+                    let message = ""
+                    for(let i = 0;i<vehiclearray.length;i++)
+                    {
+                         message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
+                    }
+                    if(vehiclearray.length > 0)
+                    {
+                        ctx.reply(message)
+                    }
+                    else 
+                    {
+                        ctx.data.message = []
+                        ctx.data.number = null
+                        ctx.reply("Kindly registered the vehicles through Transfly app") 
+                    }
+
+                }).catch((e)=>{
+                    ctx.data.message = []
+                    ctx.data.number = null
+                })
 
             }
             else
             {
                 ctx.reply("Please choose a valid option")
+                ctx.data.message = []
+                ctx.data.number = null
             }
+
+        }
+        else
+        {
+            ctx.data.message = []
+            ctx.data.number = null
+        }
+            })
+            .catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+            })
+
+            
         }
         else if(ctx.data.message[0] == "Barbil")
         {
 
-            let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-            for(let i = 0; i < minearray.length ; i++)
+            TelegramUtils.getMinesByArea("Barbil").then((val)=>{
+                if(val)
+                {
+                    let minearray = val
+                    for(let i = 0; i < minearray.length ; i++)
             {
                 if(option == i)
                 {
@@ -346,32 +543,60 @@ bot.on('text',(ctx)=>{
                 // "Press 2 to generate list from the Database"
                 // )
 
-                let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-                let message = ""
-                for(let i = 0;i<vehiclearray.length;i++)
-                {
-                     message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-                }
-                if(vehiclearray.length > 0)
-                {
-                    ctx.reply(message)
-                }
-                else 
-                {
-                    ctx.reply("Kindly registered the vehicles through Transfly app") 
-                }
+                TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+
+                    let vehiclearray = val
+                    let message = ""
+                    for(let i = 0;i<vehiclearray.length;i++)
+                    {
+                         message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
+                    }
+                    if(vehiclearray.length > 0)
+                    {
+                        ctx.reply(message)
+                    }
+                    else 
+                    {
+                        ctx.data.message = []
+                        ctx.data.number = null
+                        ctx.reply("Kindly registered the vehicles through Transfly app") 
+                    }
+
+                }).catch((e)=>{
+                    ctx.data.message = []
+                    ctx.data.number = null
+
+                })
 
             }
             else
             {
                 ctx.reply("Please choose a valid option")
+                ctx.data.message = []
+                ctx.data.number = null
             }
+
+        }
+        else
+        {
+            ctx.data.message = []
+            ctx.data.number = null
+        }
+            })
+            .catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+            })
+
         }
         else if(ctx.data.message[0] == "Rugudi")
         {
 
-            let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-            for(let i = 0; i < minearray.length ; i++)
+            TelegramUtils.getMinesByArea("Rugudi").then((val)=>{
+                if(val)
+                {
+                    let minearray = val
+                    for(let i = 0; i < minearray.length ; i++)
             {
                 if(option == i)
                 {
@@ -384,32 +609,59 @@ bot.on('text',(ctx)=>{
                 // "Press 2 to generate list from the Database"
                 // )
 
-                let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-                let message = ""
-                for(let i = 0;i<vehiclearray.length;i++)
-                {
-                     message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-                }
-                if(vehiclearray.length > 0)
-                {
-                    ctx.reply(message)
-                }
-                else 
-                {
-                    ctx.reply("Kindly registered the vehicles through Transfly app") 
-                }
+                TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+
+                    let vehiclearray = val
+                    let message = ""
+                    for(let i = 0;i<vehiclearray.length;i++)
+                    {
+                         message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
+                    }
+                    if(vehiclearray.length > 0)
+                    {
+                        ctx.reply(message)
+                    }
+                    else 
+                    {
+                        ctx.data.message = []
+                        ctx.data.number = null
+                        ctx.reply("Kindly registered the vehicles through Transfly app") 
+                    }
+
+                }).catch((e)=>{
+                    ctx.data.message = []
+                    ctx.data.number = null
+
+                })
 
             }
             else
             {
+                ctx.data.message = []
+                ctx.data.number = null
                 ctx.reply("Please choose a valid option")
             }
+
+        }
+        else
+        {
+            ctx.data.message = []
+            ctx.data.number = null
+        }
+            })
+            .catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+            })
+
         }
         else if(ctx.data.message[0] == "Koida")
         {
-
-            let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-            for(let i = 0; i < minearray.length ; i++)
+            TelegramUtils.getMinesByArea("Koida").then((val)=>{
+                if(val)
+                {
+                    let minearray = val
+                    for(let i = 0; i < minearray.length ; i++)
             {
                 if(option == i)
                 {
@@ -422,45 +674,74 @@ bot.on('text',(ctx)=>{
                 // "Press 2 to generate list from the Database"
                 // )
 
-                let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
-                let message = ""
-                for(let i = 0;i<vehiclearray.length;i++)
-                {
-                     message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-                }
-                if(vehiclearray.length > 0)
-                {
-                    ctx.reply(message)
-                }
-                else 
-                {
-                    ctx.reply("Kindly registered the vehicles through Transfly app") 
-                }
+                TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+
+                    let vehiclearray = val
+                    let message = ""
+                    for(let i = 0;i<vehiclearray.length;i++)
+                    {
+                         message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
+                    }
+                    if(vehiclearray.length > 0)
+                    {
+                        ctx.reply(message)
+                    }
+                    else 
+                    {
+                        ctx.reply("Kindly registered the vehicles through Transfly app") 
+                        ctx.data.message = []
+                        ctx.data.number = null
+                    }
+
+                }).catch((e)=>{
+                    ctx.data.message = []
+                    ctx.data.number = null
+
+                })
 
             }
             else
             {
                 ctx.reply("Please choose a valid option")
+                ctx.data.message = []
+                ctx.data.number = null
             }
+
+        }
+        else
+        {
+            ctx.data.message = []
+            ctx.data.number = null
+        }
+            })
+            .catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+            })
+
         }
         else if(ctx.data.message[0] == "Jamda")
         {
-
-            let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-            for(let i = 0; i < minearray.length ; i++)
+        TelegramUtils.getMinesByArea("Jamda").then((val)=>{
+            if(val)
             {
-                if(option == i)
-                {
-                    ctx.data.message.unshift(minearray[i])
-                }
+                let minearray = val
+                for(let i = 0; i < minearray.length ; i++)
+        {
+            if(option == i)
+            {
+                ctx.data.message.unshift(minearray[i])
             }
-            if(ctx.data.message[3] == "booking")
-            {
-                // ctx.reply("Press 1 to enter vehicle number for which booking is required" + "\n" + 
-                // "Press 2 to generate list from the Database"
-                // )
+        }
+        if(ctx.data.message[3] == "booking")
+        {
+            // ctx.reply("Press 1 to enter vehicle number for which booking is required" + "\n" + 
+            // "Press 2 to generate list from the Database"
+            // )
 
-                let vehiclearray = ["MP04 5644","MP04 1234","OD12 2312"]
+            TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+
+                let vehiclearray = val
                 let message = ""
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
@@ -472,20 +753,46 @@ bot.on('text',(ctx)=>{
                 }
                 else 
                 {
-                    ctx.reply("Kindly registered the vehicles through Transfly app") 
+                    ctx.reply("Kindly registered the vehicles through Transfly app")
+                    ctx.data.message = []
+                    ctx.data.number = null 
                 }
 
-            }
-            else
-            {
-                ctx.reply("Please choose a valid option")
-            }
+            }).catch((e)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+
+            })
+
         }
-        else 
+        else
         {
             ctx.reply("Please choose a valid option")
+            ctx.data.message = []
+            ctx.data.number = null
         }
+
+    }
+    else
+    {
+        ctx.data.message = []
+        ctx.data.number = null
+    }
+        })
+        .catch((val)=>{
+            ctx.data.message = []
+            ctx.data.number = null
+        })
+
+           
         
+        }
+        else
+        {
+            ctx.data.message = []
+            ctx.data.number = null
+            //
+        }
     }
     else if(ctx.data.message[1] == "booking")
     {
@@ -495,66 +802,166 @@ bot.on('text',(ctx)=>{
         if(area == "1")
         {
            //joda
-           let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-           let message = ""
-           for(let i = 0;i<minearray.length;i++)
-           {
-                message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
-           }
-           ctx.data.message.unshift("Joda")
-           ctx.reply(message)
+           TelegramUtils.getMinesByArea("Joda").then((val)=>{
 
+            if(val)
+            {
+                // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
+                let minearray = val
+                let message = ""
+                for(let i = 0;i<minearray.length;i++)
+                {
+                     message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                }
+                ctx.data.message.unshift("Joda")
+                ctx.reply(message)
+     
+            }
+            else
+            {
+                ctx.data.message = []
+                ctx.data.number = null
+                    //please try again
+            }
+
+           }).catch((val)=>{
+
+            ctx.data.message = []
+            ctx.data.number = null
+           })
+
+          
         }
         else if(area == "2")
         {
-           //barbil
-           let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-           let message = ""
-           for(let i = 0;i<minearray.length;i++)
-           {
-                message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
-           }
-           ctx.data.message.unshift("Barbil")
-           ctx.reply(message)
+            TelegramUtils.getMinesByArea("Barbil").then((val)=>{
+
+                if(val)
+                {
+                    // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
+                    let minearray = val
+                    let message = ""
+                    for(let i = 0;i<minearray.length;i++)
+                    {
+                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                    }
+                    ctx.data.message.unshift("Barbil")
+                    ctx.reply(message)
+         
+                }
+                else
+                {
+                    ctx.data.message = []
+                    ctx.data.number = null
+                        //please try again
+                }
+    
+               }).catch((val)=>{
+    
+                ctx.data.message = []
+                ctx.data.number = null
+               })
+    
         }
         else if(area == "3")
         {
             //rugudi
-            let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-           let message = ""
-           for(let i = 0;i<minearray.length;i++)
-           {
-                message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
-           }
-           ctx.data.message.unshift("Rugudi")
-           ctx.reply(message)
+            TelegramUtils.getMinesByArea("Rugudi").then((val)=>{
+
+                if(val)
+                {
+                    // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
+                    let minearray = val
+                    let message = ""
+                    for(let i = 0;i<minearray.length;i++)
+                    {
+                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                    }
+                    ctx.data.message.unshift("Rugudi")
+                    ctx.reply(message)
+         
+                }
+                else
+                {
+                    ctx.data.message = []
+                    ctx.data.number = null
+                        //please try again
+                }
+    
+               }).catch((val)=>{
+    
+                ctx.data.message = []
+                ctx.data.number = null
+               })
+    
         }
         else if(area == "4")
         {
             //koida
-           let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-           let message = ""
-           for(let i = 0;i<minearray.length;i++)
-           {
-                message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
-           }
-           ctx.data.message.unshift("Koida")
-           ctx.reply(message)
+            TelegramUtils.getMinesByArea("Koida").then((val)=>{
+
+                if(val)
+                {
+                    // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
+                    let minearray = val
+                    let message = ""
+                    for(let i = 0;i<minearray.length;i++)
+                    {
+                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                    }
+                    ctx.data.message.unshift("Koida")
+                    ctx.reply(message)
+         
+                }
+                else
+                {
+                    ctx.data.message = []
+                    ctx.data.number = null
+                        //please try again
+                }
+    
+               }).catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+               })
+    
         }
         else if(area == "5")
         {
             //jamda
-           let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
-           let message = ""
-           for(let i = 0;i<minearray.length;i++)
-           {
-                message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
-           }
-           ctx.data.message.unshift("Jamda")
-           ctx.reply(message)
+            TelegramUtils.getMinesByArea("Jamda").then((val)=>{
+
+                if(val)
+                {
+                    // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
+                    let minearray = val
+                    let message = ""
+                    for(let i = 0;i<minearray.length;i++)
+                    {
+                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                    }
+                    ctx.data.message.unshift("Jamda")
+                    ctx.reply(message)
+         
+                }
+                else
+                {
+                    ctx.data.message = []
+                    ctx.data.number = null
+                        //please try again
+                }
+    
+               }).catch((val)=>{
+                ctx.data.message = []
+                ctx.data.number = null
+               })
+    
         }
         else 
         {
+            //please try again
+            ctx.data.message = []
+            ctx.data.number = null
             ctx.reply("Please select a valid option")
         }
     }
@@ -603,6 +1010,7 @@ bot.on('text',(ctx)=>{
         {
 
             ctx.data.message = []
+
             ctx.data.message.unshift("registereduser")
             ctx.reply("Select the following options: \n Press 1 for new booking \n Press 2 to know information on last challan cleared status \n" + 
             " Press 3 for On-Road Assistance \n Press  9 for go back to main menu ")
@@ -611,11 +1019,14 @@ bot.on('text',(ctx)=>{
         {
 
             ctx.reply("Press 1 for English")
-            ctx.data.message = []
+            ctx.data.number = null
+            ctx.data.message= []
             ctx.data.message.unshift("language")
         }
         else 
         {
+            ctx.data.number = null
+            ctx.data.message= []
             ctx.reply("Please select a valid option")
         }
     }
@@ -661,11 +1072,14 @@ bot.on('text',(ctx)=>{
         else if(option == "9")
         {
             ctx.reply("Press 1 for English")
+            ctx.data.number = null
             ctx.data.message = []
             ctx.data.message.unshift("language")
         }
         else 
         {
+            ctx.data.number = null
+            ctx.data.message= []
             ctx.reply("Please select a valid option")
         }
         
@@ -673,16 +1087,27 @@ bot.on('text',(ctx)=>{
     else if(ctx.data.message[0] == "english")
     {
         let number  = ctx.message.text
-        if(number == "8871748278")
-        {
-            ctx.data.message.unshift("registereduser")
-            ctx.reply("Select the following options: \n Press 1 for new booking \n Press 2 to know information on last challan cleared status \n" + 
-            " Press 3 for On-Road Assistance \n Press  9 for go back to main menu ")
-        }
-        else 
-        {
-            ctx.reply("Sorry, the number is not registered. Please register on our app or speak to customer care")   
-        }
+
+        TelegramUtils.isRegisteredUser(number).then((val)=>{
+            if(val)
+            {
+                ctx.data.message.unshift("registereduser")
+                ctx.data.number = number
+                ctx.reply("Select the following options: \n Press 1 for new booking \n Press 2 to know information on last challan cleared status \n" + 
+                " Press 3 for On-Road Assistance \n Press  9 for go back to main menu ")
+            }
+            else 
+            {
+                ctx.data.number = null
+                ctx.data.message= []
+                ctx.reply("Sorry, the number is not registered. Please register on our app or speak to customer care")
+            }
+        }).catch(()=>{
+            ctx.data.number = null
+            ctx.data.message= []
+            ctx.reply("Sorry, the number is not registered. Please register on our app or speak to customer care")
+        })
+     
     }
     else if(ctx.data.message[0] == "language")
     {
@@ -694,6 +1119,8 @@ bot.on('text',(ctx)=>{
         }
         else
         {
+            ctx.data.number = null
+            ctx.data.message= []
             ctx.reply("Please select a valid option")
         }
     }
@@ -701,13 +1128,16 @@ bot.on('text',(ctx)=>{
     {
         ctx.reply("Press 1 for English")
         ctx.data.message = []
+        ctx.data.number = null
         ctx.data.message.unshift("language")
     }
 })
 //bot.telegram.sendMessage("1265825981","hello")
 bot.use((ctx)=>{
-    ctx.data.message = []   
-    ctx.reply("At the end, I'm just a bot. Don't do anything that I can't understand")
+    ctx.data.message = [] 
+    ctx.data.number = null
+
+    ctx.reply("At the end, I'm just a bot. Don't do anything that I can't understand. Press any key to continue")
 }
 )
 

@@ -17,6 +17,14 @@ var upload = multer({
 })
 
 var allupload = upload.fields([{ name: 'rcimage', maxCount: 1 }])
+const firebase  = require('../values')
+
+/**
+ * 
+ * const values   = require('./src/values')
+values.sendFirebaseMessage("dZetVzzWRbeZAIM3XkZoHE:APA91bFIR-m52RlPaE0mG2soWJCOPuVTYftZqc6LF_vuotByfAtizznyfvtkM2l_ie2X9-8ecJHXP6VSSwq1gwpNq5nDL22vvod2GD3My5R-4MVpOyyJ2B_DIjawFMGdUzWrqvj1_1w_",
+"shani","good morning")
+ */
 
 
 
@@ -26,6 +34,17 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
        let buffer = await sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer();
         const vehicle  = new Vehicle({...req.body,driverid: req.user.id,rcimage:buffer})
         await vehicle.save()
+        req.user.firebase.forEach((token)=>{
+            try
+            {
+                firebase.sendFirebaseMessage(token,"TRANSFLY","Your vehicle " + vehicle.name +  " has been created.")
+       
+            }
+            catch(e)
+            {
+
+            }
+         })
         return res.status(200).send("DONE")  
     }
     catch(e)

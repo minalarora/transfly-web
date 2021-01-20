@@ -52,9 +52,19 @@ router.post("/banner",auth,upload.single('image'),async (req,res)=>{
 router.get("/allbanner",auth,async (req,res)=>{
     try
     {
-        const banners = await Banner.find({},null,{skip: 0 , limit : 2, sort: {
+        const banners  = []
+        const banner1 = await Banner.find({bannertype: "booking"},null,{skip: 0 , limit : 2, sort: {
+            createdAt: -1
+        }}).exec()
+        const banner2 = await Banner.find({bannertype: "resale"},null,{skip: 0 , limit : 2, sort: {
             createdAt: -1
         }}).exec()  
+        const banner3 = await Banner.find({bannertype: "none"},null,{skip: 0 , limit : 2, sort: {
+            createdAt: -1
+        }}).exec()    
+        banners.push(banner3[0])
+        banners.push(banner2[0])
+        banners.push(banner1[0])
         res.status(200).send(banners)      
     }
     catch(e)

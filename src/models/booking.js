@@ -3,6 +3,7 @@ const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 7)
 const Invoice = require('../models/invoice')
 
+
 const bookingSchema  = mongoose.Schema({
     id: {
         type: Number,
