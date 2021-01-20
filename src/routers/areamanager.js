@@ -112,8 +112,16 @@ router.post('/areamanager/confirm',auth,async (req,res)=>{
         if(fieldstaff)
         {
             let newmine  = await Mines.findOne({id: parseInt(req.body.mineid)})
-            let oldmine  = await Mines.findOne({fieldstaff:fieldstaff.id })
-            oldmine.fieldstaff = null
+            try
+            {
+                let oldmine  = await Mines.findOne({fieldstaff:fieldstaff.id })
+                oldmine.fieldstaff = null
+            }
+            catch(e)
+            {
+
+            }
+           
             newmine.fieldstaff = fieldstaff.id
             await oldmine.save()
             await newmine.save()

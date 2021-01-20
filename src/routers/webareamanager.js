@@ -85,6 +85,37 @@ router.get('/webareamanager/activate/:mobile/:activate', async (req, res) => {
     }
 })
 
+router.get('/webareamanager/revokemine/:mobile', async (req, res) => {
+    try {
+
+        // const token = req.cookies['Authorization']
+        // const decoded = jwt.verify(token, 'transfly')
+        // const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
+        // if (admin) {
+
+            const mobile = req.params.mobile
+            let areamanager = await AreaManager.findOne({mobile})
+            if(areamanager)
+            {
+                await Mine.update({areamanager: areamanager.id}, {"$set":{"areamanager": null}}, {"multi": true}, (err, writeResult) => {});
+                return res.status(200).send("")
+            }
+            else
+            {
+                return res.status(200).send("")
+            }
+           
+
+        // }
+    }
+    catch (e) {
+       
+        return res.status(400).send(e.message)
+
+    }
+})
+
+
 router.get('/webspecificareamanager/:mobile', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
