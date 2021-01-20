@@ -50,8 +50,9 @@ router.get('/vehicleowner/profile/:id',async (req,res)=>{
     {
         const id = req.params.id
         const user = await VehicleOwner.findOne({id})
-        if(user!=null)
+        if(user)
         {
+           
             res.set('Content-Type', 'image/png')
             res.send(user.profile)
         }

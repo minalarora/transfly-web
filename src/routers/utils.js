@@ -25,7 +25,7 @@ var upload = multer({
 
 
 var allUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'bankimage', maxCount: 1 },{ name: 'tdsimage', maxCount: 1 },
-{name: 'aadhaarimage', maxCount: 1 },{name: 'mininglicenseimage', maxCount: 1 },{name: 'gstimage', maxCount: 1 },{name: 'staimage', maxCount: 1 }])
+{name: 'aadhaarimage', maxCount: 1 },{name: 'mininglicenseimage', maxCount: 1 },{name: 'gstimage', maxCount: 1 },{name: 'staimage', maxCount: 1 },{name: 'profile', maxCount: 1 }])
 
 
 router.post("/who",async (req,res)=>{
@@ -234,7 +234,7 @@ router.post("/me/update",auth,allUpload,async (req,res)=>{
         console.log(imageupdates)
         const allowedUpdates = ['name','mobile','email','password','status',
         'accountno','ifsc','bankname','pan','tds','emergencycontact','gst','sta','mininglicense','aadhaar',
-             'ename','erelation','emobile','firebase','bankpersonname','profile']
+             'ename','erelation','emobile','firebase','bankpersonname',]
 
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
