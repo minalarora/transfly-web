@@ -116,6 +116,7 @@ router.post('/areamanager/confirm',auth,async (req,res)=>{
             {
                 let oldmine  = await Mines.findOne({fieldstaff:fieldstaff.id })
                 oldmine.fieldstaff = null
+                await oldmine.save()
             }
             catch(e)
             {
@@ -123,7 +124,6 @@ router.post('/areamanager/confirm',auth,async (req,res)=>{
             }
            
             newmine.fieldstaff = fieldstaff.id
-            await oldmine.save()
             await newmine.save()
             return res.status(200).send("DONE")
         }

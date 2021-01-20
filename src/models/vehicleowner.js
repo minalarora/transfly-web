@@ -83,7 +83,11 @@ const vehicleownerSchema = mongoose.Schema({
         type: Buffer,
         default: null
     },
-    
+    profile:
+    {
+        type: Buffer,
+        default: null
+    },
     bankpersonname:
     {
         type: String,

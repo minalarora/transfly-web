@@ -15,6 +15,12 @@ const fieldstaffSchema = mongoose.Schema({
         }
     },
 
+    
+    profile:
+    {
+        type: Buffer,
+        default: null
+    },
     firebase:
     {
         type: [String],
