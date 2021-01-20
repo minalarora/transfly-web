@@ -811,7 +811,7 @@ bot.on('text',(ctx)=>{
                 let message = ""
                 for(let i = 0;i<minearray.length;i++)
                 {
-                     message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                     message = message + "Press " + i + " to book your loading from " + minearray[i] + "\n"
                 }
                 ctx.data.message.unshift("Joda")
                 ctx.reply(message)
@@ -843,7 +843,7 @@ bot.on('text',(ctx)=>{
                     let message = ""
                     for(let i = 0;i<minearray.length;i++)
                     {
-                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                         message = message + "Press " + i + " to book your loading from " + minearray[i] + "\n"
                     }
                     ctx.data.message.unshift("Barbil")
                     ctx.reply(message)
@@ -875,7 +875,7 @@ bot.on('text',(ctx)=>{
                     let message = ""
                     for(let i = 0;i<minearray.length;i++)
                     {
-                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                         message = message + "Press " + i + " to book your loading from " + minearray[i] + "\n"
                     }
                     ctx.data.message.unshift("Rugudi")
                     ctx.reply(message)
@@ -907,7 +907,7 @@ bot.on('text',(ctx)=>{
                     let message = ""
                     for(let i = 0;i<minearray.length;i++)
                     {
-                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                         message = message + "Press " + i + " to book your loading from " + minearray[i] + "\n"
                     }
                     ctx.data.message.unshift("Koida")
                     ctx.reply(message)
@@ -938,7 +938,7 @@ bot.on('text',(ctx)=>{
                     let message = ""
                     for(let i = 0;i<minearray.length;i++)
                     {
-                         message = message + "Press " + nameArray[i] + " to book your loading from " + minearray[i] + "\n"
+                         message = message + "Press " + i + " to book your loading from " + minearray[i] + "\n"
                     }
                     ctx.data.message.unshift("Jamda")
                     ctx.reply(message)
