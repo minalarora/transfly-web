@@ -214,6 +214,8 @@ router.post("/me/delete",auth,async (req,res)=>{
     }
 })
 
+
+
 router.post("/me/update",auth,allUpload,async (req,res)=>{
 
     try

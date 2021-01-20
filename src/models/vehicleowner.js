@@ -201,6 +201,7 @@ vehicleownerSchema.methods.toJSON = function () {
     delete userobject.panimage
     delete userobject.tdsimage
     delete userobject.bankimage
+    delete userobject.profile
     return userobject
 }
 

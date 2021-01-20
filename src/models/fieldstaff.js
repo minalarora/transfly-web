@@ -202,6 +202,7 @@ fieldstaffSchema.methods.toJSON = function () {
     delete userobject.password
     delete userobject.tokens
     delete userobject.panimage
+    delete userobject.profile
     delete userobject.aadhaarimage
     return userobject
 }

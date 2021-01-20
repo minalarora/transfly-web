@@ -198,6 +198,7 @@ areamanagerSchema.methods.toJSON = function()
     delete userobject.tokens
     delete userobject.aadhaarimage
     delete userobject.panimage
+    delete userobject.profile
     return userobject
 }
 

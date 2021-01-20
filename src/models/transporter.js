@@ -209,6 +209,7 @@ transporterSchema.methods.toJSON = function()
     delete userobject.panimage
     delete userobject.aadhaarimage
     delete userobject.mininglicenseimage
+    delete userobject.profile
     return userobject
 }
 

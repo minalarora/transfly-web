@@ -42,7 +42,28 @@ router.post("/vehicleowner",async (req,res)=>{
 })
 
 router.get('/vehicleowner/me',auth,async (req,res)=>{
-    res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON()})
+    res.status(200).send({token: "vehicleowner:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/vehicleowner/profile/" + req.user.id})
+})
+
+router.get('/vehicleowner/profile/:id',async (req,res)=>{
+    try
+    {
+        const id = req.params.id
+        const user = await VehicleOwner.findOne({id})
+        if(user!=null)
+        {
+            res.set('Content-Type', 'image/png')
+            res.send(user.profile)
+        }
+        else
+        {
+            res.send(null)
+        }         
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
 })
 
 router.get('/vehicleowner/me/pending',auth,async (req,res)=>{
