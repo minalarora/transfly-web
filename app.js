@@ -127,6 +127,7 @@ app.use(Reward)
 app.use(Referral)
 app.use(Banner)
 app.use(Resale)
+app.use(Loading)
 
 app.use(helmet())
 app.use(compression())

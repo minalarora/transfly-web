@@ -37,7 +37,7 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
         req.user.firebase.forEach((token)=>{
             try
             {
-                firebase.sendFirebaseMessage(token,"TRANSFLY","Your vehicle " + vehicle.name +  " has been created.")
+                firebase.sendFirebaseMessage(token,"TRANSFLY","Your Vehicle has been added")
        
             }
             catch(e)
