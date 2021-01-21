@@ -29,6 +29,7 @@ const Reward = require('./src/routers/reward')
 const Referral = require('./src/routers/referral')
 const Banner = require('./src/routers/banner')
 const Resale = require('./src/routers/resale')
+const Loading = require('./src/routers/loading')
 
 const WebAdmin = require('./src/routers/webadmin')
 const WebAreaManager = require('./src/routers/webareamanager')
