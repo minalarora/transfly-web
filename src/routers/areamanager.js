@@ -1,6 +1,5 @@
 const express = require('express')
 const router  = new express.Router()
-const AreaManager = require('../models/areamanager')
 const auth = require('../auth/auth')
 const jwt = require('jsonwebtoken')
 var multer  = require('multer')
