@@ -16,6 +16,8 @@ const Banner = require('./models/banner')
 const Resale = require('./models/resale')
 const mine = require('./models/mine')
 const fetch = require("node-fetch")
+const email= require('../src/email')
+// email.sendEmail('hey','how r u?')
 
 
 
@@ -95,6 +97,7 @@ const getInvoice = async function(mobile,vehicle)
 
 const createTicket = async function(mobile,vehicle,type)
 {
+    email.sendEmail('TICKET',"mobile: " + mobile + "\n" + "vehicle: " + vehicle + "\n" + "type: " + type)
     return true
 }
 

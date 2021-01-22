@@ -4,6 +4,7 @@ const Resale = require('../models/resale')
 const auth = require('../auth/auth')
 var multer  = require('multer')
 var sharp = require('sharp')
+const email= require('../email')
 var upload = multer({
     limits:
     {
@@ -80,10 +81,14 @@ router.get("/resaleimage/:id/:number",async (req,res)=>{
     })*/
 })
 
-router.post("/resale/contact",auth,async (req,res)=>{
+router.post("/resale/contact/:vehicle",auth,async (req,res)=>{
     try
     {
+        let vehicle = req.params.vehicle
+        email.sendEmail('VEHICLE',"" + req.user.name + "\n" + req.user.mobile + "\n" + "VEHICLE: " + vehicle)
+        
         return res.status(200).send("DONE")
+        
     }
     catch(e)
     {

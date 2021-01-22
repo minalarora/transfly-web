@@ -2,12 +2,15 @@ const express = require('express')
 const router  = new express.Router()
 const Ticket = require('../models/ticket')
 const auth = require('../auth/auth')
+const email= require('../email')
+// email.sendEmail('hey','how r u?')
 
 router.post("/ticket",auth,async (req,res)=>{
     try
     {
         const ticket  = new Ticket({...req.body,userid: req.user.id})
         await ticket.save()
+        email.send('TICKET',"" + ticket.category + "\n" + ticket.message)
         return res.status(200).send('DONE')        
     }
     catch(e)

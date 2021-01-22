@@ -4,7 +4,7 @@ const mailjet = require ('node-mailjet')
 const sendEmail = function(subject,text)
 {
 
-    const request = mailjet
+ const request = mailjet
 .post("send", {'version': 'v3.1'})
 .request({
   "Messages":[
