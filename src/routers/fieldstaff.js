@@ -1,6 +1,9 @@
 const express = require('express')
 const router  = new express.Router()
-const Fieldstaff = require('../models/fieldstaff')
+const Transporter = require('../models/transporter')
+const VehicleOwner = require('../models/vehicleowner')
+const AreaManager  = require('../models/areamanager')
+const FieldStaff = require('../models/fieldstaff')
 const auth = require('../auth/auth')
 const jwt =  require('jsonwebtoken')
 var multer  = require('multer')
@@ -23,6 +26,27 @@ var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name
 router.post("/fieldstaff",async (req,res)=>{
     try
     {
+        let mobile = req.body.mobile
+        let user  = await VehicleOwner.findOne({mobile})
+        if(user)
+        {
+            throw new Error("Unique")
+        }
+        user  = await FieldStaff.findOne({mobile})
+        if(user)
+        {
+            throw new Error("Unique")
+        }
+        user  = await AreaManager.findOne({mobile})
+        if(user)
+        {
+            throw new Error("Unique")
+        }
+        user  = await Transporter.findOne({mobile})
+        if(user)
+        {
+            throw new Error("Unique")
+        }
         const fieldstaff  = new Fieldstaff(req.body)
         const token=await fieldstaff.generateToken()
         await fieldstaff.save()

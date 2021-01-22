@@ -5,6 +5,8 @@ const Mine  = require('../models/mine')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
 
+
+
 const transporterSchema  =  mongoose.Schema({
     id:
     {
@@ -214,6 +216,8 @@ transporterSchema.methods.toJSON = function()
 }
 
 const Transporter = mongoose.model('Transporter',transporterSchema)
+
+
 
 
 module.exports = Transporter

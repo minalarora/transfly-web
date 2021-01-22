@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const Mine = require("../models/mine")
 const { customAlphabet } = require('nanoid')
+
 const nanoid = customAlphabet('1234567890', 5)
+
 
 const fieldstaffSchema = mongoose.Schema({
     id:
@@ -37,7 +39,8 @@ const fieldstaffSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        maxlength: [12, "Invalid Mobile Number"]
+        maxlength: [12, "Invalid Mobile Number"],
+       
     }
     ,
     email: {

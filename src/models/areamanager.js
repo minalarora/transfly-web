@@ -6,6 +6,7 @@ const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
 
 
+
 const areamanagerSchema  = mongoose.Schema({
 
     id:
@@ -38,7 +39,8 @@ const areamanagerSchema  = mongoose.Schema({
         type: String,
         required: true,
         unique:true,
-        maxlength: [12,"Invalid Mobile Number"]
+        maxlength: [12,"Invalid Mobile Number"],
+       
     }
     ,
     email:{
