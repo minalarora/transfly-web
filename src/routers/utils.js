@@ -175,10 +175,13 @@ router.get("/me/pending",auth,async (req,res)=>{
     {
        var names=[];
        var update = ["tdsimage","panimage","bankimage","gstimage","staimage","mininglicenseimage","aadhaarimage"]
+      
        for(key in req.user.toObject())
        {
-           if(req.user[key] == null && update.includes(req.user[key]))
+          
+           if(req.user[key] == null && update.includes(key))
             {
+                
                 names.push(key.replace("image",""))
             }
        }
