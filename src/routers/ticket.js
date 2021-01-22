@@ -2,7 +2,8 @@ const express = require('express')
 const router  = new express.Router()
 const Ticket = require('../models/ticket')
 const auth = require('../auth/auth')
-const email= require('../email')
+const email = require('../email')
+
 // email.sendEmail('hey','how r u?')
 
 router.post("/ticket",auth,async (req,res)=>{
