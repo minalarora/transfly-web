@@ -11,6 +11,7 @@ const Ticket = require('../models/ticket')
 const Transporter = require('../models/transporter')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
+const firebase  = require('../values')
 
 const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
@@ -559,6 +560,19 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                     })
                     invoice["status"] = "COMPLETED"
                     await invoice.save()
+
+                    let user = await VehicleOwner.findOne({id:invoice.owner})
+                    user.firebase.forEach((token)=>{
+                        try
+                        {
+                            firebase.sendFirebaseMessage(token,"TRANSFLY","Your Challan for booking from  " + invoice.minename + " to " + invoice.loading + " has been completed.")
+                   
+                        }
+                        catch(e)
+                        {
+            
+                        }
+                     })
 
                     return res.redirect('/webfinanceinvoice?status=PENDING&page=1')
 
