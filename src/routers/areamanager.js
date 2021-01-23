@@ -141,7 +141,7 @@ router.get('/areamanager/mines',auth,async (req,res)=>{
 router.get('/areamanager/allfieldstaff',auth,async (req,res)=>{
     try
     {
-        let fieldstafflist  = await Fieldstaff.find({active: true,status: 2})
+        let fieldstafflist  = await FieldStaff.find({active: true,status: 2})
         return res.status(200).send(fieldstafflist)
     }
     catch(e)
@@ -153,7 +153,7 @@ router.get('/areamanager/allfieldstaff',auth,async (req,res)=>{
 router.post('/areamanager/confirm',auth,async (req,res)=>{
     try
     {
-        const fieldstaff = await Fieldstaff.findOne({ id: req.body.fieldstaffid })
+        const fieldstaff = await FieldStaff.findOne({ id: req.body.fieldstaffid })
         if(fieldstaff)
         {
             let newmine  = await Mines.findOne({id: parseInt(req.body.mineid)})

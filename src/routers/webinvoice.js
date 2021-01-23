@@ -408,8 +408,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
                     invoice: []
                 }
                 if (req.query.from && req.query.to) {
-                    console.log("from", req.query.from)
-                    console.log("to", req.query.to)
+                  
                     invoice = await Invoice.find({ status: req.query.status }).exec()
                     const from = new Date(req.query.from)
                     const to = new Date(req.query.to)
