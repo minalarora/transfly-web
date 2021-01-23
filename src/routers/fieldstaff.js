@@ -76,7 +76,7 @@ router.get('/fieldstaff/profile/:mobile/image',async (req,res)=>{
     try
     {
         const mobile = req.params.mobile
-        const user = await Fieldstaff.findOne({mobile})
+        const user = await FieldStaff.findOne({mobile})
         if(user!=null)
         {
             res.set('Content-Type', 'image/png')

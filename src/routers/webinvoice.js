@@ -154,7 +154,7 @@ router.get('/webinvoiceall', async (req, res) => {
     }
 })
 
-router.get('/mobinvoicevehicleowner/', async (req, res) => {
+router.get('/mobinvoicevehicleowner', async (req, res) => {
     try {
 
         let invoice = await Invoice.find({ vehicleownermobile: req.query.mobile }).exec()
@@ -167,6 +167,8 @@ router.get('/mobinvoicevehicleowner/', async (req, res) => {
 
             const from = new Date(parseInt(req.query.from))
             const to = new Date(parseInt(req.query.to))
+            console.log(from)
+            console.log(to)
             let filterInvoices = invoice.filter((invoice) => {
                 let invoiceDate = new Date(invoice.createdAt)
                 return (invoiceDate >= from && invoiceDate <= to)
@@ -192,7 +194,7 @@ router.get('/mobinvoicevehicleowner/', async (req, res) => {
     }
 })
 
-router.get('/mobinvoiceareamanager/', async (req, res) => {
+router.get('/mobinvoiceareamanager', async (req, res) => {
     try {
 
         let user = await AreaManager.findOne({ mobile: req.query.mobile })
@@ -255,7 +257,7 @@ router.get('/mobinvoiceareamanager/', async (req, res) => {
 
 })
 
-router.get('/mobinvoicefieldstaff/', async (req, res) => {
+router.get('/mobinvoicefieldstaff', async (req, res) => {
     try {
 
         let user = await Fieldstaff.findOne({ mobile: req.query.mobile })
