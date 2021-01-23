@@ -60,8 +60,13 @@
                     <br>
                     <!-- search input row -->
                     <div class="row mb-4 justify-content-center">
+                        <form method="GET" class="d-flex" action="/webinvoiceall">
+                            <input type="date" id="from" name="from">
+                            <input type="date" id="to" name="to">
+                            <input type="submit">
+                        </form>
                         <div id="search-input-row" class="w-75">
-                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterEmployee()" placeholder="  Search for anything to filter data.."
+                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterInvoice()" placeholder="  Search for anything to filter data.."
                                 title="Type in a name">
                         </div>
                     </div>
@@ -77,7 +82,7 @@
 
                     <!-- complete table list row  -->
                     <div id="EmployeesTable_row" class="table-responsive ml-2 d-flex justify-content-center row">
-                        <table id="invoiceTable">
+                        <table class="table" style="font-size: 10px" id="invoiceTable">
                             <tr class="header">
                                 <th>Invoice id</th>
                                 <th>Vehicle No</th>
@@ -85,6 +90,16 @@
                                 <th>Vehicle Owner</th>
                                 <th>Tonnage</th>
                                 <th>Date</th>
+                                <th>Rate</th>
+                                <th>HSD</th>
+                                <th>Cash</th>
+                                <th>Amount</th>
+                                <th>Shortage</th>
+                                <th>Office Charge</th>
+                                <th>TDS</th>
+                                <th>Balance Amount Cleared</th>
+                                <th>Chalaan to Transporter</th>
+
                             </tr>
                             <% for (var i =0; i < data.invoice.length;  i++ ) { %>
                                 <tr>
@@ -103,6 +118,33 @@
                                     </td>
                                     <td>
                                         <%= data.invoice[i].date %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].rate %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].hsd %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].cash %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].amount %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].shortage %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].officecharge %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].tds %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].balanceamountcleared %>
+                                    </td>
+                                    <td>
+                                        <%= data.invoice[i].challantotransporter %>
                                     </td>
                                 </tr>
                                 <% } %>

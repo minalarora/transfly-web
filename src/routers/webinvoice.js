@@ -21,7 +21,7 @@ router.use(cookieParser())
 
 router.get('/webspecificinvoice/:id', async (req, res) => {
     try {
-      
+
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
@@ -33,7 +33,7 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                     invoice: {}
                 }
 
-             
+
                 let t = invoice.toObject()
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
@@ -46,15 +46,15 @@ router.get('/webspecificinvoice/:id', async (req, res) => {
                 return res.render('invoice', { data })
 
             } else {
-                
+
                 return res.redirect("/webinvoiceall")
             }
         } else {
-            
+
             return res.redirect("/")
         }
     } catch (e) {
-       
+
         return res.redirect("/")
     }
 })
@@ -67,13 +67,39 @@ router.get('/webinvoiceall', async (req, res) => {
         if (admin) {
 
 
-            let page = parseInt(req.query.page)
+            let page = null
+            if (req.query.page) {
+                page = parseInt(req.query.page)
+            }
+            else {
+                page = 1
+            }
+
+
             if (page < 1) {
                 page = 1;
             }
-            const invoice = await Invoice.find({}, null, { skip: (page * 50 - 50), limit: 50 }).exec()
+            let invoice = await Invoice.find({}, null, { skip: (page * 150 - 150), limit: 150 }).exec()
+
             let data = {
-                invoice
+
+            }
+            if (req.query.from && req.query.to) {
+                console.log("from", req.query.from)
+                console.log("to", req.query.to)
+                invoice = await Invoice.find({}).exec()
+                const from = new Date(req.query.from)
+                const to = new Date(req.query.to)
+                let filterInvoices = invoice.filter((invoice) => {
+                    let invoiceDate = new Date(invoice.createdAt)
+                    return (invoiceDate >= from && invoiceDate <= to)
+                })
+                data.invoice = filterInvoices
+
+            }
+            else {
+                data.invoice = invoice
+
             }
             data.prev = page - 1
             data.next = page + 1
@@ -89,7 +115,7 @@ router.get('/webinvoiceall', async (req, res) => {
                 }
             }
 
-           
+
             return res.render('invoicelist', { data })
 
         } else {
@@ -122,7 +148,7 @@ router.get('/webinvoiceall', async (req, res) => {
         //     console.log('admin not found in all invoice')
         // }
     } catch (e) {
-        
+
         return res.redirect("/")
     }
 })
@@ -136,18 +162,49 @@ router.get('/webfinanceinvoice', async (req, res) => {
         const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         if (finance) {
             let status = req.query.status;
+            console.log("0")
             if (status) {
-                let page = parseInt(req.query.page)
+                console.log("1")
+                let page = null
+                if (req.query.page) {
+                    page = parseInt(req.query.page)
+                    console.log("2")
+                }
+                else {
+                    page = 1
+                }
+
+
                 if (page < 1) {
                     page = 1;
                 }
-                const invoice = await Invoice.find({ status: req.query.status }, null, { skip: (page * 50 - 50), limit: 50 }).exec()
+                let invoice = await Invoice.find({ status: req.query.status }, null, { skip: (page * 150 - 150), limit: 150 }).exec()
+
                 let data = {
                     invoice: []
                 }
+                if (req.query.from && req.query.to) {
+                    console.log("from", req.query.from)
+                    console.log("to", req.query.to)
+                    invoice = await Invoice.find({ status: req.query.status }).exec()
+                    const from = new Date(req.query.from)
+                    const to = new Date(req.query.to)
+                    let filterInvoices = invoice.filter((invoice) => {
+                        let invoiceDate = new Date(invoice.createdAt)
+                        return (invoiceDate >= from && invoiceDate <= to)
+                    })
+                    invoice = filterInvoices
+
+                }
+                else {
+                    invoice = invoice
+
+                }
+
                 data.prev = page - 1
                 data.next = page + 1
                 data.page = page
+
 
                 //when invocies finished or no invoices exist
                 if (invoice.length == 0) {
@@ -163,7 +220,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 for (var i = 0; i < invoice.length; i++) {
 
                     let t = invoice[i].toObject()
-                 
+
                     const mine = await Mine.findOne({ id: invoice[i].mineid })
                     const vehicleowner = await VehicleOwner.findOne({ id: invoice[i].owner })
                     t.mine = mine.name
@@ -177,22 +234,24 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 data.next = page + 1
                 data.page = page
                 if (status == "PENDING") {
-                    
+
                     return res.render('finance_pending_invoices', { data })
                 } else {
-                  
+
                     return res.render('finance_invoice_list', { data })
                 }
 
             } else {
-                
+
+                console.log("5")
                 return res.redirect("/webfinance")
             }
         } else {
             return res.redirect('/')
         }
     } catch (e) {
-      
+
+        console.log("error", e.message)
         return res.redirect('/')
     }
 })
@@ -223,12 +282,12 @@ router.get('/webupdatependinginvoice/:id', async (req, res) => {
                 return res.render('update_pending_invoice', { data })
 
             } else {
-               
+
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        
+
         return res.redirect('/')
     }
 })
@@ -245,7 +304,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
             const invoice = await Invoice.findOne({ id })
             if (invoice != null) {
                 const updates = Object.keys(req.body)
-               
+
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
                     'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
                 ]
@@ -253,7 +312,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                     return allowedUpdates.includes(update)
                 })
                 if (!isValidOperation) {
-                  
+
                 } else {
 
 
@@ -272,12 +331,12 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                 }
 
             } else {
-                
+
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        
+
         return res.redirect('/')
     }
 })
@@ -301,7 +360,7 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
                 const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
-                
+
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
@@ -309,12 +368,12 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
                 return res.render('finance_completed_invoice', { data })
 
             } else {
-               
+
                 return res.redirect('/')
             }
         }
     } catch (e) {
-       
+
         return res.redirect('/')
 
     }
@@ -348,12 +407,12 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
                 return res.render('finance_update_completed_invoice', { data })
 
             } else {
-              
+
                 return res.redirect('/')
             }
         }
     } catch (e) {
-        
+
         return res.redirect('/')
     }
 })
@@ -370,7 +429,7 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
             const invoice = await Invoice.findOne({ id })
             if (invoice != null) {
                 const updates = Object.keys(req.body)
-              
+
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
                     'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
                 ]
@@ -378,7 +437,7 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
                     return allowedUpdates.includes(update)
                 })
                 if (!isValidOperation) {
-                   
+
                 } else {
 
 
@@ -392,16 +451,16 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                     await invoice.save()
 
-                   return res.redirect('/webcompletedinvoice/' + id)
+                    return res.redirect('/webcompletedinvoice/' + id)
 
                 }
 
             } else {
-               return res.redirect('/');
+                return res.redirect('/');
             }
         }
     } catch (e) {
-       
+
         return res.redirect('/')
     }
 })

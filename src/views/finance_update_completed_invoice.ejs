@@ -128,25 +128,51 @@
                             <br>
                             <h4>Please fill the below fields to update the invoice...</h4>
                             <form method="POST" action="/webupdatecompletedinvoice/<%= data.invoice.id %>">
+
+                                <div class="form-group">
+                                    <label for="rate">Rate</label>
+                                    <input type="number" name="rate" step="0.001" class="form-control" value="<%= data.invoice.rate %>" id="rate" placeholder="Enter rate"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tonnage">Tonnage</label>
+                                    <input type="number" name="tonnage" step="0.001" class="form-control" value="<%= data.invoice.tonnage %>" id="tonnage" placeholder="Enter tonnage"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hsd">HSD</label>
+                                    <input type="number" name="hsd" step="0.001" class="form-control" value="<%= data.invoice.hsd %>" id="hsd" placeholder="Enter hsd"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cash">Cash</label>
+                                    <input type="number" name="cash" step="0.001" class="form-control" value="<%= data.invoice.cash %>" id="cash" placeholder="Enter cash"
+                                        required>
+                                </div>
                                 <div class="form-group">
                                     <label for="tds">TDS</label>
-                                    <input type="number" name="tds" class="form-control" value="<%= data.invoice.tds %>" id="tds" placeholder="Enter TDS" required>
+                                    <input type="number" name="tds" class="form-control" step="0.001" value="<%= data.invoice.tds %>" id="tds" placeholder="Enter TDS"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="officecharge">Office Charge</label>
-                                    <input type="number" name="officecharge" class="form-control" value="<%= data.invoice.officecharge %>" id="officecharge" placeholder="Enter Office Charge" required>
+                                    <input type="number" name="officecharge" class="form-control" step="0.001" value="<%= data.invoice.officecharge %>" id="officecharge"
+                                        placeholder="Enter Office Charge" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="shortage">Shortage</label>
-                                    <input type="number" name="shortage" class="form-control" value="<%= data.invoice.shortage %>" id="shortage" placeholder="Enter Shortage" required>
+                                    <input type="number" name="shortage" class="form-control" step="0.001" value="<%= data.invoice.shortage %>" id="shortage"
+                                        placeholder="Enter Shortage" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="challantotransporter">Challan to Transporter</label>
-                                    <input type="date" name="challantotransporter" class="form-control" value="<%= data.invoice.challantotransporter %>" id="challantotransporter" placeholder="Enter city" required>
+                                    <input type="date" name="challantotransporter" class="form-control" value="<%= data.invoice.challantotransporter %>" id="challantotransporter"
+                                        placeholder="Enter city" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="balanceamountcleared">Balance Amount Cleared</label>
-                                    <input type="date" name="balanceamountcleared" class="form-control" value="<%= data.invoice.balanceamountcleared %>" id="balanceamountcleared" placeholder="Enter PAN" required>
+                                    <input type="date" name="balanceamountcleared" class="form-control" value="<%= data.invoice.balanceamountcleared %>" id="balanceamountcleared"
+                                        placeholder="Enter PAN" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
@@ -169,7 +195,7 @@
 
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function(e) {
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
