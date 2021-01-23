@@ -350,7 +350,11 @@ router.get('/mobinvoicetransporter', async (req, res) => {
             return res.render('webview_others_invoice', { data })
         }
         else {
-
+            let data = {
+                invoice: []
+            }
+            data.invoice = []
+            return res.render('webview_others_invoice', { data })
         }
     }
     catch (e) {
