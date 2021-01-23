@@ -131,7 +131,7 @@ const invoiceSchema = mongoose.Schema({
 invoiceSchema.pre('save', async function (next) {
     const invoice = this
     invoice.amount = invoice.tonnage * invoice.rate
-    invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
+    invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - (invoice.shortage * invoice.rate)
     invoice.date = invoice.createdAt.toString().split("GM")[0]
     next()
 })
