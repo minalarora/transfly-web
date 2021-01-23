@@ -16,19 +16,10 @@
 
     <!-- Custom styles for this template -->
     <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
-    <link rel="stylesheet" type="text/css" href="../css/invoicelist.css">
-
+    <link type="text/css" rel="stylesheet" href="../css/tablelist.css">
 
     <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-    <style>
-        .table-shadow {
-            box-shadow: -1px 1px 7px #888888;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -81,8 +72,9 @@
                     </div>
 
                     <!-- complete table list row  -->
-                    <div id="EmployeesTable_row" class="table-responsive ml-2 d-flex justify-content-center row">
-                        <table class="table" style="font-size: 10px" id="invoiceTable">
+
+                    <div style="overflow-x:auto;">
+                        <table class="table" style="font-size: 13px">
                             <tr class="header">
                                 <th>Invoice id</th>
                                 <th>Vehicle No</th>

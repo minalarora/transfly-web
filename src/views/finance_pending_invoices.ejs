@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
-    <link rel="stylesheet" type="text/css" href="../css/invoicelist.css">
+    <link rel="stylesheet" type="text/css" href="../css/table_list.css">
 
 
     <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
@@ -34,137 +34,140 @@
 <body>
 
     <div class="d-flex" id="wrapper">
+        <% if( data.user_type == "admin" ) { %>
+            <%- include('../partials/responsive_side_bar_admin.ejs') %>
+                <% }else{ %>
+                    <%- include('../partials/responsive_side_bar_finance.ejs') %>
+                        <% } %>
 
-        <%- include('../partials/responsive_side_bar_finance.ejs') %>
+                            <!-- Page Content -->
+                            <div id="page-content-wrapper">
 
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
+                                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
 
-                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+                                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                                    <div class="">
+                                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+                                    </div>
+                                </nav>
 
-                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
-                    <div class="">
-                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
-                    </div>
-                </nav>
+                                <!-- page content start here -->
+                                <div class="container-fluid">
+                                    <!-- heading  -->
+                                    <div class="row mt-2">
+                                        <div class="w-100 text-center text-danger border-bottom">
+                                            <h4>Invoice Reports List</h4>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <br>
+                                    <!-- search input row -->
+                                    <div class="row mb-4 justify-content-center">
+                                        <form method="GET" class="d-flex" action="/webfinanceinvoice">
+                                            <input type="hidden" name="status" value="PENDING">
+                                            <input type="date" id="from" name="from">
+                                            <input type="date" id="to" name="to">
+                                            <input type="submit">
+                                        </form>
+                                        <div id="search-input-row" class="w-75">
+                                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterInvoice()" placeholder="  Search for anything to filter data.."
+                                                title="Type in a name">
+                                        </div>
+                                    </div>
 
-                <!-- page content start here -->
-                <div class="container-fluid">
-                    <!-- heading  -->
-                    <div class="row mt-2">
-                        <div class="w-100 text-center text-danger border-bottom">
-                            <h4>Invoice Reports List</h4>
-                        </div>
-                        <br>
-                    </div>
-                    <br>
-                    <!-- search input row -->
-                    <div class="row mb-4 justify-content-center">
-                        <form method="GET" class="d-flex" action="/webfinanceinvoice">
-                            <input type="hidden" name="status" value="PENDING">
-                            <input type="date" id="from" name="from">
-                            <input type="date" id="to" name="to">
-                            <input type="submit">
-                        </form>
-                        <div id="search-input-row" class="w-75">
-                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterInvoice()" placeholder="  Search for anything to filter data.."
-                                title="Type in a name">
-                        </div>
-                    </div>
+                                    <!-- prev next button -->
+                                    <div class="row p-2 d-flex align-items-baseline w-100">
+                                        <a href="/webfinanceinvoice?status=PENDING&page=<%= data.prev %>" class="btn mx-2 btn-primary">prev</a>
+                                        <p>Page
+                                            <%= data.page %>
+                                        </p>
+                                        <a href="/webfinanceinvoice?status=PENDING&page=<%= data.next %>" class="btn mx-2 btn-primary">next</a>
+                                    </div>
 
-                    <!-- prev next button -->
-                    <div class="row p-2 d-flex align-items-baseline w-100">
-                        <a href="/webfinanceinvoice?status=PENDING&page=<%= data.prev %>" class="btn mx-2 btn-primary">prev</a>
-                        <p>Page
-                            <%= data.page %>
-                        </p>
-                        <a href="/webfinanceinvoice?status=PENDING&page=<%= data.next %>" class="btn mx-2 btn-primary">next</a>
-                    </div>
+                                    <!-- complete table list row  -->
+                                    <div style="overflow-x:auto;">
+                                        <table style="font-size: 13px">
+                                            <tr class="header">
+                                                <th>Invoice id</th>
+                                                <th>Vehicle No</th>
+                                                <th>Mine</th>
+                                                <th>City</th>
+                                                <th>Vehicle Owner</th>
+                                                <th>Tonnage</th>
+                                                <th>Date</th>
+                                                <th>Rate</th>
+                                                <th>HSD</th>
+                                                <th>Cash</th>
+                                                <th>Amount</th>
+                                                <th>Shortage</th>
+                                                <th>Office Charge</th>
+                                                <th>TDS</th>
+                                                <th>Balance Amount Cleared</th>
+                                                <th>Chalaan to Transporter</th>
+                                            </tr>
+                                            <% for (var i =0; i < data.invoice.length;  i++ ) { %>
+                                                <tr>
+                                                    <td>
+                                                        <a href="/webupdatependinginvoice/<%= data.invoice[i].id %>">
+                                                            <%= data.invoice[i].id %>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].vehicle %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].mine %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].city %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].vehicleowner %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].tonnage %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].date %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].rate %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].hsd %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].cash %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].amount %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].shortage %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].officecharge %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].tds %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].balanceamountcleared %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].challantotransporter %>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
 
-                    <!-- complete table list row  -->
-                    <div id="EmployeesTable_row" class="table-responsive ml-2 d-flex justify-content-center row">
-                        <table class="table" style="font-size: 13px" id="invoiceTable">
-                            <tr class="header">
-                                <th>Invoice id</th>
-                                <th>Vehicle No</th>
-                                <th>Mine</th>
-                                <th>City</th>
-                                <th>Vehicle Owner</th>
-                                <th>Tonnage</th>
-                                <th>Date</th>
-                                <th>Rate</th>
-                                <th>HSD</th>
-                                <th>Cash</th>
-                                <th>Amount</th>
-                                <th>Shortage</th>
-                                <th>Office Charge</th>
-                                <th>TDS</th>
-                                <th>Balance Amount Cleared</th>
-                                <th>Chalaan to Transporter</th>
-                            </tr>
-                            <% for (var i =0; i < data.invoice.length;  i++ ) { %>
-                                <tr>
-                                    <td>
-                                        <a href="/webupdatependinginvoice/<%= data.invoice[i].id %>">
-                                            <%= data.invoice[i].id %>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].vehicle %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].mine %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].city %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].vehicleowner %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].tonnage %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].date %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].rate %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].hsd %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].cash %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].amount %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].shortage %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].officecharge %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].tds %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].balanceamountcleared %>
-                                    </td>
-                                    <td>
-                                        <%= data.invoice[i].challantotransporter %>
-                                    </td>
-                                </tr>
-                                <% } %>
-
-                        </table>
-                    </div>
+                                        </table>
+                                    </div>
 
 
-                </div>
-                <!-- Page content end here  -->
-            </div>
-            <!-- /#page-content-wrapper -->
+                                </div>
+                                <!-- Page content end here  -->
+                            </div>
+                            <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->

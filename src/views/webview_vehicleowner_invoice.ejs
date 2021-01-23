@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- bootstrap libs  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid p-4">
+        <div style="overflow-x:auto;">
+            <table style="font-size:15px">
+                <tr class="header">
+                    <th>Invoice id</th>
+                    <th>Vehicle No</th>
+                    <th>Mine</th>
+                    <th>City</th>
+                    <th>Vehicle Owner</th>
+                    <th>Tonnage</th>
+                    <th>Date</th>
+                    <th>Rate</th>
+                    <th>HSD</th>
+                    <th>Cash</th>
+                    <th>Amount</th>
+                    <th>Shortage</th>
+                    <th>Office Charge</th>
+                    <th>TDS</th>
+                    <th>Balance Amount Cleared</th>
+                </tr>
+                <% if(data.invoice.length > 0) { %>
+                    <% for (var i =0; i < data.invoice.length;  i++ ) { %>
+                        <tr>
+                            <td>
+                                <a href="/webcompletedinvoice/<%= data.invoice[i].id %>">
+                                    <%= data.invoice[i].id %>
+                                </a>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].vehicle %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].mine %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].city %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].vehicleowner %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].tonnage %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].date %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].rate %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].hsd %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].cash %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].amount %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].shortage %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].officecharge %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].tds %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].balanceamountcleared %>
+                            </td>
+                        </tr>
+                        <% } %>
+                            <% }else{ %>
+                                <tr>
+                                    <td>No invoices</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <% } %>
+
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

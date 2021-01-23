@@ -32,148 +32,153 @@
 
     <div class="d-flex" id="wrapper">
 
-        <%- include('../partials/responsive_side_bar_finance.ejs') %>
 
-            <!-- Page Content -->
-            <div id="page-content-wrapper">
+        <% if( data.user_type == "admin" ) { %>
+            <%- include('../partials/responsive_side_bar_admin.ejs') %>
+                <% }else{ %>
+                    <%- include('../partials/responsive_side_bar_finance.ejs') %>
+                        <% } %>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                            <!-- Page Content -->
+                            <div id="page-content-wrapper">
 
-                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
-                    <div class="d-flex w-100 justify-content-end">
-                        <a href="/webfinancelogout" class="btn btn-danger">Logout</a>
-                    </div>
-                </nav>
+                                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
 
-                <!-- page content start here -->
-                <div class="container-fluid">
-                    <div class="row p-3 ">
-                        <div class="w-100 border-bottom">
-                            <h3>Completed details from Field Staff
-                            </h3>
-                        </div>
-                    </div>
+                                    <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                                    <div class="d-flex w-100 justify-content-end">
+                                        <a href="/webfinancelogout" class="btn btn-danger">Logout</a>
+                                    </div>
+                                </nav>
 
-                    <div class="row">
-                        <div class="w-75 p-4">
-                            <table>
-                                <tr>
-                                    <th>Invoice Id</th>
-                                    <td>
-                                        <%= data.invoice.id %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Vehicle no</th>
-                                    <td>
-                                        <%= data.invoice.vehicle %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Tonnage</th>
-                                    <td>
-                                        <%= data.invoice.tonnage %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Rate</th>
-                                    <td>
-                                        <%= data.invoice.rate %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Amount</th>
-                                    <td>
-                                        <%= data.invoice.amount %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>HSD</th>
-                                    <td>
-                                        <%= data.invoice.hsd %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Cash</th>
-                                    <td>
-                                        <%= data.invoice.cash %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Vehicle Owner Name</th>
-                                    <td>
-                                        <%= data.invoice.vehicleowner %>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Date</th>
-                                    <td>
-                                        <%= data.invoice.date %>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <br>
+                                <!-- page content start here -->
+                                <div class="container-fluid">
+                                    <div class="row p-3 ">
+                                        <div class="w-100 border-bottom">
+                                            <h3>Completed details from Field Staff
+                                            </h3>
+                                        </div>
+                                    </div>
 
-                    <!-- form to update -->
-                    <div class="row">
-                        <div class="w-75 p-4">
-                            <br>
-                            <h4>Please fill the below fields to complete the invoice...</h4>
-                            <form method="POST" action="/webupdatependinginvoice/<%= data.invoice.id %>">
-                                <div class="form-group">
-                                    <label for="rate">Rate</label>
-                                    <input type="number" name="rate" step="0.001" class="form-control" value="<%= data.invoice.rate %>" id="rate" placeholder="Enter rate"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tonnage">Tonnage</label>
-                                    <input type="number" name="tonnage" step="0.001" class="form-control" value="<%= data.invoice.tonnage %>" id="tonnage" placeholder="Enter tonnage"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="hsd">HSD</label>
-                                    <input type="number" name="hsd" step="0.001" class="form-control" value="<%= data.invoice.hsd %>" id="hsd" placeholder="Enter hsd"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="cash">Cash</label>
-                                    <input type="number" name="cash" step="0.001" class="form-control" value="<%= data.invoice.cash %>" id="cash" placeholder="Enter cash"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tds">TDS</label>
-                                    <input type="number" name="tds" step="0.001" class="form-control" value="" id="tds" placeholder="Enter TDS" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="officecharge">Office Charge</label>
-                                    <input type="number" name="officecharge" step="0.001" class="form-control" id="officecharge" placeholder="Enter Office Charge"
-                                        required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="shortage">Shortage</label>
-                                    <input type="number" name="shortage" step="0.001" class="form-control" id="shortage" placeholder="Enter Shortage" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="challantotransporter">Challan to Transport</label>
-                                    <input type="date" name="challantotransporter" class="form-control" id="challantotransporter" placeholder="Enter city" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="balanceamountcleared">Balance Amount Cleared</label>
-                                    <input type="date" name="balanceamountcleared" class="form-control" id="balanceamountcleared" placeholder="Enter PAN" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
+                                    <div class="row">
+                                        <div class="w-75 p-4">
+                                            <table>
+                                                <tr>
+                                                    <th>Invoice Id</th>
+                                                    <td>
+                                                        <%= data.invoice.id %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Vehicle no</th>
+                                                    <td>
+                                                        <%= data.invoice.vehicle %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tonnage</th>
+                                                    <td>
+                                                        <%= data.invoice.tonnage %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Rate</th>
+                                                    <td>
+                                                        <%= data.invoice.rate %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Amount</th>
+                                                    <td>
+                                                        <%= data.invoice.amount %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>HSD</th>
+                                                    <td>
+                                                        <%= data.invoice.hsd %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Cash</th>
+                                                    <td>
+                                                        <%= data.invoice.cash %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Vehicle Owner Name</th>
+                                                    <td>
+                                                        <%= data.invoice.vehicleowner %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <td>
+                                                        <%= data.invoice.date %>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
 
-                </div>
+                                    <!-- form to update -->
+                                    <div class="row">
+                                        <div class="w-75 p-4">
+                                            <br>
+                                            <h4>Please fill the below fields to complete the invoice...</h4>
+                                            <form method="POST" action="/webupdatependinginvoice/<%= data.invoice.id %>">
+                                                <div class="form-group">
+                                                    <label for="rate">Rate</label>
+                                                    <input type="number" name="rate" step="0.001" class="form-control" value="<%= data.invoice.rate %>" id="rate" placeholder="Enter rate"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tonnage">Tonnage</label>
+                                                    <input type="number" name="tonnage" step="0.001" class="form-control" value="<%= data.invoice.tonnage %>" id="tonnage" placeholder="Enter tonnage"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="hsd">HSD</label>
+                                                    <input type="number" name="hsd" step="0.001" class="form-control" value="<%= data.invoice.hsd %>" id="hsd" placeholder="Enter hsd"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cash">Cash</label>
+                                                    <input type="number" name="cash" step="0.001" class="form-control" value="<%= data.invoice.cash %>" id="cash" placeholder="Enter cash"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tds">TDS</label>
+                                                    <input type="number" name="tds" step="0.001" class="form-control" value="" id="tds" placeholder="Enter TDS" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="officecharge">Office Charge</label>
+                                                    <input type="number" name="officecharge" step="0.001" class="form-control" id="officecharge" placeholder="Enter Office Charge"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="shortage">Shortage</label>
+                                                    <input type="number" name="shortage" step="0.001" class="form-control" id="shortage" placeholder="Enter Shortage" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="challantotransporter">Challan to Transport</label>
+                                                    <input type="date" name="challantotransporter" class="form-control" id="challantotransporter" placeholder="Enter city" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="balanceamountcleared">Balance Amount Cleared</label>
+                                                    <input type="date" name="balanceamountcleared" class="form-control" id="balanceamountcleared" placeholder="Enter PAN" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
 
-                <!-- /#page-content-wrapper -->
+                                </div>
 
-            </div>
-            <!-- /#wrapper -->
+                                <!-- /#page-content-wrapper -->
+
+                            </div>
+                            <!-- /#wrapper -->
 
 
     </div>

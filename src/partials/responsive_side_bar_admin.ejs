@@ -56,8 +56,20 @@
             </ul>
         </div>
 
-        <a href="/webinvoiceall?page=0" class="list-group-item list-group-item-action bg-light">Invoice Reports</a>
-
+        <a href="#" data-toggle="collapse" data-target="#invoicemenu" class="list-group-item nav-link collapsed  list-group-item-action bg-light">
+            Invoice Reports
+            <i class="fa fa-caret-down mt-1"></i>
+        </a>
+        <div class="collapse" id="invoicemenu" aria-expanded="false">
+            <ul class="flex-column nav pl-4">
+                <li class="nav-item">
+                    <a class="nav-link p-1" href="/webfinanceinvoice?status=PENDING&page=1"> Pending Invoice Request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-1" href="/webfinanceinvoice?status=COMPLETED&page=1">All Completed Invoices</a>
+                </li>
+            </ul>
+        </div>
         <!-- Vehicle Owner   -->
         <a href="#" data-toggle="collapse" data-target="#vehicleownermenu" class="list-group-item nav-link collapsed  list-group-item-action bg-light">
             Vehicle Owner
