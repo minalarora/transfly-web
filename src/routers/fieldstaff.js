@@ -4,6 +4,7 @@ const Transporter = require('../models/transporter')
 const VehicleOwner = require('../models/vehicleowner')
 const AreaManager  = require('../models/areamanager')
 const FieldStaff = require('../models/fieldstaff')
+const Fieldstaff = require('../models/fieldstaff')
 const auth = require('../auth/auth')
 const jwt =  require('jsonwebtoken')
 var multer  = require('multer')
@@ -47,7 +48,7 @@ router.post("/fieldstaff",async (req,res)=>{
         {
             throw new Error("Unique")
         }
-        const fieldstaff  = new Fieldstaff(req.body)
+        const fieldstaff  = new FieldStaff(req.body)
         const token=await fieldstaff.generateToken()
         await fieldstaff.save()
         res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.toJSON()})
@@ -116,7 +117,7 @@ router.get('/fieldstaff/me/pending',auth,async (req,res)=>{
 router.get("/allfieldstaff",auth,async (req,res)=>{
     try
     {
-        const fieldstaffs= await Fieldstaff.find({})  
+        const fieldstaffs= await FieldStaff.find({})  
          res.status(200).send(fieldstaffs)     
     }
     catch(e)
@@ -226,7 +227,7 @@ router.patch("/fieldstaff/:id",auth,async (req,res)=>{
             new : true,
             runValidators: true
         })*/
-        const fieldstaff = await Fieldstaff.findOne({id})
+        const fieldstaff = await FieldStaff.findOne({id})
         if(fieldstaff!=null)
         {
             updates.forEach((update)=>{
@@ -251,7 +252,7 @@ router.delete("/fieldstaff/:id",auth,async (req,res)=>{
     try
     {
         const id = req.params.id
-        const fieldstaff = await Fieldstaff.findOneAndDelete({id})
+        const fieldstaff = await FieldStaff.findOneAndDelete({id})
         if(fieldstaff!=null)
         {
              res.status(200).send(fieldstaff.getPublicProfile())   
@@ -271,7 +272,7 @@ router.delete("/fieldstaff/:id",auth,async (req,res)=>{
 router.post("/fieldstaff/login",async (req,res)=>{
     try
     {
-            const fieldstaff  = await Fieldstaff.findByMobie(req.body.mobile,req.body.password)
+            const fieldstaff  = await FieldStaff.findByMobie(req.body.mobile,req.body.password)
             if(fieldstaff == null)
             {
                 return res.status(400)

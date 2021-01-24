@@ -8,6 +8,7 @@ const Transporter = require('../models/transporter')
 const VehicleOwner = require('../models/vehicleowner')
 const AreaManager  = require('../models/areamanager')
 const FieldStaff = require('../models/fieldstaff')
+const Fieldstaff = require('../models/fieldstaff')
 var sharp = require('sharp')
 var upload = multer({
     limits:

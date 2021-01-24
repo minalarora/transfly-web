@@ -23,7 +23,9 @@ const email= require('../src/email')
 
 const isRegisteredUser = async function(mobile)
 {
-  let user  =  await VehicleOwner.findOne({mobile,status:2,active:true})
+  try
+  {
+    let user  =  await VehicleOwner.findOne({mobile,status:2,active:true})
   if(user)
   {
     return true
@@ -32,28 +34,44 @@ const isRegisteredUser = async function(mobile)
   {
     return false
   }
+  }
+  catch(e)
+  {
+    return false
+  }
+  
 }
 
 
 const getVehiclesByMobile = async function(mobile)
 {
-  let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
-  if(user)
+  try
   {
-    let vehiclearray = await Vehicle.find({driverid:user.id})
-    return vehiclearray.map((vehiclearray)=>{
-      return vehiclearray.number
-    })
+    let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
+    if(user)
+    {
+      let vehiclearray = await Vehicle.find({driverid:user.id})
+      return vehiclearray.map((vehiclearray)=>{
+        return vehiclearray.number
+      })
+    }
+    else
+    {
+      throw new Error("User not found")
+    }
+    
   }
-  else
+  catch(e)
   {
     throw new Error("User not found")
   }
-  
+ 
 }
 
 const getInvoice = async function(mobile,vehicle)
 {
+  try
+  {
     let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
     if(user)
     {
@@ -92,18 +110,35 @@ const getInvoice = async function(mobile,vehicle)
     {
       throw new Error("User not found")
     }
+  }
+  catch(e)
+  {
+    throw new Error("User not found")
+  }
+    
 }
 
 
 const createTicket = async function(mobile,vehicle,type)
 {
+
+  try
+  {
     email.sendEmail('TICKET',"mobile: " + mobile + "\n" + "vehicle: " + vehicle + "\n" + "type: " + type)
     return true
+  }
+  catch(e)
+  {
+
+  }
+    
 }
 
 const createBooking = async function(mobile,vehicle,mine,loading)
 {
-  let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
+  try
+  {
+    let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
   if(user)
   {
 
@@ -125,15 +160,29 @@ const createBooking = async function(mobile,vehicle,mine,loading)
   {
     throw new Error("User not found") 
   }
+  }
+  catch(e)
+  {
+    throw new Error("User not found")
+  }
+  
 }
 
 
 const getMinesByArea = async function(area)
 {
+  try
+  {
     let mineArray = await Mine.find({area,active:true })
     return mineArray.map((mine)=>{
       return mine.name
     })
+  }
+  catch(e)
+  {
+    throw new Error("User not found")
+  }
+    
 
 }
 
