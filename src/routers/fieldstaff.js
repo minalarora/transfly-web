@@ -1,13 +1,14 @@
 const express = require('express')
-const router  = new express.Router()
+const router = new express.Router()
 const Transporter = require('../models/transporter')
 const VehicleOwner = require('../models/vehicleowner')
-const AreaManager  = require('../models/areamanager')
+const Vehicleowner = require('../models/vehicleowner') // maine kiya h
+const AreaManager = require('../models/areamanager')
 const FieldStaff = require('../models/fieldstaff')
 const Fieldstaff = require('../models/fieldstaff')
 const auth = require('../auth/auth')
-const jwt =  require('jsonwebtoken')
-var multer  = require('multer')
+const jwt = require('jsonwebtoken')
+var multer = require('multer')
 var sharp = require('sharp')
 var upload = multer({
     limits:
@@ -16,7 +17,7 @@ var upload = multer({
     },
     fileFilter: function (req, file, cb) {
 
-            return cb(undefined, true);  
+        return cb(undefined, true);
 
     }
 })
@@ -24,37 +25,31 @@ var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name
 
 
 
-router.post("/fieldstaff",async (req,res)=>{
-    try
-    {
+router.post("/fieldstaff", async (req, res) => {
+    try {
         let mobile = req.body.mobile
-        let user  = await VehicleOwner.findOne({mobile})
-        if(user)
-        {
+        let user = await VehicleOwner.findOne({ mobile })
+        if (user) {
             throw new Error("Unique")
         }
-        user  = await FieldStaff.findOne({mobile})
-        if(user)
-        {
+        user = await FieldStaff.findOne({ mobile })
+        if (user) {
             throw new Error("Unique")
         }
-        user  = await AreaManager.findOne({mobile})
-        if(user)
-        {
+        user = await AreaManager.findOne({ mobile })
+        if (user) {
             throw new Error("Unique")
         }
-        user  = await Transporter.findOne({mobile})
-        if(user)
-        {
+        user = await Transporter.findOne({ mobile })
+        if (user) {
             throw new Error("Unique")
         }
-        const fieldstaff  = new FieldStaff(req.body)
-        const token=await fieldstaff.generateToken()
+        const fieldstaff = new FieldStaff(req.body)
+        const token = await fieldstaff.generateToken()
         await fieldstaff.save()
-        res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.toJSON()})
+        res.status(200).send({ token: "fieldstaff:" + token, ...fieldstaff.toJSON() })
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e.message)
     }
     /*const fieldstaff  = new Fieldstaff(req.body)
@@ -67,61 +62,51 @@ router.post("/fieldstaff",async (req,res)=>{
     })*/
 })
 
-router.get('/fieldstaff/me',auth,async (req,res)=>{
-    res.status(200).send({token: "fieldstaff:" + req.token ,...req.user.toJSON(),profile: "https://transfly-ftr2t.ondigitalocean.app/fieldstaff/profile/" + req.user.mobile + "/image"})
+router.get('/fieldstaff/me', auth, async (req, res) => {
+    res.status(200).send({ token: "fieldstaff:" + req.token, ...req.user.toJSON(), profile: "https://transfly-ftr2t.ondigitalocean.app/fieldstaff/profile/" + req.user.mobile + "/image" })
 
 
 })
 
-router.get('/fieldstaff/profile/:mobile/image',async (req,res)=>{
-    try
-    {
+router.get('/fieldstaff/profile/:mobile/image', async (req, res) => {
+    try {
         const mobile = req.params.mobile
-        const user = await FieldStaff.findOne({mobile})
-        if(user!=null)
-        {
+        const user = await FieldStaff.findOne({ mobile })
+        if (user != null) {
             res.set('Content-Type', 'image/png')
             res.send(user.profile)
         }
-        else
-        {
+        else {
             res.send(null)
-        }         
+        }
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e)
     }
 })
 
-router.get('/fieldstaff/me/pending',auth,async (req,res)=>{
-    try
-    {
-        var names=[];
-       for(key in req.user.toObject())
-       {
-           if(req.user[key] == null)
-            {
-                names.push(key.replace("image",""))
+router.get('/fieldstaff/me/pending', auth, async (req, res) => {
+    try {
+        var names = [];
+        for (key in req.user.toObject()) {
+            if (req.user[key] == null) {
+                names.push(key.replace("image", ""))
             }
-       }
-       return res.status(200).send(names)
+        }
+        return res.status(200).send(names)
     }
-    catch(e)
-    {
+    catch (e) {
         // console.log(e)
         res.status(400).send(e.message)
     }
 })
 
-router.get("/allfieldstaff",auth,async (req,res)=>{
-    try
-    {
-        const fieldstaffs= await FieldStaff.find({})  
-         res.status(200).send(fieldstaffs)     
+router.get("/allfieldstaff", auth, async (req, res) => {
+    try {
+        const fieldstaffs = await FieldStaff.find({})
+        res.status(200).send(fieldstaffs)
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e.message)
     }
     /*Fieldstaff.find({}).then((a)=>{
@@ -166,60 +151,53 @@ router.get("/allfieldstaff",auth,async (req,res)=>{
 //     })*/
 // })
 
-router.post("/fieldstaff/me",auth,transporterUpload,async (req,res)=>{
-    try
-    {
-        
+router.post("/fieldstaff/me", auth, transporterUpload, async (req, res) => {
+    try {
+
         const updates = Object.keys(req.body)
         let imageupdates = []
-        try
-        {
-             imageupdates = Object.keys(req.files)
+        try {
+            imageupdates = Object.keys(req.files)
         }
-        catch(e)
-        {
+        catch (e) {
 
         }
-        const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','pan','aadhaar','ename','erelation','emobile']
-        const isValidOperation = updates.every((update)=>{
-                return allowedUpdates.includes(update)
+        const allowedUpdates = ['name', 'mobile', 'email', 'password', 'status',
+            'accountno', 'ifsc', 'bankname', 'pan', 'aadhaar', 'ename', 'erelation', 'emobile']
+        const isValidOperation = updates.every((update) => {
+            return allowedUpdates.includes(update)
         })
-        if(!isValidOperation && (updates.length > 0))
-        {
+        if (!isValidOperation && (updates.length > 0)) {
             return res.status(400).send("Invalid")
         }
-            
-            updates.forEach((update)=>{
-                req.user[update] = req.body[update] 
-             })
 
-             imageupdates.forEach((update)=>{
-                req.user[update] = req.files[update][0].buffer
-                
-            })
-            
-             await req.user.save()
-            res.status(200).send(req.user.getPublicProfile()) 
+        updates.forEach((update) => {
+            req.user[update] = req.body[update]
+        })
+
+        imageupdates.forEach((update) => {
+            req.user[update] = req.files[update][0].buffer
+
+        })
+
+        await req.user.save()
+        res.status(200).send(req.user.getPublicProfile())
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e.message)
     }
 })
 
 
-router.patch("/fieldstaff/:id",auth,async (req,res)=>{
-    try
-    {
+router.patch("/fieldstaff/:id", auth, async (req, res) => {
+    try {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['name','mobile','email','password','status',
-        'accountno','ifsc','bankname','city','pan','aadhaar','ename','erelation','emobile']
-        const isValidOperation = updates.every((update)=>{
-                return allowedUpdates.includes(update)
+        const allowedUpdates = ['name', 'mobile', 'email', 'password', 'status',
+            'accountno', 'ifsc', 'bankname', 'city', 'pan', 'aadhaar', 'ename', 'erelation', 'emobile']
+        const isValidOperation = updates.every((update) => {
+            return allowedUpdates.includes(update)
         })
-        if(!isValidOperation)
-        {
+        if (!isValidOperation) {
             return res.status(400).send("Invalid")
         }
         const id = req.params.id
@@ -227,61 +205,51 @@ router.patch("/fieldstaff/:id",auth,async (req,res)=>{
             new : true,
             runValidators: true
         })*/
-        const fieldstaff = await FieldStaff.findOne({id})
-        if(fieldstaff!=null)
-        {
-            updates.forEach((update)=>{
-                fieldstaff[update] = req.body[update] 
+        const fieldstaff = await FieldStaff.findOne({ id })
+        if (fieldstaff != null) {
+            updates.forEach((update) => {
+                fieldstaff[update] = req.body[update]
             })
-            await fieldstaff.save() 
-             res.status(200).send(fieldstaff.getPublicProfile())   
+            await fieldstaff.save()
+            res.status(200).send(fieldstaff.getPublicProfile())
         }
-        else
-        {
-         
-         return  res.status(400)
+        else {
+
+            return res.status(400)
         }
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e.message)
     }
 })
 
-router.delete("/fieldstaff/:id",auth,async (req,res)=>{
-    try
-    {
+router.delete("/fieldstaff/:id", auth, async (req, res) => {
+    try {
         const id = req.params.id
-        const fieldstaff = await FieldStaff.findOneAndDelete({id})
-        if(fieldstaff!=null)
-        {
-             res.status(200).send(fieldstaff.getPublicProfile())   
+        const fieldstaff = await FieldStaff.findOneAndDelete({ id })
+        if (fieldstaff != null) {
+            res.status(200).send(fieldstaff.getPublicProfile())
         }
-        else
-        {
-           return res.status(400)
+        else {
+            return res.status(400)
         }
-         
+
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e.message)
     }
 })
 
-router.post("/fieldstaff/login",async (req,res)=>{
-    try
-    {
-            const fieldstaff  = await FieldStaff.findByMobie(req.body.mobile,req.body.password)
-            if(fieldstaff == null)
-            {
-                return res.status(400)
-            }
-            const token  = await fieldstaff.generateToken()
-            res.status(200).send({token: "fieldstaff:" + token ,...fieldstaff.getPublicProfile()})
+router.post("/fieldstaff/login", async (req, res) => {
+    try {
+        const fieldstaff = await FieldStaff.findByMobie(req.body.mobile, req.body.password)
+        if (fieldstaff == null) {
+            return res.status(400)
+        }
+        const token = await fieldstaff.generateToken()
+        res.status(200).send({ token: "fieldstaff:" + token, ...fieldstaff.getPublicProfile() })
     }
-    catch(e)
-    {
+    catch (e) {
         return res.status(400)
     }
 })
@@ -289,32 +257,28 @@ router.post("/fieldstaff/login",async (req,res)=>{
 
 
 
-router.delete("/admin/me",auth,async (req,res)=>{
-    try
-    {
-       await req.user.remove()
-       res.status(200).send(req.user)
-         
+router.delete("/admin/me", auth, async (req, res) => {
+    try {
+        await req.user.remove()
+        res.status(200).send(req.user)
+
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400).send(e)
     }
 })
 
 
-router.post('/fieldstaff/logout',auth,async (req,res)=>{
-    try
-    {
-        req.user.tokens = req.user.tokens.filter((token)=>{
-            return token.token != req.token 
+router.post('/fieldstaff/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token != req.token
         })
         await req.user.save()
         res.status(200).send()
 
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(400)
     }
 })
