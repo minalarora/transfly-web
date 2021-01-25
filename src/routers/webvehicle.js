@@ -15,11 +15,10 @@ const VehicleOwner = require("../models/vehicleowner")
 const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
-const vehicle = require('../models/vehicle')
 
 router.use(cookieParser())
 
-router.get("/vehiclerequest", async(req, res) => {
+router.get("/vehiclerequest", async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -31,17 +30,17 @@ router.get("/vehiclerequest", async(req, res) => {
             }
             return res.render('vehicle_request_list', { data })
         } else {
-           
+
             return res.redirect('/')
         }
     } catch (e) {
-      
+
         return res.redirect('/')
     }
 
 })
 
-router.get('/getvehicledata/:id', async(req, res) => {
+router.get('/getvehicledata/:id', async (req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
@@ -51,7 +50,7 @@ router.get('/getvehicledata/:id', async(req, res) => {
         object["vehicleownermobile"] = vehicleowner.mobile
         delete object.__v
         delete object._id
-      
+
 
         return res.send(object)
 
@@ -60,7 +59,7 @@ router.get('/getvehicledata/:id', async(req, res) => {
 
     }
 })
-router.get("/vehicle_request_action/:id", async(req, res) => {
+router.get("/vehicle_request_action/:id", async (req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
@@ -77,7 +76,7 @@ router.get("/vehicle_request_action/:id", async(req, res) => {
     }
 })
 
-router.post("/vehicle_request_action/:id", async(req, res) => {
+router.post("/vehicle_request_action/:id", async (req, res) => {
     try {
         const id = req.params.id
         const vehicle = await Vehicle.findOne({ id })
@@ -92,24 +91,21 @@ router.post("/vehicle_request_action/:id", async(req, res) => {
     }
 })
 
-router.get('/webvehicle/image/:id',async (req,res)=>{
-    try
-    {
+router.get('/webvehicle/image/:id', async (req, res) => {
+    try {
         let id = req.params.id
-        let user  = await Vehicle.findOne({id})
-        if(user!=null)
-        {
+        console.log("running")
+        let user = await Vehicle.findOne({ id })
+        if (user != null) {
             res.set('Content-Type', 'image/png')
             res.send(user.rcimage)
         }
-        else
-        {
+        else {
             return res.status(400)
-        }         
+        }
     }
-    catch(e)
-    {
-        
+    catch (e) {
+
         return res.status(400)
     }
 })

@@ -47,13 +47,13 @@ router.get('/webfieldstaffall', async (req, res) => {
             return res.render('fieldstaff_list', { data })
         }
         else {
-           
+
             return res.redirect("/")
         }
 
     }
     catch (e) {
-       
+
         return res.redirect("/webfieldstaffall")
     }
 })
@@ -133,22 +133,22 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
                 t.allmines = allmines
                 data.fieldstaff = t;
 
-                
+
                 return res.render('field_staff_profile', { data })
 
             }
             else {
-              
+
                 return res.redirect("/webfieldstaffall")
             }
         }
         else {
-            
+
             return res.redirect("/")
         }
     }
     catch (e) {
-      
+
         return res.redirect("/webfieldstaffall")
 
     }
@@ -162,19 +162,20 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
             const mobile = req.params.mobile
-          
+
             const areamanager = await Fieldstaff.findOne({ mobile })
             if (areamanager) {
 
                 var newmines = Object.values(req.body)
-               
 
-                var oldminess = await Mine.find({ fieldstaff: mobile })
+
+                var fieldstaff = await Fieldstaff.findOne({ mobile })
+                var oldminess = await Mine.find({ fieldstaff: fieldstaff.id })
 
                 var oldmines = oldminess.map((mine) => {
                     return mine.id
                 })
-               
+
 
                 newmines.forEach((mine) => {
                     Mine.findOneAndUpdate({ id: parseInt(mine) }, { fieldstaff: areamanager.id }).exec()
@@ -184,7 +185,7 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
                     return newmines.includes(mine) == false
                 })
 
-              
+
                 nullmines.forEach((mine) => {
                     Mine.findOneAndUpdate({ id: mine }, { fieldstaff: null }).exec()
                 })
@@ -193,18 +194,18 @@ router.post('/update_fs_mine/:mobile', async (req, res) => {
 
             }
             else {
-             
+
                 return res.redirect("/webspecificfieldstaff/" + mobile)
             }
 
         }
         else {
-          
+
             return res.redirect("/")
         }
     }
     catch (e) {
-       
+
         return res.redirect("/webfieldstaffall")
     }
 })
@@ -224,7 +225,7 @@ router.get('/revokemine/:name', async (req, res) => {
         }
     }
     catch (e) {
-       
+
         return res.redirect("/webfieldstaffall")
 
     }
@@ -235,9 +236,9 @@ router.get("/fieldstaffrequest", async (req, res) => {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
-        
+
         if (admin) {
-            
+
             const fieldstaff = await Fieldstaff.find({ status: 1 })
             let data = {
                 fieldstaff: fieldstaff
@@ -245,13 +246,13 @@ router.get("/fieldstaffrequest", async (req, res) => {
             return res.render('fieldstaff_request', { data })
         }
         else {
-         
+
             return res.redirect("/")
 
         }
     }
     catch (e) {
-        
+
         return res.redirect("/fieldstaffrequest")
     }
 
@@ -313,25 +314,21 @@ router.get('/getfieldstaffdata/:mobile', async (req, res) => {
 
 })
 
-router.get('/webfieldstaff/image/:mobile/:type',async (req,res)=>{
-    try
-    {
+router.get('/webfieldstaff/image/:mobile/:type', async (req, res) => {
+    try {
         let mobile = req.params.mobile
         let type = req.params.type
-        let user  = await Fieldstaff.findOne({mobile})
-        if(user!=null)
-        {
+        let user = await Fieldstaff.findOne({ mobile })
+        if (user != null) {
             res.set('Content-Type', 'image/png')
             res.send(user[type])
         }
-        else
-        {
+        else {
             return res.status(400)
-        }         
+        }
     }
-    catch(e)
-    {
-        
+    catch (e) {
+
         return res.status(400)
     }
 })

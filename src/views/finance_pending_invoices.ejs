@@ -88,13 +88,15 @@
                                     <div style="overflow-x:auto;">
                                         <table style="font-size: 13px">
                                             <tr class="header">
+                                                <th>Sno.</th>
                                                 <th>Invoice id</th>
                                                 <th>Vehicle No</th>
-                                                <th>Mine</th>
-                                                <th>City</th>
+                                                <th>From</th>
+                                                <th>to</th>
+                                                <th>Transporter</th>
                                                 <th>Vehicle Owner</th>
+                                                <th>Booking Date</th>
                                                 <th>Tonnage</th>
-                                                <th>Date</th>
                                                 <th>Rate</th>
                                                 <th>HSD</th>
                                                 <th>Cash</th>
@@ -102,11 +104,16 @@
                                                 <th>Shortage</th>
                                                 <th>Office Charge</th>
                                                 <th>TDS</th>
+                                                <th>Mode of Payment</th>
+                                                <th>BalanceAmount</th>
                                                 <th>Balance Amount Cleared</th>
                                                 <th>Chalaan to Transporter</th>
                                             </tr>
                                             <% for (var i =0; i < data.invoice.length;  i++ ) { %>
                                                 <tr>
+                                                    <td>
+                                                        <%= (i+1) +  ((data.page - 1) * 150)  %>
+                                                    </td>
                                                     <td>
                                                         <a href="/webupdatependinginvoice/<%= data.invoice[i].id %>">
                                                             <%= data.invoice[i].id %>
@@ -116,20 +123,24 @@
                                                         <%= data.invoice[i].vehicle %>
                                                     </td>
                                                     <td>
-                                                        <%= data.invoice[i].mine %>
+                                                        <%= data.invoice[i].minename %>
                                                     </td>
                                                     <td>
-                                                        <%= data.invoice[i].city %>
+                                                        <%= data.invoice[i].loading %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.invoice[i].transportername %>
                                                     </td>
                                                     <td>
                                                         <%= data.invoice[i].vehicleowner %>
                                                     </td>
                                                     <td>
-                                                        <%= data.invoice[i].tonnage %>
-                                                    </td>
-                                                    <td>
                                                         <%= data.invoice[i].date %>
                                                     </td>
+                                                    <td>
+                                                        <%= data.invoice[i].tonnage %>
+                                                    </td>
+
                                                     <td>
                                                         <%= data.invoice[i].rate %>
                                                     </td>
@@ -152,10 +163,25 @@
                                                         <%= data.invoice[i].tds %>
                                                     </td>
                                                     <td>
-                                                        <%= data.invoice[i].balanceamountcleared %>
+                                                        <%= data.invoice[i].modeofpayment %>
                                                     </td>
                                                     <td>
-                                                        <%= data.invoice[i].challantotransporter %>
+                                                        <%= data.invoice[i].balanceamount %>
+                                                    </td>
+                                                    <td>
+                                                        <% if(data.invoice[i].balanceamountcleared  != "") {%>
+                                                            <%= data.invoice[i].balanceamountcleared %>
+                                                                <% }else{ %>
+                                                                    NA
+                                                                    <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <% if(data.invoice[i].challantotransporter  != "") {%>
+                                                            <%= data.invoice[i].challantotransporter %>
+                                                                <% }else{ %>
+                                                                    NA
+                                                                    <% } %>
+
                                                     </td>
                                                 </tr>
                                                 <% } %>

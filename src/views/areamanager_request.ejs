@@ -129,10 +129,12 @@
                         <div class="container" id="document_container">
                             <div class="row w-100">
                                 <div class="col-12">
-                                    <img target="_blank" id="aadhaarimage" alt="not avaliable">
+                                    <a href="" id="aadhaarimage_a" target="_blank" download="image"><img target="_blank"
+                                            id="aadhaarimage" alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="panimage" alt="not avaliable">
+                                    <a href="" id="panimage_a" target="_blank" download="image"><img target="_blank" id="panimage"
+                                            alt="not avaliable"></a>
                                 </div>
                             </div>
                         </div>
@@ -234,11 +236,11 @@
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
 
-        document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.aadhaarimage + " ', '_blank')");
-        document.getElementById('aadhaarimage').setAttribute('src', "data:image/png;base64," + data.aadhaarimage)
+        document.getElementById('aadhaarimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/areamanager/image/" + data.mobile + "/aadhaarimage")
+        document.getElementById('aadhaarimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/areamanager/image/" + data.mobile + "/aadhaarimage")
 
-        document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
-        document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
+        document.getElementById('panimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/areamanager/image/" + data.mobile + "/panimage")
+        document.getElementById('panimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/areamanager/image/" + data.mobile + "/panimage")
 
         document.getElementById("approve_btn").setAttribute('href', "/areamanager_request_action/" + mobile)
         document.getElementById("reject_form").setAttribute('action', "/areamanager_request_action/" + mobile)

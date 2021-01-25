@@ -245,12 +245,14 @@
                                             <div>
                                                 <h6 class="mb-3">From:</h6>
                                                 <div>
-                                                    <strong>Transfly Logistic</strong>
+                                                    <strong>TransFly Infotech Pvt Ltd</strong>
                                                 </div>
-                                                <div>Madalinskiego 8</div>
-                                                <div>71-101 Szczecin, Poland</div>
-                                                <div>Email: info@webz.com.pl</div>
-                                                <div>Phone: +48 444 666 3333</div>
+                                                <div>13 D, Baladeya Colony</div>
+                                                <div>Keonjhar, Odisha 758001</div>
+                                                <div>Email: care@transfly.co.in </div>
+                                                <div>Phone: 1800 270 2356</div>
+                                                <div><a href="www.tranfly.co.in" class="nav-link p-0"> www.tranfly.co.in</a>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -274,14 +276,14 @@
                                     <div class="row p-4 mx-1 mb-2 border-top ">
                                         <table class="table table-borderless">
                                             <tr>
-                                                <th>Mine:</th>
+                                                <th>From:</th>
                                                 <td>
                                                     <%= data.invoice.minename %> (
                                                         <%= data.invoice.mineid %> )
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>Loading :</th>
+                                                <th>To :</th>
                                                 <td>
                                                     <%= data.invoice.loading %>
                                                 </td>
@@ -301,19 +303,35 @@
                                             <tr>
                                                 <th>Challan To Transporter:</th>
                                                 <td>
-                                                    <%= data.invoice.challantotransporter %>
+                                                    <% if(data.invoice.challantotransporter  != "") {%>
+                                                        <%= data.invoice.challantotransporter %>
+                                                            <% }else{ %>
+                                                                NA
+                                                                <% } %>
+
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Balance Amount Cleared:</th>
+
                                                 <td>
-                                                    <%= data.invoice.balanceamountcleared %>
+                                                    <% if(data.invoice.balanceamountcleared  != "") {%>
+                                                        <%= data.invoice.balanceamountcleared %>
+                                                            <% }else{ %>
+                                                                NA
+                                                                <% } %>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Transporter:</th>
                                                 <td>
-                                                    <%= data.invoice.transporter %>
+                                                    <%= data.invoice.transportername %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Mode Of Payment:</th>
+                                                <td>
+                                                    <%= data.invoice.modeofpayment %>
                                                 </td>
                                             </tr>
                                         </table>

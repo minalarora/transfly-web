@@ -142,19 +142,24 @@
                         <div class="container" id="document_container">
                             <div class="row w-100">
                                 <div class="col-12">
-                                    <img target="_blank" id="staimage" alt="not avaliable">
+                                    <a href="" download="image" id="staimage_a" target="_blank"><img target="_blank" id="staimage"
+                                            alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="gstimage" alt="not avaliable">
+                                    <a href="" download="image" id="gstimage_a" target="_blank"><img target="_blank" id="gstimage"
+                                            alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="aadhaarimage" alt="not avaliable">
+                                    <a href="" download="image" id="aadhaarimage_a" target="_blank"><img target="_blank"
+                                            id="aadhaarimage" alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="mininglicenseimage" alt="not avaliable">
+                                    <a href="" download="image" id="mininglicenseimage_a" target="_blank"><img target="_blank"
+                                            id="mininglicenseimage" alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="panimage" alt="not avaliable">
+                                    <a href="" download="image" id="panimage_a" target="_blank"><img target="_blank" id="panimage"
+                                            alt="not avaliable"></a>
                                 </div>
                             </div>
                         </div>
@@ -265,20 +270,20 @@
         document.getElementById('mininglicense').innerHTML = data.mininglicense;
         document.getElementById('pan').innerHTML = data.pan;
 
-        document.getElementById('staimage').setAttribute('src', "data:image/png;base64," + data.staimage)
-        document.getElementById('staimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.staimage + " ', '_blank')");
+        document.getElementById('staimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/staimage")
+        document.getElementById('staimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/staimage")
 
-        document.getElementById('gstimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.gstimage + " ', '_blank')");
-        document.getElementById('gstimage').setAttribute('src', "data:image/png;base64," + data.gstimage)
+        document.getElementById('gstimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/gstimage")
+        document.getElementById('gstimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/gstimage")
 
-        document.getElementById('aadhaarimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.aadhaarimage + " ', '_blank')");
-        document.getElementById('aadhaarimage').setAttribute('src', "data:image/png;base64," + data.aadhaarimage)
+        document.getElementById('aadhaarimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/aadhaarimage")
+        document.getElementById('aadhaarimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/aadhaarimage")
 
-        document.getElementById('mininglicenseimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.mininglicenseimage + " ', '_blank')");
-        document.getElementById('mininglicenseimage').setAttribute('src', "data:image/png;base64," + data.mininglicenseimage)
+        document.getElementById('mininglicenseimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/mininglicenseimage")
+        document.getElementById('mininglicenseimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/mininglicenseimage")
 
-        document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
-        document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
+        document.getElementById('panimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/panimage")
+        document.getElementById('panimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/transporter/image/" + data.mobile + "/panimage")
 
         document.getElementById("approve_btn").setAttribute('href', "/transporter_request_action/" + mobile)
         document.getElementById("reject_form").setAttribute('action', "/transporter_request_action/" + mobile)

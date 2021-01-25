@@ -36,11 +36,11 @@
         <div style="overflow-x:auto;">
             <table style="font-size:15px">
                 <tr class="header">
+                    <th>Sr no</th>
                     <th>Invoice id</th>
                     <th>Vehicle No</th>
-                    <th>Mine</th>
-                    <th>City</th>
-                    <th>Vehicle Owner</th>
+                    <th>From</th>
+                    <th>To</th>
                     <th>Tonnage</th>
                     <th>Date</th>
                     <th>Rate</th>
@@ -56,19 +56,19 @@
                     <% for (var i =0; i < data.invoice.length;  i++ ) { %>
                         <tr>
                             <td>
+                                i+1
+                            </td>
+                            <td>
                                 <%= data.invoice[i].id %>
                             </td>
                             <td>
                                 <%= data.invoice[i].vehicle %>
                             </td>
                             <td>
-                                <%= data.invoice[i].mine %>
+                                <%= data.invoice[i].minename %>
                             </td>
                             <td>
-                                <%= data.invoice[i].city %>
-                            </td>
-                            <td>
-                                <%= data.invoice[i].vehicleowner %>
+                                <%= data.invoice[i].loading %>
                             </td>
                             <td>
                                 <%= data.invoice[i].tonnage %>

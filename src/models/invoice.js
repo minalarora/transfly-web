@@ -1,6 +1,7 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
 let moment = require('moment-timezone')
+var Float = require('mongoose-float').loadType(mongoose);
 
 
 const invoiceSchema = mongoose.Schema({
@@ -29,7 +30,7 @@ const invoiceSchema = mongoose.Schema({
     vehicleownermobile:
     {
         type: String,
-        
+
     }
     ,
     mineid:
@@ -52,60 +53,60 @@ const invoiceSchema = mongoose.Schema({
 
     tonnage:
     {
-        type: Number,
+        type: Float,
         required: true
     },
     rate:
     {
-        type: Number,
+        type: Float,
         required: true
     },
     amount:
     {
-        type: Number,
+        type: Float,
         default: 0
 
     },
     hsd:
     {
-        type: Number,
+        type: Float,
         default: 0
     },
     cash:
     {
-        type: Number,
+        type: Float,
         default: 0
     },
     tds:
     {
-        type: Number,
+        type: Float,
         default: 0
     },
     officecharge:
     {
-        type: Number,
+        type: Float,
         default: 0
     },
     shortage:
     {
-        type: Number
+        type: Float
         ,
         default: 0
     },
     balanceamount:
     {
-        type: Number,
+        type: Float,
         default: 0
     },
     challantotransporter:
     {
         type: String,
-        default: "NA"
+        default: ""
     },
     balanceamountcleared:
     {
         type: String,
-        default: "NA"
+        default: ""
     },
     status:
     {
@@ -126,12 +127,12 @@ const invoiceSchema = mongoose.Schema({
     transportername:
     {
         type: String,
-        
+
     },
     modeofpayment:
     {
         type: String,
-        default:"NA"
+        default: "NA"
     }
 
 }
@@ -145,7 +146,7 @@ invoiceSchema.pre('save', async function (next) {
     invoice.amount = invoice.tonnage * invoice.rate
     invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - (invoice.shortage * invoice.rate)
     invoice.date = moment(new Date(invoice.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
-   
+
     next()
 })
 

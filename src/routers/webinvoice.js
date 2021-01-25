@@ -11,7 +11,7 @@ const Ticket = require('../models/ticket')
 const Transporter = require('../models/transporter')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
-const firebase  = require('../values')
+const firebase = require('../values')
 
 const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
@@ -80,7 +80,11 @@ router.get('/webinvoiceall', async (req, res) => {
             if (page < 1) {
                 page = 1;
             }
-            let invoice = await Invoice.find({}, null, { skip: (page * 150 - 150), limit: 150 }).exec()
+            let invoice = await Invoice.find({}, null, {
+                skip: (page * 150 - 150), limit: 150, sort: {
+                    createdAt: -1
+                }
+            }).exec()
 
             let data = {
 
@@ -157,7 +161,11 @@ router.get('/webinvoiceall', async (req, res) => {
 router.get('/mobinvoicevehicleowner', async (req, res) => {
     try {
 
-        let invoice = await Invoice.find({ vehicleownermobile: req.query.mobile }).exec()
+        let invoice = await Invoice.find({ vehicleownermobile: req.query.mobile }, null, {
+            sort: {
+                createdAt: -1
+            }
+        }).exec()
 
         let data = {
             invoice: []
@@ -167,8 +175,7 @@ router.get('/mobinvoicevehicleowner', async (req, res) => {
 
             const from = new Date(parseInt(req.query.from))
             const to = new Date(parseInt(req.query.to))
-            console.log(from)
-            console.log(to)
+
             let filterInvoices = invoice.filter((invoice) => {
                 let invoiceDate = new Date(invoice.createdAt)
                 return (invoiceDate >= from && invoiceDate <= to)
@@ -325,7 +332,11 @@ router.get('/mobinvoicetransporter', async (req, res) => {
     try {
         let user = await Transporter.findOne({ mobile: req.query.mobile })
         if (user && user.status == 2) {
-            let invoice = await Invoice.find({ transporter: user.id }).exec()
+            let invoice = await Invoice.find({ transporter: user.id }, null, {
+                sort: {
+                    createdAt: -1
+                }
+            }).exec()
 
             let data = {
                 invoice: []
@@ -382,16 +393,16 @@ router.get('/webfinanceinvoice', async (req, res) => {
         else {
             user_type = "finance"
         }
-       
+
         if (finance || admin) {
             let status = req.query.status;
-           
+
             if (status) {
-               
+
                 let page = null
                 if (req.query.page) {
                     page = parseInt(req.query.page)
-                  
+
                 }
                 else {
                     page = 1
@@ -401,14 +412,18 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 if (page < 1) {
                     page = 1;
                 }
-                let invoice = await Invoice.find({ status: req.query.status }, null, { skip: (page * 150 - 150), limit: 150 }).exec()
+                let invoice = await Invoice.find({ status: req.query.status }, null, {
+                    skip: (page * 150 - 150), limit: 150, sort: {
+                        createdAt: -1
+                    }
+                }).exec()
 
                 let data = {
                     user_type,
                     invoice: []
                 }
                 if (req.query.from && req.query.to) {
-                  
+
                     invoice = await Invoice.find({ status: req.query.status }).exec()
                     const from = new Date(req.query.from)
                     const to = new Date(req.query.to)
@@ -545,8 +560,9 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
             if (invoice != null) {
                 const updates = Object.keys(req.body)
 
+                console.log("ye request.body h", req.body);
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
-                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status' ,'modeofpayment','transportername', 
+                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status', 'modeofpayment', 'transportername',
                 ]
                 const isValidOperation = updates.every((update) => {
                     return allowedUpdates.includes(update)
@@ -564,25 +580,22 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
 
                     })
 
-                    if(invoice["challantotransporter"]!="NA")
-                    {
+                    if (invoice["challantotransporter"] != "") {
                         invoice["status"] = "COMPLETED"
                     }
-                  
+
                     await invoice.save()
 
-                    let user = await VehicleOwner.findOne({id:invoice.owner})
-                    user.firebase.forEach((token)=>{
-                        try
-                        {
-                            firebase.sendFirebaseMessage(token,"TRANSFLY","Your Challan for booking from  " + invoice.minename + " to " + invoice.loading + " has been completed.")
-                   
+                    let user = await VehicleOwner.findOne({ id: invoice.owner })
+                    user.firebase.forEach((token) => {
+                        try {
+                            firebase.sendFirebaseMessage(token, "TRANSFLY", "Your Challan for booking from  " + invoice.minename + " to " + invoice.loading + " has been completed.")
+
                         }
-                        catch(e)
-                        {
-            
+                        catch (e) {
+
                         }
-                     })
+                    })
 
                     return res.redirect('/webfinanceinvoice?status=PENDING&page=1')
 

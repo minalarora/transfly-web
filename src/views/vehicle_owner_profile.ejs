@@ -93,19 +93,14 @@
                                     <tr>
                                         <th>Pan:</th>
                                         <td>
-                                            <%= data.vehicleowner.pan %>
+                                            <a href="https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/<%= data.vehicleowner.mobile %>/panimage"> <%= data.vehicleowner.pan %>
+                                            </a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>TDS Declaration:</th>
                                         <td>
                                             <%= data.vehicleowner.tds %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Emergengy contact :</th>
-                                        <td>
-                                            <%= data.vehicleowner.emergencycontact %>
                                         </td>
                                     </tr>
                                 </table>
@@ -162,10 +157,38 @@
                                                 <%= data.vehicleowner.vehicles[i].number %>
                                             </td>
                                             <td>
-                                                <%= data.vehicleowner.vehicles[i].rc %>
+                                                <a href="" download="image" target="_blank"><%= data.vehicleowner.vehicles[i].rc %></a>
                                             </td>
                                         </tr>
                                         <% } %>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 mt-2 col-md-12 ">
+                            <div class="pl-2 pt-2 pb-1 bg-success text-light">
+                                <h5>Emergency Contact Details</h5>
+                            </div>
+                            <div class="p-3 bg-light">
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Emergency person name:</th>
+                                        <td>
+                                            <%= data.vehicleowner.ename %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency contact:</th>
+                                        <td>
+                                            <%= data.vehicleowner.emobile %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency Relation:</th>
+                                        <td>
+                                            <%= data.vehicleowner.erelation %>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -191,11 +214,11 @@
                                 <table class="table table-borderless" style="width:100%">
                                     <tr class="border-bottom mb-4">
                                         <th>Invoice id</th>
-                                        <th>Mine id</th>
-                                        <th>Date</th>
-                                        <th>tonnage</th>
-                                        <th>rate</th>
-                                        <th>amount</th>
+                                        <th>Mine name</th>
+                                        <th>Booking Date</th>
+                                        <th>Tonnage</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
                                     </tr>
                                     <% if(data.vehicleowner.invoices.length > 0) { %>
                                         <% for (var i =0; i < data.vehicleowner.invoices.length;  i++ ) { %>
@@ -204,8 +227,9 @@
                                                         <%= data.vehicleowner.invoices[i].id %></a>
                                                 </td>
                                                 <td>
-                                                    <%=  data.vehicleowner.invoices[i].minename %>
+                                                    <%= data.vehicleowner.invoices[i].minename %>
                                                 </td>
+
                                                 <td>
                                                     <%=  data.vehicleowner.invoices[i].date %>
                                                 </td>

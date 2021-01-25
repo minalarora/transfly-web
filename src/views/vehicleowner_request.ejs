@@ -127,13 +127,16 @@
                             <img target="_blank" id="aadhaarimage" alt="not avaliable">
                         </div> -->
                                 <div class="col-12">
-                                    <img target="_blank" id="panimage" alt="not avaliable">
+                                    <a href="" id="panimage_a" download="panimage" target="_blank"><img target="_blank" id="panimage"
+                                            alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="tdsimage" alt="not avaliable">
+                                    <a href="" id="tdsimage_a" download="tdsimage" target="_blank"> <img target="_blank"
+                                            id="tdsimage" alt="not avaliable"></a>
                                 </div>
                                 <div class="col-12">
-                                    <img target="_blank" id="bankimage" alt="not avaliable">
+                                    <a href="" id="bankimage_a" download="bankimage" target="_blank"><img target="_blank"
+                                            id="bankimage" alt="not avaliable"></a>
                                 </div>
                             </div>
                         </div>
@@ -232,15 +235,14 @@
         document.getElementById('ifsc').innerHTML = data.ifsc;
 
 
-        document.getElementById('bankimage').setAttribute('onclick', "openImage('data:image/png;base64," + data.bankimage + " ', '_blank')");
-        document.getElementById('bankimage').setAttribute('src', "data:image/png;base64," + data.bankimage)
+        document.getElementById('bankimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/" + data.mobile + "/bankimage")
+        document.getElementById('bankimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/" + data.mobile + "/bankimage");
 
-        // document.getElementById('panimage').setAttribute('onclick', "window.open('data:image/png;base64" + data.panimage + " ', '_blank')");
-        document.getElementById('panimage').setAttribute('onclick', "openImage('data:image/png;base64," + data.panimage + " ', '_blank')");
-        document.getElementById('panimage').setAttribute('src', "data:image/png;base64," + data.panimage)
+        document.getElementById('panimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/" + data.mobile + "/panimage");
+        document.getElementById('panimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/" + data.mobile + "/panimage")
 
-        document.getElementById('tdsimage').setAttribute('onclick', "window.open('data:image/png;base64," + data.tdsimage + " ', '_blank')");
-        document.getElementById('tdsimage').setAttribute('src', "data:image/png;base64," + data.tdsimage)
+        document.getElementById('tdsimage').setAttribute('src', "https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/" + data.mobile + "/tdsimage")
+        document.getElementById('tdsimage_a').setAttribute('href', "https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/" + data.mobile + "/tdsimage")
 
         document.getElementById("approve_btn").setAttribute('href', "/vehicleowner_request_action/" + mobile)
         document.getElementById("reject_form").setAttribute('action', "/vehicleowner_request_action/" + mobile)
