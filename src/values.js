@@ -233,6 +233,61 @@ catch(e)
 }
 
 
+const sendOtpMessage =  function(number,message)
+{
+/**
+ * {
+ "flow_id":"5ff6baa6ede4c64496062ebe",
+  "recipients" : [
+    {
+      "mobiles":"918871748278",
+      "message":"VALUE 1"
+    },
+    {
+      "mobiles":"916265219319",
+      "message":"VALUE 1"
+		}
+]
+}*/
+
+  const obj = {}
+  obj.flow_id = "5ff6baa6ede4c64496062ebe"
+  obj.recipients = [
+   {
+     mobile:number,
+     message
+   }
+  ]
+
+  
+try
+{
+   fetch("https://api.msg91.com/api/v5/flow/",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "authkey":"350944Ar65hw8BuM5ff29c59P1"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+      console.log(res.status)
+  }).catch((e)=>{
+    console.log(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+  console.log(e)
+}
+  
+
+  
+}
+
+
 module.exports = {
   isRegisteredUser,
   createBooking,
@@ -240,5 +295,6 @@ module.exports = {
   getInvoice,
   getVehiclesByMobile,
   getMinesByArea,
-  sendFirebaseMessage
+  sendFirebaseMessage,
+  sendOtpMessage
 }
