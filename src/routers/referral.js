@@ -54,7 +54,7 @@ router.post("/referral",auth,upload.single('image'),async (req,res)=>{
 router.get("/allreferral",auth,async (req,res)=>{
     try
     {
-        const rewards = await Referral.find({},null,{skip: 0 , limit : 2, sort: {
+        const rewards = await Referral.find({},null,{skip: 0 , limit : 1, sort: {
             createdAt: -1
         }}).exec()  
         res.status(200).send(rewards)      

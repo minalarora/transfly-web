@@ -229,5 +229,28 @@ router.get('/getvehicleownerdata/:mobile', async (req, res) => {
 
 })
 
+router.get('/webvehicleowner/image/:mobile/:type',async (req,res)=>{
+    try
+    {
+        let mobile = req.params.mobile
+        let type = req.params.type
+        let user  = await VehicleOwner.findOne({mobile})
+        if(user!=null)
+        {
+            res.set('Content-Type', 'image/png')
+            res.send(user[type])
+        }
+        else
+        {
+            return res.status(400)
+        }         
+    }
+    catch(e)
+    {
+        
+        return res.status(400)
+    }
+})
+
 
 module.exports = router

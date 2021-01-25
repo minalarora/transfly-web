@@ -382,16 +382,16 @@ router.get('/webfinanceinvoice', async (req, res) => {
         else {
             user_type = "finance"
         }
-        console.log(user_type, "sadfdfgdf")
+       
         if (finance || admin) {
             let status = req.query.status;
-            console.log("0")
+           
             if (status) {
-                console.log("1")
+               
                 let page = null
                 if (req.query.page) {
                     page = parseInt(req.query.page)
-                    console.log("2")
+                  
                 }
                 else {
                     page = 1
@@ -546,7 +546,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                 const updates = Object.keys(req.body)
 
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
-                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
+                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status' ,'modeofpayment','transportername', 
                 ]
                 const isValidOperation = updates.every((update) => {
                     return allowedUpdates.includes(update)

@@ -54,7 +54,7 @@ router.post("/reward",auth,upload.single('image'),async (req,res)=>{
 router.get("/allreward",auth,async (req,res)=>{
     try
     {
-        const rewards = await Reward.find({},null,{skip: 0 , limit : 2, sort: {
+        const rewards = await Reward.find({},null,{skip: 0 , limit : 1, sort: {
             createdAt: -1
         }}).exec()  
         res.status(200).send(rewards)      

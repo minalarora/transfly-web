@@ -6,6 +6,7 @@ const VehicleOwner = require('../models/vehicleowner')
 const Vehicle = require('../models/vehicle')
 const auth = require('../auth/auth')
 const firebase = require('../values')
+let moment = require('moment-timezone')
 
 router.post("/booking", auth, async (req, res) => {
     try {
@@ -55,7 +56,10 @@ router.get("/allbooking/vehicleowner", auth, async (req, res) => {
             }
         }).execPopulate()
 
+      
         res.status(200).send(req.user.bookings)
+       
+
         /**
          * await Ticket.find({userid: req.user.mobile}).sort({date: -1}).execFind(function(err,tickets){ 
             if(tickets)

@@ -1,5 +1,7 @@
 const validator = require("validator")
 const mongoose = require('mongoose')
+let moment = require('moment-timezone')
+
 
 const invoiceSchema = mongoose.Schema({
     id:
@@ -120,6 +122,16 @@ const invoiceSchema = mongoose.Schema({
         type: String,
         required: true,
         ref: 'Transporter'
+    },
+    transportername:
+    {
+        type: String,
+        
+    },
+    modeofpayment:
+    {
+        type: String,
+        default:"NA"
     }
 
 }
@@ -132,7 +144,8 @@ invoiceSchema.pre('save', async function (next) {
     const invoice = this
     invoice.amount = invoice.tonnage * invoice.rate
     invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - (invoice.shortage * invoice.rate)
-    invoice.date = invoice.createdAt.toString().split("GM")[0]
+    invoice.date = moment(new Date(invoice.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
+   
     next()
 })
 

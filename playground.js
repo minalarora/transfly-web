@@ -1,45 +1,18 @@
+let moment = require('moment-timezone')
 
-let dateString ="2021-01-21"
-let date  = new Date(dateString)
-console.log(date)
+function convertTZ(date, tzString) {
+    return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));   
+}
 
-// const mailjet = require ('node-mailjet')
-// .connect('205d59fdbb1fd241c298d24599b38c5a', 'fa17c706e17147c470a610142acb0bbb')
+const date = new Date()
+let newdate = convertTZ(date, "asia/kolkata") 
+let momObj = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
+console.log(momObj.toString());
+console.log(new Date(momObj.toString()));
 
-// const sendEmail = function(subject,text)
-// {
-
-//     const request = mailjet
-// .post("send", {'version': 'v3.1'})
-// .request({
-//   "Messages":[
-//     {
-//       "From": {
-//         "Email": "minaalarora567@gmail.com",
-//         "Name": "Transfly Infotech"
-//       },
-//       "To": [
-//         {
-//           "Email": "transflylogistics123@gmail.com",
-//           "Name": "Transfly Infotech"
-//         }
-//       ],
-//       "Subject": subject,
-//       "TextPart": text,
-//        "CustomID": "AppGettingStartedTest"
-//     }
-//   ]
-// })
-// request
-//   .then((result) => {
-   
-//   })
-//   .catch((err) => {
-   
-//   })
-// }
-
-
-// module.exports = {sendEmail}
-
-
+// let arr = [1,2,3]
+// let arr2 = arr.map((a=>{
+//     return a*a
+// }))
+// console.log(arr)
+// console.log(arr2)

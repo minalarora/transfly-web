@@ -2,6 +2,7 @@ const mongoose =  require('mongoose')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 7)
 const Invoice = require('../models/invoice')
+let moment = require('moment-timezone')
 
 
 const bookingSchema  = mongoose.Schema({
@@ -57,12 +58,21 @@ const bookingSchema  = mongoose.Schema({
         type: String,
         enum : ['PENDING','COMPLETED'],
         default: 'PENDING'
+    },
+    date:
+    {
+        type: String,
+        
     }
 },{
     timestamps: true
 })
 
-
+bookingSchema.pre('save', async function (next) {
+    const invoice = this
+    invoice.date = moment(new Date(invoice.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
+    next()
+})
 
 const Booking  = mongoose.model('Booking',bookingSchema)
 

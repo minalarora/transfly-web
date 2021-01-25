@@ -5,14 +5,20 @@ const auth = require('../auth/auth')
 const Booking = require('../models/booking')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require('../models/vehicleowner')
+const Transporter = require('../models/transporter')
 const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const Mine = require('../models/mine')
 const firebase = require('../values')
+
+
 
 router.post("/invoice", auth, async (req, res) => {
     try {
         if (req.user.status == 2) {
             const invoice = new Invoice(req.body)
+            let t = await Transporter.findOne({id: req.body.transporter})
+            invoice.transportername = t.name
+            // invoice.transportername = 
             const booking = await Booking.findOneAndUpdate({ id: req.body.id }, { status: "COMPLETED" })
             await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true })
             await invoice.save()
