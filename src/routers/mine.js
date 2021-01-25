@@ -38,7 +38,7 @@ router.post("/mine",async (req,res)=>{
 router.get("/allmine/vehicleowner",auth,async (req,res)=>{
     try
     {
-        const mines= await Mine.find({active: true})  
+        const mines= await Mine.find({})  
         res.status(200).send(mines)      
     }
     catch(e)

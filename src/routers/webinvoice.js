@@ -563,7 +563,12 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
 
 
                     })
-                    invoice["status"] = "COMPLETED"
+
+                    if(invoice["challantotransporter"]!="NA")
+                    {
+                        invoice["status"] = "COMPLETED"
+                    }
+                  
                     await invoice.save()
 
                     let user = await VehicleOwner.findOne({id:invoice.owner})
