@@ -92,5 +92,27 @@ router.post("/vehicle_request_action/:id", async(req, res) => {
     }
 })
 
+router.get('/webvehicle/image/:id',async (req,res)=>{
+    try
+    {
+        let id = req.params.id
+        let user  = await Vehicle.findOne({id})
+        if(user!=null)
+        {
+            res.set('Content-Type', 'image/png')
+            res.send(user.rcimage)
+        }
+        else
+        {
+            return res.status(400)
+        }         
+    }
+    catch(e)
+    {
+        
+        return res.status(400)
+    }
+})
+
 
 module.exports = router
