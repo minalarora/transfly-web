@@ -18,6 +18,7 @@ const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 
+
 router.use(cookieParser())
 
 router.get('/webspecificinvoice/:id', async (req, res) => {
@@ -481,7 +482,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
             } else {
 
-                console.log("5")
+               
                 return res.redirect("/webfinance")
             }
         } else {
@@ -560,7 +561,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
             if (invoice != null) {
                 const updates = Object.keys(req.body)
 
-                console.log("ye request.body h", req.body);
+                
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
                     'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status', 'modeofpayment', 'transportername',
                 ]
@@ -581,21 +582,27 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                     })
 
                     if (invoice["challantotransporter"] != "") {
+                        if(invoice.status == "PENDING")
+                        {
+                            let vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
+                            vehicleowner.firebase.forEach((token) => {
+                                try {
+                                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer, your Invoice for vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + " - " + invoice.loading + " is ready for your view under 'Payment/Challan status' option on our app. Regards Transfly")
+                
+                                }
+                                catch (e) {
+                
+                                }
+                            })
+                        }
                         invoice["status"] = "COMPLETED"
+
                     }
+                    
 
                     await invoice.save()
 
-                    let user = await VehicleOwner.findOne({ id: invoice.owner })
-                    user.firebase.forEach((token) => {
-                        try {
-                            firebase.sendFirebaseMessage(token, "TRANSFLY", "Your Challan for booking from  " + invoice.minename + " to " + invoice.loading + " has been completed.")
-
-                        }
-                        catch (e) {
-
-                        }
-                    })
+                  
 
                     return res.redirect('/webfinanceinvoice?status=PENDING&page=1')
 
@@ -641,6 +648,7 @@ router.get('/webcompletedinvoice/:id', async (req, res) => {
                 const mine = await Mine.findOne({ id: invoice.mineid })
                 const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
 
+                
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area
@@ -728,7 +736,8 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
                 const updates = Object.keys(req.body)
 
                 const allowedUpdates = ['id', 'vehicleno', 'tonnage', 'rate', 'amount', 'hsd', 'cash', 'tds',
-                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status'
+                    'officecharge', 'shortage', 'balanceamount', 'challantotransporter', 'balanceamountcleared', 'status',
+                    'modeofpayment', 'transportername'
                 ]
                 const isValidOperation = updates.every((update) => {
                     return allowedUpdates.includes(update)
@@ -737,6 +746,22 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                 } else {
 
+                    if (invoice["balanceamountcleared"] == "") {
+                      
+                            let vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
+                            vehicleowner.firebase.forEach((token) => {
+                                try {
+                                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer, your Invoice Balance Amount for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + " - " + invoice.loading + " has been cleared and can be viewed under 'Payment/Challan status' option on our app. Regards Transfly")
+                
+                                }
+                                catch (e) {
+                
+                                }
+                            })
+                        
+                        
+
+                    }
 
                     updates.forEach((update) => {
 

@@ -25,7 +25,7 @@ router.post("/invoice", auth, async (req, res) => {
             let vehicleowner = await VehicleOwner.findOne({ id: booking.owner })
             vehicleowner.firebase.forEach((token) => {
                 try {
-                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Your Challan for booking from  " + booking.minename + " to " + booking.loading + " has been created.")
+                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer,  Your Vehicle No. " + booking.vehicle +" has been Loaded and is ready for its journey From " + booking.minename + " - to - " + booking.loading + " with HSD amount Rs. " + req.body.hsd + " and Cash amount Rs " + req.body.cash +". Thank you, TransFly")
 
                 }
                 catch (e) {
