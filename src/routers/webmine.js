@@ -75,14 +75,14 @@ router.get('/web_specific_mine_loadings/:id', async (req, res) => {
 })
 
 
-router.get('/webspecificmine/:id/:loading', async (req, res) => {
+router.get('/webspecificmine', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         if (admin) {
-            const id = req.params.id
-            const loadingname = req.params.loading
+            const id = req.query.mineid
+            const loadingname = req.query.loadingname
             const mine = await Mine.findOne({ id })
             if (mine != null) {
                 await mine.populate('invoices').execPopulate()
@@ -107,12 +107,11 @@ router.get('/webspecificmine/:id/:loading', async (req, res) => {
         }
 
     } catch (e) {
-
         return res.redirect("/")
     }
 })
 
-router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
+router.post('/webspecificmine/:id/:loading', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -148,7 +147,7 @@ router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
 
                     })
                     await mine.save()
-                    return res.redirect('/webspecificmine/' + id + "/" + loadingname)
+                    return res.redirect('/webspecificmine?mineid=' + id + "&loadingname=" + loadingname)
                 } else {
 
                     return res.redirect('/webmine')

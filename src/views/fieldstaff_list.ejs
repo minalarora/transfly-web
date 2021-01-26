@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
-    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
+    <link type="text/css" rel="stylesheet" href="../css/tablelist.css">
 
     <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,12 +32,10 @@
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+                <nav class="navbar navbar-expand-lg navbar-light justify-content-between bg-light border-bottom">
 
                     <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
-                    <div class="">
-                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
-                    </div>
+                    <a href="/webadminlogout" class="btn btn-danger">Logout</a>
                 </nav>
 
                 <!-- page content start here -->
@@ -59,9 +57,9 @@
                     </div>
 
                     <!-- complete table list row  -->
-                    <div id="EmployeesTable_row" class="table-responsive ml-2 d-flex justify-content-center row">
+                    <div style="overflow-x:auto;">
                         <table class="table" id="EmployeesTable">
-                            <tr class="header">
+                            <tr class="header border bg-light">
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Mine</th>
@@ -69,7 +67,7 @@
                             </tr>
                             <% if(data.fieldstaff.length != 0) { %>
                                 <% for (var i =0; i < data.fieldstaff.length;  i++ ) { %>
-                                    <tr>
+                                    <tr class="border ">
                                         <td> <a href="/webspecificfieldstaff/<%= data.fieldstaff[i].mobile %>">
                                                 <%= data.fieldstaff[i].name %></a>
                                         </td>

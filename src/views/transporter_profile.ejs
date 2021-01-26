@@ -39,12 +39,11 @@
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-                <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-between bg-light border-bottom">
+                <nav class="navbar navbar-expand-lg navbar-light justify-content-between bg-light border-bottom">
 
                     <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
-                    <div class="">
-                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
-                    </div>
+                    <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+
                 </nav>
 
                 <!-- page content start here -->
@@ -94,13 +93,13 @@
                                     <tr>
                                         <th>Pan:</th>
                                         <td>
-                                            <%= data.transporter.pan %>
+                                            <a href="https://transfly-ftr2t.ondigitalocean.app/webtransporter/image/<%= data.transporter.mobile %>/panimage"><%= data.transporter.pan %></a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>Aadhar:</th>
                                         <td>
-                                            <%= data.transporter.aadhaar %>
+                                            <a href="https://transfly-ftr2t.ondigitalocean.app/webtransporter/image/<%= data.transporter.mobile %>/aadhaarimage"><%= data.transporter.aadhaar %></a>
                                         </td>
                                     </tr>
                                 </table>
@@ -116,20 +115,20 @@
                                     <tr>
                                         <th>GST:</th>
                                         <td>
-                                            <%= data.transporter.gst %>
+                                            <a href="https://transfly-ftr2t.ondigitalocean.app/webtransporter/image/<%= data.transporter.mobile %>/gstimage"><%= data.transporter.gst %></a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>STA no:</th>
                                         <td>
-                                            <%= data.transporter.sta %>
+                                            <a href="https://transfly-ftr2t.ondigitalocean.app/webtransporter/image/<%= data.transporter.mobile %>/staimage"><%= data.transporter.sta %></a>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <th>Mining liscence no:</th>
                                         <td>
-                                            <%= data.transporter.mininglicense %>
+                                            <a href="https://transfly-ftr2t.ondigitalocean.app/webtransporter/image/<%= data.transporter.mobile %>/mininglicenseimage"><%= data.transporter.mininglicense %></a>
                                         </td>
                                     </tr>
 

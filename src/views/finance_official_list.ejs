@@ -16,7 +16,8 @@
 
     <!-- Custom styles for this template -->
     <link type="text/css" rel="stylesheet" href="../css/simple-sidebar.css">
-    <link rel="stylesheet" type="text/css" href="../css/employee_search_input_table.css" />
+    <link type="text/css" rel="stylesheet" href="../css/tablelist.css">
+
 
     <link type="text/css" rel="stylesheet" href="../css/profile_page_general.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,12 +40,12 @@
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <nav class="navbar navbar-expand-lg justify-content-between navbar-light bg-light border-bottom">
 
                     <a href="javascript:void(0)" class="btn text-primary" id="menu-toggle"><i class="fa fa-bars"></i></a>
-                    <div class="d-flex w-100 justify-content-end">
-                        <a href="/webadminlogout" class="btn btn-danger">Logout</a>
-                    </div>
+
+                    <a href="/webadminlogout" class="btn btn-danger">Logout</a>
+
                 </nav>
 
                 <!-- page content start here -->
@@ -59,48 +60,50 @@
                     </div>
 
                     <!-- complete table list row  -->
-                    <div class="table-responsive ml-2 d-flex justify-content-center row">
+                    <div style="overflow-x:auto;">
                         <table class="table" id="EmployeesTable">
-                            <tr class="header">
+                            <tr class="header border bg-light">
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>email</th>
                                 <th></th>
                             </tr>
-                            <% if(data.finance.length != 0) { %>
-                                <% for (var i =0; i < data.finance.length;  i++ ) { %>
-                                    <tr>
-                                        <td> <a href="/webspecificfinance/<%= data.finance[i].mobile %>">
-                                                <%= data.finance[i].name %></a>
-                                        </td>
-                                        <td>
-                                            <%= data.finance[i].mobile %>
-                                        </td>
-                                        <td>
-                                            <%= data.finance[i].email %>
-                                        </td>
-                                        <% if(data.finance[i].active == true) { %>
-                                            <td>
-                                                <a href="/webfinance/activate/<%= data.finance[i].mobile %>/false" class="btn btn-danger">Deactivate</a>
+                            <tbody>
+                                <% if(data.finance.length != 0) { %>
+                                    <% for (var i =0; i < data.finance.length;  i++ ) { %>
+                                        <tr class="border">
+                                            <td> <a href="/webspecificfinance/<%= data.finance[i].mobile %>">
+                                                    <%= data.finance[i].name %></a>
                                             </td>
+                                            <td>
+                                                <%= data.finance[i].mobile %>
+                                            </td>
+                                            <td>
+                                                <%= data.finance[i].email %>
+                                            </td>
+                                            <% if(data.finance[i].active == true) { %>
+                                                <td>
+                                                    <a href="/webfinance/activate/<%= data.finance[i].mobile %>/false" class="btn btn-danger">Deactivate</a>
+                                                </td>
+                                                <% } else { %>
+                                                    <td>
+                                                        <a href="/webfinance/activate/<%= data.finance[i].mobile %>/true" class="btn btn-success">Activate</a>
+                                                    </td>
+                                                    <% } %>
+
+                                        </tr>
+                                        <% } %>
                                             <% } else { %>
-                                                <td>
-                                                    <a href="/webfinance/activate/<%= data.finance[i].mobile %>/true" class="btn btn-success">Activate</a>
-                                                </td>
-                                                <% } %>
+                                                <tr>
+                                                    <td>
+                                                        <h4 class=" w-100 text-danger">No Finance offical found</h4>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
 
-                                    </tr>
-                                    <% } %>
-                                        <% } else { %>
-                                            <tr>
-                                                <td>
-                                                    <h4 class=" w-100 text-danger">No Finance offical found</h4>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                                <% }  %>
 
-                                            <% }  %>
                         </table>
                     </div>
 

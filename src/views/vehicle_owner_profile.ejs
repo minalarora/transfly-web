@@ -101,7 +101,7 @@
                                         <th>TDS Declaration:</th>
                                         <td>
                                             <a href="https://transfly-ftr2t.ondigitalocean.app/webvehicleowner/image/<%= data.vehicleowner.mobile %>/tdsimage"><%= data.vehicleowner.tds %>
-                                                </a>
+                                            </a>
                                         </td>
                                     </tr>
                                 </table>
@@ -159,7 +159,8 @@
                                                 <%= data.vehicleowner.vehicles[i].number %>
                                             </td>
                                             <td>
-                                                <a href="" download="image" target="_blank"><%= data.vehicleowner.vehicles[i].rc %></a>
+                                                <a href="https://transfly-ftr2t.ondigitalocean.app/webvehicle/image/<%= data.vehicleowner.vehicles[i].id %>" download="image"
+                                                    target="_blank"><%= data.vehicleowner.vehicles[i].rc %></a>
                                             </td>
                                         </tr>
                                         <% } %>
@@ -220,7 +221,7 @@
                                         <th>Booking Date</th>
                                         <th>Tonnage</th>
                                         <th>Rate</th>
-                                        <th>Amount</th>
+                                        <th>Initial Amount</th>
                                     </tr>
                                     <% if(data.vehicleowner.invoices.length > 0) { %>
                                         <% for (var i =0; i < data.vehicleowner.invoices.length;  i++ ) { %>
