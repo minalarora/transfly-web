@@ -255,7 +255,11 @@ const sendMessageOne =  function(number,message)
   obj.recipients = [
    {
      mobile:number,
-     message
+     vehicle,
+     from,
+     to,
+     amount,
+     cash
    }
   ]
 
@@ -298,5 +302,8 @@ module.exports = {
   getVehiclesByMobile,
   getMinesByArea,
   sendFirebaseMessage,
-  sendOtpMessage
+  sendMessageOne,
+  sendMessageTwo,
+  sendMessageThree
+
 }

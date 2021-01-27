@@ -78,7 +78,7 @@ const notificationSchema  = mongoose.Schema({
             }
         })
      }
-     return
+     return true;
     
  }
 
@@ -91,5 +91,5 @@ notificationSchema.pre('save', async function (next) {
 })
 
 
-const notification  = mongoose.model("Notification",notificationSchema)
+const Notification  = mongoose.model("Notification",notificationSchema)
 module.exports = notification
