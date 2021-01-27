@@ -30,7 +30,7 @@ router.post("/booking", auth, async (req, res) => {
             // })
 
             let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
-            Notification.createNotification(req.user.id,text,0)
+            await Notification.createNotification(req.user.id,text,0)
 
 
             return res.status(200).send("done")

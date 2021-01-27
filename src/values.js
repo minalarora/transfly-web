@@ -233,7 +233,7 @@ catch(e)
 }
 
 
-const sendOtpMessage =  function(number,message)
+const sendMessageOne =  function(number,message)
 {
 /**
  * {
@@ -286,6 +286,8 @@ catch(e)
 
   
 }
+
+
 
 
 module.exports = {
