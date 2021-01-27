@@ -125,7 +125,7 @@ router.patch("/vehicle/:id",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['id','number','rc','vehiclename','driverid']
+        const allowedUpdates = ['id','number','rc','vehiclename','driverid','contact']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })

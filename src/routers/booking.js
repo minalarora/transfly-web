@@ -12,9 +12,12 @@ let moment = require('moment-timezone')
 router.post("/booking", auth, async (req, res) => {
     try {
         if (req.user.status == 2) {
+            // const vehicle = await Vehicle.findOne({number: req.body.vehicle})
+            // vehicle.contact = req.body.contact
+            // await vehicle.save()
             const booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
             await booking.save()
-            await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false })
+            await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
             
             // req.user.firebase.forEach((token) => {
             //     try {
