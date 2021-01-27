@@ -11,13 +11,14 @@ const Ticket = require('../models/ticket')
 const Transporter = require('../models/transporter')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
-const firebase = require('../values')
+
 
 const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 const Notification = require('../models/notification')
+const Message  = require('../values')
 
 
 router.use(cookieParser())
@@ -640,6 +641,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                             // })
                             let text = "Invoice ready for "+ invoice.vehicle +", Loaded on "+ invoice.date +", "+ invoice.minename +" - "+ invoice.loading +"."
                             Notification.createNotification(invoice.owner,text,2)
+                            Message.sendMessageTwo(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.from,invoice.to)
                         }
                         invoice["status"] = "COMPLETED"
 
@@ -807,6 +809,7 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                             let text = "Balance Amount cleared for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + "-" + invoice.loading+"."
                             Notification.createNotification(invoice.owner,text,3)
+                            Message.sendMessageThree(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.from,invoice.to)
                         
                         
 
