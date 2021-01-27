@@ -35,7 +35,7 @@ router.post("/invoice", auth, async (req, res) => {
             //     }
             // })
             let text = booking.vehicle + " Loaded " + booking.minename + "-" +  booking.loading +" HSD Rs. "+req.body.hsd+" Cash Rs "+req.body.cash+"."
-             await Notification.createNotification(booking.owner,text,1)
+              Notification.createNotification(booking.owner,text,1)
              Message.sendMessageOne(booking.vehicleownermobile,booking.vehicle,booking.minename,booking.loading,req.body.hsd,req.body.cash)
 
 

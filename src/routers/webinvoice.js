@@ -641,7 +641,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                             // })
                             let text = "Invoice ready for "+ invoice.vehicle +", Loaded on "+ invoice.date +", "+ invoice.minename +" - "+ invoice.loading +"."
                             Notification.createNotification(invoice.owner,text,2)
-                            Message.sendMessageTwo(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.from,invoice.to)
+                            Message.sendMessageTwo(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.minename,invoice.loading)
                         }
                         invoice["status"] = "COMPLETED"
 
@@ -809,7 +809,7 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                             let text = "Balance Amount cleared for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + "-" + invoice.loading+"."
                             Notification.createNotification(invoice.owner,text,3)
-                            Message.sendMessageThree(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.from,invoice.to)
+                            Message.sendMessageThree(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.minename,invoice.loading)
                         
                         
 
