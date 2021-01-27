@@ -254,7 +254,7 @@ const sendMessageOne =  function(number,vehicle,from,to,amount,cash)
   obj.flow_id = "5ff6baa6ede4c64496062ebe"
   obj.recipients = [
    {
-     mobile:"91" + number,
+     mobiles:"91" + number,
      vehicle,
      from,
      to,
@@ -313,7 +313,7 @@ const sendMessageTwo =  function(number,vehicle,date,from,to)
   obj.flow_id = "6010eac0c028a46d117fa0e8"
   obj.recipients = [
    {
-     mobile:"91" + number,
+     mobiles:"91" + number,
      vehicle,
      date,
      from,
@@ -372,7 +372,7 @@ const sendMessageThree =  function(number,vehicle,date,from,to)
   obj.flow_id = "6010eb330c7eb81f9842f8da"
   obj.recipients = [
    {
-     mobile:"91" + number,
+     mobiles:"91" + number,
      vehicle,
      date,
      from,

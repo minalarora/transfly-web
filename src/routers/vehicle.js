@@ -121,7 +121,7 @@ router.get("/vehicle/:id",auth,async (req,res)=>{
     })*/
 })
 
-router.patch("/vehicle/:id",auth,async (req,res)=>{
+router.patch("/vehicle",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
@@ -133,7 +133,7 @@ router.patch("/vehicle/:id",auth,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const id = req.params.id
+        const id = req.body.id
         /*const vehicle = await Vehicle.findOneAndUpdate({id},req.body,{
             new : true,
             runValidators: true
