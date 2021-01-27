@@ -147,11 +147,13 @@
                                     <div class=" p-2 bg-white">
                                         <form method="POST" action="/webspecificmine/<%= data.mine.id %>/<%= data.loading.loadingname  %>">
                                             <div class="form-group">
-                                                <input type="number" name="etl" class="form-control" id="etl" value="<%= data.loading.etl %>" placeholder="Enter New etl"
+                                                <label for="rate">Rate</label>
+                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.loading.rate %>" placeholder="Enter new rate"
                                                     required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" name="rate" class="form-control" id="rate" value="<%= data.loading.rate %>" placeholder="Enter new rate"
+                                                <label for="etl">ETL</label>
+                                                <input type="number" name="etl" class="form-control" id="etl" value="<%= data.loading.etl %>" placeholder="Enter New etl"
                                                     required>
                                             </div>
                                             <div class="radio">
