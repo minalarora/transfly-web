@@ -47,7 +47,9 @@ const notificationSchema  = mongoose.Schema({
  */
 
  notificationSchema.statics.createNotification = async (user,text,type)=>{
-     if(type)
+     try
+     {
+        if(type)
      {
         const notification = new Notification({user,text,type})
         await notification.save()
@@ -80,16 +82,22 @@ const notificationSchema  = mongoose.Schema({
      }
      return true;
     
+     }
+     catch(e)
+     {
+        throw new Error(e.message)
+     }
+     
  }
 
 
 notificationSchema.pre('save', async function (next) {
     const notification = this
-    notification.date = moment(new Date(notification.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString() + "+00:00"
-
+    //notification.date = moment(new Date(notification.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString() + "+00:00"
+    notification.date = Date.now()
     next()
 })
 
 
 const Notification  = mongoose.model("Notification",notificationSchema)
-module.exports = notification
+module.exports = Notification
