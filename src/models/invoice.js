@@ -133,6 +133,12 @@ const invoiceSchema = mongoose.Schema({
     {
         type: String,
         default: "NA"
+    },
+    transporteramount:
+    {
+        type: Float,
+        default: 0 
+
     }
 
 }
@@ -144,7 +150,8 @@ const invoiceSchema = mongoose.Schema({
 invoiceSchema.pre('save', async function (next) {
     const invoice = this
     invoice.amount = invoice.tonnage * invoice.rate
-    invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - (invoice.shortage * invoice.rate)
+    invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage 
+    invoice.transporteramount = (invoice.tonnage * invoice.rate) - invoice.hsd - invoice.cash - invoice.shortage
     invoice.date = moment(new Date(invoice.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
 
     next()

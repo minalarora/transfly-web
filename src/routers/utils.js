@@ -303,6 +303,31 @@ router.post("/changepassword", async (req, res) => {
 })
 
 
+router.post('/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token != req.token
+        })
+        let token = req.body.firebase
+        /**
+         *  req.user.tokens=req.user.tokens.filter((token)=>{
+            return token.token!=req.token
+        })
+        await req.user.save()
+         */
+        req.user.firebase = req.user.firebase.filter((t) => {
+            return t != token
+        })
+        await req.user.save()
+        res.status(200).send()
+
+    }
+    catch (e) {
+        return res.status(400)
+    }
+})
+
+
 
 
 
