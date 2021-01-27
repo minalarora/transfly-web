@@ -17,6 +17,7 @@ const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+const Notification = require('../models/notification')
 
 
 router.use(cookieParser())
@@ -94,12 +95,20 @@ router.get('/webinvoiceall', async (req, res) => {
                 console.log("from", req.query.from)
                 console.log("to", req.query.to)
                 invoice = await Invoice.find({}).exec()
+                // const from = new Date(req.query.from)
+                // const to = new Date(req.query.to)
+                // let filterInvoices = invoice.filter((invoice) => {
+                //     let invoiceDate = new Date(invoice.createdAt)
+                //     return (invoiceDate >= from && invoiceDate <= to)
+                // })
+                // data.invoice = filterInvoices
                 const from = new Date(req.query.from)
-                const to = new Date(req.query.to)
+                const to = new Date(req.query.to + " 23:59:00+00:00")
                 let filterInvoices = invoice.filter((invoice) => {
-                    let invoiceDate = new Date(invoice.createdAt)
+                    let invoiceDate = new Date(invoice.date + "+00:00")
                     return (invoiceDate >= from && invoiceDate <= to)
                 })
+             
                 data.invoice = filterInvoices
 
             }
@@ -174,13 +183,21 @@ router.get('/mobinvoicevehicleowner', async (req, res) => {
         if (req.query.from && req.query.to) {
 
 
-            const from = new Date(parseInt(req.query.from))
-            const to = new Date(parseInt(req.query.to))
+            // const from = new Date(parseInt(req.query.from))
+            // const to = new Date(parseInt(req.query.to))
 
+            // let filterInvoices = invoice.filter((invoice) => {
+            //     let invoiceDate = new Date(invoice.createdAt)
+            //     return (invoiceDate >= from && invoiceDate <= to)
+            // })
+            // data.invoice = filterInvoices
+            const from = new Date(req.query.from)
+            const to = new Date(req.query.to + " 23:59:00+00:00")
             let filterInvoices = invoice.filter((invoice) => {
-                let invoiceDate = new Date(invoice.createdAt)
+                let invoiceDate = new Date(invoice.date + "+00:00")
                 return (invoiceDate >= from && invoiceDate <= to)
             })
+          
             data.invoice = filterInvoices
 
         }
@@ -225,14 +242,24 @@ router.get('/mobinvoiceareamanager', async (req, res) => {
 
             if (req.query.from && req.query.to) {
                 await Invoice.find({ mineid: { $in: minearray } }).sort({ createdAt: -1 }).exec(function (err, invoices) {
-                    const from = new Date(parseInt(req.query.from))
-                    const to = new Date(parseInt(req.query.to))
-                    let filterInvoices = invoices.filter((invoice) => {
-                        let invoiceDate = new Date(invoice.createdAt)
+                    // const from = new Date(parseInt(req.query.from))
+                    // const to = new Date(parseInt(req.query.to))
+                    // let filterInvoices = invoices.filter((invoice) => {
+                    //     let invoiceDate = new Date(invoice.createdAt)
+                    //     return (invoiceDate >= from && invoiceDate <= to)
+                    // })
+                    // let data = {
+                    //     invoice: []
+                    // }
+                    // data.invoice = filterInvoices
+                    const from = new Date(req.query.from)
+                    const to = new Date(req.query.to + " 23:59:00+00:00")
+                    let filterInvoices = invoice.filter((invoice) => {
+                        let invoiceDate = new Date(invoice.date + "+00:00")
                         return (invoiceDate >= from && invoiceDate <= to)
                     })
                     let data = {
-                        invoice: []
+                        invoice : []
                     }
                     data.invoice = filterInvoices
                     return res.render('webview_others_invoice', { data })
@@ -288,14 +315,24 @@ router.get('/mobinvoicefieldstaff', async (req, res) => {
 
             if (req.query.from && req.query.to) {
                 await Invoice.find({ mineid: { $in: minearray } }).sort({ createdAt: -1 }).exec(function (err, invoices) {
-                    const from = new Date(parseInt(req.query.from))
-                    const to = new Date(parseInt(req.query.to))
-                    let filterInvoices = invoices.filter((invoice) => {
-                        let invoiceDate = new Date(invoice.createdAt)
+                    // const from = new Date(parseInt(req.query.from))
+                    // const to = new Date(parseInt(req.query.to))
+                    // let filterInvoices = invoices.filter((invoice) => {
+                    //     let invoiceDate = new Date(invoice.createdAt)
+                    //     return (invoiceDate >= from && invoiceDate <= to)
+                    // })
+                    // let data = {
+                    //     invoice: []
+                    // }
+                    // data.invoice = filterInvoices
+                    const from = new Date(req.query.from)
+                    const to = new Date(req.query.to + " 23:59:00+00:00")
+                    let filterInvoices = invoice.filter((invoice) => {
+                        let invoiceDate = new Date(invoice.date + "+00:00")
                         return (invoiceDate >= from && invoiceDate <= to)
                     })
                     let data = {
-                        invoice: []
+                        invoice : []
                     }
                     data.invoice = filterInvoices
                     return res.render('webview_others_invoice', { data })
@@ -345,13 +382,20 @@ router.get('/mobinvoicetransporter', async (req, res) => {
             if (req.query.from && req.query.to) {
 
 
-                const from = new Date(parseInt(req.query.from))
-                const to = new Date(parseInt(req.query.to))
-                let filterInvoices = invoice.filter((invoice) => {
-                    let invoiceDate = new Date(invoice.createdAt)
-                    return (invoiceDate >= from && invoiceDate <= to)
-                })
-                data.invoice = filterInvoices
+                // const from = new Date(parseInt(req.query.from))
+                // const to = new Date(parseInt(req.query.to))
+                // let filterInvoices = invoice.filter((invoice) => {
+                //     let invoiceDate = new Date(invoice.createdAt)
+                //     return (invoiceDate >= from && invoiceDate <= to)
+                // })
+                // data.invoice = filterInvoices
+                const from = new Date(req.query.from)
+                    const to = new Date(req.query.to + " 23:59:00+00:00")
+                    let filterInvoices = invoice.filter((invoice) => {
+                        let invoiceDate = new Date(invoice.date + "+00:00")
+                        return (invoiceDate >= from && invoiceDate <= to)
+                    })
+                    data.invoice = filterInvoices
 
             }
             else {
@@ -427,9 +471,9 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
                     invoice = await Invoice.find({ status: req.query.status }).exec()
                     const from = new Date(req.query.from)
-                    const to = new Date(req.query.to)
+                    const to = new Date(req.query.to + " 23:59:00+00:00")
                     let filterInvoices = invoice.filter((invoice) => {
-                        let invoiceDate = new Date(invoice.createdAt)
+                        let invoiceDate = new Date(invoice.date + "+00:00")
                         return (invoiceDate >= from && invoiceDate <= to)
                     })
                     invoice = filterInvoices
@@ -584,16 +628,18 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                     if (invoice["challantotransporter"] != "") {
                         if(invoice.status == "PENDING")
                         {
-                            let vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
-                            vehicleowner.firebase.forEach((token) => {
-                                try {
-                                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer, your Invoice for vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + " - " + invoice.loading + " is ready for your view under 'Payment/Challan status' option on our app. Regards Transfly")
+                            // let vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
+                            // vehicleowner.firebase.forEach((token) => {
+                            //     try {
+                            //         firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer, your Invoice for vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + " - " + invoice.loading + " is ready for your view under 'Payment/Challan status' option on our app. Regards Transfly")
                 
-                                }
-                                catch (e) {
+                            //     }
+                            //     catch (e) {
                 
-                                }
-                            })
+                            //     }
+                            // })
+                            let text = "Invoice ready for "+ invoice.vehicle +", Loaded on "+ invoice.date +", "+ invoice.minename +" - "+ invoice.loading +"."
+                            Notification.createNotification(invoice.owner,text,2)
                         }
                         invoice["status"] = "COMPLETED"
 
@@ -746,18 +792,21 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                 } else {
 
-                    if (invoice["balanceamountcleared"] == "") {
+                    if (invoice["balanceamountcleared"] == "" || invoice["balanceamountcleared"] == " " ) {
                       
-                            let vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
-                            vehicleowner.firebase.forEach((token) => {
-                                try {
-                                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer, your Invoice Balance Amount for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + " - " + invoice.loading + " has been cleared and can be viewed under 'Payment/Challan status' option on our app. Regards Transfly")
+                            // let vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
+                            // vehicleowner.firebase.forEach((token) => {
+                            //     try {
+                            //         firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer, your Invoice Balance Amount for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + " - " + invoice.loading + " has been cleared and can be viewed under 'Payment/Challan status' option on our app. Regards Transfly")
                 
-                                }
-                                catch (e) {
+                            //     }
+                            //     catch (e) {
                 
-                                }
-                            })
+                            //     }
+                            // })
+
+                            let text = "Balance Amount cleared for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + "-" + invoice.loading+"."
+                            Notification.createNotification(invoice.owner,text,3)
                         
                         
 
