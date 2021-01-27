@@ -12,13 +12,26 @@ var upload = multer({
     }
 })
 
-let f =async function()
-{
+// let f =async function()
+// {
   
-    await Mine.updateMany({area:"Rugudi"}, {arealatitude: "21.989295245156512",arealongitude:"85.30479537220252"}, function(err) {  })
+//    Mine.find({}).then((mines)=>{
+//     mines.forEach((mine)=>{
+//         mine.loading.forEach((l)=>{
 
-}
-f()
+//             l["active"] = true
+//         })
+
+//         mine.save()
+       
+//     })
+//    }).catch((e)=>{
+
+//    })
+   
+
+// }
+// f()
 router.post("/mine",async (req,res)=>{
     try
     {

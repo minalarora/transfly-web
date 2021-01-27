@@ -4,6 +4,7 @@ const Booking = require('../models/booking')
 const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const VehicleOwner = require('../models/vehicleowner')
 const Vehicle = require('../models/vehicle')
+const Notification = require('../models/notification')
 const auth = require('../auth/auth')
 const firebase = require('../values')
 let moment = require('moment-timezone')
@@ -11,18 +12,27 @@ let moment = require('moment-timezone')
 router.post("/booking", auth, async (req, res) => {
     try {
         if (req.user.status == 2) {
+            // const vehicle = await Vehicle.findOne({number: req.body.vehicle})
+            // vehicle.contact = req.body.contact
+            // await vehicle.save()
             const booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
             await booking.save()
-            await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false })
-            req.user.firebase.forEach((token) => {
-                try {
-                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created.")
+            await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
+            
+            // req.user.firebase.forEach((token) => {
+            //     try {
+            //         firebase.sendFirebaseMessage(token, "TRANSFLY", "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created.")
 
-                }
-                catch (e) {
+            //     }
+            //     catch (e) {
 
-                }
-            })
+            //     }
+            // })
+
+            let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
+             Notification.createNotification(req.user.id,text,0)
+
+
             return res.status(200).send("done")
         }
         else {

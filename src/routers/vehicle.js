@@ -18,6 +18,7 @@ var upload = multer({
 
 var allupload = upload.fields([{ name: 'rcimage', maxCount: 1 }])
 const firebase  = require('../values')
+const Notification = require('../models/notification')
 
 /**
  * 
@@ -34,17 +35,22 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
        let buffer = await sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer();
         const vehicle  = new Vehicle({...req.body,driverid: req.user.id,rcimage:buffer})
         await vehicle.save()
-        req.user.firebase.forEach((token)=>{
-            try
-            {
-                firebase.sendFirebaseMessage(token,"TRANSFLY","Your Vehicle has been added")
+        // req.user.firebase.forEach((token)=>{
+        //     try
+        //     {
+        //         firebase.sendFirebaseMessage(token,"TRANSFLY","Your Vehicle has been added")
        
-            }
-            catch(e)
-            {
+        //     }
+        //     catch(e)
+        //     {
 
-            }
-         })
+        //     }
+        //  })
+
+        
+        let text = "Your vehicle " + req.body.number +"has been added"
+        Notification.createNotification(req.user.id,text,0)
+
         return res.status(200).send("DONE")  
     }
     catch(e)
@@ -115,11 +121,11 @@ router.get("/vehicle/:id",auth,async (req,res)=>{
     })*/
 })
 
-router.patch("/vehicle/:id",auth,async (req,res)=>{
+router.patch("/vehicle",auth,async (req,res)=>{
     try
     {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['id','number','rc','vehiclename','driverid']
+        const allowedUpdates = ['id','number','rc','vehiclename','driverid','contact']
         const isValidOperation = updates.every((update)=>{
                 return allowedUpdates.includes(update)
         })
@@ -127,7 +133,7 @@ router.patch("/vehicle/:id",auth,async (req,res)=>{
         {
             return res.status(400).send("Invalid")
         }
-        const id = req.params.id
+        const id = req.body.id
         /*const vehicle = await Vehicle.findOneAndUpdate({id},req.body,{
             new : true,
             runValidators: true

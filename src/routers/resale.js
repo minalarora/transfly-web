@@ -81,11 +81,12 @@ router.get("/resaleimage/:id/:number",async (req,res)=>{
     })*/
 })
 
-router.post("/resale/contact/:vehicle",auth,async (req,res)=>{
+router.post("/resale/contact/:vehicle/:type",auth,async (req,res)=>{
     try
     {
         let vehicle = req.params.vehicle
-        email.sendEmail('VEHICLE',"" + req.user.name + "\n" + req.user.mobile + "\n" + "VEHICLE: " + vehicle)
+        let type= req.params.type
+        email.sendEmail('VEHICLE',"" + type +" \n" + req.user.name + "\n" + req.user.mobile + "\n" + "VEHICLE: " + vehicle)
         
         return res.status(200).send("DONE")
         

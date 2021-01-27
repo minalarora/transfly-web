@@ -9,6 +9,8 @@ const Transporter = require('../models/transporter')
 const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const Mine = require('../models/mine')
 const firebase = require('../values')
+const Notification = require('../models/notification')
+const Message  = require('../values')
 
 
 
@@ -22,16 +24,20 @@ router.post("/invoice", auth, async (req, res) => {
             const booking = await Booking.findOneAndUpdate({ id: req.body.id }, { status: "COMPLETED" })
             await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true })
             await invoice.save()
-            let vehicleowner = await VehicleOwner.findOne({ id: booking.owner })
-            vehicleowner.firebase.forEach((token) => {
-                try {
-                    firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer,  Your Vehicle No. " + booking.vehicle +" has been Loaded and is ready for its journey From " + booking.minename + " - to - " + booking.loading + " with HSD amount Rs. " + req.body.hsd + " and Cash amount Rs " + req.body.cash +". Thank you, TransFly")
+            // let vehicleowner = await VehicleOwner.findOne({ id: booking.owner })
+            // vehicleowner.firebase.forEach((token) => {
+            //     try {
+            //         firebase.sendFirebaseMessage(token, "TRANSFLY", "Dear Customer,  Your Vehicle No. " + booking.vehicle +" has been Loaded and is ready for its journey From " + booking.minename + " - to - " + booking.loading + " with HSD amount Rs. " + req.body.hsd + " and Cash amount Rs " + req.body.cash +". Thank you, TransFly")
 
-                }
-                catch (e) {
+            //     }
+            //     catch (e) {
 
-                }
-            })
+            //     }
+            // })
+            let text = booking.vehicle + " Loaded " + booking.minename + "-" +  booking.loading +" HSD Rs. "+req.body.hsd+" Cash Rs "+req.body.cash+"."
+              Notification.createNotification(booking.owner,text,1)
+             Message.sendMessageOne(booking.vehicleownermobile,booking.vehicle,booking.minename,booking.loading,req.body.hsd,req.body.cash)
+
 
             return res.status(200).send("DONE")
         }

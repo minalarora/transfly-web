@@ -225,6 +225,12 @@ vehicleownerSchema.virtual('vehicles', {
     foreignField: 'driverid'
 })
 
+vehicleownerSchema.virtual('notifications', {
+    ref: 'Notification',
+    localField: 'id',
+    foreignField: 'user'
+})
+
 
 vehicleownerSchema.pre('remove', async function (next) {
     const user = this

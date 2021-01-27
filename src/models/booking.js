@@ -34,6 +34,12 @@ const bookingSchema  = mongoose.Schema({
         type:String
     },
 
+    contact:
+    {
+        type: String,
+        
+    },
+
     mineid:
     {
         type: Number,

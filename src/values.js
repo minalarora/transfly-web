@@ -233,7 +233,7 @@ catch(e)
 }
 
 
-const sendOtpMessage =  function(number,message)
+const sendMessageOne =  function(number,vehicle,from,to,amount,cash)
 {
 /**
  * {
@@ -254,8 +254,12 @@ const sendOtpMessage =  function(number,message)
   obj.flow_id = "5ff6baa6ede4c64496062ebe"
   obj.recipients = [
    {
-     mobile:number,
-     message
+     mobiles:"91" + number,
+     vehicle,
+     from,
+     to,
+     amount,
+     cash
    }
   ]
 
@@ -288,6 +292,131 @@ catch(e)
 }
 
 
+const sendMessageTwo =  function(number,vehicle,date,from,to)
+{
+/**
+ * {
+ "flow_id":"5ff6baa6ede4c64496062ebe",
+  "recipients" : [
+    {
+      "mobiles":"918871748278",
+      "message":"VALUE 1"
+    },
+    {
+      "mobiles":"916265219319",
+      "message":"VALUE 1"
+		}
+]
+}*/
+
+  const obj = {}
+  obj.flow_id = "6010eac0c028a46d117fa0e8"
+  obj.recipients = [
+   {
+     mobiles:"91" + number,
+     vehicle,
+     date,
+     from,
+     to,
+    
+   }
+  ]
+
+  
+try
+{
+   fetch("https://api.msg91.com/api/v5/flow/",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "authkey":"350944Ar65hw8BuM5ff29c59P1"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+      console.log(res.status)
+  }).catch((e)=>{
+    console.log(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+  console.log(e)
+}
+  
+
+  
+}
+
+
+const sendMessageThree =  function(number,vehicle,date,from,to)
+{
+/**
+ * {
+ "flow_id":"5ff6baa6ede4c64496062ebe",
+  "recipients" : [
+    {
+      "mobiles":"918871748278",
+      "message":"VALUE 1"
+    },
+    {
+      "mobiles":"916265219319",
+      "message":"VALUE 1"
+		}
+]
+}*/
+
+  const obj = {}
+  obj.flow_id = "6010eb330c7eb81f9842f8da"
+  obj.recipients = [
+   {
+     mobiles:"91" + number,
+     vehicle,
+     date,
+     from,
+     to,
+    
+   }
+  ]
+
+  
+try
+{
+   fetch("https://api.msg91.com/api/v5/flow/",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "authkey":"350944Ar65hw8BuM5ff29c59P1"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+      console.log(res.status)
+  }).catch((e)=>{
+    console.log(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+  console.log(e)
+}
+  
+
+  
+}
+
+
+
+
+
+
+
+
+
 module.exports = {
   isRegisteredUser,
   createBooking,
@@ -296,5 +425,8 @@ module.exports = {
   getVehiclesByMobile,
   getMinesByArea,
   sendFirebaseMessage,
-  sendOtpMessage
+  sendMessageOne,
+  sendMessageTwo,
+  sendMessageThree
+
 }

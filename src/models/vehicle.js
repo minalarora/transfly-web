@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 7)
+let moment = require('moment-timezone')
 
 const vehicleSchema = mongoose.Schema({
     id:
@@ -67,7 +68,7 @@ const vehicleSchema = mongoose.Schema({
 
 vehicleSchema.pre('save', async function (next) {
     const invoice = this
-    invoice.date = invoice.createdAt.toString().split("GM")[0]
+    invoice.date = moment(new Date(invoice.createdAt)).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
     next()
 })
 

@@ -16,7 +16,7 @@
         .block {
             box-shadow: 2px 3px 13px -6px black;
         }
-
+        
         .resale_list {
             position: relative;
         }
@@ -39,8 +39,7 @@
                 <div class="container-fluid">
                     <div class="row my-3">
                         <div id="search-input-row" class="w-75 w-md-100">
-                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterVehicle()" placeholder="  Search for anything to filter data.."
-                                title="Type in a name">
+                            <input type="text" class="w-100 rounded" id="searchInput" onkeyup="filterVehicle()" placeholder="  Search for anything to filter data.." title="Type in a name">
                         </div>
                     </div>
                     <br>
@@ -154,7 +153,6 @@
 
 </body>
 <script>
-
     function filterVehicle() {
         var input, filter, table, tr, td, i, j, txtValue, no_of_col;
         input = document.getElementById("searchInput");

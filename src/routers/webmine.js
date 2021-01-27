@@ -111,7 +111,7 @@ router.get('/webspecificmine', async (req, res) => {
     }
 })
 
-router.post('/webspecificmine/:id/:loading', async (req, res) => {
+router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
     try {
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
@@ -133,17 +133,17 @@ router.post('/webspecificmine/:id/:loading', async (req, res) => {
                 const mine = await Mine.findOne({ id })
                 if (mine) {
                     updates.forEach((update) => {
-                        if (update == "active") {
+                        // if (update == "active") {
 
-                            mine[update] = (req.body[update] == "true")
-                        } else {
+                        //     mine[update] = (req.body[update] == "true")
+                        // } else {
                             // mine[update] = req.body[update]
                             mine.loading.forEach((loading) => {
                                 if (loading.loadingname == loadingname) {
                                     loading[update] = req.body[update]
                                 }
                             })
-                        }
+                        
 
                     })
                     await mine.save()
