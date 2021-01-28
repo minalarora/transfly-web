@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "build": "pm2 stop all",
+    "start": "pm2 start app.js"
   },
   "author": "",
   "license": "ISC",

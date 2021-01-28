@@ -258,7 +258,7 @@ router.get('/mobinvoiceareamanager', async (req, res) => {
                     const from = new Date(req.query.from)
                     // const to = new Date(req.query.to + " 23:59:00+00:00")
                     const to = new Date(req.query.to)
-                    let filterInvoices = invoice.filter((invoice) => {
+                    let filterInvoices = invoices.filter((invoice) => {
                         let invoiceDate = new Date(invoice.date + "+00:00")
                         return (invoiceDate >= from && invoiceDate <= to)
                     })
@@ -332,7 +332,7 @@ router.get('/mobinvoicefieldstaff', async (req, res) => {
                     const from = new Date(req.query.from)
                     // const to = new Date(req.query.to + " 23:59:00+00:00")
                     const to = new Date(req.query.to)
-                    let filterInvoices = invoice.filter((invoice) => {
+                    let filterInvoices = invoices.filter((invoice) => {
                         let invoiceDate = new Date(invoice.date + "+00:00")
                         return (invoiceDate >= from && invoiceDate <= to)
                     })
