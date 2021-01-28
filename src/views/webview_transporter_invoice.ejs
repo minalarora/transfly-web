@@ -38,13 +38,15 @@
                 <tr class="header">
                     <th>Sno</th>
                     <th>Vehicle No</th>
-                    <th>Date</th>
-                    <th>Tonnage</th>
+                    <th>Booking Date</th>
                     <th>Rate</th>
+                    <th>Tonnage</th>
+                    
                     <th>HSD</th>
                     <th>Cash</th>
                     <th>Shortage</th>
                     <th>Total Amount</th>
+                    <th>Invoice Status</th>
                 </tr>
                 <% if(data.invoice.length > 0) { %>
                     <% for (var i =0; i < data.invoice.length;  i++ ) { %>
@@ -75,6 +77,9 @@
                             </td>
                             <td>
                                 <%= data.invoice[i].transporteramount %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].status %>
                             </td>
                         </tr>
                         <% } %>

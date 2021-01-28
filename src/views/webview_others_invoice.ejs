@@ -41,9 +41,9 @@
                     <th>Vehicle No</th>
                     <th>From</th>
                     <th>To</th>
+                    <th>Booking Date</th>
                     <th>Transporter</th>
                     <th>Tonnage</th>
-                    <th>Date</th>
                     <th>Rate</th>
                     <th>HSD</th>
                     <th>Cash</th>
@@ -74,14 +74,15 @@
                                 <%= data.invoice[i].loading %>
                             </td>
                             <td>
+                                <%= data.invoice[i].date %>
+                            </td>
+                            <td>
                                 <%= data.invoice[i].transporter %>
                             </td>
                             <td>
                                 <%= data.invoice[i].tonnage %>
                             </td>
-                            <td>
-                                <%= data.invoice[i].date %>
-                            </td>
+                           
                             <td>
                                 <%= data.invoice[i].rate %>
                             </td>
