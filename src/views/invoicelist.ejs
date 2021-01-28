@@ -83,9 +83,10 @@
                                 <th>Tonnage</th>
                                 <th>Date</th>
                                 <th>Rate</th>
+                                <th>Amount</th>
                                 <th>HSD</th>
                                 <th>Cash</th>
-                                <th>Amount</th>
+                               
                                 <th>Shortage</th>
                                 <th>Office Charge</th>
                                 <th>TDS</th>
@@ -115,14 +116,15 @@
                                         <%= data.invoice[i].rate %>
                                     </td>
                                     <td>
+                                        <%= data.invoice[i].amount %>
+                                    </td>
+                                    <td>
                                         <%= data.invoice[i].hsd %>
                                     </td>
                                     <td>
                                         <%= data.invoice[i].cash %>
                                     </td>
-                                    <td>
-                                        <%= data.invoice[i].amount %>
-                                    </td>
+                                    
                                     <td>
                                         <%= data.invoice[i].shortage %>
                                     </td>
