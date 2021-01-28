@@ -52,6 +52,7 @@
                     <th>Shortage</th>
                     <th>Office Charge</th>
                     <th>TDS</th>
+                    <th>Balance Amount</th>
                     <th>Balance Amount Cleared</th>
                     <th>Mode of clearance</th>
                 </tr>
@@ -100,6 +101,9 @@
                             </td>
                             <td>
                                 <%= data.invoice[i].tds %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].balanceamount %>
                             </td>
                             <td>
                                 <%= data.invoice[i].balanceamountcleared %>
