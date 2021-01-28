@@ -301,6 +301,29 @@ router.get('/getareamanagerdata/:mobile', async (req, res) => {
     return res.send(object)
 })
 
+router.get('/areamanager/image/:mobile/:type',async (req,res)=>{
+    try
+    {
+        let mobile = req.params.mobile
+        let type = req.params.type
+        let user  = await AreaManager.findOne({mobile})
+        if(user!=null)
+        {
+            res.set('Content-Type', 'image/png')
+            res.send(user[type])
+        }
+        else
+        {
+            return res.status(400)
+        }         
+    }
+    catch(e)
+    {
+        
+        return res.status(400)
+    }
+})
+
 router.get('/webareamanager/image/:mobile/:type',async (req,res)=>{
     try
     {
