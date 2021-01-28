@@ -54,6 +54,7 @@
                     <th>TDS</th>
                     <th>Balance Amount</th>
                     <th>Balance Amount Cleared</th>
+                    <th>Mode of clearance</th>
                     <th>Chalaan to Transporter</th>
                 </tr>
                 <% if(data.invoice.length > 0) { %>
@@ -113,6 +114,9 @@
                             </td>
                             <td>
                                 <%= data.invoice[i].balanceamountcleared %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].modeofpayment %>
                             </td>
                             <td>
                                 <%= data.invoice[i].challantotransporter %>
