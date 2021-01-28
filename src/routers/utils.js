@@ -192,7 +192,7 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
 
     try {
         const updates = Object.keys(req.body)
-        // console.log(req.body)
+        ////(req.body)
         let imageupdates
         try {
             imageupdates = Object.keys(req.files)
@@ -200,7 +200,7 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
         catch (e) {
             imageupdates = []
         }
-        console.log(imageupdates)
+       //(imageupdates)
         const allowedUpdates = ['name', 'mobile', 'email', 'password', 'status',
             'accountno', 'ifsc', 'bankname', 'pan', 'tds', 'emergencycontact', 'gst', 'sta', 'mininglicense', 'aadhaar',
             'ename', 'erelation', 'emobile', 'firebase', 'bankpersonname',]
@@ -234,7 +234,7 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
 
         if (imageupdates.length > 0) {
 
-            console.log("if")
+           //("if")
             imageupdates.forEach((update) => {
                 sharp(req.files[update][0].buffer).resize(200).png().toBuffer().then((buffer) => {
 

@@ -4,6 +4,7 @@ const Admin = require('../models/admin')
 const AreaManager = require('../models/areamanager')
 const Booking = require('../models/booking')
 const Fieldstaff = require('../models/fieldstaff')
+const FieldStaff = require('../models/fieldstaff')
 const Finance = require('../models/finance')
 const Invoice = require('../models/invoice')
 const Mine = require('../models/mine')
@@ -93,8 +94,8 @@ router.get('/webinvoiceall', async (req, res) => {
 
             }
             if (req.query.from && req.query.to) {
-                console.log("from", req.query.from)
-                console.log("to", req.query.to)
+               //("from", req.query.from)
+               //("to", req.query.to)
                 invoice = await Invoice.find({}).exec()
                 // const from = new Date(req.query.from)
                 // const to = new Date(req.query.to)
@@ -157,11 +158,11 @@ router.get('/webinvoiceall', async (req, res) => {
 
         //     }
 
-        //     console.log(data)
+        //    //(data)
         //     return res.render('invoicelist', { data })
         // }
         // else {
-        //     console.log('admin not found in all invoice')
+        //    //('admin not found in all invoice')
         // }
     } catch (e) {
 
@@ -539,7 +540,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
         }
     } catch (e) {
 
-        console.log("error", e.message)
+       //("error", e.message)
         return res.redirect('/')
     }
 })
@@ -748,7 +749,7 @@ router.get('/webupdatecompletedinvoice/:id', async (req, res) => {
 
                 const mine = await Mine.findOne({ id: invoice.mineid })
                 const vehicleowner = await VehicleOwner.findOne({ id: invoice.owner })
-                console.log(vehicleowner)
+               //(vehicleowner)
                 t.mine = mine.name
                 t.vehicleowner = vehicleowner.name
                 t.city = mine.area

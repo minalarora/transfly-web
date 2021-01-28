@@ -28,7 +28,7 @@ const localSession = new LocalSession({
 localSession.DB.then(DB => {
   // Database now initialized, so now you can retrieve anything you want from it
  
-  // console.log(DB.get('sessions').getById('1:1').value())
+  ////(DB.get('sessions').getById('1:1').value())
 })
 
 // Telegraf will use `telegraf-session-local` configured above middleware with overrided `property` name

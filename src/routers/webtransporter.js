@@ -241,8 +241,8 @@ router.get('/webtransporter/image/:mobile/:type',async (req,res)=>{
 
 // router.post('/transporter_request_action/:mobile',transporterUpload,async (req,res)=>
 // {
-//     console.log(req.body)
-//     console.log("sds" + Object.keys(req.files))
+//    //(req.body)
+//    //("sds" + Object.keys(req.files))
 // })
 
 

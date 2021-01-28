@@ -61,15 +61,15 @@ router.get('/web_specific_mine_loadings/:id', async (req, res) => {
                 return res.render('mine_loading', { data })
 
             } else {
-                console.log("there is some error mine not found with id..")
+               //("there is some error mine not found with id..")
             }
         } else {
-            console.log("Admin not found in web minesloadings list")
+           //("Admin not found in web minesloadings list")
             return res.redirect("/")
         }
 
     } catch (e) {
-        console.log("got some error in web minesloadings list")
+       //("got some error in web minesloadings list")
         return res.redirect("/")
     }
 })
@@ -95,7 +95,7 @@ router.get('/webspecificmine', async (req, res) => {
                         return loadingpoint.loadingname == loadingname
                     })[0]
                 }
-                console.log("--------------", data)
+               //("--------------", data)
                 return res.render('mine', { data })
 
             } else {

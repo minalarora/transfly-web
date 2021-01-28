@@ -15,7 +15,7 @@ router.post("/finance",async (req,res)=>{
     }
     catch(e)
     {
-        // console.log(e)
+        ////(e)
         res.status(400).send(e)
     }
    /* const finance  = new Finance(req.body)

@@ -184,9 +184,9 @@ transporterSchema.methods.generateToken = async function(){
 //     { $set : { transporter : undefined }},
 //      function(err, result) {
 //             if (err) {
-//               console.log(err)
+//              //(err)
 //             } else {
-//               console.log(result)
+//              //(result)
 //             }
 //           })
 //     next()

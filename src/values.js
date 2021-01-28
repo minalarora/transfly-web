@@ -216,16 +216,16 @@ try
     body: JSON.stringify(obj)
   }).then((res)=>{
     
-      console.log(res.status)
+     //(res.status)
   }).catch((e)=>{
-    console.log(e)
+   //(e)
   }) 
   
  
 }
 catch(e)
 {
-  console.log(e)
+ //(e)
 }
   
 
@@ -275,16 +275,16 @@ try
     body: JSON.stringify(obj)
   }).then((res)=>{
     
-      console.log(res.status)
+     //(res.status)
   }).catch((e)=>{
-    console.log(e)
+   //(e)
   }) 
   
  
 }
 catch(e)
 {
-  console.log(e)
+ //(e)
 }
   
 
@@ -334,16 +334,16 @@ try
     body: JSON.stringify(obj)
   }).then((res)=>{
     
-      console.log(res.status)
+     //(res.status)
   }).catch((e)=>{
-    console.log(e)
+   //(e)
   }) 
   
  
 }
 catch(e)
 {
-  console.log(e)
+ //(e)
 }
   
 
@@ -393,16 +393,16 @@ try
     body: JSON.stringify(obj)
   }).then((res)=>{
     
-      console.log(res.status)
+     //(res.status)
   }).catch((e)=>{
-    console.log(e)
+   //(e)
   }) 
   
  
 }
 catch(e)
 {
-  console.log(e)
+ //(e)
 }
   
 

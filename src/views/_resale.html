@@ -158,20 +158,20 @@
         input = document.getElementById("searchInput");
         filter = input.value.toUpperCase();
         cardlist = document.getElementsByClassName("resale_list");
-        console.log(cardlist)
+       //(cardlist)
         for (i = 0; i < cardlist.length; i++) {
-            console.log(cardlist[i])
-            console.log(cardlist[i].lastElementChild)
+           //(cardlist[i])
+           //(cardlist[i].lastElementChild)
             table = cardlist[i].lastElementChild.getElementsByTagName('table');
             tr = table[0].getElementsByTagName("tr");
-            console.log(table)
-            console.log(tr)
+           //(table)
+           //(tr)
             for (k = 0; k < tr.length; k++) {
                 td = tr[k].getElementsByTagName("td");
-                console.log(td[0])
+               //(td[0])
                 if (td[0]) {
                     txtValue = td[0].textContent || td[0].innerText;
-                    console.log(txtValue);
+                   //(txtValue);
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         cardlist[i].parentNode.style.display = "block";
                         cardlist[i].parentNode.style.visibilty = "visible";
@@ -191,7 +191,7 @@
         //         td = tr[i].getElementsByTagName("td")[j];
         //         if (td) {
         //             txtValue = td.textContent || td.innerText;
-        //             console.log(txtValue);
+        //            //(txtValue);
         //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
         //                 tr[i].style.display = "";
         //                 break;

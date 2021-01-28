@@ -157,7 +157,7 @@ router.get("/allinvoice/areamanager/", auth, async (req, res) => {
                     // const selectedinvoices = invoices.filter((invoice)=>{
                     //     let mineDate = new Date(invoice.createdAt) 
                     //     let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
-                    //     // console.log(mineDateString)
+                    //     ////(mineDateString)
                     //     return datestring == mineDateString
                     // })
                     // res.status(200).send(selectedinvoices)    

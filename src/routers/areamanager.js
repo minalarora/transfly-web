@@ -50,7 +50,7 @@ router.post("/areamanager", async (req, res) => {
         res.status(200).send({ token: "areamanager:" + token, ...areamanager.toJSON() })
     }
     catch (e) {
-        // console.log(e)
+        ////(e)
         res.status(400).send(e.message)
     }
     /* const areamanager  = new AreaManager(req.body)
@@ -96,7 +96,7 @@ router.get('/areamanager/me/pending', auth, async (req, res) => {
         return res.status(200).send(names)
     }
     catch (e) {
-        // console.log(e)
+        ////(e)
         res.status(400).send(e.message)
     }
 })

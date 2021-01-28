@@ -152,7 +152,7 @@ return count
 const MineModel = require('./src/models/mine')
 const job = new CronJob('00 30 18 * * *', async function() {
 	// const d = new Date();
-    // console.log('Midnight:', d);
+    ////('Midnight:', d);
     let conditions = {};
     let update = {
         $set : {
@@ -184,11 +184,11 @@ job.start();
 // MineModel.findOne({id: 9249621}).then((mine)=>{
     
 //     let md = new Date(mine.createdAt)  
-//     console.log(md.getDate() + "/" + md.getMonth())  
+//    //(md.getDate() + "/" + md.getMonth())  
 // })
 // let timestamp = Date.now()
 // let d = new Date(timestamp)
-// console.log(d.getDate()+
+////(d.getDate()+
 // "/" + d.getMonth())
 
 
@@ -217,10 +217,10 @@ job.start();
 // }
 
 
-//console.log(distance(23.22711425650364, 77.45051007284236,22.73911121759402, 75.87825608143429,'K'))
+////.log(distance(23.22711425650364, 77.45051007284236,22.73911121759402, 75.87825608143429,'K'))
 
 
 
 app.listen(port, () => {
-    console.log("server is up on port", port)
+   //("server is up on port", port)
 })

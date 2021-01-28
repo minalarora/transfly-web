@@ -104,7 +104,7 @@ router.get('/webspecificfieldstaff/:mobile', async (req, res) => {
                 // let data = {
                 //     fieldstaff: {...fieldstaff,mine:fieldstaff.mines[0].name  }
                 // }
-                // console.log(data)
+                ////(data)
                 // return res.render('field_staff_profile',{data})
                 // }
                 // else

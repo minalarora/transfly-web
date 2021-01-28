@@ -152,7 +152,7 @@
                 td = tr[i].getElementsByTagName("td")[j];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
-                    console.log(txtValue);
+                   
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
                         break;

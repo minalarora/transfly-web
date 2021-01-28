@@ -96,7 +96,7 @@ router.get('/fieldstaff/me/pending', auth, async (req, res) => {
         return res.status(200).send(names)
     }
     catch (e) {
-        // console.log(e)
+        ////(e)
         res.status(400).send(e.message)
     }
 })

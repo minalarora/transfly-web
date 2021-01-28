@@ -56,7 +56,7 @@ router.get('/webvehicleownerall', async (req, res) => {
                     return res.redirect('/webvehicleownerall?page=' + (page - 1))
                 }
             }
-            // console.log("data",data.vehicleowner[0].mobile)
+            ////("data",data.vehicleowner[0].mobile)
             return res.render('vehicle_owner_list', { data })
         } else {
             return res.redirect('/')

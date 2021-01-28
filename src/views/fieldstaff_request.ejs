@@ -203,7 +203,7 @@
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    console.log(data)
+                   //(data)
                     placeInPane(data, mobile);
                 }
             };
@@ -221,7 +221,7 @@
         var i = 0;
 
         var keys = Object.keys(data)
-        console.log(keys)
+       //(keys)
 
         document.getElementById('name').innerHTML = data.name;
         document.getElementById('email').innerHTML = data.email;
@@ -247,7 +247,7 @@
 
 <script>
     function openImage(imgaddress) {
-        console.log("hello");
+       //("hello");
         window.open(imgaddress, '_blank');
 
     }

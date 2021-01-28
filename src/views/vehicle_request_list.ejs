@@ -178,11 +178,11 @@
             //send ajax request to a api
             var xmlhttp = new XMLHttpRequest();
             var url = "/getvehicledata/" + id;
-            console.log("here1", url)
+           
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    console.log(data)
+                  
                     placeInPane(data, id);
                 }
             };
@@ -201,7 +201,7 @@
     function placeInPane(data, id) {
         var i = 0;
         var keys = Object.keys(data)
-        console.log(keys)
+     
 
         document.getElementById('number').innerHTML = data.number;
         document.getElementById('vehiclename').innerHTML = data.vehiclename;
@@ -220,7 +220,7 @@
 
 <script>
     function openImage(imgaddress) {
-        console.log("hello");
+      
         window.open(imgaddress, '_blank');
 
     }

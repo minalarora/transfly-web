@@ -88,7 +88,7 @@ router.get('/transporter/me/pending', auth, async (req, res) => {
         return res.status(200).send(names)
     }
     catch (e) {
-        // console.log(e)
+        ////(e)
         res.status(400).send(e.message)
     }
 })
@@ -183,7 +183,7 @@ router.post("/transporter/me", auth, transporterUpload, async (req, res) => {
 
 router.patch("/transporter/:id", auth, transporterUpload, async (req, res) => {
     try {
-        // console.log(Object.keys(req.files))
+        ////(Object.keys(req.files))
         const updates = Object.keys(req.body)
         const imageupdates = Object.keys(req.files)
         const allowedUpdates = ['name', 'mobile', 'email', 'password', 'status',
@@ -205,7 +205,7 @@ router.patch("/transporter/:id", auth, transporterUpload, async (req, res) => {
                 transporter[update] = req.body[update]
             })
 
-            console.log('reaching')
+           //('reaching')
             imageupdates.forEach((update) => {
                 transporter[update] = req.files[update][0].buffer
             })

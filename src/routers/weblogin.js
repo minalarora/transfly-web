@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
     }
     else {
         let data = { message: "", color: "" }
-        console.log("get of login", data)
+       //("get of login", data)
         return res.render('login', { data })
     }
 })
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
             if (admin == null) {
                 data.message = "mobile or password wrong";
                 data.color = "danger";
-                console.log("admin not loggedin", data)
+               //("admin not loggedin", data)
                 return res.render("login", { data })
             }
             else {
@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
             if (finance == null) {
                 data.message = "mobile or password wrong";
                 data.color = "danger";
-                console.log(data)
+               //(data)
                 res.render("login", { data })
             }
             else {
@@ -80,7 +80,7 @@ router.post('/', async (req, res) => {
         
         data.message = "mobile or password wrong";
         data.color = "danger";
-        console.log(data)
+       //(data)
         res.render("login", { data })
     }
 })

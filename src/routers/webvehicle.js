@@ -94,7 +94,7 @@ router.post("/vehicle_request_action/:id", async (req, res) => {
 router.get('/webvehicle/image/:id', async (req, res) => {
     try {
         let id = req.params.id
-        console.log("running")
+       //("running")
         let user = await Vehicle.findOne({ id })
         if (user != null) {
             res.set('Content-Type', 'image/png')

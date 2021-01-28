@@ -245,7 +245,7 @@ router.get('/logout', async (req, res) => {
             req.session.destroy((err) => {
                 if (err) {
                     
-                    return console.log(err);
+                    return//(err);
                 }
                 res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
                 return res.redirect('/');

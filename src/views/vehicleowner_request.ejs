@@ -203,7 +203,7 @@
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    console.log(data)
+                  
                     placeInPane(data, mobile);
                 }
             };
@@ -221,7 +221,7 @@
         var i = 0;
 
         var keys = Object.keys(data)
-        console.log(keys)
+       
 
         document.getElementById('name').innerHTML = data.name;
         document.getElementById('email').innerHTML = data.email;
@@ -250,7 +250,7 @@
 
 <script>
     function openImage(imgaddress) {
-        console.log("hello");
+       
         var newTab = window.open();
         newTab.document.body.innerHTML = `<div style="background:black;display:flex;align-items:center;justify-content:center;width:100%;height:100%">` +
             `<img src="${imgaddress}" alt="es" style="height">` +

@@ -248,7 +248,7 @@
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var data = JSON.parse(this.responseText);
-                    console.log(data)
+                  
                     placeInPane(data, mobile);
                 }
             };
@@ -265,12 +265,12 @@
         var i = 0;
 
         var keys = Object.keys(data)
-        console.log(keys)
+       //(keys)
         // for (i = 0; i < keys.length; i++) {
         //     if (keys[i] != "aadhaarimage" || keys[i] != "panimage" || keys[i] != "staimage" || keys[i] != "gstimage" || keys[i] != "mininglicenseimage") {
                 
-        //         console.log(keys[i])
-        //         console.log(data.keys[i])
+        //        //(keys[i])
+        //        //(data.keys[i])
         //         document.getElementById(keys[i]).innerHTML = data[keys[i]];
         //     }
         //     else {
@@ -308,7 +308,7 @@
 
 <script>
     function openImage(imgaddress) {
-        console.log("hello");
+       //("hello");
         window.open(imgaddress ,  '_blank');
 
     }

@@ -158,9 +158,9 @@ fieldstaffSchema.pre('remove', async function (next) {
         { $set: { fieldstaff: null } },
         function (err, result) {
             if (err) {
-                //   console.log(err)
+                //  //(err)
             } else {
-                //   console.log(result)
+                //  //(result)
             }
         })
     next()

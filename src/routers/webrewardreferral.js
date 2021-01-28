@@ -94,11 +94,11 @@ router.post("/reward_referral/:type", upload.single('image'), async (req, res) =
             // ERROR occured (here it can be occured due 
             // to uploading image of size greater than 
             // 1MB or uploading different file type) 
-            console.log('df')
+           //('df')
             res.send("Invalid Image Format")
         }
         else {
-            console.log('f')
+           //('f')
 
             res.send("Success, Image uploaded!")
         }

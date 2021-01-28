@@ -7,12 +7,12 @@ function convertTZ(date, tzString) {
 const date = new Date()
 let newdate = convertTZ(date, "asia/kolkata") 
 let momObj = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
-console.log(momObj.toString());
-console.log(new Date(momObj.toString()));
+//.log(momObj.toString());
+//.log(new Date(momObj.toString()));
 
 // let arr = [1,2,3]
 // let arr2 = arr.map((a=>{
 //     return a*a
 // }))
-// console.log(arr)
-// console.log(arr2)
+////(arr)
+////(arr2)
