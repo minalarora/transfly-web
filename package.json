@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     
-    "start": "pm2 restart app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
