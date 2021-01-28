@@ -79,12 +79,18 @@ router.get("/allinvoice/vehicleowner/:status", auth, async (req, res) => {
 
 
         if (req.query.from && req.query.to) {
-            const from = new Date(parseInt(req.query.from))
-            const to = new Date(parseInt(req.query.to))
+            // const from = new Date(parseInt(req.query.from))
+            // const to = new Date(parseInt(req.query.to))
+            const from = new Date(req.query.from)
+            const to = new Date(req.query.to + " 23:59:00+00:00")
 
+            // let filterInvoices = req.user.invoices.filter((invoice) => {
+            //     let invoiceDate = new Date(invoice.createdAt)
+
+            //     return (invoiceDate >= from && invoiceDate <= to)
+            // })
             let filterInvoices = req.user.invoices.filter((invoice) => {
-                let invoiceDate = new Date(invoice.createdAt)
-
+                let invoiceDate = new Date(invoice.date + "+00:00")
                 return (invoiceDate >= from && invoiceDate <= to)
             })
             return res.status(200).send(filterInvoices)
@@ -131,12 +137,18 @@ router.get("/allinvoice/areamanager/", auth, async (req, res) => {
             const invoices = await Invoice.find({ mineid: { $in: minearray } }).sort({ createdAt: -1 }).exec(function (err, invoices) {
                 if (invoices) {
                     if (req.query.from && req.query.to) {
-                        const from = new Date(parseInt(req.query.from))
-                        const to = new Date(parseInt(req.query.to))
-                        let filterInvoices = invoices.filter((invoice) => {
-                            let invoiceDate = new Date(invoice.createdAt)
-                            return (invoiceDate >= from && invoiceDate <= to)
-                        })
+                        // const from = new Date(parseInt(req.query.from))
+                        // const to = new Date(parseInt(req.query.to))
+                        // let filterInvoices = invoices.filter((invoice) => {
+                        //     let invoiceDate = new Date(invoice.createdAt)
+                        //     return (invoiceDate >= from && invoiceDate <= to)
+                        // })
+                        const from = new Date(req.query.from)
+                    const to = new Date(req.query.to + " 23:59:00+00:00")
+                    let filterInvoices = invoices.filter((invoice) => {
+                        let invoiceDate = new Date(invoice.date + "+00:00")
+                        return (invoiceDate >= from && invoiceDate <= to)
+                    })
                         return res.status(200).send(filterInvoices)
                     }
                     else {
@@ -196,12 +208,18 @@ router.get("/allinvoice/transporter/", auth, async (req, res) => {
             await Invoice.find({ transporter: req.user.id }).sort({ createdAt: -1 }).exec(function (err, invoices) {
                 if (invoices) {
                     if (req.query.from && req.query.to) {
-                        const from = new Date(parseInt(req.query.from))
-                        const to = new Date(parseInt(req.query.to))
-                        let filterInvoices = invoices.filter((invoice) => {
-                            let invoiceDate = new Date(invoice.createdAt)
-                            return (invoiceDate >= from && invoiceDate <= to)
-                        })
+                        // const from = new Date(parseInt(req.query.from))
+                        // const to = new Date(parseInt(req.query.to))
+                        // let filterInvoices = invoices.filter((invoice) => {
+                        //     let invoiceDate = new Date(invoice.createdAt)
+                        //     return (invoiceDate >= from && invoiceDate <= to)
+                        // })
+                        const from = new Date(req.query.from)
+                    const to = new Date(req.query.to + " 23:59:00+00:00")
+                    let filterInvoices = invoices.filter((invoice) => {
+                        let invoiceDate = new Date(invoice.date + "+00:00")
+                        return (invoiceDate >= from && invoiceDate <= to)
+                    })
                         return res.status(200).send(filterInvoices)
                     }
                     else {

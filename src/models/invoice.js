@@ -31,6 +31,11 @@ const invoiceSchema = mongoose.Schema({
     {
         type: String,
 
+    },
+    contact:
+    {
+        type: String,
+        
     }
     ,
     mineid:
