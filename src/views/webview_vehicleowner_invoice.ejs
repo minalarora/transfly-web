@@ -41,10 +41,11 @@
                     <th>Vehicle No</th>
                     <th>From</th>
                     <th>To</th>
-                    <th>Tonnage</th>
+                   
                     <th>Booking Date</th>
+                    <th>Tonnage</th>
                     <th>Rate</th>
-                    <th>Amount</th>
+                    <th>Initial Amount</th>
                     <th>HSD</th>
                     <th>Cash</th>
                     
@@ -52,6 +53,7 @@
                     <th>Office Charge</th>
                     <th>TDS</th>
                     <th>Balance Amount Cleared</th>
+                    <th>Mode of clearance</th>
                 </tr>
                 <% if(data.invoice.length > 0) { %>
                     <% for (var i =0; i < data.invoice.length;  i++ ) { %>
@@ -72,11 +74,12 @@
                                 <%= data.invoice[i].loading %>
                             </td>
                             <td>
-                                <%= data.invoice[i].tonnage %>
-                            </td>
-                            <td>
                                 <%= data.invoice[i].date %>
                             </td>
+                            <td>
+                                <%= data.invoice[i].tonnage %>
+                            </td>
+                           
                             <td>
                                 <%= data.invoice[i].rate %>
                             </td>
@@ -100,6 +103,9 @@
                             </td>
                             <td>
                                 <%= data.invoice[i].balanceamountcleared %>
+                            </td>
+                            <td>
+                                <%= data.invoice[i].modeofpayment %>
                             </td>
                         </tr>
                         <% } %>

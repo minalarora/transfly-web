@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 reload all"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
