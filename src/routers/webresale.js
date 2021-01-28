@@ -53,6 +53,7 @@ router.post("/add_resale_vehicle",resaleupload,async (req,res)=>{
     {
         const obj  = {}
         const objkeys = Object.keys(req.body)
+       
         objkeys.forEach((update) =>{
             if(req.body[update] == update)
             {
@@ -72,7 +73,7 @@ router.post("/add_resale_vehicle",resaleupload,async (req,res)=>{
             }
          })
 
-         const allowedUpdates = ['vehiclename','company','year']
+         const allowedUpdates = ['vehiclename','company','year','type']
          allowedUpdates.forEach((update) =>{
              obj[update] = req.body[update]
          })

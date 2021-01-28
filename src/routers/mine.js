@@ -17,6 +17,8 @@ var upload = multer({
   
 //    Mine.find({}).then((mines)=>{
 //     mines.forEach((mine)=>{
+//         mine.areamanager  = null
+//         mine.fieldstaff = null
 //         mine.loading.forEach((l)=>{
 
 //             l["active"] = true
