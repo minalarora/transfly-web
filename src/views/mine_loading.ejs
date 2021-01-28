@@ -67,8 +67,15 @@
                                 <a href="/webspecificmine?mineid=<%= data.mine.id %>&loadingname=<%= data.mine.loading[i].loadingname %>" class="h4 text-primary">
                                     <%= data.mine.loading[i].loadingname %>
                                 </a>
-                                <p>ETL :
+                                <p class="mb-0">ETL :
                                     <%= data.mine.loading[i].etl %>
+                                </p>
+                                <p class="my-0">Active :
+                                    <% if( data.mine.loading[i].active == true) {  %>
+                                        Active
+                                        <% } else { %>
+                                            Inactive
+                                            <% }  %>
                                 </p>
                                 <p class="mb-0">Rate :
                                     <%= data.mine.loading[i].rate %>
