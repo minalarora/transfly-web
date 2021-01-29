@@ -48,7 +48,7 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
         //  })
 
         
-        let text = "Your vehicle " + req.body.number +"has been added"
+        let text = "Your vehicle " + req.body.number +" has been added."
         Notification.createNotification(req.user.id,text,0)
 
         return res.status(200).send("DONE")  
