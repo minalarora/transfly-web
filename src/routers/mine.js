@@ -4,6 +4,7 @@ const Mine = require('../models/mine')
 const jwt= require('jsonwebtoken')
 const auth = require('../auth/auth')
 var multer  = require('multer')
+const Transporter = require('../models/transporter')
 var sharp = require('sharp')
 var upload = multer({
     limits:
@@ -59,6 +60,7 @@ router.post("/mine",async (req,res)=>{
 router.get("/allmine/vehicleowner",auth,async (req,res)=>{
     try
     {
+        const transporter=await Transporter.findOne({"tokens.token" : req.token, active:true, status : 2})
         const mines= await Mine.find({})  
         res.status(200).send(mines)      
     }
