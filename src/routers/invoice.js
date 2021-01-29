@@ -11,13 +11,14 @@ const Mine = require('../models/mine')
 const firebase = require('../values')
 const Notification = require('../models/notification')
 const Message  = require('../values')
+const AreaManager = require('../models/areamanager')
 
 
 
 router.post("/invoice", auth, async (req, res) => {
     try {
         if (req.user.status == 2) {
-            const invoice = new Invoice(req.body)
+            const invoice = new Invoice({...req.body,completedby:req.user.name,completedbyid: req.user.id})
             let t = await Transporter.findOne({id: req.body.transporter})
             invoice.transportername = t.name
             // invoice.transportername = 
@@ -133,39 +134,67 @@ router.get("/allinvoice/areamanager/", auth, async (req, res) => {
             let minearray = req.user.mines.map((mine) => {
                 return mine.id
             })
-            //mongoose.find({title: {$in: sd}})
-            const invoices = await Invoice.find({ mineid: { $in: minearray } }).sort({ createdAt: -1 }).exec(function (err, invoices) {
-                if (invoices) {
-                    if (req.query.from && req.query.to) {
-                        // const from = new Date(parseInt(req.query.from))
-                        // const to = new Date(parseInt(req.query.to))
-                        // let filterInvoices = invoices.filter((invoice) => {
-                        //     let invoiceDate = new Date(invoice.createdAt)
-                        //     return (invoiceDate >= from && invoiceDate <= to)
-                        // })
-                        const from = new Date(req.query.from)
-                    const to = new Date(req.query.to + " 23:59:00+00:00")
-                    let filterInvoices = invoices.filter((invoice) => {
-                        let invoiceDate = new Date(invoice.date + "+00:00")
-                        return (invoiceDate >= from && invoiceDate <= to)
-                    })
-                        return res.status(200).send(filterInvoices)
+            if(req.type == "areamanager")
+            {
+                 await Invoice.find({ mineid: { $in: minearray } }).sort({ createdAt: -1 }).exec(function (err, invoices) {
+                    if (invoices) {
+                        if (req.query.from && req.query.to) {
+                           
+                            const from = new Date(req.query.from)
+                        const to = new Date(req.query.to + " 23:59:00+00:00")
+                        let filterInvoices = invoices.filter((invoice) => {
+                            let invoiceDate = new Date(invoice.date + "+00:00")
+                            return (invoiceDate >= from && invoiceDate <= to)
+                        })
+                            return res.status(200).send(filterInvoices)
+                        }
+                        else {
+                            return res.status(200).send(invoices)
+                        }
+                       
                     }
                     else {
-                        return res.status(200).send(invoices)
+                        res.status(200).send([])
                     }
-                    // const selectedinvoices = invoices.filter((invoice)=>{
-                    //     let mineDate = new Date(invoice.createdAt) 
-                    //     let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
-                    //     ////(mineDateString)
-                    //     return datestring == mineDateString
-                    // })
-                    // res.status(200).send(selectedinvoices)    
-                }
-                else {
-                    res.status(200).send([])
-                }
-            })
+                })
+            }
+            else
+            {
+                await Invoice.find({ completedbyid: req.user.id }).sort({ createdAt: -1 }).exec(function (err, invoices) {
+                    if (invoices) {
+                        if (req.query.from && req.query.to) {
+                            // const from = new Date(parseInt(req.query.from))
+                            // const to = new Date(parseInt(req.query.to))
+                            // let filterInvoices = invoices.filter((invoice) => {
+                            //     let invoiceDate = new Date(invoice.createdAt)
+                            //     return (invoiceDate >= from && invoiceDate <= to)
+                            // })
+                            const from = new Date(req.query.from)
+                        const to = new Date(req.query.to + " 23:59:00+00:00")
+                        let filterInvoices = invoices.filter((invoice) => {
+                            let invoiceDate = new Date(invoice.date + "+00:00")
+                            return (invoiceDate >= from && invoiceDate <= to)
+                        })
+                            return res.status(200).send(filterInvoices)
+                        }
+                        else {
+                            return res.status(200).send(invoices)
+                        }
+                        // const selectedinvoices = invoices.filter((invoice)=>{
+                        //     let mineDate = new Date(invoice.createdAt) 
+                        //     let mineDateString  =  mineDate.getDate() + "/" + mineDate.getMonth() + "/" + mineDate.getFullYear()
+                        //     return datestring == mineDateString
+                        // })
+                        // res.status(200).send(selectedinvoices)    
+                    }
+                    else {
+    
+                        res.status(200).send([])
+                    }
+                })   
+            }
+            //mongoose.find({title: {$in: sd}})
+            
         }
         else {
             res.status(200).send([])

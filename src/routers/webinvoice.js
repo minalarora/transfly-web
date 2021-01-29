@@ -266,7 +266,7 @@ router.get('/mobinvoiceareamanager', async (req, res) => {
                         invoice : []
                     }
                     data.invoice = filterInvoices
-                    return res.render('webview_others_invoice', { data })
+                    return res.render('webview_areamanager_invoice', { data })
                 })
             }
 
@@ -275,7 +275,7 @@ router.get('/mobinvoiceareamanager', async (req, res) => {
                     invoice: []
                 }
                 data.invoice = []
-                return res.render('webview_others_invoice', { data })
+                return res.render('webview_areamanager_invoice', { data })
             }
         }
         else {
@@ -283,7 +283,7 @@ router.get('/mobinvoiceareamanager', async (req, res) => {
                 invoice: []
             }
             data.invoice = []
-            return res.render('webview_others_invoice', { data })
+            return res.render('webview_areamanager_invoice', { data })
         }
     }
     catch (e) {
@@ -291,66 +291,50 @@ router.get('/mobinvoiceareamanager', async (req, res) => {
             invoice: []
         }
         data.invoice = []
-        return res.render('webview_others_invoice', { data })
+        return res.render('webview_areamanager_invoice', { data })
     }
 
 })
 
 router.get('/mobinvoicefieldstaff', async (req, res) => {
     try {
-
-        let user = await Fieldstaff.findOne({ mobile: req.query.mobile })
+        let user = await FieldStaff.findOne({ mobile: req.query.mobile })
         if (user && user.status == 2) {
-            await user.populate(
-                {
-                    path: 'mines'
-                    ,
-                    options: {
-                        sort: {
-                            createdAt: -1
-                        }
-                    }
-                }).execPopulate()
+            let invoice = await Invoice.find({ completedbyid: user.id }, null, {
+                sort: {
+                    createdAt: -1
+                }
+            }).exec()
 
-            let minearray = user.mines.map((mine) => {
-                return mine.id
-            })
-            //mongoose.find({title: {$in: sd}})
-
+            let data = {
+                invoice: []
+            }
             if (req.query.from && req.query.to) {
-                await Invoice.find({ mineid: { $in: minearray } }).sort({ createdAt: -1 }).exec(function (err, invoices) {
-                    // const from = new Date(parseInt(req.query.from))
-                    // const to = new Date(parseInt(req.query.to))
-                    // let filterInvoices = invoices.filter((invoice) => {
-                    //     let invoiceDate = new Date(invoice.createdAt)
-                    //     return (invoiceDate >= from && invoiceDate <= to)
-                    // })
-                    // let data = {
-                    //     invoice: []
-                    // }
-                    // data.invoice = filterInvoices
-                    const from = new Date(req.query.from)
+
+
+                // const from = new Date(parseInt(req.query.from))
+                // const to = new Date(parseInt(req.query.to))
+                // let filterInvoices = invoice.filter((invoice) => {
+                //     let invoiceDate = new Date(invoice.createdAt)
+                //     return (invoiceDate >= from && invoiceDate <= to)
+                // })
+                // data.invoice = filterInvoices
+                const from = new Date(req.query.from)
+                //const to = new Date(parseInt(req.query.to))
                      const to = new Date(req.query.to + " 23:59:00+00:00")
-                    //const to = new Date(req.query.to)
-                    let filterInvoices = invoices.filter((invoice) => {
+                    let filterInvoices = invoice.filter((invoice) => {
                         let invoiceDate = new Date(invoice.date + "+00:00")
                         return (invoiceDate >= from && invoiceDate <= to)
                     })
-                    let data = {
-                        invoice : []
-                    }
                     data.invoice = filterInvoices
-                    return res.render('webview_others_invoice', { data })
-                })
+
+            }
+            else {
+                data.invoice = []
+
             }
 
-            else {
-                let data = {
-                    invoice: []
-                }
-                data.invoice = []
-                return res.render('webview_others_invoice', { data })
-            }
+            return res.render('webview_others_invoice', { data })
         }
         else {
             let data = {
@@ -367,7 +351,6 @@ router.get('/mobinvoicefieldstaff', async (req, res) => {
         data.invoice = []
         return res.render('webview_others_invoice', { data })
     }
-
 })
 
 
@@ -416,7 +399,7 @@ router.get('/mobinvoicetransporter', async (req, res) => {
                 invoice: []
             }
             data.invoice = []
-            return res.render('webview_others_invoice', { data })
+            return res.render('webview_transporter_invoice', { data })
         }
     }
     catch (e) {

@@ -144,6 +144,16 @@ const invoiceSchema = mongoose.Schema({
         type: Float,
         default: 0 
 
+    },
+    completedby:
+    {
+        type: String,
+        default: "NA"
+    },
+    completedbyid:
+    {
+        type: String,
+        default: "NA"
     }
 
 }

@@ -26,6 +26,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=admin
                 req.token=token
+                req.type = "admin"
                
                 next()
                 break;
@@ -39,6 +40,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=areamanager
                 req.token=token
+                req.type = "areamanager"
                 next()
                 break;
                
@@ -52,6 +54,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=fieldstaff
                 req.token=token
+                req.type = "fieldstaff"
                 next()
                 break;
               
@@ -65,6 +68,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=finance
                 req.token=token
+                req.type = "finance"
                 next()
                 break;
             }
@@ -77,6 +81,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=transporter
                 req.token=token
+                req.type = "transporter"
                 next()
                 break;
             
@@ -90,6 +95,7 @@ const auth=async (req,res,next)=>{
                 }
                 req.user=vehicleowner
                 req.token=token
+                req.type = "vehicleowner"
                 next()
                 break;
             }
