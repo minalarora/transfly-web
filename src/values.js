@@ -50,7 +50,7 @@ const getVehiclesByMobile = async function(mobile)
     let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
     if(user)
     {
-      let vehiclearray = await Vehicle.find({driverid:user.id})
+      let vehiclearray = await Vehicle.find({driverid:user.id,status:1})
       return vehiclearray.map((vehiclearray)=>{
         return vehiclearray.number
       })
@@ -169,12 +169,24 @@ const createBooking = async function(mobile,vehicle,mine,loading)
 }
 
 
-const getMinesByArea = async function(area)
+const getMinesByArea = async function(area,loading)
 {
   try
   {
-    let mineArray = await Mine.find({area,active:true })
+    let mineArray = await Mine.find({area,active:true})
+  
+    mineArray = mineArray.filter((mine)=>{
+        for(let i = 0;i<mine.loading.length;i++)
+        {
+          if(mine.loading[i].loadingname == loading && mine.loading[i].active)
+          {
+            return true
+          }
+        }
+        return false
+    })
     return mineArray.map((mine)=>{
+      console.log(mine.name)
       return mine.name
     })
   }
