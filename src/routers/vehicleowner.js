@@ -6,6 +6,7 @@ const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const AreaManager = require('../models/areamanager')
 const FieldStaff = require('../models/fieldstaff')
 const Fieldstaff = require('../models/fieldstaff')
+const Notification = require('../models/notification')
 const auth = require('../auth/auth')
 const jwt = require('jsonwebtoken')
 var multer = require('multer')
@@ -44,9 +45,12 @@ router.post("/vehicleowner", async (req, res) => {
         }
         const vehicleowner = new VehicleOwner(req.body)
         const token = await vehicleowner.generateToken()
-        
-        vehicleowner.firebase = vehicleowner.firebase.concat(req.body.firebase)
+        // vehicleowner.firebase = []
+        // vehicleowner.firebase = vehicleowner.firebase.concat(req.body.firebase)
+        let text = "Please complete your KYC under 'My Profile' section to start using this app."
+       
         await vehicleowner.save()
+        Notification.createNotification(vehicleowner.id,text,0)
         res.status(200).send({ token: "vehicleowner:" + token, ...vehicleowner.toJSON() })
     }
     catch (e) {

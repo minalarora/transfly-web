@@ -421,6 +421,65 @@ catch(e)
   
 }
 
+const sendMessageFour =  function(number,vehicle,date,from,to,driver)
+{
+/**
+ * {
+ "flow_id":"5ff6baa6ede4c64496062ebe",
+  "recipients" : [
+    {
+      "mobiles":"918871748278",
+      "message":"VALUE 1"
+    },
+    {
+      "mobiles":"916265219319",
+      "message":"VALUE 1"
+		}
+]
+}*/
+
+  const obj = {}
+  obj.flow_id = "601a65f9a9dbb953a96b9927"
+  obj.recipients = [
+   {
+     mobiles:"91" + number,
+     vehicle,
+     date,
+     from,
+     to,
+     driver
+    
+   }
+  ]
+
+  
+try
+{
+   fetch("https://api.msg91.com/api/v5/flow/",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "authkey":"350944Ar65hw8BuM5ff29c59P1"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+     //(res.status)
+  }).catch((e)=>{
+   //(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+ //(e)
+}
+  
+
+  
+}
+
 
 
 
@@ -439,6 +498,8 @@ module.exports = {
   sendFirebaseMessage,
   sendMessageOne,
   sendMessageTwo,
-  sendMessageThree
+  sendMessageThree,
+  sendMessageFour
+
 
 }

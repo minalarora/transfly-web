@@ -5,6 +5,9 @@ const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const VehicleOwner = require('../models/vehicleowner')
 const Vehicle = require('../models/vehicle')
 const Notification = require('../models/notification')
+const FieldStaff = require('../models/fieldstaff')
+const AreaManager  = require('../models/areamanager')
+const Mine = require('../models/mine')
 const auth = require('../auth/auth')
 const firebase = require('../values')
 let moment = require('moment-timezone')
@@ -31,6 +34,19 @@ router.post("/booking", auth, async (req, res) => {
 
             let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
              Notification.createNotification(req.user.id,text,0)
+             let m = await Mine.findOne({id: booking.mineid})
+             let fs  = await FieldStaff.findOne({id: m.fieldstaff})
+             let am = await AreaManager.findOne({id: m.areamanager})
+             try
+             {
+                firebase.sendMessageFour(8871748278,booking.vehicle,booking.depopulate,booking.minename,booking.loading,booking.vehicleownermobile)
+             }
+             catch(e)
+             {
+
+             }
+             //(number,vehicle,date,from,to,driver)
+             firebase.sendMessageFour()
 
 
             return res.status(200).send("done")

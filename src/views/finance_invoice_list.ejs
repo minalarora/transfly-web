@@ -109,6 +109,7 @@
                                                 <th>Balance Amount Cleared</th>
                                                 <th>Mode Of Payment</th>
                                                 <th>Chalaan to Transporter</th>
+                                                <th>Completed By</th>
                                             </tr>
                                             <% if(data.invoice.length > 0) { %>
                                                 <% for (var i =0; i < data.invoice.length;  i++ ) { %>
@@ -183,6 +184,9 @@
                                                                         NA
                                                                         <% } %>
 
+                                                        </td>
+                                                        <td>
+                                                            <%= data.invoice[i].completedby %>
                                                         </td>
                                                     </tr>
                                                     <% } %>

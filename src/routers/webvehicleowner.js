@@ -186,6 +186,10 @@ router.get("/vehicleowner_request_action/:mobile", async (req, res) => {
 
             vehicleowner["status"] = 2
             await vehicleowner.save()
+            // let text = "Please complete your KYC under 'My Profile' section to start using this app."
+       
+        
+            // Notification.createNotification(vehicleowner.id,text,0)
             res.redirect('/vehicleownerrequest')
         }
     } catch (e) {
