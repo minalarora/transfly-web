@@ -37,17 +37,19 @@ router.post("/booking", auth, async (req, res) => {
              let m = await Mine.findOne({id: booking.mineid})
              let fs  = await FieldStaff.findOne({id: m.fieldstaff})
              let am = await AreaManager.findOne({id: m.areamanager})
+             let date = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
              try
              {
-                firebase.sendMessageFour(8871748278,booking.vehicle,booking.depopulate,booking.minename,booking.loading,booking.vehicleownermobile)
+                firebase.sendMessageFour(fs.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
+                
+                firebase.sendMessageFour(am.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
              }
              catch(e)
              {
 
              }
              //(number,vehicle,date,from,to,driver)
-             firebase.sendMessageFour()
-
+          
 
             return res.status(200).send("done")
         }
