@@ -50,7 +50,7 @@ router.post("/vehicleowner", async (req, res) => {
         let text = "Please complete your KYC under 'My Profile' section to start using this app."
        
         await vehicleowner.save()
-        Notification.createNotification(vehicleowner.toJSON().id,text,0)
+        Notification.createNotification(vehicleowner.id,text,0)
         res.status(200).send({ token: "vehicleowner:" + token, ...vehicleowner.toJSON() })
     }
     catch (e) {

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Booking = require('./booking')
 const Invoice = require('./invoice')
 const Vehicle = require('./vehicle')
-const Notification = require('./notification')
+// var Notification = require('./notification')
 const jwt = require('jsonwebtoken')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
@@ -168,7 +168,20 @@ vehicleownerSchema.pre('save', async function (next) {
         user.status = 1
 
         let text = "Thank you for submitting your KYC details, you can check the status in few hours under 'My Profile'"
-        Notification.createNotification(user.id,text,0)
+        const notification = new Notification({user: user.id,text,type:0})
+        await notification.save()
+        user.firebase.forEach((token) => {
+            try {
+               
+                firebase.sendFirebaseMessage(token, "TRANSFLY", text)
+
+            }
+            catch (e) {
+
+            }
+        })
+        
+       // Notification.createNotification(user.id,text,0)
     }
     // invoice.amount = invoice.tonnage * invoice.rate
     // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
-let moment = require('moment-timezone')
-const VehicleOwner = require('./vehicleowner')
+
 const firebase = require('../values')
 
 const notificationSchema  = mongoose.Schema({
@@ -53,9 +52,10 @@ const notificationSchema  = mongoose.Schema({
      {
         const notification = new Notification({user,text,type})
         await notification.save()
-        let vehicleowner = await VehicleOwner.findOne({ id: user })
+        var vehicleowner = await VehicleOwner.findOne({ id: user })
         vehicleowner.firebase.forEach((token) => {
             try {
+               
                 firebase.sendFirebaseMessage(token, "TRANSFLY", text)
 
             }
@@ -101,3 +101,5 @@ notificationSchema.pre('save', async function (next) {
 
 const Notification  = mongoose.model("Notification",notificationSchema)
 module.exports = Notification
+
+var VehicleOwner = require('./vehicleowner')

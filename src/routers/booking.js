@@ -12,6 +12,8 @@ const auth = require('../auth/auth')
 const firebase = require('../values')
 let moment = require('moment-timezone')
 
+
+
 router.post("/booking", auth, async (req, res) => {
     try {
         if (req.user.status == 2) {
