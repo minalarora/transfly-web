@@ -226,10 +226,7 @@ app.listen(port, () => {
    //("server is up on port", port)
 })
 
-process.on('SIGINT', function(msg) {  
-   
-    process.exit(0);
-});
+
 
 
 let englisharr = ["Please enter last four digits of your registered vehicle",
