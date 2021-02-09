@@ -16,6 +16,8 @@ const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+const Notification = require('../models/notification')
+const Message  = require('../values')
 
 router.use(cookieParser())
 
@@ -186,6 +188,8 @@ router.get("/vehicleowner_request_action/:mobile", async (req, res) => {
 
             vehicleowner["status"] = 2
             await vehicleowner.save()
+            let text ="Dear customer, your KYC has been approved. You can now add your vehicles under 'Add Vehicles' section to start with loadings."
+            createNotification(vehicleowner.id,text,0)
             // let text = "Please complete your KYC under 'My Profile' section to start using this app."
        
         
@@ -212,6 +216,8 @@ router.post("/vehicleowner_request_action/:mobile", async (req, res) => {
 
             vehicleowner["status"] = 0
             await vehicleowner.save()
+            let text ="Dear customer, your KYC has been rejected, please resubmit your KYC details. Thank you."
+            createNotification(vehicleowner.id,text,0)
             res.redirect('/vehicleownerrequest')
         }
     } catch (e) {
@@ -278,6 +284,52 @@ router.get('/vehicleowner/image/:mobile/:type',async (req,res)=>{
         return res.status(400)
     }
 })
+
+let createNotification = async (user,text,type)=>{
+    try
+    {
+       if(type)
+    {
+       const notification = new Notification({user,text,type})
+       await notification.save()
+       var vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+              
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+       
+    }
+    else
+    {
+       const notification = new Notification({user,text})
+       await notification.save()
+       let vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+    }
+    return true;
+   
+    }
+    catch(e)
+    {
+       
+       throw new Error(e.message)
+    }
+    
+}
 
 
 module.exports = router

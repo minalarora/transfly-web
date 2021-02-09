@@ -11,6 +11,8 @@ const Ticket = require('../models/ticket')
 const Transporter = require('../models/transporter')
 const Vehicle = require('../models/vehicle')
 const VehicleOwner = require("../models/vehicleowner")
+const Notification = require('../models/notification')
+const Message  = require('../values')
 
 const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
@@ -66,7 +68,8 @@ router.get("/vehicle_request_action/:id", async (req, res) => {
         if (vehicle) {
             // const obj  = {...req.body}
 
-
+            let text  = "Dear customer, your added vehicle " + vehicle.number +" has been approved and you can now start with loadings on the app for this vehicle. Happy loading from all of us at Transfly!!"
+            createNotification(vehicle.driverid,text,0)
             vehicle["status"] = 1
             await vehicle.save()
             res.redirect('/vehiclerequest')
@@ -83,6 +86,8 @@ router.post("/vehicle_request_action/:id", async (req, res) => {
         if (vehicle) {
             // const obj  = {...req.body}
 
+            let text ="Dear customer, your added vehicle " + vehicle.number +" has been rejected, please re-add your vehicle with proper images and mention details clearly. Thank you."
+            createNotification(vehicle.driverid,text,0)
             await vehicle.remove()
             res.redirect('/vehiclerequest')
         }
@@ -109,6 +114,53 @@ router.get('/webvehicle/image/:id', async (req, res) => {
         return res.status(400)
     }
 })
+
+
+let createNotification = async (user,text,type)=>{
+    try
+    {
+       if(type)
+    {
+       const notification = new Notification({user,text,type})
+       await notification.save()
+       var vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+              
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+       
+    }
+    else
+    {
+       const notification = new Notification({user,text})
+       await notification.save()
+       let vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+    }
+    return true;
+   
+    }
+    catch(e)
+    {
+       
+       throw new Error(e.message)
+    }
+    
+}
 
 
 module.exports = router

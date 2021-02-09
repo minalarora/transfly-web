@@ -416,29 +416,36 @@ router.get('/mobinvoicetransporter', async (req, res) => {
 
 router.get('/webfinanceinvoice', async (req, res) => {
     try {
+      
         const token = req.cookies['Authorization']
         const decoded = jwt.verify(token, 'transfly')
         const finance = await Finance.findOne({ id: decoded._id, "tokens.token": token })
         const admin = await Admin.findOne({ id: decoded._id, "tokens.token": token })
         let user_type = "";
         if (admin) {
+           
             user_type = "admin"
         }
         else {
+           
             user_type = "finance"
         }
 
         if (finance || admin) {
+          
             let status = req.query.status;
 
             if (status) {
 
+                
                 let page = null
                 if (req.query.page) {
+                   
                     page = parseInt(req.query.page)
 
                 }
                 else {
+                   
                     page = 1
                 }
 
@@ -446,11 +453,13 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 if (page < 1) {
                     page = 1;
                 }
+              
                 let invoice = await Invoice.find({ status: req.query.status }, null, {
                     skip: (page * 150 - 150), limit: 150, sort: {
                         createdAt: -1
                     }
                 }).exec()
+                
 
                 let data = {
                     user_type,
@@ -469,6 +478,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
                 }
                 else {
+                   
                     invoice = invoice
 
                 }
@@ -480,6 +490,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
                 //when invocies finished or no invoices exist
                 if (invoice.length == 0) {
+                    
                     if (page == 1 && status == "PENDING") { // this runs when no invoice exist so just rendering page with empty data
                         return res.render("finance_pending_invoices", { data })
                     } else if (page == 1 && status == "COMPLETED") {
@@ -491,22 +502,32 @@ router.get('/webfinanceinvoice', async (req, res) => {
                 }
                 for (var i = 0; i < invoice.length; i++) {
 
-                    let t = invoice[i].toObject()
+                    try
+                    {
+                        let t = invoice[i].toObject()
+                    
+                        const mine = await Mine.findOne({ id: invoice[i].mineid })
+                        const vehicleowner = await VehicleOwner.findOne({ id: t.owner })
+                       
+                        t.mine = mine.name
+                        t.vehicleowner = vehicleowner.name
+                        t.city = mine.area
+                        data.invoice.push(t)
+                    }
+                    catch(e)
+                    {
 
-                    const mine = await Mine.findOne({ id: invoice[i].mineid })
-                    const vehicleowner = await VehicleOwner.findOne({ id: invoice[i].owner })
-                    t.mine = mine.name
-                    t.vehicleowner = vehicleowner.name
-                    t.city = mine.area
-                    data.invoice.push(t)
+                    }
+                      
 
                 }
 
-                data.prev = page - 1
-                data.next = page + 1
-                data.page = page
+                // data.prev = page - 1
+                // data.next = page + 1
+                // data.page = page
                 if (status == "PENDING") {
 
+                   
                     return res.render('finance_pending_invoices', { data })
                 } else {
 
@@ -515,7 +536,7 @@ router.get('/webfinanceinvoice', async (req, res) => {
 
             } else {
 
-               
+             
                 return res.redirect("/webfinance")
             }
         } else {
@@ -523,7 +544,8 @@ router.get('/webfinanceinvoice', async (req, res) => {
         }
     } catch (e) {
 
-       //("error", e.message)
+       //("error", e.message)]
+     
         return res.redirect('/')
     }
 })
@@ -628,7 +650,7 @@ router.post('/webupdatependinginvoice/:id', async (req, res) => {
                             //     }
                             // })
                             let text = "Invoice ready for "+ invoice.vehicle +", Loaded on "+ invoice.date +", "+ invoice.minename +" - "+ invoice.loading +"."
-                            Notification.createNotification(invoice.owner,text,2)
+                            createNotification(invoice.owner,text,2)
                             Message.sendMessageTwo(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.minename,invoice.loading)
                         }
                         invoice["status"] = "COMPLETED"
@@ -796,7 +818,7 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
                             // })
 
                             let text = "Balance Amount cleared for Vehicle no. " + invoice.vehicle +", Loading Date " + invoice.date + ", " + invoice.minename + "-" + invoice.loading+"."
-                            Notification.createNotification(invoice.owner,text,3)
+                            createNotification(invoice.owner,text,3)
                             Message.sendMessageThree(invoice.vehicleownermobile,invoice.vehicle,invoice.date,invoice.minename,invoice.loading)
                         
                         
@@ -826,6 +848,53 @@ router.post('/webupdatecompletedinvoice/:id', async (req, res) => {
         return res.redirect('/')
     }
 })
+
+
+let createNotification = async (user,text,type)=>{
+    try
+    {
+       if(type)
+    {
+       const notification = new Notification({user,text,type})
+       await notification.save()
+       var vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+              
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+       
+    }
+    else
+    {
+       const notification = new Notification({user,text})
+       await notification.save()
+       let vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+    }
+    return true;
+   
+    }
+    catch(e)
+    {
+        
+       throw new Error(e.message)
+    }
+    
+}
 
 
 module.exports = router

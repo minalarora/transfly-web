@@ -36,7 +36,21 @@ router.post("/invoice", auth, async (req, res) => {
             //     }
             // })
             let text = booking.vehicle + " Loaded " + booking.minename + "-" +  booking.loading +" HSD Rs. "+req.body.hsd+" Cash Rs "+req.body.cash+"."
-              Notification.createNotification(booking.owner,text,1)
+             // Notification.createNotification(booking.owner,text,1)
+             //let text = "Thank you for submitting your KYC details, you can check the status in few hours under 'My Profile'"
+             const notification = new Notification({user: booking.owner,text,type:0})
+             await notification.save()
+             const user = await VehicleOwner.findOne({id: booking.owner})
+             user.firebase.forEach((token) => {
+                 try {
+                    
+                     firebase.sendFirebaseMessage(token, "TRANSFLY", text)
+     
+                 }
+                 catch (e) {
+     
+                 }
+             })
              Message.sendMessageOne(booking.vehicleownermobile,booking.vehicle,booking.minename,booking.loading,req.body.hsd,req.body.cash)
 
 

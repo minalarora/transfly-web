@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var VehicleOwner = require('./vehicleowner')
 
 const firebase = require('../values')
 
@@ -85,6 +86,7 @@ const notificationSchema  = mongoose.Schema({
      }
      catch(e)
      {
+       
         throw new Error(e.message)
      }
      
@@ -102,4 +104,3 @@ notificationSchema.pre('save', async function (next) {
 const Notification  = mongoose.model("Notification",notificationSchema)
 module.exports = Notification
 
-var VehicleOwner = require('./vehicleowner')

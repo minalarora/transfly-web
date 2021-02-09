@@ -20,7 +20,7 @@ router.post("/booking", auth, async (req, res) => {
             // const vehicle = await Vehicle.findOne({number: req.body.vehicle})
             // vehicle.contact = req.body.contact
             // await vehicle.save()
-            let vehiclearray = await Vehicle.find({driverid:user.id, status:1, active: true})
+            let vehiclearray = await Vehicle.find({driverid:req.user.id, status:1, active: true})
       // return vehiclearray.map((vehiclearray)=>{
       //   return vehiclearray.number
       // })
@@ -52,13 +52,27 @@ router.post("/booking", auth, async (req, res) => {
         // })
 
         let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
-         Notification.createNotification(req.user.id,text,0)
+        //  Notification.createNotification(req.user.id,text,0)
+        
+        const notification = new Notification({user: req.user.id,text,type:0})
+        await notification.save()
+        req.user.firebase.forEach((token) => {
+            try {
+               
+                firebase.sendFirebaseMessage(token, "TRANSFLY", text)
+
+            }
+            catch (e) {
+
+            }
+        })
          let m = await Mine.findOne({id: booking.mineid})
          let fs  = await FieldStaff.findOne({id: m.fieldstaff})
          let am = await AreaManager.findOne({id: m.areamanager})
          let date = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
          try
          {
+             
             firebase.sendMessageFour(fs.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
             
             firebase.sendMessageFour(am.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
@@ -73,12 +87,13 @@ router.post("/booking", auth, async (req, res) => {
         return res.status(200).send("done")
     }
     else {
-        res.status(402).send("COMPLETE YOUR KYC FIRST")
+        res.status(400).send("error")
         }
       }
       else 
       {
-        res.status(400).send("error")
+        res.status(402).send("COMPLETE YOUR KYC FIRST")
+      
       }
 
            

@@ -2358,23 +2358,23 @@ bot.on('text',(ctx)=>{
     else if(ctx.data.message[4] == "booking" && ctx.data.message[0] == "vehicleone" && ctx.data.language == "english")
     {
         let option  = ctx.message.text
-        console.log("1")
+
         TelegramUtils.getVehiclesByMobile(ctx.data.number,ctx.data.message[1]).then((val)=>{
-            console.log("2")
+           
             let vehiclearray = val
-            console.log(val)
+           
            for(let i = 0;i<vehiclearray.length;i++)
                 {
                     if(option == vehiclearray[i].substring(vehiclearray[i].length - 4))
                     {
                         ctx.data.message.unshift(vehiclearray[i])
-                        console.log("3")
+                      
                     }
                 }
 
         if(ctx.data.message[5] == "booking")
         {
-            console.log("4",ctx.data.message)
+          
             let vehicle = ctx.data.message[0]
             let mine  = ctx.data.message[2]
             let area  = ctx.data.message[3]
@@ -2397,7 +2397,7 @@ bot.on('text',(ctx)=>{
             }).catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                console.log("10")
+               
                ctx.reply(englisharr[55])
 
             })
@@ -2408,7 +2408,7 @@ bot.on('text',(ctx)=>{
             ctx.data.message = []
             ctx.data.number = null
             ctx.reply(englisharr[55])
-            console.log("20")
+           
         }        
 
         })
@@ -2416,8 +2416,7 @@ bot.on('text',(ctx)=>{
             ctx.data.message = []
             ctx.data.number = null
             ctx.reply(englisharr[55])
-            console.log("30")
-
+         
         })
     }
     else if(ctx.data.message[4] == "booking" && ctx.data.message[0] == "vehicleone" && ctx.data.language == "hindi")
@@ -2633,7 +2632,7 @@ bot.on('text',(ctx)=>{
                 }
         if(ctx.data.message[5] == "booking")
         {
-            console.log("minal",ctx.data.message)
+           
             let vehicle = ctx.data.message[0]
             let mine  = ctx.data.message[2]
             let area  = ctx.data.message[3]
@@ -2651,19 +2650,19 @@ bot.on('text',(ctx)=>{
                     ctx.data.message = []
                     ctx.data.number = null
                     ctx.reply(englisharr[55])
-                    console.log("minal","erro1")
+                    
                 }
             }).catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
                 ctx.reply(englisharr[55])
-                console.log("minal","erro2")
+                
             })
             
         }
         else
         {
-            console.log("minalw",ctx.data.message)
+           
             ctx.data.message = []
             ctx.data.number = null
             ctx.reply(englisharr[55])
@@ -2876,7 +2875,7 @@ bot.on('text',(ctx)=>{
     else if(ctx.data.message[3] == "booking" && ctx.data.language == "english")
     {
         let option = ctx.message.text
-        console.log(ctx.data.message)
+      
         if(option == "1")
         {
             ctx.reply(englisharr[0])

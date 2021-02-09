@@ -326,4 +326,3 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 //     console.log(i,englisharr[i])
 // }
 
-console.log(false == false)

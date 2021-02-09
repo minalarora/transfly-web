@@ -17,6 +17,8 @@ const Resale = require('./models/resale')
 const mine = require('./models/mine')
 const fetch = require("node-fetch")
 const email= require('../src/email')
+const Notification = require('../src/models/notification')
+let moment = require('moment-timezone')
 // email.sendEmail('hey','how r u?')
 
 
@@ -246,7 +248,36 @@ const createBooking = async function(mobile,vehicle,mine,loading)
       {
         const booking  = new Booking({vehicle,mineid:mineobj.id,minename:mineobj.name,loading,owner: user.id,vehicleowner:user.name,vehicleownermobile:user.mobile})
         await booking.save()
-        await Vehicle.findOneAndUpdate({number: vehicle},{active: false})
+        let v = await Vehicle.findOneAndUpdate({number: vehicle},{active: false})
+        let text = "Your booking from " + mineobj.name + " to " + loading + " has been successfully created."
+        //  Notification.createNotification(req.user.id,text,0)
+        
+        const notification = new Notification({user: user.id,text,type:0})
+        await notification.save()
+        user.firebase.forEach((token) => {
+            try {
+               
+                sendFirebaseMessage(token, "TRANSFLY", text)
+
+            }
+            catch (e) {
+
+            }
+        })
+         let m = mineobj
+         let fs  = await Fieldstaff.findOne({id: mineobj.fieldstaff})
+         let am = await AreaManager.findOne({id: mineobj.areamanager})
+         let date = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
+         try
+         {
+             sendMessageFour(fs.mobile,vehicle,date,mineobj.name,loading,user.mobile)
+            
+              sendMessageFour(am.mobile,vehicle,date,mineobj.name,loading,user.mobile)
+         }
+         catch(e)
+         {
+           
+         }
         return true
       }
       else
@@ -256,6 +287,7 @@ const createBooking = async function(mobile,vehicle,mine,loading)
     }
     catch(e)
     {
+     
         return false
     }
         
@@ -290,7 +322,7 @@ const getMinesByArea = async function(area,loading)
         return false
     })
     return mineArray.map((mine)=>{
-      console.log(mine.name)
+    
       return mine.name
     })
   }
@@ -379,6 +411,7 @@ const sendMessageOne =  function(number,vehicle,from,to,amount,cash)
    }
   ]
 
+ 
   
 try
 {
@@ -438,6 +471,8 @@ const sendMessageTwo =  function(number,vehicle,date,from,to)
    }
   ]
 
+ 
+
   
 try
 {
@@ -496,7 +531,7 @@ const sendMessageThree =  function(number,vehicle,date,from,to)
     
    }
   ]
-
+  
   
 try
 {
@@ -555,6 +590,8 @@ const sendMessageFour =  function(number,vehicle,date,from,to,driver)
     
    }
   ]
+
+
 
   
 try
