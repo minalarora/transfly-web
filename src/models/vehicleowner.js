@@ -7,7 +7,7 @@ var Notification = require('./notification')
 const jwt = require('jsonwebtoken')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
-const firebase  = require('../values')
+const fetch = require("node-fetch")
 
 
 
@@ -165,17 +165,17 @@ const vehicleownerSchema = mongoose.Schema({
 
 vehicleownerSchema.pre('save', async function (next) {
     const user = this
-    
+   
     if (user.panimage  && user.bankimage && (user.status == 0)) {
         user.status = 1
-
+      
         let text = "Thank you for submitting your KYC details, you can check the status in few hours under 'My Profile'"
         const notification = new Notification({user: user.id,text,type:0})
         await notification.save()
         user.firebase.forEach((token) => {
             try {
-                
-                firebase.sendFirebaseMessage(token, "TRANSFLY", text)
+               
+                sendFirebaseMessage(token, "TRANSFLY", text)
 
             }
             catch (e) {
@@ -275,3 +275,48 @@ vehicleownerSchema.pre('remove', async function (next) {
 const VehicleOwner = mongoose.model('Vehicleowner', vehicleownerSchema)
 
 module.exports = VehicleOwner
+
+const sendFirebaseMessage =  function(token,title,message)
+{
+//   {
+//     "to": "dZetVzzWRbeZAIM3XkZoHE:APA91bFIR-m52RlPaE0mG2soWJCOPuVTYftZqc6LF_vuotByfAtizznyfvtkM2l_ie2X9-8ecJHXP6VSSwq1gwpNq5nDL22vvod2GD3My5R-4MVpOyyJ2B_DIjawFMGdUzWrqvj1_1w_",
+//     "notification": {
+//       "title": "Shani so jaate hain",
+//       "body": "good night",
+//       "mutable_content": true
+//       }
+// }
+
+  const obj = {}
+  obj.to = token
+  obj.notification = {}
+  obj.notification.title = title
+  obj.notification.body = message
+  obj.notification["mutable_content"] = true
+  
+try
+{
+   fetch("https://fcm.googleapis.com/fcm/send",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "Authorization":"key=AAAAVbPt_qI:APA91bG0No1HJJBMFhq4lYPe76XOBOqFa54raGaxd-kLFS9x7lWC7C7dq14CZYiziU8b686-Jk0pJFkVR3xP6cVhsFSAFkT7auTe0F9RLg4IzOf6R0FlPscrAy0MYY320VN3UudV8uBr"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+     //(res.status)
+  }).catch((e)=>{
+   //(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+ //(e)
+}
+  
+
+  
+}
