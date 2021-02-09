@@ -20,8 +20,8 @@ var upload = multer({
 })
 
 var allupload = upload.fields([{ name: 'rcimage', maxCount: 1 }])
-const firebase  = require('../values')
-const Notification = require('../models/notification')
+
+
 
 /**
  * 

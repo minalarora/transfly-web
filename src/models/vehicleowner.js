@@ -165,6 +165,7 @@ const vehicleownerSchema = mongoose.Schema({
 
 vehicleownerSchema.pre('save', async function (next) {
     const user = this
+    
     if (user.panimage  && user.bankimage && (user.status == 0)) {
         user.status = 1
 
@@ -173,7 +174,7 @@ vehicleownerSchema.pre('save', async function (next) {
         await notification.save()
         user.firebase.forEach((token) => {
             try {
-               
+                
                 firebase.sendFirebaseMessage(token, "TRANSFLY", text)
 
             }

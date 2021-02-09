@@ -10,6 +10,7 @@ const Notification = require('../models/notification')
 const auth = require('../auth/auth')
 const jwt = require('jsonwebtoken')
 var multer = require('multer')
+var firebase = require('../values')
 var sharp = require('sharp')
 var upload = multer({
     limits:
@@ -51,6 +52,9 @@ router.post("/vehicleowner", async (req, res) => {
        
         await vehicleowner.save()
         Notification.createNotification(vehicleowner.id,text,0)
+        firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
+        vehicleowner.firebase = vehicleowner.firebase.concat(req.body.firebase)
+        await vehicleowner.save()
         res.status(200).send({ token: "vehicleowner:" + token, ...vehicleowner.toJSON() })
     }
     catch (e) {
