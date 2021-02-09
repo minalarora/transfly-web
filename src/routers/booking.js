@@ -20,44 +20,68 @@ router.post("/booking", auth, async (req, res) => {
             // const vehicle = await Vehicle.findOne({number: req.body.vehicle})
             // vehicle.contact = req.body.contact
             // await vehicle.save()
-            const booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
-            await booking.save()
-            await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
+            let vehiclearray = await Vehicle.find({driverid:user.id, status:1, active: true})
+      // return vehiclearray.map((vehiclearray)=>{
+      //   return vehiclearray.number
+      // })
+     let updatedva = vehiclearray.filter((v)=>{
+        if(v.number.includes(req.body.vehicle) )
+        {
+          return true
+        }
+        else
+        {
+          return false
+        }
+      })
+
+      if(updatedva.length > 0)
+      {
+        const booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
+        await booking.save()
+        await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
+        
+        // req.user.firebase.forEach((token) => {
+        //     try {
+        //         firebase.sendFirebaseMessage(token, "TRANSFLY", "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created.")
+
+        //     }
+        //     catch (e) {
+
+        //     }
+        // })
+
+        let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
+         Notification.createNotification(req.user.id,text,0)
+         let m = await Mine.findOne({id: booking.mineid})
+         let fs  = await FieldStaff.findOne({id: m.fieldstaff})
+         let am = await AreaManager.findOne({id: m.areamanager})
+         let date = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
+         try
+         {
+            firebase.sendMessageFour(fs.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
             
-            // req.user.firebase.forEach((token) => {
-            //     try {
-            //         firebase.sendFirebaseMessage(token, "TRANSFLY", "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created.")
+            firebase.sendMessageFour(am.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
+         }
+         catch(e)
+         {
 
-            //     }
-            //     catch (e) {
+         }
+         //(number,vehicle,date,from,to,driver)
+      
 
-            //     }
-            // })
-
-            let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
-             Notification.createNotification(req.user.id,text,0)
-             let m = await Mine.findOne({id: booking.mineid})
-             let fs  = await FieldStaff.findOne({id: m.fieldstaff})
-             let am = await AreaManager.findOne({id: m.areamanager})
-             let date = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
-             try
-             {
-                firebase.sendMessageFour(fs.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
-                
-                firebase.sendMessageFour(am.mobile,req.body.vehicle,date,req.body.minename,req.body.loading,req.body.contact)
-             }
-             catch(e)
-             {
-
-             }
-             //(number,vehicle,date,from,to,driver)
-          
-
-            return res.status(200).send("done")
+        return res.status(200).send("done")
+    }
+    else {
+        res.status(402).send("COMPLETE YOUR KYC FIRST")
         }
-        else {
-            res.status(402).send("COMPLETE YOUR KYC FIRST")
-        }
+      }
+      else 
+      {
+        res.status(400).send("error")
+      }
+
+           
     }
     catch (e) {
         res.status(400).send(e.message)

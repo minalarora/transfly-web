@@ -43,14 +43,95 @@ const isRegisteredUser = async function(mobile)
 }
 
 
-const getVehiclesByMobile = async function(mobile)
+const getVehiclesByMobile = async function(mobile,minename)
 {
   try
   {
     let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
     if(user)
     {
-      let vehiclearray = await Vehicle.find({driverid:user.id,status:1})
+      let vehiclearray = await Vehicle.find({driverid:user.id,status:1,active:true})
+      let mine  = await Mine.find({name:minename})
+ 
+     
+      let minetrailer = mine[0].trailer
+      let tyres = mine[0].tyres
+      let mvehiclearray = vehiclearray.filter((v)=>{
+        let vehicleTyres = parseInt(v.tyres.split("-")[0].trim())
+        let trailerString = " "
+        
+        try
+        {
+          trailerString = v.tyres.split("-")[1].trim()
+        
+        }
+        catch(e)
+        {
+
+        }
+        let vehicleTrailer = true
+        if(vehicleTyres < 18)
+        {
+          if(trailerString.toUpperCase() == "TRAILOR")
+          {
+           
+          }
+          else
+          {
+            vehicleTrailer = false
+          
+          }
+        }
+        if(vehicleTyres > tyres)
+        {
+         
+          return false;
+        }
+        else
+        {
+          if(minetrailer)
+          {
+           
+            return true;
+          }
+          else
+          {
+            
+            return (vehicleTrailer == minetrailer)
+          }
+        }
+          
+      })
+
+      
+      return mvehiclearray.map((vehiclearray)=>{
+        return vehiclearray.number
+      })
+    }
+    else
+    {
+      throw new Error("User not found")
+    }
+    
+  }
+  catch(e)
+  {
+  
+    throw new Error("User not found")
+  }
+ 
+}
+
+const getVehiclesByMobile2 = async function(mobile)
+{
+  try
+  {
+    let user  = await VehicleOwner.findOne({mobile,status:2,active:true})
+    if(user)
+    {
+      let vehiclearray = await Vehicle.find({driverid:user.id})
+     
+      
       return vehiclearray.map((vehiclearray)=>{
         return vehiclearray.number
       })
@@ -63,6 +144,7 @@ const getVehiclesByMobile = async function(mobile)
   }
   catch(e)
   {
+  
     throw new Error("User not found")
   }
  
@@ -145,10 +227,32 @@ const createBooking = async function(mobile,vehicle,mine,loading)
     try
     {
       let mineobj  = await Mine.findOne({name:mine})
+    
+      let vehiclearray = await Vehicle.find({driverid:user.id, status:1, active: true})
+      // return vehiclearray.map((vehiclearray)=>{
+      //   return vehiclearray.number
+      // })
+     let updatedva = vehiclearray.filter((v)=>{
+        if(v.number.includes(vehicle) )
+        {
+          return true
+        }
+        else
+        {
+          return false
+        }
+      })
+      if(updatedva.length > 0)
+      {
         const booking  = new Booking({vehicle,mineid:mineobj.id,minename:mineobj.name,loading,owner: user.id,vehicleowner:user.name,vehicleownermobile:user.mobile})
         await booking.save()
         await Vehicle.findOneAndUpdate({number: vehicle},{active: false})
         return true
+      }
+      else
+      {
+        return false
+      }
     }
     catch(e)
     {
@@ -494,6 +598,7 @@ module.exports = {
   createTicket,
   getInvoice,
   getVehiclesByMobile,
+  getVehiclesByMobile2,
   getMinesByArea,
   sendFirebaseMessage,
   sendMessageOne,
