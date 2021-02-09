@@ -1,6 +1,9 @@
 const express = require('express')
 const router  = new express.Router()
 const Vehicle = require('../models/vehicle')
+const Notification = require('../models/notification')
+const firebase = require('../values')
+let moment = require('moment-timezone')
 const auth = require('../auth/auth')
 var multer  = require('multer')
 var sharp = require('sharp')
@@ -49,7 +52,19 @@ router.post("/vehicle",auth,allupload,async (req,res)=>{
 
         
         let text = "Your vehicle " + req.body.number +" has been added."
-        Notification.createNotification(req.user.id,text,0)
+        
+        const notification = new Notification({user: req.user.id,text,type:0})
+        await notification.save()
+        req.user.firebase.forEach((token) => {
+            try {
+               
+                firebase.sendFirebaseMessage(token, "TRANSFLY", text)
+
+            }
+            catch (e) {
+
+            }
+        })
 
         return res.status(200).send("DONE")  
     }
