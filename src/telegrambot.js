@@ -3074,7 +3074,7 @@ bot.on('text',(ctx)=>{
         if(ctx.data.message[0] == "Joda")
         {
             TelegramUtils.getMinesByArea("Joda",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3142,7 +3142,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3210,7 +3210,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3277,7 +3277,7 @@ bot.on('text',(ctx)=>{
         else if(ctx.data.message[0] == "Koida")
         {
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3344,7 +3344,7 @@ bot.on('text',(ctx)=>{
         else if(ctx.data.message[0] == "Jamda")
         {
         TelegramUtils.getMinesByArea("Jamda",ctx.data.message[1]).then((val)=>{
-            if(val)
+            if(val.length > 0)
             {
                 let minearray = val
                 for(let i = 0; i < minearray.length ; i++)
@@ -3424,7 +3424,7 @@ bot.on('text',(ctx)=>{
         if(ctx.data.message[0] == "Joda")
         {
             TelegramUtils.getMinesByArea("Joda",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3492,7 +3492,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3560,7 +3560,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3628,7 +3628,7 @@ bot.on('text',(ctx)=>{
         else if(ctx.data.message[0] == "Koida")
         {
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3778,7 +3778,7 @@ bot.on('text',(ctx)=>{
         if(ctx.data.message[0] == "Joda")
         {
             TelegramUtils.getMinesByArea("Joda",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3846,7 +3846,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3914,7 +3914,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -3982,7 +3982,7 @@ bot.on('text',(ctx)=>{
         else if(ctx.data.message[0] == "Koida")
         {
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -4132,7 +4132,7 @@ bot.on('text',(ctx)=>{
         if(ctx.data.message[0] == "Joda")
         {
             TelegramUtils.getMinesByArea("Joda",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -4200,7 +4200,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -4268,7 +4268,7 @@ bot.on('text',(ctx)=>{
         {
 
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
@@ -4336,7 +4336,7 @@ bot.on('text',(ctx)=>{
         else if(ctx.data.message[0] == "Koida")
         {
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
-                if(val)
+                if(val.length > 0)
                 {
                     let minearray = val
                     for(let i = 0; i < minearray.length ; i++)
