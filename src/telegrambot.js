@@ -2029,7 +2029,7 @@ bot.on('text',(ctx)=>{
         else if(option == "9")
         {
 
-            getValue(5,ctx.data.language)
+            ctx.reply(getValue(5,ctx.data.language))
             ctx.data.message = []
             ctx.data.number = null
             ctx.data.message.unshift("language")
@@ -2038,7 +2038,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
     }
     else if(ctx.data.message[0] == "ticket" && ctx.data.language == "telegu")
@@ -2185,7 +2185,7 @@ bot.on('text',(ctx)=>{
         else if(option == "9")
         {
 
-            getValue(5,ctx.data.language)
+            ctx.reply(getValue(5,ctx.data.language))
             ctx.data.message = []
             ctx.data.number = null
             ctx.data.message.unshift("language")
@@ -2194,7 +2194,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
     }
     else if(ctx.data.message[0] == "ticket" && ctx.data.language == "odhissa")
@@ -2341,7 +2341,7 @@ bot.on('text',(ctx)=>{
         else if(option == "9")
         {
 
-            getValue(5,ctx.data.language)
+            ctx.reply(getValue(5,ctx.data.language))
             ctx.data.message = []
             ctx.data.number = null
             ctx.data.message.unshift("language")
@@ -2350,7 +2350,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
     }
     
@@ -3536,7 +3536,7 @@ bot.on('text',(ctx)=>{
             }
             else
             {
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
                 ctx.data.message = []
                 ctx.data.number = null
             }
@@ -3546,13 +3546,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply( getValue(55,ctx.data.language))
             })
 
         }
@@ -3607,7 +3607,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             }
 
         }
@@ -3615,13 +3615,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply( getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -3673,7 +3673,7 @@ bot.on('text',(ctx)=>{
             }
             else
             {
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
                 ctx.data.message = []
                 ctx.data.number = null
             }
@@ -3683,13 +3683,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -3741,7 +3741,7 @@ bot.on('text',(ctx)=>{
         }
         else
         {
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
             ctx.data.message = []
             ctx.data.number = null
         }
@@ -3751,13 +3751,13 @@ bot.on('text',(ctx)=>{
     {
         ctx.data.message = []
         ctx.data.number = null
-        getValue(55,ctx.data.language)
+        ctx.reply(getValue(55,ctx.data.language))
     }
         })
         .catch((val)=>{
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         })
 
            
@@ -3767,7 +3767,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
             //
         }
     }
@@ -3890,7 +3890,7 @@ bot.on('text',(ctx)=>{
             }
             else
             {
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
                 ctx.data.message = []
                 ctx.data.number = null
             }
@@ -3900,13 +3900,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -3961,7 +3961,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             }
 
         }
@@ -3969,13 +3969,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -4027,7 +4027,7 @@ bot.on('text',(ctx)=>{
             }
             else
             {
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
                 ctx.data.message = []
                 ctx.data.number = null
             }
@@ -4037,13 +4037,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -4095,7 +4095,7 @@ bot.on('text',(ctx)=>{
         }
         else
         {
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
             ctx.data.message = []
             ctx.data.number = null
         }
@@ -4105,13 +4105,13 @@ bot.on('text',(ctx)=>{
     {
         ctx.data.message = []
         ctx.data.number = null
-        getValue(55,ctx.data.language)
+        ctx.reply(getValue(55,ctx.data.language))
     }
         })
         .catch((val)=>{
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         })
 
            
@@ -4121,7 +4121,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
             //
         }
     }
@@ -4244,7 +4244,7 @@ bot.on('text',(ctx)=>{
             }
             else
             {
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
                 ctx.data.message = []
                 ctx.data.number = null
             }
@@ -4254,13 +4254,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -4315,7 +4315,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             }
 
         }
@@ -4323,13 +4323,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -4381,7 +4381,7 @@ bot.on('text',(ctx)=>{
             }
             else
             {
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
                 ctx.data.message = []
                 ctx.data.number = null
             }
@@ -4391,13 +4391,13 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         }
             })
             .catch((val)=>{
                 ctx.data.message = []
                 ctx.data.number = null
-                getValue(55,ctx.data.language)
+                ctx.reply(getValue(55,ctx.data.language))
             })
 
         }
@@ -4449,7 +4449,7 @@ bot.on('text',(ctx)=>{
         }
         else
         {
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
             ctx.data.message = []
             ctx.data.number = null
         }
@@ -4459,13 +4459,13 @@ bot.on('text',(ctx)=>{
     {
         ctx.data.message = []
         ctx.data.number = null
-        getValue(55,ctx.data.language)
+        ctx.reply(getValue(55,ctx.data.language))
     }
         })
         .catch((val)=>{
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
         })
 
            
@@ -4475,7 +4475,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.number = null
-            getValue(55,ctx.data.language)
+            ctx.reply(getValue(55,ctx.data.language))
             //
         }
     }
