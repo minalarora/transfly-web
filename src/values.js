@@ -177,17 +177,19 @@ const getInvoice = async function(mobile,vehicle)
            "Invoice ID:-" + user.invoices[0].id + "\n" + 
            "Vehicle:-" + user.invoices[0].vehicle + "\n" + 
            "VehicleOwner:-" + user.invoices[0].vehicleowner + "\n" + 
-           "Mine:-" + user.invoices[0].minename + "\n" + 
-           "Loading:-" + user.invoices[0].loading + "\n" + 
+           "From:-" + user.invoices[0].minename + "\n" + 
+           "To:-" + user.invoices[0].loading + "\n" + 
            "Tonnage:-" + user.invoices[0].tonnage + "\n" + 
            "Rate:-" + user.invoices[0].rate + "\n" + 
            "HSD:-" + user.invoices[0].hsd + "\n" + 
            "Cash:-" + user.invoices[0].cash + "\n" + 
            "Amount:-" + user.invoices[0].amount + "\n" + 
+           "TDS:-" + user.invoices[0].tds + "\n" + 
            "OfficeCharge:-" + user.invoices[0].officecharge + "\n" + 
            "Shortage:-" + user.invoices[0].shortage + "\n" + 
            "BalanceAmount:-" + user.invoices[0].balanceamount + "\n" + 
-           "Status:-" + user.invoices[0].status + "\n" 
+           "Status:-" + user.invoices[0].status + "\n" +
+           "Date:-" +  user.invoices[0].date
 
     }
     else
@@ -229,11 +231,32 @@ const createBooking = async function(mobile,vehicle,mine,loading)
     try
     {
       let mineobj  = await Mine.findOne({name:mine})
-    
+      /**
+       * 
+    mineArray = mineArray.filter((mine)=>{
+        for(let i = 0;i<mine.loading.length;i++)
+        {
+          if(mine.loading[i].loadingname == loading && mine.loading[i].active)
+          {
+            return true
+          }
+        }
+        return false
+    })
+       * 
+       */
+      for(let k = 0;k<mineobj.loading.length;k++)
+      {
+        if((mineobj.loading[k].loadingname == loading) && (mineobj.loading[k].active == false))
+        {
+          return false;
+        }
+      }
       let vehiclearray = await Vehicle.find({driverid:user.id, status:1, active: true})
       // return vehiclearray.map((vehiclearray)=>{
       //   return vehiclearray.number
       // })
+
      let updatedva = vehiclearray.filter((v)=>{
         if(v.number.includes(vehicle) )
         {
@@ -246,9 +269,10 @@ const createBooking = async function(mobile,vehicle,mine,loading)
       })
       if(updatedva.length > 0)
       {
-        const booking  = new Booking({vehicle,mineid:mineobj.id,minename:mineobj.name,loading,owner: user.id,vehicleowner:user.name,vehicleownermobile:user.mobile})
-        await booking.save()
+        
         let v = await Vehicle.findOneAndUpdate({number: vehicle},{active: false})
+        const booking  = new Booking({vehicle,mineid:mineobj.id,minename:mineobj.name,loading,owner: user.id,vehicleowner:user.name,vehicleownermobile:user.mobile,contact:v.contact})
+        await booking.save()
         let text = "Your booking from " + mineobj.name + " to " + loading + " has been successfully created."
         //  Notification.createNotification(req.user.id,text,0)
         
@@ -270,9 +294,9 @@ const createBooking = async function(mobile,vehicle,mine,loading)
          let date = moment(new Date()).tz("Asia/Kolkata").format("YYYY-MM-DD HH:mm:ss").toString()
          try
          {
-             sendMessageFour(fs.mobile,vehicle,date,mineobj.name,loading,user.mobile)
+              sendMessageFour(fs.mobile,vehicle,date,mineobj.name,loading,v.contact)
             
-              sendMessageFour(am.mobile,vehicle,date,mineobj.name,loading,user.mobile)
+              sendMessageFour(am.mobile,vehicle,date,mineobj.name,loading,v.contact)
          }
          catch(e)
          {

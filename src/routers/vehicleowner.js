@@ -52,7 +52,7 @@ router.post("/vehicleowner", async (req, res) => {
        
         await vehicleowner.save()
         Notification.createNotification(vehicleowner.id,text,0)
-        firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
+       // firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
         vehicleowner.firebase = []
         vehicleowner.firebase = vehicleowner.firebase.concat(req.body.firebase)
         await vehicleowner.save()

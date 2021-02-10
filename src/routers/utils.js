@@ -327,6 +327,10 @@ router.post('/logout', auth, async (req, res) => {
     }
 })
 
+router.get('/faq',async (req,res)=>{
+    return res.render('webview_faq', {  })
+})
+
 
 
 
