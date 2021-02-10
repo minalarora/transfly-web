@@ -345,14 +345,25 @@ const getMinesByArea = async function(area,loading)
         }
         return false
     })
-    return mineArray.map((mine)=>{
+    let nameArray =  mineArray.map((mine)=>{
     
       return mine.name
     })
+
+    
+    if(nameArray.length == 0)
+    {
+      return []
+    }
+    else
+    {
+      return nameArray
+    }
    
   }
   catch(e)
   {
+    return []
     throw new Error("User not found")
   }
     

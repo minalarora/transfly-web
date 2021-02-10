@@ -3070,6 +3070,7 @@ bot.on('text',(ctx)=>{
     else if(ctx.data.message[2] == "booking" && ctx.data.language == "english")
     {
         let option = ctx.message.text
+       
 
         if(ctx.data.message[0] == "Joda")
         {
@@ -3090,29 +3091,7 @@ bot.on('text',(ctx)=>{
                englisharr[23]
                 )
 
-                // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
-
-                //     let vehiclearray = val
-                //     let message = ""
-                //     for(let i = 0;i<vehiclearray.length;i++)
-                //     {
-                //          message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-                //     }
-                //     if(vehiclearray.length > 0)
-                //     {
-                //         ctx.reply(message)
-                //     }
-                //     else 
-                //     {
-                //         ctx.data.message = []
-                //         ctx.data.number = null
-                //         ctx.reply("Kindly registered the vehicles through Transfly app") 
-                //     }
-
-                // }).catch((e)=>{
-                //     ctx.data.message = []
-                //     ctx.data.number = null
-                // })
+                
 
             }
             else
@@ -3343,68 +3322,78 @@ bot.on('text',(ctx)=>{
         }
         else if(ctx.data.message[0] == "Jamda")
         {
-        TelegramUtils.getMinesByArea("Jamda",ctx.data.message[1]).then((val)=>{
-            if(val.length > 0)
+            try
             {
-                let minearray = val
-                for(let i = 0; i < minearray.length ; i++)
-        {
-            if(option == i)
-            {
-                ctx.data.message.unshift(minearray[i])
+                TelegramUtils.getMinesByArea("Jamda",ctx.data.message[1]).then((val)=>{
+          
+                    if(val.length > 0)
+                    {
+                        let minearray = val
+                        for(let i = 0; i < minearray.length ; i++)
+                {
+                    if(option == i)
+                    {
+                        ctx.data.message.unshift(minearray[i])
+                    }
+                }
+                if(ctx.data.message[3] == "booking")
+                {
+                    ctx.reply(englisharr[15] + "\n" + 
+                    englisharr[23])
+        
+                    // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
+        
+                    //     let vehiclearray = val
+                    //     let message = ""
+                    //     for(let i = 0;i<vehiclearray.length;i++)
+                    //     {
+                    //          message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
+                    //     }
+                    //     if(vehiclearray.length > 0)
+                    //     {
+                    //         ctx.reply(message)
+                    //     }
+                    //     else 
+                    //     {
+                    //         ctx.reply("Kindly registered the vehicles through Transfly app")
+                    //         ctx.data.message = []
+                    //         ctx.data.number = null 
+                    //     }
+        
+                    // }).catch((e)=>{
+                    //     ctx.data.message = []
+                    //     ctx.data.number = null
+        
+                    // })
+        
+                }
+                else
+                {
+                    ctx.reply(englisharr[55])
+                    ctx.data.message = []
+                    ctx.data.number = null
+                }
+        
             }
-        }
-        if(ctx.data.message[3] == "booking")
-        {
-            ctx.reply(englisharr[15] + "\n" + 
-            englisharr[23])
-
-            // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
-
-            //     let vehiclearray = val
-            //     let message = ""
-            //     for(let i = 0;i<vehiclearray.length;i++)
-            //     {
-            //          message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
-            //     }
-            //     if(vehiclearray.length > 0)
-            //     {
-            //         ctx.reply(message)
-            //     }
-            //     else 
-            //     {
-            //         ctx.reply("Kindly registered the vehicles through Transfly app")
-            //         ctx.data.message = []
-            //         ctx.data.number = null 
-            //     }
-
-            // }).catch((e)=>{
-            //     ctx.data.message = []
-            //     ctx.data.number = null
-
-            // })
-
-        }
-        else
-        {
-            ctx.reply(englisharr[55])
-            ctx.data.message = []
-            ctx.data.number = null
-        }
-
-    }
-    else
-    {
-        ctx.data.message = []
-        ctx.data.number = null
-        ctx.reply(englisharr[55])
-    }
-        })
-        .catch((val)=>{
-            ctx.data.message = []
-            ctx.data.number = null
-            ctx.reply(englisharr[55])
-        })
+            else
+            {
+                ctx.reply(englisharr[55])
+                ctx.data.message = []
+                ctx.data.number = null
+                
+            }
+                })
+                .catch(()=>{
+                    ctx.data.message = []
+                    ctx.data.number = null
+                    ctx.reply(englisharr[55])
+                })
+            }
+            catch(e)
+            {
+                
+            }
+      
 
            
         
@@ -4491,7 +4480,7 @@ bot.on('text',(ctx)=>{
            //joda
            TelegramUtils.getMinesByArea("Joda",ctx.data.message[0]).then((val)=>{
 
-            if(val)
+            if(val.length>0)
             {
                 // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                 let minearray = val
@@ -4526,7 +4515,7 @@ bot.on('text',(ctx)=>{
         {
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4560,7 +4549,7 @@ bot.on('text',(ctx)=>{
             //rugudi
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4595,7 +4584,7 @@ bot.on('text',(ctx)=>{
             //koida
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4628,7 +4617,7 @@ bot.on('text',(ctx)=>{
             //jamda
             TelegramUtils.getMinesByArea("Jamda",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length > 0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4674,7 +4663,7 @@ bot.on('text',(ctx)=>{
            //joda
            TelegramUtils.getMinesByArea("Joda",ctx.data.message[0]).then((val)=>{
 
-            if(val)
+            if(val.length>0)
             {
                 // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                 let minearray = val
@@ -4712,7 +4701,7 @@ bot.on('text',(ctx)=>{
         {
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4746,7 +4735,7 @@ bot.on('text',(ctx)=>{
             //rugudi
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4781,7 +4770,7 @@ bot.on('text',(ctx)=>{
             //koida
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4814,7 +4803,7 @@ bot.on('text',(ctx)=>{
             //jamda
             TelegramUtils.getMinesByArea("Jamda",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4860,7 +4849,7 @@ bot.on('text',(ctx)=>{
            //joda
            TelegramUtils.getMinesByArea("Joda",ctx.data.message[0]).then((val)=>{
 
-            if(val)
+            if(val.length>0)
             {
                 // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                 let minearray = val
@@ -4897,7 +4886,7 @@ bot.on('text',(ctx)=>{
         {
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4932,7 +4921,7 @@ bot.on('text',(ctx)=>{
             //rugudi
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -4968,7 +4957,7 @@ bot.on('text',(ctx)=>{
             //koida
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -5002,7 +4991,7 @@ bot.on('text',(ctx)=>{
             //jamda
             TelegramUtils.getMinesByArea("Jamda",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -5049,7 +5038,7 @@ bot.on('text',(ctx)=>{
            //joda
            TelegramUtils.getMinesByArea("Joda",ctx.data.message[0]).then((val)=>{
 
-            if(val)
+            if(val.length>0)
             {
                 // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                 let minearray = val
@@ -5086,7 +5075,7 @@ bot.on('text',(ctx)=>{
         {
             TelegramUtils.getMinesByArea("Barbil",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -5121,7 +5110,7 @@ bot.on('text',(ctx)=>{
             //rugudi
             TelegramUtils.getMinesByArea("Rugudi",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -5157,7 +5146,7 @@ bot.on('text',(ctx)=>{
             //koida
             TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -5191,7 +5180,7 @@ bot.on('text',(ctx)=>{
             //jamda
             TelegramUtils.getMinesByArea("Jamda",ctx.data.message[0]).then((val)=>{
 
-                if(val)
+                if(val.length>0)
                 {
                     // let minearray = ["MGM Mines","KMC Mines","Essar Plant"]
                     let minearray = val
@@ -6248,6 +6237,7 @@ function getNumber(text)
 {
     return englisharr.indexOf(text.toUpperCase())
 }
+
 
 
 function getValue(index,language)
