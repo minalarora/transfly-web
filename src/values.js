@@ -179,7 +179,7 @@ const getInvoice = async function(mobile,vehicle)
            "VehicleOwner:-" + user.invoices[0].vehicleowner + "\n" + 
            "From:-" + user.invoices[0].minename + "\n" + 
            "To:-" + user.invoices[0].loading + "\n" + 
-           "Date:-" +  user.invoices[0].date +
+           "Date:-" +  user.invoices[0].date + "\n" +
            "Tonnage:-" + user.invoices[0].tonnage + "\n" + 
            "Rate:-" + user.invoices[0].rate + "\n" + 
            "Amount:-" + user.invoices[0].amount + "\n" + 

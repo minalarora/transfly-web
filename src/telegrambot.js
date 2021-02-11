@@ -117,7 +117,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                      ctx.reply(val + "\nPress any key to continue.")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -318,7 +318,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                       ctx.reply(val + "\nकृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -448,7 +448,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                        ctx.reply(val + "\nకొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -578,7 +578,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                        ctx.reply(val + "\nଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -1603,7 +1603,7 @@ bot.on('text',(ctx)=>{
                 let message = ""
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
-                    message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
+                    message = message + vehiclearray[i] + " के लिए " + i + " दबाएं" + "\n"
                     // message = message + vehiclearray[i] + " కోసం " + i + "నొక్కండి" + "\n"
                     // message = message + vehiclearray[i] + " ପାଇଁ " + i + "ଦବାନ୍ତୁ" + "\n"
 
@@ -1651,7 +1651,7 @@ bot.on('text',(ctx)=>{
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
-                    message = message + vehiclearray[i] + " కోసం " + i + "నొక్కండి" + "\n"
+                    message = message + vehiclearray[i] + " కోసం " + i + " నొక్కండి" + "\n"
                     // message = message + vehiclearray[i] + " ପାଇଁ " + i + "ଦବାନ୍ତୁ" + "\n"
 
                 }
@@ -1699,7 +1699,7 @@ bot.on('text',(ctx)=>{
                 {
                     // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
                     // message = message + vehiclearray[i] + " కోసం " + i + "నొక్కండి" + "\n"
-                    message = message + vehiclearray[i] + " ପାଇଁ " + i + "ଦବାନ୍ତୁ" + "\n"
+                    message = message + vehiclearray[i] + " ପାଇଁ " + i + " ଦବାନ୍ତୁ" + "\n"
 
                 }
                 if(vehiclearray.length > 0)
@@ -5903,7 +5903,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Thank you, your booking has been received. Press any key to continue",
 "The mentioned number did not match. Press any key to continue",
 "Please type your registered mobile number",
-"Select the following options",
+"Select from the following options",
 "The selected option seems not to be available/valid for now, please try another option.",
 "BARBIL",
 "JAMDA",
