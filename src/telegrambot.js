@@ -77,7 +77,7 @@ bot.on('text',(ctx)=>{
         //     //add ctx.chat.id to user field
         //     // ctx.chat.id
         //     // bot.telegram.sendMessage(ctx.chat.id,"yes")
-        //     ctx.reply("Select the following options: \n 1. New Booking \n 2. Complaint/Enquiry ")
+        //     ctx.reply("Select the following options: \n1. New Booking \n2. Complaint/Enquiry ")
         // }
         // else
         // {
@@ -188,7 +188,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                      ctx.reply(val + "\nPress any key to continue.")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -247,7 +247,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                      ctx.reply(val + "\nकृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -377,7 +377,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                      ctx.reply(val + "\nకొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -507,7 +507,7 @@ bot.on('text',(ctx)=>{
                 TelegramUtils.getInvoice(ctx.data.number,ctx.data.message[0]).then((val)=>{
                     if(val)
                     {
-                      ctx.reply(val)
+                      ctx.reply(val + "\nଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|")
                       ctx.data.message = []  
                       ctx.data.number = null
                     }
@@ -812,7 +812,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("one")
-            ctx.reply(englisharr[15] + "\n" + 
+            ctx.reply(englisharr[14] + "\n" + 
                englisharr[23])
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -856,7 +856,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n "+ englisharr[24] +"\n" + 
+            ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n"+ englisharr[24] +"\n" + 
                 englisharr[27] + "\n"+ englisharr[46])
         }
         else if(option == "9")
@@ -887,7 +887,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("one")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(14,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -931,7 +931,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -962,7 +962,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("one")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(14,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1006,7 +1006,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -1037,7 +1037,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("one")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(14,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1081,7 +1081,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -1742,7 +1742,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("vehicle breakdown")
-            ctx.reply(englisharr[15] + "\n" + 
+            ctx.reply(englisharr[13] + "\n" + 
                englisharr[23])
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1784,7 +1784,7 @@ bot.on('text',(ctx)=>{
         else if(option == "2")
         {
             ctx.data.message.unshift("vehicle accident")
-            ctx.reply(englisharr[15] + "\n" + 
+            ctx.reply(englisharr[13] + "\n" + 
                englisharr[23])
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1825,7 +1825,7 @@ bot.on('text',(ctx)=>{
         else if(option == "3")
         {
             ctx.data.message.unshift("other")
-            ctx.reply(englisharr[15] + "\n" + 
+            ctx.reply(englisharr[13] + "\n" + 
                englisharr[23])
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1867,7 +1867,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n "+ englisharr[24] +"\n" + 
+            ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n"+ englisharr[24] +"\n" + 
                 englisharr[27] + "\n"+ englisharr[46])
         }
         else if(option == "9")
@@ -1898,7 +1898,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("vehicle breakdown")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1940,7 +1940,7 @@ bot.on('text',(ctx)=>{
         else if(option == "2")
         {
             ctx.data.message.unshift("vehicle accident")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -1981,7 +1981,7 @@ bot.on('text',(ctx)=>{
         else if(option == "3")
         {
             ctx.data.message.unshift("other")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2023,7 +2023,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -2054,7 +2054,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("vehicle breakdown")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2096,7 +2096,7 @@ bot.on('text',(ctx)=>{
         else if(option == "2")
         {
             ctx.data.message.unshift("vehicle accident")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2137,7 +2137,7 @@ bot.on('text',(ctx)=>{
         else if(option == "3")
         {
             ctx.data.message.unshift("other")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2179,7 +2179,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -2210,7 +2210,7 @@ bot.on('text',(ctx)=>{
         if(option == "1")
         {
             ctx.data.message.unshift("vehicle breakdown")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2252,7 +2252,7 @@ bot.on('text',(ctx)=>{
         else if(option == "2")
         {
             ctx.data.message.unshift("vehicle accident")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2293,7 +2293,7 @@ bot.on('text',(ctx)=>{
         else if(option == "3")
         {
             ctx.data.message.unshift("other")
-            ctx.reply(getValue(15,ctx.data.language) + "\n" + 
+            ctx.reply(getValue(13,ctx.data.language) + "\n" + 
             getValue(23,ctx.data.language))
             // TelegramUtils.getVehiclesByMobile(ctx.data.number).then((val)=>{
             //     if(val)
@@ -2335,7 +2335,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -5266,7 +5266,7 @@ bot.on('text',(ctx)=>{
 
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n "+ englisharr[24] +"\n" + 
+            ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n"+ englisharr[24] +"\n" + 
             englisharr[27] + "\n"+ englisharr[46])
         }
         else if(option == "9")
@@ -5330,7 +5330,7 @@ bot.on('text',(ctx)=>{
 
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -5394,7 +5394,7 @@ bot.on('text',(ctx)=>{
 
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -5458,7 +5458,7 @@ bot.on('text',(ctx)=>{
 
             ctx.data.message = []
             ctx.data.message.unshift("registereduser")
-            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n "+ getValue(24,ctx.data.language) +"\n" + 
+            ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
         else if(option == "9")
@@ -5704,7 +5704,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message.unshift("registereduser")
                 ctx.data.number = number
-                ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n "+ englisharr[24] +"\n" + 
+                ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n"+ englisharr[24] +"\n" + 
                 englisharr[27] + "\n"+ englisharr[46])
             }
             else 
@@ -5730,7 +5730,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message.unshift("registereduser")
                 ctx.data.number = number
-                ctx.reply(hindiarr[54]+" \n"+hindiarr[6]+" \n "+ hindiarr[24] +"\n" + 
+                ctx.reply(hindiarr[54]+" \n"+hindiarr[6]+" \n"+ hindiarr[24] +"\n" + 
                 hindiarr[27] + "\n"+ hindiarr[46])
             }
             else 
@@ -5756,7 +5756,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message.unshift("registereduser")
                 ctx.data.number = number
-                ctx.reply(teleguarr[54]+" \n"+teleguarr[6]+" \n "+ teleguarr[24] +"\n" + 
+                ctx.reply(teleguarr[54]+" \n"+teleguarr[6]+" \n"+ teleguarr[24] +"\n" + 
                 teleguarr[27] + "\n"+ teleguarr[46])
             }
             else 
@@ -5782,7 +5782,7 @@ bot.on('text',(ctx)=>{
             {
                 ctx.data.message.unshift("registereduser")
                 ctx.data.number = number
-                ctx.reply(odhissaarr[54]+" \n"+odhissaarr[6]+" \n "+ odhissaarr[24] +"\n" + 
+                ctx.reply(odhissaarr[54]+" \n"+odhissaarr[6]+" \n"+ odhissaarr[24] +"\n" + 
                 odhissaarr[27] + "\n"+ odhissaarr[46])
             }
             else 
@@ -5854,7 +5854,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Please select your vehicle number from the list",
 "Please select your vehicle number",
 "Press 0 to speak to our customer care representative",
-"Press 1 for English \n हिंदी के लिए 2 दबाएँ । \n తెలుగు కోసం మూడు నొక్కండి \n ଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
+"Welcome to TransFly:\n\nPress 1 for English \nहिंदी के लिए 2 दबाएँ । \nతెలుగు కోసం మూడు నొక్కండి \nଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
 "Press 1 for New Loading",
 "Press 1 for Vizag Loading",
 "Press 1 to book your loading from Balaji Crusher",
@@ -5896,12 +5896,12 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Press 7 to book your loading from PTA mines",
 "Press 8 to go to Previous Menu",
 "Press 9 to go back to main menu",
-"Sorry, the number is not registered. Please register on our app or speak to customer care \n https://play.google.com/store/apps/details?id=com.truck.transfly",
-"Thank you, information has been sent to your registred mobile number",
-"Thank you, our emergency response team will soon get in touch with you",
-"Thank you, please hold on while we get the list of your registred vehicles",
-"Thank you, your booking has been received",
-"The mentioned number did not match",
+"Sorry, the number is not registered. Please register on our app or speak to customer care \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"Thank you, information has been sent to your registred mobile number. Press any key to continue",
+"Thank you, our emergency response team will soon get in touch with you. Press any key to continue",
+"Thank you, please hold on while we get the list of your registred vehicles. Press any key to continue",
+"Thank you, your booking has been received. Press any key to continue",
+"The mentioned number did not match. Press any key to continue",
 "Please type your registered mobile number",
 "Select the following options",
 "The selected option seems not to be available/valid for now, please try another option.",
@@ -5939,7 +5939,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Vehicle Accident",
 "Other On-Road Support",
 "Loading Problem",
-"Kindly register the vehicles through Transfly app.\n https://play.google.com/store/apps/details?id=com.truck.transfly"
+"Kindly register the vehicles through Transfly app.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly"
 ]
 
 
@@ -5950,7 +5950,7 @@ let hindiarr =
 "कृपया सूचि में से अपना वाहन सिलेक्ट करें।",
 "कृपया अपना वाहन सिलेक्ट करें।",
 "कस्टमर केयर रेप्रेज़ेंटेटिव से बात करने के लिए 0 दबाएँ।",
-"Press 1 for English \n हिंदी के लिए 2 दबाएँ । \n తెలుగు కోసం మూడు నొక్కండి \n ଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
+"Welcome to TransFly:\n\nPress 1 for English \nहिंदी के लिए 2 दबाएँ । \nతెలుగు కోసం మూడు నొక్కండి \nଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
 "नयी लोडिंग के लिए 1 दबाएँ। ",
 "वाईज़ैग लोडिंग के लिए 1 दबाएँ।",
 "बालाजी क्रशर से लोड करने के लिए 1 दबाएँ। ",
@@ -5992,15 +5992,15 @@ let hindiarr =
 "पी टी ऐ माइन से लोड करने के लिए 7 दबाएँ।",
 "पिछले मेनू में जाने के लिए 8 दबाएँ।",
 "मेन मेनू में जाने के लिए 9 दबाएँ।",
-"माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें। \n https://play.google.com/store/apps/details?id=com.truck.transfly",
-"धन्यवाद, सूचना आपके रजिस्टर्ड मोबाइल नंबर पर भेजी जा चुकी है।",
-"धन्यवाद, हमारी ऐमरजेंसी रेस्पॉन्स टीम आपको जल्द ही कॉन्टैक्ट करेगी।", 
-"कृपया प्रतीक्षा करें, हम आपके रजिस्टर किये हुए वाहनों की लिस्ट सिस्टम से निकाल रहे है।",
-"धन्यवाद, आपकी बुकिंग रिसीव कर ली गयी है।",
-"आपके द्वारा ऐंटर किया गया नंबर मैच नहीं हुआ।", 
+"माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें। \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"धन्यवाद, सूचना आपके रजिस्टर्ड मोबाइल नंबर पर भेजी जा चुकी है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
+"धन्यवाद, हमारी ऐमरजेंसी रेस्पॉन्स टीम आपको जल्द ही कॉन्टैक्ट करेगी। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|", 
+"कृपया प्रतीक्षा करें, हम आपके रजिस्टर किये हुए वाहनों की लिस्ट सिस्टम से निकाल रहे है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
+"धन्यवाद, आपकी बुकिंग रिसीव कर ली गयी है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
+"आपके द्वारा ऐंटर किया गया नंबर मैच नहीं हुआ। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|", 
 "कृपया अपना रजिस्टर्ड मोबाइल नंबर एंटर करें। ",
 "कृपया अपना ऑप्शन सेलेक्ट करें। ",
-"कृपया एक सही विकल्प चुनें",
+"सेलेक्ट किया गया ऑप्शन उपलब्ध / मान्य नहीं है, कृपया अन्य ऑप्शन का चयन करें",
 "बड़बिल",
 "जामदा ",
 "जोड़ा ",
@@ -6035,7 +6035,7 @@ let hindiarr =
 "वाहन एक्सीडेंट ",
 "अन्य ऑन-रोड़ सहायता ",
 "लोडिंग प्रॉब्लम ",
-"कृपया ट्रांसफ्लाय ऐप्प पर अपने वाहनों का रजिस्ट्रेशन करें| \n https://play.google.com/store/apps/details?id=com.truck.transfly ",
+"कृपया ट्रांसफ्लाय ऐप्प पर अपने वाहनों का रजिस्ट्रेशन करें| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly ",
 
 
 ]
@@ -6046,7 +6046,7 @@ let teleguarr = [
 "దయచేసి జాబితా నుండి మీ వెహికల్ నెంబర్ ఎంచుకోండి ",
 "దయచేసి మీ వెహికల్ నెంబర్ ఎంచుకోండి ",
  "మా కస్టమర్ కేర్ ప్రతినిధితో మాట్లాడడానికి సున్న నొక్కండి ",
-"Press 1 for English \n हिंदी के लिए 2 दबाएँ । \n తెలుగు కోసం మూడు నొక్కండి \n ଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
+"Welcome to TransFly:\n\nPress 1 for English \nहिंदी के लिए 2 दबाएँ । \nతెలుగు కోసం మూడు నొక్కండి \nଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
 "కొత్త లోడింగ్ కోసం ఒకటి నొక్కండి ",
 "వైజాగ్ లోడింగ్ కోసం ఒకటి నొక్కండి ",
 "బాలాజీ క్రషర్ నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి ఒకటి నొక్కండ ి  ",
@@ -6088,15 +6088,15 @@ let teleguarr = [
 "PTA  మైన్స్ నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి ఏడు నొక్కండి ",
 "మునుపటి మెనుకు వెళ్లడానికి ఎనిమిది నొక్కండి ",
 "మెయిన్ మెనుకు వెళ్లడానికి  తొమ్మిది నొక్కండి ",
-"క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి \n https://play.google.com/store/apps/details?id=com.truck.transfly",
-"ధన్యవాదం మీ రిజిస్టర్డ్ మొబైల్  నెంబర్‌కు సమాచారం  పంపబడినది ",
-"ధన్యవాదం మా ఎమర్జెన్సీ ప్రతిస్పందన బృందం త్వరలో మీతో సంప్రదిస్తారు ", 
-"ధన్యవాదం దయచేసి వేచి ఉండండి మీ రిజిస్టర్డ్ వెహికల్స్ జాబితాలు మేము పొందు పరిచాము ",
-"ధన్యవాదం  మీ బుకింగ్ మాకు అందినది ",
-"ఎంటర్ చేసిన నెంబర్ మ్యాచ్  అవలేదు ",
+"క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"ధన్యవాదం మీ రిజిస్టర్డ్ మొబైల్  నెంబర్‌కు సమాచారం  పంపబడినది| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
+"ధన్యవాదం మా ఎమర్జెన్సీ ప్రతిస్పందన బృందం త్వరలో మీతో సంప్రదిస్తారు| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ", 
+"ధన్యవాదం దయచేసి వేచి ఉండండి మీ రిజిస్టర్డ్ వెహికల్స్ జాబితాలు మేము పొందు పరిచాము| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
+"ధన్యవాదం  మీ బుకింగ్ మాకు అందినది| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
+"ఎంటర్ చేసిన నెంబర్ మ్యాచ్  అవలేదు| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
 "దయచేసి మీ రిజిస్టర్డ్ మొబైల్ నంబర్‌ను ఎంటర్ చేయండ ి ",
 "దయచేసి మీ ఆప్షన్ సెలెక్ట్ చేయండి ",
-"దయచేసి చెల్లుబాటు అయ్యే ఎంపికను ఎంచుకోండ ి ",
+"ఎంచుకున్న ఎంపిక అందుబాటులో లేదు / చెల్లుబాటు కాదు, దయచేసి మరొక ఎంపికను ఎంచుకోండి.",
 "బర్‌బిల్ ",
 "జంధ ",
 "జోడ ",
@@ -6131,7 +6131,7 @@ let teleguarr = [
 "వెహికల్ యాక్సిడెంట్ ",
 "ఇతర రహదారి  సహాయం",
 "లోడింగ్ ప్రాబ్లెమ్",
-"దయచేసి ట్రాన్స్ ఫ్లై యాప్ ద్వారా వాహనాలను రిజిస్ట్రేషన్ చేయండి| \n https://play.google.com/store/apps/details?id=com.truck.transfly",
+"దయచేసి ట్రాన్స్ ఫ్లై యాప్ ద్వారా వాహనాలను రిజిస్ట్రేషన్ చేయండి| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
 
 
 ]
@@ -6143,7 +6143,7 @@ let odhissaarr = [
    "ଦୟାକରି ଲିଷ୍ଟ ରୁ ଆପଣଙ୍କର ଗାଡି ନମ୍ବର ସିଲେକ୍ଟ କରନ୍ତୁ। ",
    "ଦୟାକରି ଆପଣଙ୍କର ଗାଡି ସିଲେକ୍ଟ କରନ୍ତୁ। ",
    "କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହେବା ପାଇଁ 0 ଦବାନ୍ତୁ। ",
-   "Press 1 for English \n हिंदी के लिए 2 दबाएँ । \n తెలుగు కోసం మూడు నొక్కండి \n ଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
+   "Welcome to TransFly:\n\nPress 1 for English \nहिंदी के लिए 2 दबाएँ । \nతెలుగు కోసం మూడు నొక్కండి \nଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
    "ନୂଆ ଲୋଡିଙ୍ଗ ପାଇଁ ଏକ ଦବାନ୍ତୁ। ",
    "ଭାଇଯ୍ୟାଗ୍ ଲୋଡିଂପାଇଁ 1 ଦବାନ୍ତୁ। ",
    "ବାଲାଜୀ କ୍ରୁସର ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
@@ -6185,15 +6185,15 @@ let odhissaarr = [
    "ପିଟିଏ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 7 ଦବାନ୍ତୁ। ",
    "ପୂର୍ବ ମେନ୍ୟୁ କୁ ଯିବା ପାଇଁ 8 ଦବାନ୍ତୁ। ",
    "ମେନ୍ ମେନ୍ୟୁ କୁ ଯିବାପାଇଁ 9 ଦବାନ୍ତୁ। ",
-   "ସରି, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ। \n https://play.google.com/store/apps/details?id=com.truck.transfly",
-   "ଧନ୍ୟବାଦ୍, ସୂଚନାଟି ଆପଣଙ୍କର ରେଜିଷ୍ଟରଡ୍ ମୋବାଇଲ କୁ ପଠା ଯାଇଛି। ",
-   "ଧନ୍ୟବାଦ୍, ଆମର ଏମର୍ଜେନ୍ସୀ ରେସ୍ପନ୍ସ ଟିମ୍ ଆପଣଙ୍କୁ ଶୀଘ୍ର ସମ୍ପର୍କ କରିବେ। ",
-   "ଧନ୍ୟବାଦ୍, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ। ଆମେ ଆପଣଙ୍କର ରେଜିଷ୍ଟର କରାହେଇଥିବା ଗାଡ଼ି ଗୁଡ଼ି କୁ ଲିଷ୍ଟ ସିଷ୍ଟମ୍ ରୁ ବାହାର କରୁଛୁ। ",
-   "ଧନ୍ୟବାଦ୍, ଆପଣଙ୍କର ବୁକିଙ୍ଗ ରିସିଭ ହୋଇଯାଇଛି। ",
-   "ସରି, ଆପଣଙ୍କ ଦ୍ଵାରା ଦିଆ ହୋଇଥିବା ନମ୍ବର ମ୍ୟାଚ୍ କରୁନାହିଁ। ",
+   "ସରି, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ। \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+   "ଧନ୍ୟବାଦ୍, ସୂଚନାଟି ଆପଣଙ୍କର ରେଜିଷ୍ଟରଡ୍ ମୋବାଇଲ କୁ ପଠା ଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ| ",
+   "ଧନ୍ୟବାଦ୍, ଆମର ଏମର୍ଜେନ୍ସୀ ରେସ୍ପନ୍ସ ଟିମ୍ ଆପଣଙ୍କୁ ଶୀଘ୍ର ସମ୍ପର୍କ କରିବେ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
+   "ଧନ୍ୟବାଦ୍, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ। ଆମେ ଆପଣଙ୍କର ରେଜିଷ୍ଟର କରାହେଇଥିବା ଗାଡ଼ି ଗୁଡ଼ି କୁ ଲିଷ୍ଟ ସିଷ୍ଟମ୍ ରୁ ବାହାର କରୁଛୁ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
+   "ଧନ୍ୟବାଦ୍, ଆପଣଙ୍କର ବୁକିଙ୍ଗ ରିସିଭ ହୋଇଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
+   "ସରି, ଆପଣଙ୍କ ଦ୍ଵାରା ଦିଆ ହୋଇଥିବା ନମ୍ବର ମ୍ୟାଚ୍ କରୁନାହିଁ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଦୟାକରି ଆପଣଙ୍କର ପଞ୍ଜୀକୃତ ମୋବାଇଲ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ | ",
    "ଦୟାକରି ଆପଣଙ୍କର ବିକଳ୍ପ ଚୟନ କରନ୍ତୁ ",
-   "ଦୟାକରି ସଠିକ ବିକଳ୍ପ ବାଛନ୍ତୁ | ",
+   "ମନୋନୀତ ବିକଳ୍ପଟି ଉପଲବ୍ଧ ନାହିଁ/ ବୈଧ ନୁହେଁ, ଦୟାକରି ଅନ୍ୟ ଏକ ବିକଳ୍ପ ବାଛନ୍ତୁ | ",
    "ବଡ଼ବିଲ ",
    "ଜାମଦା ",
    "ଯୋଡା ",
@@ -6228,7 +6228,7 @@ let odhissaarr = [
    "ବାହନ ଦୁର୍ଘଟଣା ",
    "ବାକି ସବୁ ଅନ- ରୋଡ ସହାୟତା ",
    "ଲୋଡିଂ ପ୍ରୋବଲମ୍ ",
-   "ଦୟାକରି ଟ୍ରାନ୍ସଫ୍ଲାଏ ଆପ୍ ମାଧ୍ୟମରେ ଯାନଗୁଡ଼ିକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ: Odia| \n https://play.google.com/store/apps/details?id=com.truck.transfly ",
+   "ଦୟାକରି ଟ୍ରାନ୍ସଫ୍ଲାଏ ଆପ୍ ମାଧ୍ୟମରେ ଯାନଗୁଡ଼ିକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ: Odia| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly ",
 
 
 ]

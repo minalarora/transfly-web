@@ -179,17 +179,18 @@ const getInvoice = async function(mobile,vehicle)
            "VehicleOwner:-" + user.invoices[0].vehicleowner + "\n" + 
            "From:-" + user.invoices[0].minename + "\n" + 
            "To:-" + user.invoices[0].loading + "\n" + 
+           "Date:-" +  user.invoices[0].date +
            "Tonnage:-" + user.invoices[0].tonnage + "\n" + 
            "Rate:-" + user.invoices[0].rate + "\n" + 
+           "Amount:-" + user.invoices[0].amount + "\n" + 
            "HSD:-" + user.invoices[0].hsd + "\n" + 
            "Cash:-" + user.invoices[0].cash + "\n" + 
-           "Amount:-" + user.invoices[0].amount + "\n" + 
            "TDS:-" + user.invoices[0].tds + "\n" + 
            "OfficeCharge:-" + user.invoices[0].officecharge + "\n" + 
            "Shortage:-" + user.invoices[0].shortage + "\n" + 
            "BalanceAmount:-" + user.invoices[0].balanceamount + "\n" + 
-           "Status:-" + user.invoices[0].status + "\n" +
-           "Date:-" +  user.invoices[0].date
+           "Status:-" + user.invoices[0].status + "\n" 
+          
 
     }
     else
@@ -210,7 +211,8 @@ const createTicket = async function(mobile,vehicle,type)
 
   try
   {
-    email.sendEmail('TICKET',"mobile: " + mobile + "\n" + "vehicle: " + vehicle + "\n" + "type: " + type)
+    let v = await Vehicle.findOne({number: vehicle})
+    email.sendEmail('TICKET',"vehicleowner mobile: " + mobile + "\n" + "vehicle: " + vehicle + "\n" + "driver mobile: " + v.contact + "\ntype: " + type)
     return true
   }
   catch(e)
