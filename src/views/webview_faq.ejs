@@ -4,369 +4,339 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-  
+<!--   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <style>
+        img{
+            width: 120px !important;
+        }
+        .accordion-header
+        {
+            background: #f8f9fa !important;
+        }
+        .accordion-button:not(.collapsed) 
+        {
+            background-color: #0c63e4;
+        }
+        .accordion-button
+        {
+            color: #0c63e4;
+            background-color: transparent !important;
+        }
+    </style>
 </head>
 <body>
     
 <div class="container ">
-  <div class="row d-flex align-items-center">
-    <img src="../images/applogo.png" width="120" height="100"/>
+  <div class="row flex-nowrap d-flex align-items-center">
+    <img src="../images/applogo.png" width="150" height="100"/>
     <h3 class="ml-auto mr-4"> FAQ</h3>
   </div>
-  <div class="panel-group mb-4 pb-4 " id="faqAccordion">
-      <div class="panel panel-default ">
-          <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
-               <h4 class="panel-title">
-                  <a href="#" class="ing text-white">1: How can I get the highest loading rates for my vehicle?</a>
-              </h4>
-              <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
 
-          </div>
-          <div id="question0" class="panel-collapse collapse" style="height: 0px;">
-              <div class="panel-body">
-                   <h5><span class="badge badge-primary">Answer</span></h5>
-
-                  <p>By clicking on ‘search’ field at the top of Home page of the app, explore the mine rates to know which mine offers you the highest rates for the day. We are in the process of sorting these for you and will be available soon to you.
-                     </p>
-              </div>
-          </div>
+  <!-- new accordian -->
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="h1">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true" aria-controls="c1">
+            1: How can I get the highest loading rates for my vehicle?
+        </button>
+      </h2>
+      <div id="c1" class="accordion-collapse collapse show" aria-labelledby="h1" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <p>By clicking on ‘search’ field at the top of Home page of the app, explore the mine rates to know which mine offers you the highest rates for the day. We are in the process of sorting these for you and will be available soon to you.
+            </p>  
+        </div>
       </div>
-
-      <div class="panel panel-default ">
-        <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#2">
-             <h4 class="panel-title">
-                <a href="#" class="ing text-white">2: How can I find loading mine or unloading location of my choice?</a>
-            </h4>
-            <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-        </div>
-        <div id="2" class="panel-collapse collapse" style="height: 0px;">
-            <div class="panel-body">
-                 <h5><span class="badge badge-primary">Answer</span></h5>
-
-                <p>
-                  You can directly mention the mine and unloading location info of your choice in the ‘To’ and ‘From’ fields under ‘Search’ option at the top of the Home page on the app, alternatively you can chose from quick loading options provided just below ‘Search’ option for ease of searching loadings.
-                </p>
-            </div>
-        </div>
     </div>
+    <!--  -->
 
-    <div class="panel panel-default ">
-      <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#3">
-           <h4 class="panel-title">
-              <a href="#" class="ing text-white">3: Why am I not able to book my vehicle/s on the app?</a>
-          </h4>
-          <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="h2">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c2" aria-expanded="true" aria-controls="c2">
+              2: How can I find loading mine or unloading location of my choice?
+            </button>
+        </h2>
+        <div id="c2" class="accordion-collapse collapse " aria-labelledby="h2" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+                You can directly mention the mine and unloading location info of your choice in the ‘To’ and ‘From’ fields under ‘Search’ option at the top of the Home page on the app, alternatively you can chose from quick loading options provided just below ‘Search’ option for ease of searching loadings.
+              </p>
+          </div>
+        </div>
       </div>
-      <div id="3" class="panel-collapse collapse" style="height: 0px;">
-          <div class="panel-body">
-               <h5><span class="badge badge-primary">Answer</span></h5>
+      <!--  -->
 
-              <p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h3">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c3" aria-expanded="true" aria-controls="c3">
+            3: Why am I not able to book my vehicle/s on the app?
+            </button>
+        </h2>
+        <div id="c3" class="accordion-collapse collapse " aria-labelledby="h3" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
                 A. Check if the mines are properly selected by you for loading (with regards to number of tyres allowed by the mine and Yes/No for Trailer body by the mine – available under ‘Search’ option for each mine).
               </br> B. Check if KYC has been completed by you and approved by the backend team. You can check this under ‘My Profile’ section which will read as KYC status – Pending or Completed. If its pending, please allow some time for this to be completed by the backend team.
               </br> C. Check if vehicles are added under your profile. If not added, then please add your vehicles (search for ‘Add Vehicles’ tab which will be just below ‘My Profile’ tab). 
               </br> D. If vehicles were added, check if the vehicles are showing Active or Pending status under ‘My Vehicles’ section. If its showing pending status, then please allow some time for the approval of your vehicles.
               </p>
           </div>
-      </div>
-  </div>
-
-      <div class="panel panel-default ">
-        <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#4">
-            <h4 class="panel-title">
-                <a href="#" class="ing text-white">4: How can I get directions to my loading location?</a>
-            </h4>
-            <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
         </div>
-        <div id="4" class="panel-collapse collapse" style="height: 0px;">
-            <div class="panel-body">
-                <h5><span class="badge badge-primary">Answer</span></h5>
-
-                <p>
-                  Go to ‘Booking History’ tab under your profile and click on ‘Directions’ of the specific booking to launch the map for directions to your loading location.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default ">
-      <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#5">
-          <h4 class="panel-title">
-              <a href="#" class="ing text-white">5: How would I know how much time is needed for loading at a specific mine?</a>
-          </h4>
-          <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
       </div>
-      <div id="5" class="panel-collapse collapse" style="height: 0px;">
-          <div class="panel-body">
-              <h5><span class="badge badge-primary">Answer</span></h5>
-
-              <p>Two ways:</p>
-              <p> A. Refer to the map which will help you to find the traffic conditions and also provides you the expected time to reach the location.</p>
-              <p>B. Check the ETL (Expected Time of Loading) provided under the ‘Search’ tab at the top of Home page on the app for each mine.</p>
-          </div>
-      </div>
-  </div>
-
-  <div class="panel panel-default ">
-    <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#6">
-        <h4 class="panel-title">
-            <a href="#" class="ing text-white">6: What is ETL on the app?</a>
-        </h4>
-        <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-    </div>
-    <div id="6" class="panel-collapse collapse" style="height: 0px;">
-        <div class="panel-body">
-            <h5><span class="badge badge-primary">Answer</span></h5>
-
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h4">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c4" aria-expanded="true" aria-controls="c4">
+            4: How can I get directions to my loading location?
+            </button>
+        </h2>
+        <div id="c4" class="accordion-collapse collapse " aria-labelledby="h4" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
             <p>
-              ETL is (Expected Time of Loading) provided for each mine which is the general time it takes for a vehicle to get the loading in that mine (basis the inputs from mines) 
-            </p>
+                Go to ‘Booking History’ tab under your profile and click on ‘Directions’ of the specific booking to launch the map for directions to your loading location.
+              </p>
+          </div>
         </div>
-    </div>
-</div>
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#7">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">7: Can I know how the traffic condition at a specific area or mine is?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="7" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p> Two ways.</p>
-          <p>
-            A. Refer to the map which will help you to find the traffic conditions and this also provides you the expected time to reach the location. 
-          </br> B. Check the ETL (Expected Time of Loading) for each mine provided under the ‘Search’ tab at the top of Home page on the app.
-          </p>
       </div>
-  </div>
-</div>
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#8">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">8: Where can I see my completed trips info?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="8" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h5">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c5" aria-expanded="true" aria-controls="c5">
+            5: How would I know how much time is needed for loading at a specific mine?
+            </button>
+        </h2>
+        <div id="c5" class="accordion-collapse collapse " aria-labelledby="h5" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>Two ways:</p>
+            <p> A. Refer to the map which will help you to find the traffic conditions and also provides you the expected time to reach the location.</p>
+            <p>B. Check the ETL (Expected Time of Loading) provided under the ‘Search’ tab at the top of Home page on the app for each mine.</p>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h6">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c6" aria-expanded="true" aria-controls="c6">
+            6: What is ETL on the app?
+        </button>
+        </h2>
+        <div id="c6" class="accordion-collapse collapse " aria-labelledby="h6" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+                You can directly mention the mine and unloading location info of your choice in the ‘To’ and ‘From’ fields under ‘Search’ option at the top of the Home page on the app, alternatively you can chose from quick loading options provided just below ‘Search’ option for ease of searching loadings.
+              </p>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h7">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c7" aria-expanded="true" aria-controls="c7">
+            7: Can I know how the traffic condition at a specific area or mine is?
+            </button>
+        </h2>
+        <div id="c7" class="accordion-collapse collapse " aria-labelledby="h7" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+          
+            <p> Two ways.</p>
+            <p>
+              A. Refer to the map which will help you to find the traffic conditions and this also provides you the expected time to reach the location. 
+            </br> B. Check the ETL (Expected Time of Loading) for each mine provided under the ‘Search’ tab at the top of Home page on the app.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h8">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c8" aria-expanded="true" aria-controls="c8">
+            8: Where can I see my completed trips info?
+            </button>
+        </h2>
+        <div id="c8" class="accordion-collapse collapse " aria-labelledby="h8" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            
           <p> Under ‘Payment/Challan status’ tab in your profile. </p>
           <p>
             ‘Pending Invoice’ is for the one where the Challan has still to be submitted at the Transfly Infotech Pvt Ltd office or the info is still to be uploaded by the back office team.
           </br>‘Completed Office’ is where the Challan has been submitted at Transfly Infotech Pvt Ltd office and info has been updated on the Invoice.
           </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div>
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#9">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">9: Where can I see my Trip Invoice?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="9" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>Under ‘Payment/Challan status’ tab in your profile.  </p>
-          <p>
-            ‘Pending Invoice’ is for the one where the Challan has still to be submitted at the Transfly Infotech Pvt Ltd office or the info is still to be uploaded by the back office team.
-          </br> ‘Completed Invoice’ is where the Challan has been submitted at Transfly Infotech Pvt Ltd office and info has been updated on the Invoice.
-          </p>
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h9">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c9" aria-expanded="true" aria-controls="c9">
+            9: Where can I see my Trip Invoice?
+            </button>
+        </h2>
+        <div id="c9" class="accordion-collapse collapse " aria-labelledby="h9" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>Under ‘Payment/Challan status’ tab in your profile.  </p>
+            <p>
+              ‘Pending Invoice’ is for the one where the Challan has still to be submitted at the Transfly Infotech Pvt Ltd office or the info is still to be uploaded by the back office team.
+            </br> ‘Completed Invoice’ is where the Challan has been submitted at Transfly Infotech Pvt Ltd office and info has been updated on the Invoice.
+            </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div>
+      <!--  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h10">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c10" aria-expanded="true" aria-controls="c10">
+            10: Where can I see my Trip Invoice?
+            </button>
+        </h2>
+        <div id="c10" class="accordion-collapse collapse " aria-labelledby="h2" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>Payment/Challan status’ ->  ‘Completed Invoice’ -> ‘Show Invoice’ -> Balance amount status at the bottom of the invoice</p>
 
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#10">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">10: Where can I see my Trip Invoice?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="10" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>Payment/Challan status’ ->  ‘Completed Invoice’ -> ‘Show Invoice’ -> Balance amount status at the bottom of the invoice</p>
+          </div>
+        </div>
       </div>
-  </div>
-</div>
+      <!--  -->
 
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#11">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">11: Why am I deducted TDS?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="11" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>
-            Because either the TDS Declaration has not been submitted by you under your profile or TDS Declaration submitted is not 
-            for valid vehicles or your total number of vehicles is exceeding the limit set by govt for TDS to be deducted. For more 
-            clarity, please speak to customer care (through Toll Free number or whatsapp etc)
-          </p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h11">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c11" aria-expanded="true" aria-controls="c11">
+            11: Why am I deducted TDS?
+            </button>
+        </h2>
+        <div id="c11" class="accordion-collapse collapse " aria-labelledby="h11" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+                Because either the TDS Declaration has not been submitted by you under your profile or TDS Declaration submitted is not 
+                for valid vehicles or your total number of vehicles is exceeding the limit set by govt for TDS to be deducted. For more 
+                clarity, please speak to customer care (through Toll Free number or whatsapp etc)
+              </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div>   
+      <!--  -->
 
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#12">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">12: How can I track my bookings?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="12" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>
-            All your current bookings will reflect under ‘Current Booking’ tab in your profile. And for all Challan submitted trips,
-             under the ‘Payment/Challan status’ tab. (more info under point number 9 above on Invoices status)  
-          </p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h12">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c12" aria-expanded="true" aria-controls="c12">
+            12: How can I track my bookings?
+            </button>
+        </h2>
+        <div id="c12" class="accordion-collapse collapse " aria-labelledby="h12" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+                All your current bookings will reflect under ‘Current Booking’ tab in your profile. And for all Challan submitted trips,
+                 under the ‘Payment/Challan status’ tab. (more info under point number 9 above on Invoices status)  
+              </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div>   
+      <!--  -->
 
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#13">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">13: Why don’t I see the same list of mines every day?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="13" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>
-            Because the mines have set permissions from authorities to dig out only a set limit of ore and they await for the next cycle of approvals
-          </p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h13">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c13" aria-expanded="true" aria-controls="c13">
+            13: Why don’t I see the same list of mines every day?    
+        </button>
+        </h2>
+        <div id="c13" class="accordion-collapse collapse " aria-labelledby="h13" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+                Because the mines have set permissions from authorities to dig out only a set limit of ore and they await for the next cycle of approvals
+              </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div> 
+        <!--  -->
 
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h14">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c14" aria-expanded="true" aria-controls="c14">
+                14: Why do I see rates changing for the mines (some or all) every day?    
+            </button>
+            </h2>
+            <div id="c14" class="accordion-collapse collapse " aria-labelledby="h14" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p>
+                    This is set by mine authorities and we don’t control these rates. As such we provide the transparent rates made available to 
+                    us by the mine officials (called as market rates).  
+                  </p>
+              </div>
+            </div>
+          </div>
+            <!--  -->
 
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#14">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">14: Why do I see rates changing for the mines (some or all) every day?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="14" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>
-            This is set by mine authorities and we don’t control these rates. As such we provide the transparent rates made available to 
-            us by the mine officials (called as market rates).  
-          </p>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h15">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c15" aria-expanded="true" aria-controls="c15">
+            15: How can I get On-Road assistance?   
+        </button>
+        </h2>
+        <div id="c15" class="accordion-collapse collapse " aria-labelledby="h15" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+                A. Through app:  ‘On Road Assistance’ under your profile or tap on the ‘?’ at the bottom menu bar on the app Home page
+              </br> B. Through Telegram auto reply chat bot : search ‘Transfly’ on Telegram app and get started
+              </br> C. Through the Toll Free Number
+              </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div> 
+        <!--  -->
 
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="h16">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c16" aria-expanded="true" aria-controls="c16">
+                16: How can I reach customer care or log issues?
+                </button>
+            </h2>
+            <div id="c16" class="accordion-collapse collapse " aria-labelledby="h16" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p>
+                    A. For all vehicle related issues, please refer to point number 15 above.
+                  </br> B. Through our Toll Free Number
+                  </p>
+              </div>
+            </div>
+          </div>
+            <!--  -->
 
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#15">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">15: How can I get On-Road assistance?</a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="15" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>
-            A. Through app:  ‘On Road Assistance’ under your profile or tap on the ‘?’ at the bottom menu bar on the app Home page
-          </br> B. Through Telegram auto reply chat bot : search ‘Transfly’ on Telegram app and get started
-          </br> C. Through the Toll Free Number
-          </p>
-      </div>
-  </div>
-</div> 
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#16">
-      <h4 class="panel-title">
-          <a href="#" class="ing text-white">16: How can I reach customer care or log issues?
-            </a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="16" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
-          <p>
-            A. For all vehicle related issues, please refer to point number 15 above.
-          </br> B. Through our Toll Free Number
-          </p>
-      </div>
-  </div>
-</div> 
-
-<div class="panel panel-default ">
-  <div class="panel-heading accordion-toggle question-toggle bg-dark justify-content-between align-items-center d-flex p-2 border collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#17">
-      <h4 class="panel-title">
-
-      <a href="#" class="ing text-white">17: How can I provide feedback to improve the services?  </a>
-      </h4>
-      <span><i class="fa fa-caret-down h3 text-white float-right"></i></span>
-
-  </div>
-  <div id="17" class="panel-collapse collapse" style="height: 0px;">
-      <div class="panel-body">
-          <h5><span class="badge badge-primary">Answer</span></h5>
-
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h17">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c17" aria-expanded="true" aria-controls="c17">
+            17: How can I provide feedback to improve the services?
+            </button>
+        </h2>
+        <div id="c17" class="accordion-collapse collapse " aria-labelledby="h17" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+           
           <p>
             Use ‘Feedback’ option under your profile on the app.
           </p>
+          </div>
+        </div>
       </div>
-  </div>
-</div> 
 
-<!-- card ends -->
+
+   
   </div>
-  <!--/panel-group-->
+
+
+  <!-- older one -->
+ 
 </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
 </html>
+
+
