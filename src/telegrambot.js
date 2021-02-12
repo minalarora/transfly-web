@@ -629,7 +629,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                      message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
@@ -673,7 +673,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                       message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -719,7 +719,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                    //   message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -765,7 +765,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                      // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -1556,7 +1556,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                      message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
@@ -1600,7 +1600,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     message = message + vehiclearray[i] + " के लिए " + i + " दबाएं" + "\n"
@@ -1647,7 +1647,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -1694,7 +1694,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = ""
+                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -5896,7 +5896,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Press 7 to book your loading from PTA mines",
 "Press 8 to go to Previous Menu",
 "Press 9 to go back to main menu",
-"Sorry, the number is not registered. Please register on our app or speak to customer care \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"Sorry, the number is not registered. Please register on our app or speak to customer care 18002702356.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\nPress any key to continue",
 "Thank you, information has been sent to your registred mobile number. Press any key to continue",
 "Thank you, our emergency response team will soon get in touch with you. Press any key to continue",
 "Thank you, please hold on while we get the list of your registred vehicles. Press any key to continue",
@@ -5939,7 +5939,8 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Vehicle Accident",
 "Other On-Road Support",
 "Loading Problem",
-"Kindly register the vehicles through Transfly app.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly"
+"Kindly register the vehicles through Transfly app.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"Here is the best match currently, please select from the below options to proceed:"
 ]
 
 
@@ -5992,7 +5993,7 @@ let hindiarr =
 "पी टी ऐ माइन से लोड करने के लिए 7 दबाएँ।",
 "पिछले मेनू में जाने के लिए 8 दबाएँ।",
 "मेन मेनू में जाने के लिए 9 दबाएँ।",
-"माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें। \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें। 18002702356  \nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\n कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
 "धन्यवाद, सूचना आपके रजिस्टर्ड मोबाइल नंबर पर भेजी जा चुकी है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
 "धन्यवाद, हमारी ऐमरजेंसी रेस्पॉन्स टीम आपको जल्द ही कॉन्टैक्ट करेगी। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|", 
 "कृपया प्रतीक्षा करें, हम आपके रजिस्टर किये हुए वाहनों की लिस्ट सिस्टम से निकाल रहे है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
@@ -6036,6 +6037,7 @@ let hindiarr =
 "अन्य ऑन-रोड़ सहायता ",
 "लोडिंग प्रॉब्लम ",
 "कृपया ट्रांसफ्लाय ऐप्प पर अपने वाहनों का रजिस्ट्रेशन करें| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly ",
+"वर्तमान में यह सबसे निकटतम मैच है, कृपया आगे बढ़ने के लिए नीचे दिए गए विकल्पों में से चुनें:"
 
 
 ]
@@ -6088,7 +6090,7 @@ let teleguarr = [
 "PTA  మైన్స్ నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి ఏడు నొక్కండి ",
 "మునుపటి మెనుకు వెళ్లడానికి ఎనిమిది నొక్కండి ",
 "మెయిన్ మెనుకు వెళ్లడానికి  తొమ్మిది నొక్కండి ",
-"క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి| 18002702356 \nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\n కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|",
 "ధన్యవాదం మీ రిజిస్టర్డ్ మొబైల్  నెంబర్‌కు సమాచారం  పంపబడినది| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
 "ధన్యవాదం మా ఎమర్జెన్సీ ప్రతిస్పందన బృందం త్వరలో మీతో సంప్రదిస్తారు| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ", 
 "ధన్యవాదం దయచేసి వేచి ఉండండి మీ రిజిస్టర్డ్ వెహికల్స్ జాబితాలు మేము పొందు పరిచాము| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
@@ -6132,6 +6134,7 @@ let teleguarr = [
 "ఇతర రహదారి  సహాయం",
 "లోడింగ్ ప్రాబ్లెమ్",
 "దయచేసి ట్రాన్స్ ఫ్లై యాప్ ద్వారా వాహనాలను రిజిస్ట్రేషన్ చేయండి| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"ఇది ప్రస్తుతం దగ్గరి మ్యాచ్, దయచేసి కొనసాగడానికి క్రింది ఎంపికల నుండి ఎంచుకోండి:"
 
 
 ]
@@ -6185,7 +6188,7 @@ let odhissaarr = [
    "ପିଟିଏ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 7 ଦବାନ୍ତୁ। ",
    "ପୂର୍ବ ମେନ୍ୟୁ କୁ ଯିବା ପାଇଁ 8 ଦବାନ୍ତୁ। ",
    "ମେନ୍ ମେନ୍ୟୁ କୁ ଯିବାପାଇଁ 9 ଦବାନ୍ତୁ। ",
-   "ସରି, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ। \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+   "ସରି, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ। 18002702356 \nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\n ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଧନ୍ୟବାଦ୍, ସୂଚନାଟି ଆପଣଙ୍କର ରେଜିଷ୍ଟରଡ୍ ମୋବାଇଲ କୁ ପଠା ଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ| ",
    "ଧନ୍ୟବାଦ୍, ଆମର ଏମର୍ଜେନ୍ସୀ ରେସ୍ପନ୍ସ ଟିମ୍ ଆପଣଙ୍କୁ ଶୀଘ୍ର ସମ୍ପର୍କ କରିବେ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଧନ୍ୟବାଦ୍, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ। ଆମେ ଆପଣଙ୍କର ରେଜିଷ୍ଟର କରାହେଇଥିବା ଗାଡ଼ି ଗୁଡ଼ି କୁ ଲିଷ୍ଟ ସିଷ୍ଟମ୍ ରୁ ବାହାର କରୁଛୁ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
@@ -6229,6 +6232,7 @@ let odhissaarr = [
    "ବାକି ସବୁ ଅନ- ରୋଡ ସହାୟତା ",
    "ଲୋଡିଂ ପ୍ରୋବଲମ୍ ",
    "ଦୟାକରି ଟ୍ରାନ୍ସଫ୍ଲାଏ ଆପ୍ ମାଧ୍ୟମରେ ଯାନଗୁଡ଼ିକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ: Odia| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly ",
+   "ଏହା ସମ୍ପ୍ରତି ନିକଟତମ ମ୍ୟାଚ୍, ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ନିମ୍ନରେ ଥିବା ବିକଳ୍ପଗୁଡିକରୁ ବାଛନ୍ତୁ:"
 
 
 ]
