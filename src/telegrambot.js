@@ -643,7 +643,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(englisharr[90]) 
+                    ctx.reply(englisharr[55]) 
                 }
 
             }).catch((e)=>{
@@ -689,7 +689,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(getValue(90,ctx.data.language))
+                    ctx.reply(getValue(55,ctx.data.language))
                 }
 
             }).catch((e)=>{
@@ -735,7 +735,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(getValue(90,ctx.data.language))
+                    ctx.reply(getValue(55,ctx.data.language))
                 }
 
             }).catch((e)=>{
@@ -781,7 +781,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(getValue(90,ctx.data.language))
+                    ctx.reply(getValue(55,ctx.data.language))
                 }
 
             }).catch((e)=>{
@@ -1570,7 +1570,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(englisharr[90]) 
+                    ctx.reply(englisharr[55]) 
                 }
 
             }).catch((e)=>{
@@ -1617,7 +1617,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(getValue(90,ctx.data.language)) 
+                    ctx.reply(getValue(55,ctx.data.language)) 
                 }
 
             }).catch((e)=>{
@@ -1664,7 +1664,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(getValue(90,ctx.data.language)) 
+                    ctx.reply(getValue(55,ctx.data.language)) 
                 }
 
             }).catch((e)=>{
@@ -1711,7 +1711,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message = []
                     ctx.data.number = null
-                    ctx.reply(getValue(90,ctx.data.language)) 
+                    ctx.reply(getValue(55,ctx.data.language)) 
                 }
 
             }).catch((e)=>{
@@ -2901,7 +2901,7 @@ bot.on('text',(ctx)=>{
                     {
                         ctx.data.message = []
                         ctx.data.number = null
-                        ctx.reply(englisharr[90]) 
+                        ctx.reply(englisharr[55]) 
                     }
 
                 }).catch((e)=>{
@@ -2999,7 +2999,7 @@ bot.on('text',(ctx)=>{
                     {
                         ctx.data.message = []
                         ctx.data.number = null
-                        ctx.reply(getValue(90,ctx.data.language)) 
+                        ctx.reply(getValue(55,ctx.data.language)) 
                     }
 
                 }).catch((e)=>{
@@ -3049,7 +3049,7 @@ bot.on('text',(ctx)=>{
                     {
                         ctx.data.message = []
                         ctx.data.number = null
-                        ctx.reply(getValue(90,ctx.data.language)) 
+                        ctx.reply(getValue(55,ctx.data.language)) 
                     }
 
                 }).catch((e)=>{
@@ -5479,7 +5479,10 @@ bot.on('text',(ctx)=>{
 
     else if(ctx.data.message[0] == "registereduser" && ctx.data.language == "english")
     {
-        let option  = ctx.message.text
+        TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
+            if(val.length > 0)
+            {
+                let option  = ctx.message.text
         if(option == "1")
         {
                 ctx.data.message.unshift("booking")
@@ -5499,7 +5502,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message.unshift("invoice")
             ctx.reply(
-                englisharr[14] + "\n" +
+                englisharr[englisharr.length - 2] + "\n" +
                 englisharr[45] + "\n" +
                 englisharr[46] + "\n" 
                 )
@@ -5529,11 +5532,28 @@ bot.on('text',(ctx)=>{
             ctx.data.message= []
             ctx.reply(englisharr[55])
         }
+            }
+            else
+            {
+                ctx.data.number = null
+                ctx.data.message = []
+                ctx.reply(getValue(90,ctx.data.language))
+                
+            }
+        }).catch(()=>{
+            ctx.data.number = null
+            ctx.data.message = []
+            ctx.reply(getValue(90,ctx.data.language))
+        })
+        
         
     }
     else if(ctx.data.message[0] == "registereduser" && ctx.data.language == "hindi")
     {
-        let option  = ctx.message.text
+        TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
+            if(val.length > 0)
+            {
+                let option  = ctx.message.text
         if(option == "1")
         {
                 ctx.data.message.unshift("booking")
@@ -5553,7 +5573,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message.unshift("invoice")
             ctx.reply(
-                getValue(14,ctx.data.language)  + "\n" +
+                getValue(englisharr.length - 2,ctx.data.language)  + "\n" +
                 getValue(45,ctx.data.language) + "\n" +
                 getValue(46,ctx.data.language)  + "\n" 
                 )
@@ -5582,115 +5602,160 @@ bot.on('text',(ctx)=>{
             ctx.data.number = null
             ctx.data.message= []
             ctx.reply(getValue(55,ctx.data.language))
-        }
+        }  
+            }
+            else
+            {
+                ctx.data.number = null
+                ctx.data.message = []
+                ctx.reply(getValue(90,ctx.data.language))
+            }
+        }).catch(()=>{
+            ctx.data.number = null
+            ctx.data.message = []
+            ctx.reply(getValue(90,ctx.data.language))
+        })
+      
         
     }
     else if(ctx.data.message[0] == "registereduser" && ctx.data.language == "telegu")
     {
-        let option  = ctx.message.text
-        if(option == "1")
-        {
-                ctx.data.message.unshift("booking")
-                ctx.reply(
-                getValue(7,ctx.data.language)+ "\n" +
-                getValue(18,ctx.data.language) + "\n" +
-                getValue(28,ctx.data.language) + "\n" +
-                getValue(35,ctx.data.language) + "\n" +
-                getValue(39,ctx.data.language) + "\n" +
-                getValue(42,ctx.data.language) + "\n" +
-                getValue(45,ctx.data.language) + "\n" +
-                getValue(46,ctx.data.language) + "\n" 
-                )
-
-        }
-        else if(option == "2")
-        {
-            ctx.data.message.unshift("invoice")
-            ctx.reply(
-                getValue(14,ctx.data.language)  + "\n" +
-                getValue(45,ctx.data.language) + "\n" +
-                getValue(46,ctx.data.language)  + "\n" 
-                )
-
-        }
-        else if(option == "3")
-        {
-            ctx.data.message.unshift("ticket")
-            ctx.reply(
-                getValue(17,ctx.data.language) + "\n" +
-                getValue(26,ctx.data.language) + "\n" +
-                getValue(34,ctx.data.language)+ "\n" +
-                getValue(45,ctx.data.language) + "\n" +
-                getValue(46,ctx.data.language)  + "\n" 
-                )
-        }
-        else if(option == "9")
-        {
-            ctx.reply(getValue(5,ctx.data.language))
+        TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
+            if(val.length > 0)
+            {
+                let option  = ctx.message.text
+                if(option == "1")
+                {
+                        ctx.data.message.unshift("booking")
+                        ctx.reply(
+                        getValue(7,ctx.data.language)+ "\n" +
+                        getValue(18,ctx.data.language) + "\n" +
+                        getValue(28,ctx.data.language) + "\n" +
+                        getValue(35,ctx.data.language) + "\n" +
+                        getValue(39,ctx.data.language) + "\n" +
+                        getValue(42,ctx.data.language) + "\n" +
+                        getValue(45,ctx.data.language) + "\n" +
+                        getValue(46,ctx.data.language) + "\n" 
+                        )
+        
+                }
+                else if(option == "2")
+                {
+                    ctx.data.message.unshift("invoice")
+                    ctx.reply(
+                        getValue(englisharr.length - 2,ctx.data.language)  + "\n" +
+                        getValue(45,ctx.data.language) + "\n" +
+                        getValue(46,ctx.data.language)  + "\n" 
+                        )
+        
+                }
+                else if(option == "3")
+                {
+                    ctx.data.message.unshift("ticket")
+                    ctx.reply(
+                        getValue(17,ctx.data.language) + "\n" +
+                        getValue(26,ctx.data.language) + "\n" +
+                        getValue(34,ctx.data.language)+ "\n" +
+                        getValue(45,ctx.data.language) + "\n" +
+                        getValue(46,ctx.data.language)  + "\n" 
+                        )
+                }
+                else if(option == "9")
+                {
+                    ctx.reply(getValue(5,ctx.data.language))
+                    ctx.data.number = null
+                    ctx.data.message = []
+                    ctx.data.message.unshift("language")
+                }
+                else 
+                {
+                    ctx.data.number = null
+                    ctx.data.message= []
+                    ctx.reply(getValue(55,ctx.data.language))
+                }
+            }
+            else
+            {
+                ctx.data.number = null
+                ctx.data.message = []
+                ctx.reply(getValue(90,ctx.data.language))
+            }
+        }).catch(()=>{
             ctx.data.number = null
             ctx.data.message = []
-            ctx.data.message.unshift("language")
-        }
-        else 
-        {
-            ctx.data.number = null
-            ctx.data.message= []
-            ctx.reply(getValue(55,ctx.data.language))
-        }
+            ctx.reply(getValue(90,ctx.data.language))
+        })
+       
         
     }
     else if(ctx.data.message[0] == "registereduser" && ctx.data.language == "odhissa")
     {
-        let option  = ctx.message.text
-        if(option == "1")
-        {
-                ctx.data.message.unshift("booking")
-                ctx.reply(
-                getValue(7,ctx.data.language)+ "\n" +
-                getValue(18,ctx.data.language) + "\n" +
-                getValue(28,ctx.data.language) + "\n" +
-                getValue(35,ctx.data.language) + "\n" +
-                getValue(39,ctx.data.language) + "\n" +
-                getValue(42,ctx.data.language) + "\n" +
-                getValue(45,ctx.data.language) + "\n" +
-                getValue(46,ctx.data.language) + "\n" 
-                )
-
-        }
-        else if(option == "2")
-        {
-            ctx.data.message.unshift("invoice")
-            ctx.reply(
-                getValue(14,ctx.data.language)  + "\n" +
-                getValue(45,ctx.data.language) + "\n" +
-                getValue(46,ctx.data.language)  + "\n" 
-                )
-
-        }
-        else if(option == "3")
-        {
-            ctx.data.message.unshift("ticket")
-            ctx.reply(
-                getValue(17,ctx.data.language) + "\n" +
-                getValue(26,ctx.data.language) + "\n" +
-                getValue(34,ctx.data.language)+ "\n" +
-                getValue(45,ctx.data.language) + "\n" +
-                getValue(46,ctx.data.language)  + "\n" 
-                )
-        }
-        else if(option == "9")
-        {
-            ctx.reply(getValue(5,ctx.data.language))
+        TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
+            if(val.length > 0)
+            {
+                let option  = ctx.message.text
+                if(option == "1")
+                {
+                        ctx.data.message.unshift("booking")
+                        ctx.reply(
+                        getValue(7,ctx.data.language)+ "\n" +
+                        getValue(18,ctx.data.language) + "\n" +
+                        getValue(28,ctx.data.language) + "\n" +
+                        getValue(35,ctx.data.language) + "\n" +
+                        getValue(39,ctx.data.language) + "\n" +
+                        getValue(42,ctx.data.language) + "\n" +
+                        getValue(45,ctx.data.language) + "\n" +
+                        getValue(46,ctx.data.language) + "\n" 
+                        )
+        
+                }
+                else if(option == "2")
+                {
+                    ctx.data.message.unshift("invoice")
+                    ctx.reply(
+                        getValue(englisharr.length - 2,ctx.data.language)  + "\n" +
+                        getValue(45,ctx.data.language) + "\n" +
+                        getValue(46,ctx.data.language)  + "\n" 
+                        )
+        
+                }
+                else if(option == "3")
+                {
+                    ctx.data.message.unshift("ticket")
+                    ctx.reply(
+                        getValue(17,ctx.data.language) + "\n" +
+                        getValue(26,ctx.data.language) + "\n" +
+                        getValue(34,ctx.data.language)+ "\n" +
+                        getValue(45,ctx.data.language) + "\n" +
+                        getValue(46,ctx.data.language)  + "\n" 
+                        )
+                }
+                else if(option == "9")
+                {
+                    ctx.reply(getValue(5,ctx.data.language))
+                    ctx.data.number = null
+                    ctx.data.message = []
+                    ctx.data.message.unshift("language")
+                }
+                else 
+                {
+                    ctx.data.number = null
+                    ctx.data.message= []
+                    ctx.reply(getValue(55,ctx.data.language))
+                }
+            }
+            else
+            {
+                ctx.data.number = null
+                ctx.data.message = []
+                ctx.reply(getValue(90,ctx.data.language))
+            }
+        }).catch(()=>{
             ctx.data.number = null
             ctx.data.message = []
-            ctx.data.message.unshift("language")
-        }
-        else 
-        {
-            ctx.data.number = null
-            ctx.data.message= []
-            ctx.reply(getValue(55,ctx.data.language))
-        }
+            ctx.reply(getValue(90,ctx.data.language))
+        })
+       
         
     }
    
@@ -5896,7 +5961,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Press 7 to book your loading from PTA mines",
 "Press 8 to go to Previous Menu",
 "Press 9 to go back to main menu",
-"Sorry, the number is not registered. Please register on our app or speak to customer care 18002702356.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\nPress any key to continue",
+"Sorry, the number is not registered. Please register on our app or speak to customer care: \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nPress any key to continue",
 "Thank you, information has been sent to your registred mobile number. Press any key to continue",
 "Thank you, our emergency response team will soon get in touch with you. Press any key to continue",
 "Thank you, please hold on while we get the list of your registred vehicles. Press any key to continue",
@@ -5939,7 +6004,8 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Vehicle Accident",
 "Other On-Road Support",
 "Loading Problem",
-"Kindly register the vehicles through Transfly app.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"Kindly register the vehicles through Transfly app.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nPress any key to continue",
+"Press 1 to continue to Challan and Invoice information",
 "Here is the best match currently, please select from the below options to proceed:"
 ]
 
@@ -5993,7 +6059,7 @@ let hindiarr =
 "पी टी ऐ माइन से लोड करने के लिए 7 दबाएँ।",
 "पिछले मेनू में जाने के लिए 8 दबाएँ।",
 "मेन मेनू में जाने के लिए 9 दबाएँ।",
-"माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें। 18002702356  \nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\n कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
+"माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें।\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nकृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
 "धन्यवाद, सूचना आपके रजिस्टर्ड मोबाइल नंबर पर भेजी जा चुकी है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
 "धन्यवाद, हमारी ऐमरजेंसी रेस्पॉन्स टीम आपको जल्द ही कॉन्टैक्ट करेगी। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|", 
 "कृपया प्रतीक्षा करें, हम आपके रजिस्टर किये हुए वाहनों की लिस्ट सिस्टम से निकाल रहे है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
@@ -6036,8 +6102,10 @@ let hindiarr =
 "वाहन एक्सीडेंट ",
 "अन्य ऑन-रोड़ सहायता ",
 "लोडिंग प्रॉब्लम ",
-"कृपया ट्रांसफ्लाय ऐप्प पर अपने वाहनों का रजिस्ट्रेशन करें| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly ",
+"कृपया ट्रांसफ्लाय ऐप्प पर अपने वाहनों का रजिस्ट्रेशन करें| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nकृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें| ",
+"चलान तथा इनवॉइस जानकारी के लिए 1 दबाएँ",
 "वर्तमान में यह सबसे निकटतम मैच है, कृपया आगे बढ़ने के लिए नीचे दिए गए विकल्पों में से चुनें:"
+
 
 
 ]
@@ -6090,7 +6158,7 @@ let teleguarr = [
 "PTA  మైన్స్ నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి ఏడు నొక్కండి ",
 "మునుపటి మెనుకు వెళ్లడానికి ఎనిమిది నొక్కండి ",
 "మెయిన్ మెనుకు వెళ్లడానికి  తొమ్మిది నొక్కండి ",
-"క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి| 18002702356 \nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\n కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|",
+"క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి|\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nకొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|",
 "ధన్యవాదం మీ రిజిస్టర్డ్ మొబైల్  నెంబర్‌కు సమాచారం  పంపబడినది| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
 "ధన్యవాదం మా ఎమర్జెన్సీ ప్రతిస్పందన బృందం త్వరలో మీతో సంప్రదిస్తారు| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ", 
 "ధన్యవాదం దయచేసి వేచి ఉండండి మీ రిజిస్టర్డ్ వెహికల్స్ జాబితాలు మేము పొందు పరిచాము| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
@@ -6133,7 +6201,8 @@ let teleguarr = [
 "వెహికల్ యాక్సిడెంట్ ",
 "ఇతర రహదారి  సహాయం",
 "లోడింగ్ ప్రాబ్లెమ్",
-"దయచేసి ట్రాన్స్ ఫ్లై యాప్ ద్వారా వాహనాలను రిజిస్ట్రేషన్ చేయండి| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly",
+"దయచేసి ట్రాన్స్ ఫ్లై యాప్ ద్వారా వాహనాలను రిజిస్ట్రేషన్ చేయండి| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nకొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|",
+"చల్లాన్ మరియు ఇన్వాయిస్స సమాచారం కోసం 1 నొక్కండి",
 "ఇది ప్రస్తుతం దగ్గరి మ్యాచ్, దయచేసి కొనసాగడానికి క్రింది ఎంపికల నుండి ఎంచుకోండి:"
 
 
@@ -6142,14 +6211,14 @@ let teleguarr = [
 
 let odhissaarr = [
    " ଦୟାକରି ରେଜିଷ୍ଟର ହୋଇଥିବା ଗାଡି ର ଲାଷ୍ଟ ଚାରୋଟି ଡିଜିଟ୍ ଏଣ୍ଟର କରନ୍ତୁ।",
-   "ଦୟାକରି ଏହି ଲୋଡିଙ୍ଗ ପାଇଁ ଆପଣଙ୍କ ଗାଡି ନମ୍ବର ସିଲେକ୍ଟ କରନ୍ତୁ। ",
+   "ଦୟାକରି ଏହି ଲୋଡିଂ କରିବା ପାଇଁ ଆପଣଙ୍କ ଗାଡି ନମ୍ବର ସିଲେକ୍ଟ କରନ୍ତୁ। ",
    "ଦୟାକରି ଲିଷ୍ଟ ରୁ ଆପଣଙ୍କର ଗାଡି ନମ୍ବର ସିଲେକ୍ଟ କରନ୍ତୁ। ",
    "ଦୟାକରି ଆପଣଙ୍କର ଗାଡି ସିଲେକ୍ଟ କରନ୍ତୁ। ",
-   "କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହେବା ପାଇଁ 0 ଦବାନ୍ତୁ। ",
+   "କଷ୍ଟମର୍ କେଆର ସହିତ କଥା ହେବା ପାଇଁ 0 ଦବାନ୍ତୁ। ",
    "Welcome to TransFly:\n\nPress 1 for English \nहिंदी के लिए 2 दबाएँ । \nతెలుగు కోసం మూడు నొక్కండి \nଓଡ଼ିଆ ପାଇଁ 4 ଦବାନ୍ତୁ।",
-   "ନୂଆ ଲୋଡିଙ୍ଗ ପାଇଁ ଏକ ଦବାନ୍ତୁ। ",
-   "ଭାଇଯ୍ୟାଗ୍ ଲୋଡିଂପାଇଁ 1 ଦବାନ୍ତୁ। ",
-   "ବାଲାଜୀ କ୍ରୁସର ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
+   "ନୂଆ ଲୋଡିଂ କରିବା ପାଇଁ ଏକ ଦବାନ୍ତୁ।",
+   "ଭାଇଯ୍ୟାଗ୍ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ।",
+   "ବାଲାଜୀ କ୍ରସର ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ।",
    "କେପି ମାଇନ୍ସ କିମ୍ବା ଠାକୁରାଣୀ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
    "ଏମ୍ ଜି ଏମ୍ ମାଇନ୍ସ ରୁ  ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
    "ଏନ୍ଇ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
@@ -6157,30 +6226,30 @@ let odhissaarr = [
    "ଯେଉଁ ଗାଡି ପାଇଁ ସହାୟତା ଚାହୁଁଛନ୍ତି, ସେହି ନମ୍ବର ଏଣ୍ଟର କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
    "ଯେଉଁ ଗାଡ଼ି ର ଚାଲାଣ ସୂଚନା ଜାଣିବା ପାଇଁ ଚାହୁଁଛନ୍ତି ତାର ନମ୍ବର ଏଣ୍ଟର କରିବା ପାଇଁ ଏକ ଦବାନ୍ତୁ। ",
    "ଗାଡି ନମ୍ବର ଏଣ୍ଟର କରି ଲୋଡିଙ୍ଗ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
-   "ଯୋଡା ରୁ ଲୋଡ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
+   "ଯୋଡା ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 1 ଦବାନ୍ତୁ।",
    "ଗାଡ଼ି ଖରାପ୍ ସହାୟତା ପାଇଁ 1 ଦବାନ୍ତୁ। ",
-   "ଗୋପାଳପୁର ଲୋଡିଂ ପାଇଁ 2 ଦବାନ୍ତୁ। ",
+   "ଗୋପାଳପୁର ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 2 ଦବାନ୍ତୁ।",
    "କଳିଙ୍ଗ ପ୍ଲାଣ୍ଟ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 2 ଦବାନ୍ତୁ। ",
    "କେ ଏମ୍ ସି ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 2 ଦବାନ୍ତୁ। ",
    "ଏମ୍ ଡି ଏଚ୍ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 2 ଦବାନ୍ତୁ। ",
    "ଏସ ଏନ୍ ମହାନ୍ତି ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 2 ଦବାନ୍ତୁ। ",
    "ଡାଟାବେସ୍ ରୁ ଆପଣଙ୍କ ରେଜିଷ୍ଟର ହୋଇଥିବା ଗାଡ଼ି ର ଲିଷ୍ଟ ପାଇଁ 2 ଦବାନ୍ତୁ। ",
-   "ଆପଣଙ୍କର ଲାଷ୍ଟ୍ କ୍ଲିଅର୍ ହୋଇଥିବା ଚାଲାଣ ର ସୂଚନା ପାଇଁ 2 ଦବାନ୍ତୁ। ",
+   "ଆପଣଙ୍କର ପୂର୍ବ କ୍ଲିଅରିଙ୍ଗ ଚାଲାଣ ସମ୍ବନ୍ଧରେ ଜାଣିବା ପାଇଁ 2 ଦବାନ୍ତୁ।",
    "ବଡ଼ବିଲ ରୁ ଲୋଡିଂ ପାଇଁ 2 ଦବାନ୍ତୁ। ",
    "କୌଣସି ଯାନ ଦୁର୍ଘଟଣା ରେ ସହାୟତା ପାଇଁ 2 ଦବାନ୍ତୁ। ",
    "ଅନ- ରୋଡ ସହାୟତା ପାଇଁ ଦୟାକରି 3 ଦବାନ୍ତୁ। ",
-   "ପାରାଦ୍ଵୀପ ଲୋଡିଂପାଇଁ 3 ଦବାନ୍ତୁ। ",
+   "ପାରାଦ୍ଵୀପ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ।",
    "ଏଏମ୍ ଟିସି ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ। ",
    "ଏସାର ପ୍ଲାଣ୍ଟ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ। ",
    "କେ ଜେ ଏସ୍ ଆହ୍ଲୁୱାଲିଆ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ। ",
-   "କେ ଏନ୍ ରାମ ମାଇନ୍ସ ରୁ ଲୋଡ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ। ",
+   "କେ ଏନ୍ ରାମ ମାଇନ୍ସ ରୁ  ଲୋଡିଂ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ।",
    "ରୁଗୁଡ଼ି ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 3 ଦବାନ୍ତୁ। ",
    "ବାକି ସବୁ ଅନ- ରୋଡ ସହାୟତା ପାଇଁ 3 ଦବାନ୍ତୁ। ", 
-   "ହଳଦିଆ ଲୋଡିଂ ପାଇଁ 4 ଦବାନ୍ତୁ। ",
+   "ହଳଦିଆ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 4 ଦବାନ୍ତୁ।",
    "ଡି- ଟପ୍ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 4 ଦବାନ୍ତୁ। ",
    "ଗୀତାରାନି ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 4 ଦବାନ୍ତୁ। ",
    "କୋଇଡା ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 4 ଦବାନ୍ତୁ। ",
-   "ରାଏଗଡ ଲୋଡିଂ କରିବା ପାଇଁ 5 ଦବାନ୍ତୁ। ",
+   "ରାଏଗଡ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 5 ଦବାନ୍ତୁ।",
    "ଜେ ଏନ୍ ପଟ୍ଟନାୟକ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 5 ଦବାନ୍ତୁ। ",
    "ଜାମଦା ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 5 ଦବାନ୍ତୁ। ",
    "ରାୟପୁର ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 6 ଦବାନ୍ତୁ। ",
@@ -6188,13 +6257,13 @@ let odhissaarr = [
    "ପିଟିଏ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 7 ଦବାନ୍ତୁ। ",
    "ପୂର୍ବ ମେନ୍ୟୁ କୁ ଯିବା ପାଇଁ 8 ଦବାନ୍ତୁ। ",
    "ମେନ୍ ମେନ୍ୟୁ କୁ ଯିବାପାଇଁ 9 ଦବାନ୍ତୁ। ",
-   "ସରି, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟୋମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ। 18002702356 \nhttps://play.google.com/store/apps/details?id=com.truck.transfly .\n ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
-   "ଧନ୍ୟବାଦ୍, ସୂଚନାଟି ଆପଣଙ୍କର ରେଜିଷ୍ଟରଡ୍ ମୋବାଇଲ କୁ ପଠା ଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ| ",
+   "କ୍ଷମା କରିବେ, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ।\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
+   "ଧନ୍ୟବାଦ୍, ସୂଚନାଟି ଆପଣଙ୍କର ରେଜିଷ୍ଟର ମୋବାଇଲ ନମ୍ବର କୁ ପଠା ଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ| ",
    "ଧନ୍ୟବାଦ୍, ଆମର ଏମର୍ଜେନ୍ସୀ ରେସ୍ପନ୍ସ ଟିମ୍ ଆପଣଙ୍କୁ ଶୀଘ୍ର ସମ୍ପର୍କ କରିବେ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଧନ୍ୟବାଦ୍, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ। ଆମେ ଆପଣଙ୍କର ରେଜିଷ୍ଟର କରାହେଇଥିବା ଗାଡ଼ି ଗୁଡ଼ି କୁ ଲିଷ୍ଟ ସିଷ୍ଟମ୍ ରୁ ବାହାର କରୁଛୁ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଧନ୍ୟବାଦ୍, ଆପଣଙ୍କର ବୁକିଙ୍ଗ ରିସିଭ ହୋଇଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
-   "ସରି, ଆପଣଙ୍କ ଦ୍ଵାରା ଦିଆ ହୋଇଥିବା ନମ୍ବର ମ୍ୟାଚ୍ କରୁନାହିଁ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
-   "ଦୟାକରି ଆପଣଙ୍କର ପଞ୍ଜୀକୃତ ମୋବାଇଲ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ | ",
+   "କ୍ଷମା କରିବେ, ଆପଣଙ୍କ ଦ୍ଵାରା ଦିଆ ହୋଇଥିବା ନମ୍ବର ମ୍ୟାଚ୍ କରୁନାହିଁ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
+   "ଦୟାକରି ଆପଣଙ୍କର ରେଜିଷ୍ଟର ମୋବାଇଲ୍ ନମ୍ବର ଦିଅନ୍ତୁ | ",
    "ଦୟାକରି ଆପଣଙ୍କର ବିକଳ୍ପ ଚୟନ କରନ୍ତୁ ",
    "ମନୋନୀତ ବିକଳ୍ପଟି ଉପଲବ୍ଧ ନାହିଁ/ ବୈଧ ନୁହେଁ, ଦୟାକରି ଅନ୍ୟ ଏକ ବିକଳ୍ପ ବାଛନ୍ତୁ | ",
    "ବଡ଼ବିଲ ",
@@ -6231,7 +6300,8 @@ let odhissaarr = [
    "ବାହନ ଦୁର୍ଘଟଣା ",
    "ବାକି ସବୁ ଅନ- ରୋଡ ସହାୟତା ",
    "ଲୋଡିଂ ପ୍ରୋବଲମ୍ ",
-   "ଦୟାକରି ଟ୍ରାନ୍ସଫ୍ଲାଏ ଆପ୍ ମାଧ୍ୟମରେ ଯାନଗୁଡ଼ିକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ: Odia| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly ",
+   "ଦୟାକରି ଟ୍ରାନ୍ସଫ୍ଲାଏ ଆପ୍ ମାଧ୍ୟମରେ ଯାନଗୁଡ଼ିକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ: Odia| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
+   " ଚାଲାଣ ଏବଂ ଇନଭଏସ୍ ସୂଚନା କରିବାକୁ 1 ଦବାନ୍ତୁ|",
    "ଏହା ସମ୍ପ୍ରତି ନିକଟତମ ମ୍ୟାଚ୍, ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ନିମ୍ନରେ ଥିବା ବିକଳ୍ପଗୁଡିକରୁ ବାଛନ୍ତୁ:"
 
 
