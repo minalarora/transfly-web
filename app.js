@@ -6,7 +6,7 @@ const ejs = require('ejs')
 const app = express()
 var session = require('express-session');
 const bodyparser = require('body-parser')
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 80
 require("./src/db/dbfile")
 require("./src/telegrambot")
 
