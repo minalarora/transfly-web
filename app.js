@@ -5,6 +5,7 @@ const compression = require('compression')
 const path = require('path')
 const ejs = require('ejs')
 const app = express()
+const fs = require('fs')
 
  const privateKey = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/privkey.pem','utf8')
  const certificate = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/cert.pem','utf8')
