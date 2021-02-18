@@ -1,6 +1,5 @@
 const express = require("express")
 const https = require('https')
-const fs = require('fs')
 const helmet = require('helmet')
 const compression = require('compression')
 const path = require('path')
