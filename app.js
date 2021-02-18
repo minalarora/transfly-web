@@ -7,8 +7,15 @@ const path = require('path')
 const ejs = require('ejs')
 const app = express()
 
-// const privateKey = fs.readFileSync('server.key')
-// const certificate = fs.readFileSync('server.cert')
+ const privateKey = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/privkey.pem','utf8')
+ const certificate = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/cert.pem','utf8')
+ const ca = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/chain.pem','utf8')
+
+ const credentials = {
+     key: privateKey,
+     cert: certificate,
+     ca: ca
+ }
 
 var session = require('express-session');
 const bodyparser = require('body-parser')
@@ -230,13 +237,13 @@ job.start();
 
 
 
-// https.createServer({key: privateKey,cert: certificate},app).listen(port, () => {
-//    ("server is up on port", port)
-// })
-
-app.listen(port,()=>{
-    ("server is up on port", port)
+https.createServer(credentials,app).listen(port, () => {
+   ("server is up on port", port)
 })
+
+// app.listen(port,()=>{
+//     ("server is up on port", port)
+// })
 
 
 

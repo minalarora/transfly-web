@@ -1,3 +1,13 @@
 1. made message box in login.ejs , changed weblogin.js added new renders and send data to message and changed redirect when admin not found.
 
 2.adding session variable to login  and destroying in logout
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/transflyhome.club/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/transflyhome.club/privkey.pem
+   Your cert will expire on 2021-05-19. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
