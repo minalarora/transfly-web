@@ -57,7 +57,7 @@ router.post("/transporter", async (req, res) => {
 })
 
 router.get('/transporter/me', auth, async (req, res) => {
-    res.status(200).send({ token: "transporter:" + req.token, ...req.user.toJSON(), profile: "https://transfly-ftr2t.ondigitalocean.app/transporter/profile/" + req.user.mobile + "/image" })
+    res.status(200).send({ token: "transporter:" + req.token, ...req.user.toJSON(), profile: "https://transflyhome.club/transporter/profile/" + req.user.mobile + "/image" })
 })
 
 router.get('/transporter/profile/:mobile/image', async (req, res) => {

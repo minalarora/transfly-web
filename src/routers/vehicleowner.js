@@ -73,7 +73,7 @@ router.post("/vehicleowner", async (req, res) => {
 })
 
 router.get('/vehicleowner/me', auth, async (req, res) => {
-    res.status(200).send({ token: "vehicleowner:" + req.token, ...req.user.toJSON(), profile: "https://transfly-ftr2t.ondigitalocean.app/vehicleowner/profile/" + req.user.mobile + "/image" })
+    res.status(200).send({ token: "vehicleowner:" + req.token, ...req.user.toJSON(), profile: "https://transflyhome.club/vehicleowner/profile/" + req.user.mobile + "/image" })
 })
 
 router.get('/vehicleowner/profile/:mobile/image', async (req, res) => {

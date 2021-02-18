@@ -63,7 +63,7 @@ router.post("/fieldstaff", async (req, res) => {
 })
 
 router.get('/fieldstaff/me', auth, async (req, res) => {
-    res.status(200).send({ token: "fieldstaff:" + req.token, ...req.user.toJSON(), profile: "https://transfly-ftr2t.ondigitalocean.app/fieldstaff/profile/" + req.user.mobile + "/image" })
+    res.status(200).send({ token: "fieldstaff:" + req.token, ...req.user.toJSON(), profile: "https://transflyhome.club/fieldstaff/profile/" + req.user.mobile + "/image" })
 
 
 })

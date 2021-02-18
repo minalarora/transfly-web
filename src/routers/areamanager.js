@@ -64,7 +64,7 @@ router.post("/areamanager", async (req, res) => {
 })
 
 router.get('/areamanager/me', auth, async (req, res) => {
-    res.status(200).send({ token: "areamanager:" + req.token, ...req.user.toJSON(), profile: "https://transfly-ftr2t.ondigitalocean.app/areamanager/profile/" + req.user.mobile + "/image" })
+    res.status(200).send({ token: "areamanager:" + req.token, ...req.user.toJSON(), profile: "https://transflyhome.club/areamanager/profile/" + req.user.mobile + "/image" })
 })
 
 
