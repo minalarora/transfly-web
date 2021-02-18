@@ -1,9 +1,15 @@
 const express = require("express")
+const https = require('https')
+const fs = require('fs')
 const helmet = require('helmet')
 const compression = require('compression')
 const path = require('path')
 const ejs = require('ejs')
 const app = express()
+
+// const privateKey = fs.readFileSync('server.key')
+// const certificate = fs.readFileSync('server.cert')
+
 var session = require('express-session');
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 80
@@ -11,6 +17,8 @@ require("./src/db/dbfile")
 require("./src/telegrambot")
 
 var CronJob = require('cron').CronJob
+
+
 
 // 
 
@@ -222,8 +230,12 @@ job.start();
 
 
 
-app.listen(port, () => {
-   ("server is up on port", port)
+// https.createServer({key: privateKey,cert: certificate},app).listen(port, () => {
+//    ("server is up on port", port)
+// })
+
+app.listen(port,()=>{
+    ("server is up on port", port)
 })
 
 
