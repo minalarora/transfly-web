@@ -19,7 +19,7 @@ const fs = require('fs')
 
 var session = require('express-session');
 const bodyparser = require('body-parser')
-const port = process.env.PORT || 80
+const port = process.env.PORT || 3000
 require("./src/db/dbfile")
 require("./src/telegrambot")
 
@@ -237,13 +237,13 @@ job.start();
 
 
 
-https.createServer(https_options,app).listen(port, () => {
-   ("server is up on port", port)
-})
-
-// app.listen(port,()=>{
-//     ("server is up on port", port)
+// https.createServer(https_options,app).listen(port, () => {
+//    ("server is up on port", port)
 // })
+
+app.listen(port,()=>{
+    ("server is up on port", port)
+})
 
 
 
