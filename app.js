@@ -237,13 +237,13 @@ job.start();
 
 
 
-https.createServer(credentials,app).listen(port, () => {
-   ("server is up on port", port)
-})
-
-// app.listen(port,()=>{
-//     ("server is up on port", port)
+// https.createServer(credentials,app).listen(port, () => {
+//    ("server is up on port", port)
 // })
+
+app.listen(port,()=>{
+    ("server is up on port", port)
+})
 
 
 
