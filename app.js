@@ -64,7 +64,7 @@ const WebVehicleOwner = require('./src/routers/webvehicleowner')
 const WebVehicle = require('./src/routers/webvehicle')
 
 
-var fs = require('fs');
+
 var dir = path.join(__dirname, 'public');
 var mime = {
     html: 'text/html',
