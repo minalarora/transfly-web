@@ -3253,9 +3253,9 @@ bot.on('text',(ctx)=>{
             })
 
         }
-        else if(ctx.data.message[0] == "Koida")
+        else if(ctx.data.message[0] == "Koira")
         {
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[1]).then((val)=>{
                 if(val.length > 0)
                 {
                     let minearray = val
@@ -3614,9 +3614,9 @@ bot.on('text',(ctx)=>{
             })
 
         }
-        else if(ctx.data.message[0] == "Koida")
+        else if(ctx.data.message[0] == "Koira")
         {
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[1]).then((val)=>{
                 if(val.length > 0)
                 {
                     let minearray = val
@@ -3968,9 +3968,9 @@ bot.on('text',(ctx)=>{
             })
 
         }
-        else if(ctx.data.message[0] == "Koida")
+        else if(ctx.data.message[0] == "Koira")
         {
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[1]).then((val)=>{
                 if(val.length > 0)
                 {
                     let minearray = val
@@ -4322,9 +4322,9 @@ bot.on('text',(ctx)=>{
             })
 
         }
-        else if(ctx.data.message[0] == "Koida")
+        else if(ctx.data.message[0] == "Koira")
         {
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[1]).then((val)=>{
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[1]).then((val)=>{
                 if(val.length > 0)
                 {
                     let minearray = val
@@ -4581,8 +4581,8 @@ bot.on('text',(ctx)=>{
         }
         else if(area == "4")
         {
-            //koida
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
+            //Koira
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[0]).then((val)=>{
 
                 if(val.length>0)
                 {
@@ -4593,7 +4593,7 @@ bot.on('text',(ctx)=>{
                     {
                          message = message + "Press " + i + " to book your loading from " + englisharr[getNumber(minearray[i])] + "\n"
                     }
-                    ctx.data.message.unshift("Koida")
+                    ctx.data.message.unshift("Koira")
                     ctx.reply(message)
          
                 }
@@ -4767,8 +4767,8 @@ bot.on('text',(ctx)=>{
         }
         else if(area == "4")
         {
-            //koida
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
+            //Koira
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[0]).then((val)=>{
 
                 if(val.length>0)
                 {
@@ -4779,7 +4779,7 @@ bot.on('text',(ctx)=>{
                     {
                         message = message + getValue(getNumber(minearray[i]),ctx.data.language) + "  से लोड करने के लिए " + i + " दबाएँ " + "\n"
                           }
-                    ctx.data.message.unshift("Koida")
+                    ctx.data.message.unshift("Koira")
                     ctx.reply(message)
          
                 }
@@ -4954,8 +4954,8 @@ bot.on('text',(ctx)=>{
         }
         else if(area == "4")
         {
-            //koida
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
+            //Koira
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[0]).then((val)=>{
 
                 if(val.length>0)
                 {
@@ -4967,7 +4967,7 @@ bot.on('text',(ctx)=>{
                         message = message + getValue(getNumber(minearray[i]),ctx.data.language) + "  నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి " + i + " నొక్కండి " + "\n"
                     
                         }
-                    ctx.data.message.unshift("Koida")
+                    ctx.data.message.unshift("Koira")
                     ctx.reply(message)
          
                 }
@@ -5143,8 +5143,8 @@ bot.on('text',(ctx)=>{
         }
         else if(area == "4")
         {
-            //koida
-            TelegramUtils.getMinesByArea("Koida",ctx.data.message[0]).then((val)=>{
+            //Koira
+            TelegramUtils.getMinesByArea("Koira",ctx.data.message[0]).then((val)=>{
 
                 if(val.length>0)
                 {
@@ -5156,7 +5156,7 @@ bot.on('text',(ctx)=>{
                         message = message + getValue(getNumber(minearray[i]),ctx.data.language) + "  ରୁ ଲୋଡିଂ କରିବା ପାଇଁ " + i + " ଦବାନ୍ତୁ " + "\n"
                    
                              }
-                    ctx.data.message.unshift("Koida")
+                    ctx.data.message.unshift("Koira")
                     ctx.reply(message)
          
                 }
@@ -5939,7 +5939,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Press 2 to book your loading from SN Mohanty mines",
 "Press 2 to generate list from the Database",
 "Press 2 to know information on last challan cleared status",
-"Press 2 to Load from Badbil",
+"Press 2 to Load from Barbil",
 "Press 2 to raise a ticket for vehicle accident assistance",
 "Press 3 for On-Road Assistance",
 "Press 3 for Paradip Loading",
@@ -5952,7 +5952,7 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Press 4 for Haldia Loading",
 "Press 4 to book your loading from D-top mines",
 "Press 4 to book your loading from Geetarani mines",
-"Press 4 to Load from Koida",
+"Press 4 to Load from Koira",
 "Press 5 for Raigarh Loading",
 "Press 5 to book your loading from JN Pattnaik Mines",
 "Press 5 to Load from Jamda",
