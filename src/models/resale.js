@@ -38,69 +38,69 @@ const resaleSchema  = mongoose.Schema({
         default: 'RESALE'
 
     },
-    1:
+    a:
     {
         type: Boolean,
         default: false
     },
-    2:
-    {
-       
-        type: Boolean,
-        default: false
-    },
-    3:
-    {
-        
-        type: Boolean,
-        default: false
-    },
-    4:
-    {
-        
-        type: Boolean,
-        default: false
-    },
-    5:
+    b:
     {
        
         type: Boolean,
         default: false
     },
-    6:
-    {
-      
-        type: Boolean,
-        default: false
-    },
-    7:
+    c:
     {
         
         type: Boolean,
         default: false
     },
-    8:
+    d:
     {
+        
         type: Boolean,
         default: false
     },
-    9:
+    e:
     {
+       
         type: Boolean,
         default: false
     },
-    10:
-    {
-        type: Boolean,
-        default: false
-    },
-    11:
+    f:
     {
       
         type: Boolean,
         default: false
     },
-    12:
+    g:
+    {
+        
+        type: Boolean,
+        default: false
+    },
+    h:
+    {
+        type: Boolean,
+        default: false
+    },
+    i:
+    {
+        type: Boolean,
+        default: false
+    },
+    j:
+    {
+        type: Boolean,
+        default: false
+    },
+    k:
+    {
+      
+        type: Boolean,
+        default: false
+    },
+    l:
     {
         type: Boolean,
         default: false

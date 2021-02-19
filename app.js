@@ -11,10 +11,10 @@ const fs = require('fs')
 //  const certificate = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/cert.pem','utf8')
 //  const ca = fs.readFileSync('/etc/letsencrypt/live/transflyhome.club/chain.pem','utf8')
 
- var https_options = {
-    key: fs.readFileSync("transflyhome.club.key"),
-    cert: fs.readFileSync("transflyhome.club.csr")
-};
+//  var https_options = {
+//     key: fs.readFileSync("transflyhome.club.key"),
+//     cert: fs.readFileSync("transflyhome.club.csr")
+// };
 
 
 var session = require('express-session');
