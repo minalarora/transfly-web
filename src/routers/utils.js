@@ -8,6 +8,7 @@ const Transporter = require('../models/transporter')
 const VehicleOwner = require('../models/vehicleowner')
 const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const express = require('express')
+const message = require('../values')
 const router = new express.Router()
 
 var multer = require('multer')
@@ -329,6 +330,15 @@ router.post('/logout', auth, async (req, res) => {
 
 router.get('/faq',async (req,res)=>{
     return res.render('webview_faq', {  })
+})
+
+router.get('/invitation',async (req,res)=>{
+    let mobile= req.query.mobile
+    if(mobile)
+    {
+        message.sendMessageDownload(mobile)
+    }
+    return res.redirect("https://transfly.co.in/")
 })
 
 

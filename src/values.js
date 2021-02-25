@@ -659,6 +659,63 @@ catch(e)
   
 }
 
+const sendMessageDownload =  function(number)
+{
+/**
+ * {
+ "flow_id":"5ff6baa6ede4c64496062ebe",
+  "recipients" : [
+    {
+      "mobiles":"918871748278",
+      "message":"VALUE 1"
+    },
+    {
+      "mobiles":"916265219319",
+      "message":"VALUE 1"
+		}
+]
+}*/
+
+  const obj = {}
+  obj.flow_id = "60363bd5f45873278a1d6c55"
+  obj.recipients = [
+   {
+      mobiles:"91" + number,
+     link: "https://play.google.com/store/apps/details?id=com.truck.transfly"
+    
+   }
+  ]
+
+
+
+  
+try
+{
+   fetch("https://api.msg91.com/api/v5/flow/",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "authkey":"350944Ar65hw8BuM5ff29c59P1"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+     //(res.status)
+  }).catch((e)=>{
+   //(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+ //(e)
+}
+  
+
+  
+}
+
 
 
 
@@ -679,7 +736,8 @@ module.exports = {
   sendMessageOne,
   sendMessageTwo,
   sendMessageThree,
-  sendMessageFour
+  sendMessageFour,
+  sendMessageDownload
 
 
 }
