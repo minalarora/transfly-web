@@ -165,7 +165,7 @@ router.post('/local/booking',async (req,res)=>{
     }
     catch(e)
     {
-        res.status(400).send("error3")
+        res.status(400).send("error3"+ e.message )
     }
 })
 
