@@ -155,17 +155,17 @@ router.post('/local/booking',async (req,res)=>{
             }
             else 
             {
-                res.status(400).send("error")
+                res.status(400).send("error1")
             }
         }
         else
         {
-            res.status(400).send("error")
+            res.status(400).send("error2")
         }
     }
     catch(e)
     {
-        res.status(400).send("error")
+        res.status(400).send("error3")
     }
 })
 
