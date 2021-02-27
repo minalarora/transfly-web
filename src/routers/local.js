@@ -16,7 +16,7 @@ var multer = require('multer')
 var firebase = require('../values')
 let moment = require('moment-timezone')
 
-router.get("/local/validate",async (req,res)=>{
+router.post("/local/validate",async (req,res)=>{
     try
     {
         let mobile = req.body.mobile
