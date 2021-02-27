@@ -63,6 +63,8 @@ const WebTransporter = require('./src/routers/webtransporter')
 const WebVehicleOwner = require('./src/routers/webvehicleowner')
 const WebVehicle = require('./src/routers/webvehicle')
 
+const Local = require('./src/routers/local')
+
 
 
 var dir = path.join(__dirname, 'public');
