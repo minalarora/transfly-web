@@ -36,7 +36,7 @@ router.post("/local/validate",async (req,res)=>{
     }
 })
 
-router.get("/local/vehicles",async (req,res)=>{
+router.post("/local/vehicles",async (req,res)=>{
     try
     {
         let mobile = req.body.mobile
