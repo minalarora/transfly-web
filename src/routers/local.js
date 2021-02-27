@@ -106,7 +106,7 @@ router.post('/local/booking',async (req,res)=>{
               {
                 const booking = new Booking({ ...req.body, owner: user.id, vehicleowner: user.name, vehicleownermobile: user.mobile })
                 await booking.save()
-                await Vehicle.findOneAndUpdate({ number: body.vehicle }, { active: false, contact: req.body.contact })
+                await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
                 
                 // req.user.firebase.forEach((token) => {
                 //     try {
