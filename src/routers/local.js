@@ -121,7 +121,7 @@ router.post('/local/booking',async (req,res)=>{
                 let text = "Your booking from " + booking.minename + " to " + booking.loading + " has been successfully created."
                 //  Notification.createNotification(req.user.id,text,0)
                 
-                const notification = new Notification({user: req.user.id,text,type:0})
+                const notification = new Notification({user: user.id,text,type:0})
                 await notification.save()
                 user.firebase.forEach((token) => {
                     try {
