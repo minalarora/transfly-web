@@ -419,7 +419,7 @@ catch(e)
 }
 
 
-const sendMessageOne =  function(number,vehicle,from,to,amount,cash)
+const sendMessageOne =  function(number,vehicle,from,to,amount,cash,tonnage)
 {
 /**
  * {
@@ -445,7 +445,8 @@ const sendMessageOne =  function(number,vehicle,from,to,amount,cash)
      from,
      to,
      amount,
-     cash
+     cash,
+     tonnage
    }
   ]
 

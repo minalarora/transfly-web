@@ -51,7 +51,7 @@ router.post("/invoice", auth, async (req, res) => {
      
                  }
              })
-             Message.sendMessageOne(booking.vehicleownermobile,booking.vehicle,booking.minename,booking.loading,req.body.hsd,req.body.cash)
+             Message.sendMessageOne(booking.vehicleownermobile,booking.vehicle,booking.minename,booking.loading,req.body.hsd,req.body.cash,req.body.tonnage)
 
 
             return res.status(200).send("DONE")
