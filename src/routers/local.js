@@ -269,14 +269,14 @@ router.get("/local/reporttransporter",async (req,res)=>{
 
             }
 
-            return res.render('webview_areamanager_invoice', { data })
+            return res.render('webview_areamanager_invoice2', { data })
         }
         else {
             let data = {
                 invoice: []
             }
             data.invoice = []
-            return res.render('webview_areamanager_invoice', { data })
+            return res.render('webview_areamanager_invoice2', { data })
         }
     }
     catch (e) {
@@ -284,7 +284,7 @@ router.get("/local/reporttransporter",async (req,res)=>{
             invoice: []
         }
         data.invoice = []
-        return res.render('webview_areamanager_invoice', { data })
+        return res.render('webview_areamanager_invoice2', { data })
     }
 })
 
@@ -376,14 +376,14 @@ router.get("/local/reportmine",async (req,res)=>{
 
             }
 
-            return res.render('webview_areamanager_invoice', { data })
+            return res.render('webview_areamanager_invoice2', { data })
         }
         else {
             let data = {
                 invoice: []
             }
             data.invoice = []
-            return res.render('webview_areamanager_invoice', { data })
+            return res.render('webview_areamanager_invoice2', { data })
         }
     }
     catch (e) {
@@ -391,7 +391,7 @@ router.get("/local/reportmine",async (req,res)=>{
             invoice: []
         }
         data.invoice = []
-        return res.render('webview_areamanager_invoice', { data })
+        return res.render('webview_areamanager_invoice2', { data })
     }
 })
 
