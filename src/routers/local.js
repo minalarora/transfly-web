@@ -90,7 +90,7 @@ router.post('/local/booking',async (req,res)=>{
         let user = await VehicleOwner.findOne({ mobile })
         if(user && user.status == 2)
         {
-            let vehiclearray = await Vehicle.find({driverid:user.id, status:1, active: true})
+            let vehiclearray = await Vehicle.find({driverid:user.id})
             let updatedva = vehiclearray.filter((v)=>{
                 if(v.number.includes(req.body.vehicle) )
                 {
