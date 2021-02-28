@@ -73,7 +73,7 @@ router.post("/add_resale_vehicle",resaleupload,async (req,res)=>{
             }
          })
 
-         const allowedUpdates = ['vehiclename','company','year','type']
+         const allowedUpdates = ['vehiclename','company','year','type','price']
          allowedUpdates.forEach((update) =>{
              obj[update] = req.body[update]
          })
