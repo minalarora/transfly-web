@@ -106,14 +106,17 @@ app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
 const publicPath = path.join(__dirname, './src/public')
 app.use(express.static(publicPath))
 
-app.use(bodyparser.json());
+// app.use(bodyparser.json());
 
-// for parsing application/xwww-
-app.use(bodyparser.urlencoded({ extended: true}));
+// // for parsing application/xwww-
+// app.use(bodyparser.urlencoded({ extended: true}));
 // app.use(bodyparser.json({limit: '50mb'}));
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+// app.use(express.json({limit: '50mb'}));
+// app.use(express.urlencoded({limit: '50mb'}));
 //form-urlencoded
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // for parsing multipart/form-data
 app.use(express.static('public'));
