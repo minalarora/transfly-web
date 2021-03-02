@@ -16,7 +16,7 @@ var sharp = require('sharp')
 var upload = multer({
     limits:
     {
-        fileSize: 5000000
+        
     },
     fileFilter: function (req, file, cb) {
 
@@ -267,7 +267,7 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
         res.status(400).send(e.message)
     }
 }, (err, req, res, next) => {
-    return res.status(400).send("middleware error")
+    return res.status(400).send("middleware error" + err)
 })
 
 
