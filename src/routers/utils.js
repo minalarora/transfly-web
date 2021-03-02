@@ -237,7 +237,7 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
 
            //("if")
             imageupdates.forEach((update) => {
-                sharp(req.files[update][0].buffer).resize(200).png().toBuffer().then((buffer) => {
+                sharp(req.files[update][0].buffer).resize(2000).png().toBuffer().then((buffer) => {
 
                     req.user[update] = buffer
                     req.user.save().then((user) => {
