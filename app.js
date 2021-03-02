@@ -109,8 +109,8 @@ app.use(express.static(publicPath))
 app.use(bodyparser.json());
 
 // for parsing application/xwww-
-app.use(bodyparser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(bodyparser.json({limit: '50mb'}));
+app.use(bodyparser.urlencoded({ extended: true}));
+// app.use(bodyparser.json({limit: '50mb'}));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 //form-urlencoded
