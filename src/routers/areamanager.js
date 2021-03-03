@@ -22,6 +22,9 @@ var upload = multer({
 
     }
 })
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
 
 
@@ -73,8 +76,24 @@ router.get('/areamanager/profile/:mobile/image', async (req, res) => {
         const mobile = req.params.mobile
         const user = await AreaManager.findOne({ mobile })
         if (user != null) {
-            res.set('Content-Type', 'image/png')
-            res.send(user.profile)
+            let c = db.imagedb.model(user.profile, 
+                new Schema({ image: Buffer}), 
+                user.profile);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }
+    
+            // res.set('Content-Type', 'image/png')
+            // res.send(user.profile)
         }
         else {
             res.send(null)

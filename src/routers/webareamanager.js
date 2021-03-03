@@ -20,6 +20,10 @@ const mine = require('../models/mine')
 const { findOneAndUpdate } = require('../models/mine')
 router.use(cookieParser())
 
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
+
 
 router.get('/webareamanagerall', async (req, res) => {
     try {
@@ -309,8 +313,25 @@ router.get('/areamanager/image/:mobile/:type',async (req,res)=>{
         let user  = await AreaManager.findOne({mobile})
         if(user!=null)
         {
-            res.set('Content-Type', 'image/png')
-            res.send(user[type])
+            let c = db.imagedb.model(user[type], 
+                new Schema({ image: Buffer}), 
+                user[type]);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }     
+
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(user[type])
         }
         else
         {
@@ -332,8 +353,23 @@ router.get('/webareamanager/image/:mobile/:type',async (req,res)=>{
         let user  = await AreaManager.findOne({mobile})
         if(user!=null)
         {
-            res.set('Content-Type', 'image/png')
-            res.send(user[type])
+            let c = db.imagedb.model(user[type], 
+                new Schema({ image: Buffer}), 
+                user[type]);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }     
+            // res.set('Content-Type', 'image/png')
+            // res.send(user[type])
         }
         else
         {

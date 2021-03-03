@@ -34,7 +34,7 @@ const resaleSchema  = mongoose.Schema({
     },
     vehicleimage:
     {
-        type: [Buffer],
+        type: [String],
     },
     type:
     {

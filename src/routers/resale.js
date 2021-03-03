@@ -16,6 +16,9 @@ var upload = multer({
 
     }
 })
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 
 
 router.get('/allresale',auth,async (req,res)=>{
@@ -54,8 +57,24 @@ router.get("/resaleimage/:id/:number",async (req,res)=>{
         const resale = await Resale.findOne({id})
         if(resale!=null)
         {
-            res.set('Content-Type', 'image/png')
-            res.send(resale.vehicleimage[number - 1])
+            let c = db.imagedb.model(resale.vehicleimage[number - 1], 
+                new Schema({ image: Buffer}), 
+                resale.vehicleimage[number - 1]);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(resale.vehicleimage[number - 1])
         }
         else
         {

@@ -16,6 +16,11 @@ const jwt= require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+const db = require('../db/dbfile')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 10)
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 var multer  = require('multer')
 var sharp = require('sharp')
 const { update } = require('../models/admin')
@@ -69,7 +74,18 @@ router.post("/add_resale_vehicle",resaleupload,async (req,res)=>{
         imageupdates.forEach((update)=>{
             for(var i = 0; i< req.files[update].length;i++ )
             {
-                vimg[i] =  req.files[update][i].buffer;
+                let name = nanoid()
+
+                var c = db.imagedb.model(name, 
+                  new Schema({ image: Buffer}), 
+                  name);
+         
+                  let ob = new c({image: req.files[update][i].buffer})
+                  ob.save()   
+
+
+            //    obj[update] = name
+                vimg[i] =  name;
             }
          })
 

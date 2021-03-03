@@ -16,6 +16,12 @@ var upload = multer({
         fileSize: 5000000
     }
 })
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
+
+
+
 var transporterUpload = upload.fields([{ name: 'mininglicenseimage', maxCount: 1 }, { name: 'staimage', maxCount: 1 }, { name: 'gstimage', maxCount: 1 }, { name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
 
 
@@ -65,9 +71,24 @@ router.get('/transporter/profile/:mobile/image', async (req, res) => {
         const mobile = req.params.mobile
         const user = await Transporter.findOne({ mobile })
         if (user != null) {
-            res.set('Content-Type', 'image/png')
-            res.send(user.profile)
-        }
+
+            let c = db.imagedb.model(user.profile, 
+            new Schema({ image: Buffer}), 
+            user.profile);
+
+            let imgobj = await c.find({})
+        
+            if(imgobj)
+            {
+                res.set('Content-Type', 'image/png')
+                res.send(imgobj[0].image)    
+            }
+            else
+            {
+                res.send(null)
+            }
+
+           }
         else {
             res.send(null)
         }
@@ -76,6 +97,28 @@ router.get('/transporter/profile/:mobile/image', async (req, res) => {
         res.status(400).send(e)
     }
 })
+
+
+// router.get('/transporter/image', async (req, res) => {
+//     try {
+        
+
+//         let c = db.imagedb.model("6499534764", 
+//             new Schema({ image: Buffer}), 
+//             "6499534764");
+//         const imgobj = await c.find({})
+//         console.log("fd",imgobj)
+//         res.set('Content-Type', 'image/png')
+//             res.send( )
+       
+
+//      }
+//     catch (e) {
+//         console.log("fd",e)
+//         res.status(400).send(e)
+//     }
+// })
+
 
 router.get('/transporter/me/pending', auth, async (req, res) => {
     try {
@@ -224,12 +267,12 @@ router.patch("/transporter/:id", auth, transporterUpload, async (req, res) => {
     }
 })
 
-router.delete("/transporter/:id", auth, async (req, res) => {
+router.delete("/transporter/:mobile", auth, async (req, res) => {
     try {
         const mobile = req.params.mobile
         const transporter = await Transporter.findOneAndDelete({ mobile })
         if (transporter != null) {
-            res.status(200).send(transporter.getPublicProfile())
+            res.status(200).send("")
         }
         else {
             return res.status(400)

@@ -20,7 +20,7 @@ const fieldstaffSchema = mongoose.Schema({
     
     profile:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     firebase:
@@ -100,7 +100,7 @@ const fieldstaffSchema = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     aadhaar:
@@ -111,7 +111,7 @@ const fieldstaffSchema = mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     ename: {

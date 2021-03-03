@@ -13,7 +13,7 @@ const bannerSchema = mongoose.Schema({
     },
     image:
     {
-        type: Buffer
+        type: String
     }
     ,
      bannertype: {

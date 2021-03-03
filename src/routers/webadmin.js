@@ -16,6 +16,11 @@ const VehicleOwner = require("../models/vehicleowner")
 const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
+const db = require('../db/dbfile')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 10)
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 const vehicle = require('../models/vehicle')
 var multer = require('multer')
 var sharp = require('sharp')
@@ -175,7 +180,17 @@ router.post('/addofficial/:type', transporterUpload, async (req, res) => {
             const obj = { ...req.body }
             const imageupdates = Object.keys(req.files)
             imageupdates.forEach((update) => {
-                obj[update] = req.files[update][0].buffer
+                let name = nanoid()
+
+                var c = db.imagedb.model(name, 
+                  new Schema({ image: Buffer}), 
+                  name);
+         
+                  let ob = new c({image: req.files[update][0].buffer})
+                  ob.save()   
+
+
+                obj[update] = name
 
             })
 
@@ -188,7 +203,19 @@ router.post('/addofficial/:type', transporterUpload, async (req, res) => {
             const obj = { ...req.body }
             const imageupdates = Object.keys(req.files)
             imageupdates.forEach((update) => {
-                obj[update] = req.files[update][0].buffer
+                //obj[update] = req.files[update][0].buffer
+                let name = nanoid()
+
+                var c = db.imagedb.model(name, 
+                  new Schema({ image: Buffer}), 
+                  name);
+         
+                  let ob = new c({image: req.files[update][0].buffer})
+                  ob.save()   
+
+
+                obj[update] = name
+
 
             })
 

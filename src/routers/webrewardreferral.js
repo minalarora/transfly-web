@@ -19,6 +19,11 @@ const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+const db = require('../db/dbfile')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 10)
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 
 var multer = require('multer')
 var sharp = require('sharp')
@@ -55,7 +60,16 @@ router.post("/reward_referral/:type", upload.single('image'), async (req, res) =
         if (req.params.type == "reward") {
             const obj = { ...req.body }
             if (req.file) {
-                obj.image = req.file.buffer
+                let name = nanoid()
+
+                var c = db.imagedb.model(name, 
+                  new Schema({ image: Buffer}), 
+                  name);
+         
+                  var ob = new c({image: req.file.buffer})
+                   await ob.save()
+
+                obj.image = name
             }
 
 
@@ -65,14 +79,32 @@ router.post("/reward_referral/:type", upload.single('image'), async (req, res) =
         else if (req.params.type == "referral") {
             const obj = { ...req.body }
             if (req.file) {
-                obj.image = req.file.buffer
+                let name = nanoid()
+
+                var c = db.imagedb.model(name, 
+                  new Schema({ image: Buffer}), 
+                  name);
+         
+                  var ob = new c({image: req.file.buffer})
+                   await ob.save()
+
+                obj.image = name
             }
 
             const r = new Referral(obj)
             await r.save()
         }
         else {
-            const obj = new Banner({ image: req.file.buffer, bannertype: req.body.bannertype })
+            let name = nanoid()
+
+            var c = db.imagedb.model(name, 
+              new Schema({ image: Buffer}), 
+              name);
+     
+              var ob = new c({image: req.file.buffer})
+               await ob.save()
+
+            const obj = new Banner({ image: name, bannertype: req.body.bannertype })
             await obj.save()
         }
 

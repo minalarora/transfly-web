@@ -17,6 +17,10 @@ const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
+
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 var multer = require('multer')
 var upload = multer({})
 var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
@@ -212,9 +216,23 @@ router.get('/webtransporter/image/:mobile/:type',async (req,res)=>{
         let user  = await Transporter.findOne({mobile})
         if(user!=null)
         {
-            res.set('Content-Type', 'image/png')
-            res.send(user[type])
-        }
+            let c = db.imagedb.model(user[type], 
+                new Schema({ image: Buffer}), 
+                user[type]);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }     
+
+          }
         else
         {
             return res.status(400)

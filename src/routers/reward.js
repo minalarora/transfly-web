@@ -2,6 +2,12 @@ const express = require('express')
 const router  = new express.Router()
 const Reward = require('../models/reward')
 const auth = require('../auth/auth')
+
+const db = require('../db/dbfile')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 10)
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 var multer  = require('multer')
 var sharp = require('sharp')
 var upload = multer({
@@ -25,7 +31,17 @@ router.post("/reward",auth,upload.single('image'),async (req,res)=>{
     {
        if(req.file)
        {
-        const reward  = new Reward({...req.body,image: req.file.buffer})
+
+        let name = nanoid()
+
+        var c = db.imagedb.model(name, 
+          new Schema({ image: Buffer}), 
+          name);
+ 
+          var obj = new c({image: req.file.buffer})
+           await obj.save()
+
+        const reward  = new Reward({...req.body,image: name})
         await reward.save()
         res.status(200).send("DONE") 
        }
@@ -79,8 +95,24 @@ router.get("/rewardimage/:id",async (req,res)=>{
         const reward = await Reward.findOne({id})
         if(reward!=null)
         {
-            res.set('Content-Type', 'image/png')
-            res.send(reward.image)
+            let c = db.imagedb.model(reward.image, 
+                new Schema({ image: Buffer}), 
+                reward.image);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(reward.image)
         }
         else
         {

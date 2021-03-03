@@ -16,7 +16,7 @@ const referralSchema = mongoose.Schema({
     },
     image:
     {
-        type: Buffer
+        type: String
     },
     status:
     {
