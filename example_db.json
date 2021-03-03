@@ -26,13 +26,11 @@
       "id": "1576740601:1576740601",
       "data": {
         "message": [
-          "one",
-          "invoice",
-          "registereduser",
-          "english",
+          "telegu",
           "language"
         ],
-        "number": "7847074535"
+        "number": null,
+        "language": null
       }
     },
     {

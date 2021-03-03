@@ -17,6 +17,11 @@ const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 
+
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
+
 router.use(cookieParser())
 
 router.get('/webfieldstaffall', async (req, res) => {
@@ -320,8 +325,24 @@ router.get('/webfieldstaff/image/:mobile/:type', async (req, res) => {
         let type = req.params.type
         let user = await Fieldstaff.findOne({ mobile })
         if (user != null) {
-            res.set('Content-Type', 'image/png')
-            res.send(user[type])
+            let c = db.imagedb.model(user[type], 
+                new Schema({ image: Buffer}), 
+                user[type]);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }     
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(user[type])
         }
         else {
             return res.status(400)
@@ -339,8 +360,24 @@ router.get('/fieldstaff/image/:mobile/:type', async (req, res) => {
         let type = req.params.type
         let user = await Fieldstaff.findOne({ mobile })
         if (user != null) {
-            res.set('Content-Type', 'image/png')
-            res.send(user[type])
+            let c = db.imagedb.model(user[type], 
+                new Schema({ image: Buffer}), 
+                user[type]);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }     
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(user[type])
         }
         else {
             return res.status(400)

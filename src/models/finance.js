@@ -79,7 +79,7 @@ const financeSchema = mongoose.Schema({
 
     },
     panimage: {
-        type: Buffer,
+        type: String,
         default: null
     },
     aadhaar: {
@@ -88,7 +88,7 @@ const financeSchema = mongoose.Schema({
 
     },
     aadhaarimage: {
-        type: Buffer,
+        type: String,
         default: null
     },
     ename: {

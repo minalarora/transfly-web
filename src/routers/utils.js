@@ -10,6 +10,15 @@ const Vehicleowner = require('../models/vehicleowner') // maine kiya h
 const express = require('express')
 const message = require('../values')
 const router = new express.Router()
+const path = require('path')
+
+const db = require('../db/dbfile')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 10)
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
+
+
 
 var multer = require('multer')
 var sharp = require('sharp')
@@ -24,6 +33,22 @@ var upload = multer({
 
     }
 })
+
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb)
+//     {
+//        cb(null, path.join(__dirname, './','uploads/'))
+//       //  cb(null,__dirname)
+//     },
+//     filename: function(req,file,cb)
+//     {
+//         cb(null,"SDS" +file.originalname)
+//     }
+// })
+
+// const upload = multer({storage: storage})
+
+
 
 
 var allUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'bankimage', maxCount: 1 }, { name: 'tdsimage', maxCount: 1 },
@@ -239,13 +264,33 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
             imageupdates.forEach((update) => {
                 sharp(req.files[update][0].buffer).resize(500).png().toBuffer().then((buffer) => {
 
-                    req.user[update] = buffer
-                    req.user.save().then((user) => {
+                    // req.user[update] = buffer
+                    // req.user.save().then((user) => {
 
+                    //     return res.status(200).send("Done")
+                    // }).catch((err) => {
+                    //     return res.status(400).send(err.message)
+                    // })
+
+                   
+                    let name = nanoid()
+
+                    var c = db.imagedb.model(name, 
+                      new Schema({ image: Buffer}), 
+                      name);
+
+                      var obj = new c({image: buffer})
+                       obj.save().then(()=>{
+                        req.user[update] = name
+                        req.user.save()
                         return res.status(200).send("Done")
-                    }).catch((err) => {
+
+                       }).catch((e)=>{
                         return res.status(400).send(err.message)
-                    })
+                       })
+
+                      
+
                 }).catch((error) => {
 
                     req.user[update] = null
@@ -253,6 +298,7 @@ router.post("/me/update", auth, allUpload, async (req, res) => {
                 })
 
             })
+            // return res.send(req.file)
         }
         else {
 

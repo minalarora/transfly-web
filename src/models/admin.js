@@ -76,7 +76,7 @@ const adminSchema = mongoose.Schema({
 
     },
     panimage: {
-        type: Buffer,
+        type: String,
     },
     aadhaar: {
         type: String,
@@ -84,7 +84,7 @@ const adminSchema = mongoose.Schema({
 
     },
     aadhaarimage: {
-        type: Buffer
+        type: String
     },
     ename: {
         type: String,

@@ -105,6 +105,8 @@ app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
 
 const publicPath = path.join(__dirname, './src/public')
 app.use(express.static(publicPath))
+app.use(express.static('uploads'))
+
 
 //app.use(bodyparser.json());
 

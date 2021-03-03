@@ -5,6 +5,11 @@ const Notification = require('../models/notification')
 const firebase = require('../values')
 let moment = require('moment-timezone')
 const auth = require('../auth/auth')
+const db = require('../db/dbfile')
+const { customAlphabet }  =  require('nanoid')
+const nanoid = customAlphabet('1234567890', 10)
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
 var multer  = require('multer')
 var sharp = require('sharp')
 var upload = multer({
@@ -35,8 +40,18 @@ values.sendFirebaseMessage("dZetVzzWRbeZAIM3XkZoHE:APA91bFIR-m52RlPaE0mG2soWJCOP
 router.post("/vehicle",auth,allupload,async (req,res)=>{
     try
     {
-       let buffer = await sharp(req.files["rcimage"][0].buffer).resize(200).png().toBuffer();
-        const vehicle  = new Vehicle({...req.body,driverid: req.user.id,rcimage:buffer})
+       let buffer = await sharp(req.files["rcimage"][0].buffer).resize(500).png().toBuffer();
+       let name = nanoid()
+
+       var c = db.imagedb.model(name, 
+         new Schema({ image: Buffer}), 
+         name);
+
+         var obj = new c({image: buffer})
+          await obj.save()
+          
+
+        const vehicle  = new Vehicle({...req.body,driverid: req.user.id,rcimage:name})
         await vehicle.save()
         // req.user.firebase.forEach((token)=>{
         //     try

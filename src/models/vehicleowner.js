@@ -27,7 +27,7 @@ const vehicleownerSchema = mongoose.Schema({
     },
     profile:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     name: {
@@ -89,12 +89,12 @@ const vehicleownerSchema = mongoose.Schema({
     },
     bankimage:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     profile:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     bankpersonname:
@@ -109,7 +109,7 @@ const vehicleownerSchema = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     tds:
@@ -121,7 +121,7 @@ const vehicleownerSchema = mongoose.Schema({
     },
     tdsimage:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     ename: {

@@ -20,7 +20,7 @@ const transporterSchema  =  mongoose.Schema({
     
     profile:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     firebase:
@@ -79,7 +79,7 @@ const transporterSchema  =  mongoose.Schema({
     },
     gstimage:
     {
-        type: Buffer,
+        type: String,
         default:null
     },
     sta:
@@ -89,7 +89,7 @@ const transporterSchema  =  mongoose.Schema({
     },
     staimage:
     {
-        type: Buffer,
+        type: String,
         default:null
     },
     pan:
@@ -100,7 +100,7 @@ const transporterSchema  =  mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer,
+        type: String,
         default:null
     },
     aadhaar:
@@ -111,7 +111,7 @@ const transporterSchema  =  mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer,
+        type: String,
         default:null
     },
     mininglicense: {
@@ -120,7 +120,7 @@ const transporterSchema  =  mongoose.Schema({
     },
     mininglicenseimage:
     {
-        type: Buffer,
+        type: String,
         default:null
     },
     tokens: [

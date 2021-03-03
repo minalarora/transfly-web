@@ -16,7 +16,7 @@ const rewardSchema = mongoose.Schema({
     },
     image:
     {
-        type: Buffer
+        type: String
     },
     status:
     {

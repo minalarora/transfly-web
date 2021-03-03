@@ -16,6 +16,10 @@ var upload = multer({
     }
 })
 
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
+
 
 
 router.post("/banner",auth,upload.single('image'),async (req,res)=>{
@@ -87,8 +91,24 @@ router.get("/bannerimage/:id",async (req,res)=>{
         const banner = await Banner.findOne({id})
         if(banner!=null)
         {
-            res.set('Content-Type', 'image/png')
-            res.send(banner.image)
+            let c = db.imagedb.model(banner.image, 
+                new Schema({ image: Buffer}), 
+                banner.image);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(banner.image)
         }
         else
         {

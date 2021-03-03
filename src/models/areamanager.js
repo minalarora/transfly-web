@@ -21,7 +21,7 @@ const areamanagerSchema  = mongoose.Schema({
     
     profile:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     firebase:
@@ -102,7 +102,7 @@ const areamanagerSchema  = mongoose.Schema({
     },
     panimage:
     {
-        type: Buffer,
+        type: String,
         default: null
     },
     aadhaar:
@@ -113,7 +113,7 @@ const areamanagerSchema  = mongoose.Schema({
     },
     aadhaarimage:
     {
-        type: Buffer,
+        type: String,
         default:null
     },
     ename: {

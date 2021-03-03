@@ -18,6 +18,10 @@ const jwt = require('jsonwebtoken')
 const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 
+const db = require('../db/dbfile')
+const mongoose = require("mongoose")
+var Schema = mongoose.Schema;
+
 router.use(cookieParser())
 
 router.get("/vehiclerequest", async (req, res) => {
@@ -102,8 +106,24 @@ router.get('/webvehicle/image/:id', async (req, res) => {
        //("running")
         let user = await Vehicle.findOne({ id })
         if (user != null) {
-            res.set('Content-Type', 'image/png')
-            res.send(user.rcimage)
+            let c = db.imagedb.model(user.rcimage, 
+                new Schema({ image: Buffer}), 
+                user.rcimage);
+    
+                let imgobj = await c.find({})
+            
+                if(imgobj)
+                {
+                    res.set('Content-Type', 'image/png')
+                    res.send(imgobj[0].image)    
+                }
+                else
+                {
+                    res.send(null)
+                }     
+
+            // res.set('Content-Type', 'image/png')
+            // res.send(user.rcimage)
         }
         else {
             return res.status(400)
