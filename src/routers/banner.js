@@ -22,6 +22,8 @@ var Schema = mongoose.Schema;
 
 
 
+
+
 router.post("/banner",auth,upload.single('image'),async (req,res)=>{
     try
     {

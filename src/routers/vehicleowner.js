@@ -26,7 +26,6 @@ var Schema = mongoose.Schema;
 var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'bankimage', maxCount: 1 }, { name: 'tdsimage', maxCount: 1 }])
 
 
-
 //for creating transport
 
 router.post("/vehicleowner", async (req, res) => {

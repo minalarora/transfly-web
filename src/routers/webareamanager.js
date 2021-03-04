@@ -101,7 +101,7 @@ router.get('/webareamanager/revokemine/:mobile', async (req, res) => {
             let areamanager = await AreaManager.findOne({mobile})
             if(areamanager)
             {
-                await Mine.update({areamanager: areamanager.id}, {"$set":{"areamanager": null}}, {"multi": true}, (err, writeResult) => {});
+                await Mine.updateMany({areamanager: areamanager.id}, {"$set":{"areamanager": null}}, {"multi": true}, (err, writeResult) => {});
     
                 return res.redirect("/webareamanagerall")
             }
@@ -279,7 +279,7 @@ router.post("/areamanager_request_action/:mobile", async (req, res) => {
 
             areamanager["status"] = 0
             await areamanager.save()
-            res.send({ areamanager })
+           // res.send({ areamanager })
             res.redirect('/areamanagerrequest')
         }
     }

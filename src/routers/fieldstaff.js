@@ -29,6 +29,7 @@ var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name
 
 
 
+
 router.post("/fieldstaff", async (req, res) => {
     try {
         let mobile = req.body.mobile

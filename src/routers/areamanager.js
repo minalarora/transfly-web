@@ -28,6 +28,8 @@ var Schema = mongoose.Schema;
 var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
 
 
+
+
 router.post("/areamanager", async (req, res) => {
     try {
         let mobile = req.body.mobile
