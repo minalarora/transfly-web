@@ -2,6 +2,7 @@ const validator =  require('validator')
 const mongoose =  require('mongoose')
 const jwt = require("jsonwebtoken")
 const Mine  = require('../models/mine')
+var Notification = require('./notificationtransporter')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
 
@@ -147,6 +148,19 @@ transporterSchema.pre('save',async function(next){
     if(user.panimage && user.aadhaarimage && user.staimage && user.gstimage && user.mininglicenseimage && (user.status == 0))
     {
         user.status = 1
+        let text = "Thank you for submitting your KYC details, you can check the status in few hours under 'My Profile'"
+        const notification = new Notification({user: user.id,text})
+        await notification.save()
+        user.firebase.forEach((token) => {
+            try {
+               
+                sendFirebaseMessage2(token, "TRANSFLY", text)
+
+            }
+            catch (e) {
+
+            }
+        })
     }
     // invoice.amount = invoice.tonnage * invoice.rate
     // invoice.balanceamount = invoice.amount - invoice.hsd - invoice.cash - invoice.tds - invoice.officecharge - invoice.shortage
@@ -199,6 +213,17 @@ transporterSchema.virtual('invoices',{
     foreignField: 'transporter'
   })
 
+  transporterSchema.virtual('notificationtransporter', {
+    ref: 'Notificationtransporter',
+    localField: 'id',
+    foreignField: 'user'
+})
+
+transporterSchema.virtual('transporterrequest', {
+    ref: 'Transporterrequest',
+    localField: 'id',
+    foreignField: 'requestuser'
+})
 
 transporterSchema.methods.toJSON = function()
 {
@@ -221,3 +246,48 @@ const Transporter = mongoose.model('Transporter',transporterSchema)
 
 
 module.exports = Transporter
+
+const sendFirebaseMessage2 =  function(token,title,message)
+{
+//   {
+//     "to": "dZetVzzWRbeZAIM3XkZoHE:APA91bFIR-m52RlPaE0mG2soWJCOPuVTYftZqc6LF_vuotByfAtizznyfvtkM2l_ie2X9-8ecJHXP6VSSwq1gwpNq5nDL22vvod2GD3My5R-4MVpOyyJ2B_DIjawFMGdUzWrqvj1_1w_",
+//     "notification": {
+//       "title": "Shani so jaate hain",
+//       "body": "good night",
+//       "mutable_content": true
+//       }
+// }
+
+  const obj = {}
+  obj.to = token
+  obj.notification = {}
+  obj.notification.title = title
+  obj.notification.body = message
+  obj.notification["mutable_content"] = true
+  
+try
+{
+   fetch("https://fcm.googleapis.com/fcm/send",{
+    method: 'POST',
+    headers: {
+      "Content-Type":"application/json",
+      "Authorization":"key=AAAAVbPt_qI:APA91bG0No1HJJBMFhq4lYPe76XOBOqFa54raGaxd-kLFS9x7lWC7C7dq14CZYiziU8b686-Jk0pJFkVR3xP6cVhsFSAFkT7auTe0F9RLg4IzOf6R0FlPscrAy0MYY320VN3UudV8uBr"
+    },
+    body: JSON.stringify(obj)
+  }).then((res)=>{
+    
+     //(res.status)
+  }).catch((e)=>{
+   //(e)
+  }) 
+  
+ 
+}
+catch(e)
+{
+ //(e)
+}
+  
+
+  
+}

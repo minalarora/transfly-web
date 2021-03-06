@@ -21,7 +21,7 @@ var session = require('express-session');
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000
 require("./src/db/dbfile")
-require("./src/telegrambot")
+//require("./src/telegrambot")
 
 var CronJob = require('cron').CronJob
 
@@ -64,6 +64,7 @@ const WebVehicleOwner = require('./src/routers/webvehicleowner')
 const WebVehicle = require('./src/routers/webvehicle')
 
 const Local = require('./src/routers/local')
+const Otp = require('./src/routers/otp')
 
 
 
@@ -156,6 +157,7 @@ app.use(Resale)
 app.use(Loading)
 app.use(Notification)
 app.use(Local)
+app.use(Otp)
 
 app.use(helmet())
 app.use(compression())
@@ -252,6 +254,7 @@ job.start();
 app.listen(port,()=>{
     ("server is up on port", port)
 })
+
 
 
 

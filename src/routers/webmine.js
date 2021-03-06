@@ -17,6 +17,7 @@ const auth = require("../auth/auth")
 var cookieParser = require('cookie-parser')
 const vehicle = require('../models/vehicle')
 
+
 router.use(cookieParser())
 
 
@@ -141,6 +142,14 @@ router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
                             mine.loading.forEach((loading) => {
                                 if (loading.loadingname == loadingname) {
                                     loading[update] = req.body[update]
+                                    if(update == "etl")
+                                    {
+                                        if(loading.etl != req.body.etl)
+                                        {
+                                            rateChangeNotification(mine.name,loading,req.body.etl,loading.etl)
+                                        }
+                                    }
+
                                 }
                             })
                         
@@ -162,6 +171,15 @@ router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
         return res.redirect('/')
     }
 })
+
+
+const rateChangeNotification = async function(mine,loading,newrate,oldrate)
+{
+  let bookings = await Booking.find({minename: mine,loading})
+  bookings.forEach((booking)=>{
+      
+  })
+}
 
 
 module.exports = router

@@ -395,6 +395,99 @@ router.get("/local/reportmine",async (req,res)=>{
     }
 })
 
+router.get("/local/booking/:id",async (req,res)=>{
+    try
+    {
+        const id = req.params.id
+        if(id)
+        {
+            await Booking.find({ mineid: { $in: [id] }, status: 'PENDING' }).sort({ createdAt: -1 }).exec(function (err, bookings) {
+                if (bookings) {
+                    res.status(200).send(bookings)
+                }
+                else {
+                    res.status(200).send([])
+                }
+            })
+        }
+        else
+        {
+            await Booking.find({ status: 'PENDING' }).sort({ createdAt: -1 }).exec(function (err, bookings) {
+                if (bookings) {
+                    res.status(200).send(bookings)
+                }
+                else {
+                    res.status(200).send([])
+                }
+            })    
+        }
+           
+    }
+    catch(e)
+    {
+        res.status(400).send(e.message)
+    }
+})
+
+router.delete("/local/booking",async (req,res)=>{
+    try
+    {
+        if(req.query.mine)
+        {
+            await Booking.deleteMany({ mineid: { $in: [req.query.mine] }, status: 'PENDING' }).exec(function(err,bookings){
+                if (bookings) {
+
+                    let vehiclearray = bookings.map((b)=>{
+                            return b.vehicle
+                    })
+                    let update = {
+                        $set : {
+                       active: true
+                      }
+                    };
+                    let options = { multi: true, upsert: true };
+
+                    
+                     Vehicle.updateMany({number: { $in: vehiclearray }},update,options,(err,bookings)=>{
+                        if(bookings)
+                        {
+                
+                            res.status(200).send(bookings)
+                        }
+                        else
+                        {
+                            res.status(200).send([])
+                        }
+                
+                    })
+                        // await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true }) 
+                    
+                  
+                }
+                else {
+                    res.status(200).send([])
+                }
+            })
+        }
+        else if(req.query.id)
+        {
+            const booking = await Booking.findOneAndDelete({ id })
+            if (booking != null) {
+                await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true })
+                res.status(200).send(booking)
+            }
+            else {
+                res.status(400).send("booking not found")
+            }
+        
+        }
+    }
+    catch(e)
+    {
+
+    }
+})
+
 
 
 module.exports = router

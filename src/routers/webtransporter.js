@@ -24,6 +24,8 @@ var Schema = mongoose.Schema;
 var multer = require('multer')
 var upload = multer({})
 var transporterUpload = upload.fields([{ name: 'panimage', maxCount: 1 }, { name: 'aadhaarimage', maxCount: 1 }])
+const Notificationtransporter = require('../models/notificationtransporter')
+const Message  = require('../values')
 
 router.use(cookieParser())
 
@@ -159,6 +161,9 @@ router.get("/transporter_request_action/:mobile", async (req, res) => {
 
             transporter["status"] = 2
             await transporter.save()
+            let text ="Dear customer, your KYC has been approved. You can now use the features of the Transfly application."
+            createNotification(transporter.id,text,0)
+            
             res.redirect("/transporterrequest")
 
         }
@@ -183,6 +188,8 @@ router.post("/transporter_request_action/:mobile", async (req, res) => {
 
             transporter["status"] = 0
             await transporter.save()
+            let text ="Dear customer, your KYC has been rejected, please resubmit your KYC details. Thank you."
+            createNotification(transporter.id,text,0)
             res.redirect("/transporterrequest")
         }
     }
@@ -263,5 +270,33 @@ router.get('/webtransporter/image/:mobile/:type',async (req,res)=>{
 //    //("sds" + Object.keys(req.files))
 // })
 
+let createNotification = async (user,text)=>
+{
+    try
+    {
+       
+       const notification = new Notificationtransporter({user,text})
+       await notification.save()
+       let vehicleowner = await Transporter.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+    
+    return true;
+   
+    }
+    catch(e)
+    {
+      
+       throw new Error(e.message)
+    }
+   
+}
 
 module.exports = router

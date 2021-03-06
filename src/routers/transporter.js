@@ -19,6 +19,8 @@ var upload = multer({
 const db = require('../db/dbfile')
 const mongoose = require("mongoose")
 var Schema = mongoose.Schema;
+var firebase = require('../values')
+const Notification = require('../models/notificationtransporter')
 
 
 
@@ -46,7 +48,16 @@ router.post("/transporter", async (req, res) => {
         }
         const transporter = new Transporter(req.body)
         const token = await transporter.generateToken()
+       
         await transporter.save()
+
+        let text = "Please complete your KYC under 'My Profile' section to start using this app."
+        Notification.createNotification(transporter.id,text)
+        // firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
+         transporter.firebase = []
+         transporter.firebase = transporter.firebase.concat(req.body.firebase)
+         await transporter.save()
+
         res.status(200).send({ token: "transporter:" + token, ...transporter.toJSON() })
     }
     catch (e) {
