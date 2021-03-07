@@ -4,6 +4,9 @@ const Transporter = require('../models/transporter')
 const Transporterrequest = require('../models/transporterrequest')
 const auth = require('../auth/auth')
 const jwt = require("jsonwebtoken")
+const Notificationtransporter = require('../models/notificationtransporter')
+const Message  = require('../values')
+const Mine = require('../models/mine')
 
 
 router.post('/transporterrequest',auth, async (req,res)=>{
@@ -11,6 +14,9 @@ router.post('/transporterrequest',auth, async (req,res)=>{
     {
         const request = new Transporterrequest({...req.body,requestuser: req.user.id})
         await request.save()
+        let text ="Dear customer, your request for updating the rate from " + req.body.oldrate  + " to " + req.body.newrate + " for  " + 
+        req.body.minename + " - " + req.body.loadingname + " has been sent to our representatives."
+        createNotification(req.user.id,text,0)
         return res.status(200).send("done")
     }
     catch(e)
@@ -56,11 +62,30 @@ router.get('/update_rate_transporter/:action/:id',async (req,res)=>
         const action = req.params.action
         if(action == "accept")
         {
-            await Transporterrequest.findOneAndUpdate({id},{status: "ACCEPTED"})
+           let transporter =  await Transporterrequest.findOneAndUpdate({id},{status: "ACCEPTED"})
+           let mine  = await Mine.findOne({id: transporter.mineid})
+           for(let k = 0;k<mine.loading.length;k++)
+             {
+        if((mine.loading[k].loadingname == transporter.loadingname))
+        {
+          mine.loading[k].rate = transporter.newrate
+        }
+            }
+            await mine.save()
+          
+            let text ="Dear customer, your request for updating the rate from " + req.body.oldrate  + " to " + req.body.newrate + " for  " + 
+        req.body.minename + " - " + req.body.loadingname + " has been accepted."
+        createNotification(transporter.requestuser,text,0)
+        
         }
         else
         {
             await Transporterrequest.findOneAndUpdate({id},{status: "REJECTED"})
+
+            let text ="Dear customer, your request for updating the rate from " + req.body.oldrate  + " to " + req.body.newrate + " for  " + 
+            req.body.minename + " - " + req.body.loadingname + " has been rejected."
+            createNotification(transporter.requestuser,text,0)
+            
         }
 
         return res.status(200).redirect('/transporterrate')
@@ -73,5 +98,34 @@ router.get('/update_rate_transporter/:action/:id',async (req,res)=>
     }
 })
 
+
+let createNotification = async (user,text)=>
+{
+    try
+    {
+       
+       const notification = new Notificationtransporter({user,text})
+       await notification.save()
+       let vehicleowner = await Transporter.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+    
+    return true;
+   
+    }
+    catch(e)
+    {
+      
+       throw new Error(e.message)
+    }
+   
+}
 
 module.exports = router
