@@ -33,20 +33,20 @@ router.get('/transporterrequest',auth, async (req,res)=>{
 })
 
 
-router.get('/transporterrequestaction')
-{
-    try
-    {
-        const id = req.query.id
-        const action = req.query.action
-        await Transporterrequest.findOneAndUpdate({id},{status: action})
+// router.get('/transporterrequestaction')
+// {
+//     try
+//     {
+//         const id = req.query.id
+//         const action = req.query.action
+//         await Transporterrequest.findOneAndUpdate({id},{status: action})
 
-    }
-    catch(e)
-    {
+//     }
+//     catch(e)
+//     {
 
-    }
-}
+//     }
+// }
 
 
 module.exports = router
