@@ -20,10 +20,25 @@ router.post('/transporterrequest',auth, async (req,res)=>{
 })
 
 
-router.get('/transporterrequest',auth, async (req,res)=>{
+router.get('/transporterrate', async (req,res)=>{
     try
     {
+
         const requests = await Transporterrequest.find({status: 'PENDING'})
+        let transporter = []
+        for (req in requests)
+        {
+            
+                let t = await Transporter.findOne({id: requests[req].requestuser})
+                requests[req].name = t.name
+                requests[req].mobile = t.mobile
+                transporter.push(requests[req])
+        }
+        let data = {
+            transporter: transporter
+        }
+      
+        return res.render('transporter_rate_request',{data})
 
     }
     catch(e)
@@ -33,20 +48,30 @@ router.get('/transporterrequest',auth, async (req,res)=>{
 })
 
 
-// router.get('/transporterrequestaction')
-// {
-//     try
-//     {
-//         const id = req.query.id
-//         const action = req.query.action
-//         await Transporterrequest.findOneAndUpdate({id},{status: action})
+router.get('/update_rate_transporter/:action/:id',async (req,res)=>
+{
+    try
+    {
+        const id = req.params.id
+        const action = req.params.action
+        if(action == "accept")
+        {
+            await Transporterrequest.findOneAndUpdate({id},{status: "ACCEPTED"})
+        }
+        else
+        {
+            await Transporterrequest.findOneAndUpdate({id},{status: "REJECTED"})
+        }
 
-//     }
-//     catch(e)
-//     {
+        return res.redirect('/transporterrate')
+      
 
-//     }
-// }
+    }
+    catch(e)
+    {
+
+    }
+})
 
 
 module.exports = router
