@@ -19,7 +19,7 @@ router.get("/allnotificationtransporter", auth, async (req, res) => {
         }).execPopulate()
 
       
-        res.status(200).send(req.user.notifications)
+        res.status(200).send(req.user.notificationtransporter)
     
     }
     catch (e) {
