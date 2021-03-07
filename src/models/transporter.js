@@ -5,6 +5,7 @@ const Mine  = require('../models/mine')
 var Notification = require('./notificationtransporter')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 5)
+const fetch = require("node-fetch")
 
 
 
@@ -154,11 +155,12 @@ transporterSchema.pre('save',async function(next){
         user.firebase.forEach((token) => {
             try {
                
+             
                 sendFirebaseMessage2(token, "TRANSFLY", text)
 
             }
             catch (e) {
-
+                    console.log(e.message)
             }
         })
     }
@@ -275,9 +277,10 @@ try
     },
     body: JSON.stringify(obj)
   }).then((res)=>{
-    
+    console.log(res)
      //(res.status)
   }).catch((e)=>{
+    console.log(e)
    //(e)
   }) 
   
