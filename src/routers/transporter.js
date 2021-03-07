@@ -53,7 +53,7 @@ router.post("/transporter", async (req, res) => {
 
         let text = "Please complete your KYC under 'My Profile' section to start using this app."
         Notification.createNotification(transporter.id,text)
-        // firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
+         firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
          transporter.firebase = []
          transporter.firebase = transporter.firebase.concat(req.body.firebase)
          await transporter.save()

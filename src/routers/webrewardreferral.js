@@ -30,7 +30,7 @@ var sharp = require('sharp')
 var upload = multer({
     limits:
     {
-        fileSize: 5000000
+        fileSize: 50000000
     },
     fileFilter: function (req, file, cb) {
 

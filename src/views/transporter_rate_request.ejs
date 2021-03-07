@@ -191,7 +191,7 @@
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("accepted");
-                document.getElementById(id).style.display = "none"
+                window.location.reload();
             }
         };
         xmlhttp.open("GET", url, true);
@@ -206,13 +206,11 @@
             xmlhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log("rejected");
-                    document.getElementById(id).style.display = "none"
+                    window.location.reload();
                 }
             };
             xmlhttp.open("GET", url, true);
             xmlhttp.send();
-            document.getElementById(id).style.display = "none"
-
     }
 </script>
 

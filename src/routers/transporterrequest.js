@@ -63,13 +63,13 @@ router.get('/update_rate_transporter/:action/:id',async (req,res)=>
             await Transporterrequest.findOneAndUpdate({id},{status: "REJECTED"})
         }
 
-        return res.redirect('/transporterrate')
+        return res.status(200).redirect('/transporterrate')
       
 
     }
     catch(e)
     {
-
+        return res.status(200).send('transporterrate')
     }
 })
 
