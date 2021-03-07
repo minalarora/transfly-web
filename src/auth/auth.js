@@ -75,6 +75,8 @@ const auth=async (req,res,next)=>{
 
             case 'transporter':{
                 const transporter=await Transporter.findOne({id:decoded._id,"tokens.token" : token,active:true})
+                console.log(transporter)
+                console.log(token)
                 if(!transporter)
                 {
                     throw new Error("Authentication Failed!")

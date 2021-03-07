@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken")
 router.post('/transporterrequest',auth, async (req,res)=>{
     try
     {
-        const request = new Transporterrequest(req.body)
+        const request = new Transporterrequest({...req.body,requestuser: req.user.id})
         await request.save()
         return res.status(200).send("done")
     }
