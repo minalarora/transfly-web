@@ -73,17 +73,17 @@ router.get('/update_rate_transporter/:action/:id',async (req,res)=>
             }
             await mine.save()
           
-            let text ="Dear customer, your request for updating the rate from " + req.body.oldrate  + " to " + req.body.newrate + " for  " + 
-        req.body.minename + " - " + req.body.loadingname + " has been accepted."
+            let text ="Dear customer, your request for updating the rate from " + transporter.oldrate  + " to " + transporter.newrate + " for  " + 
+            transporter.minename + " - " + transporter.loadingname + " has been accepted."
         createNotification(transporter.requestuser,text,0)
         
         }
         else
         {
-            await Transporterrequest.findOneAndUpdate({id},{status: "REJECTED"})
+            let transporter = await Transporterrequest.findOneAndUpdate({id},{status: "REJECTED"})
 
-            let text ="Dear customer, your request for updating the rate from " + req.body.oldrate  + " to " + req.body.newrate + " for  " + 
-            req.body.minename + " - " + req.body.loadingname + " has been rejected."
+            let text ="Dear customer, your request for updating the rate from " + transporter.oldrate  + " to " + transporter.newrate + " for  " + 
+            transporter.minename + " - " + transporter.loadingname + " has been rejected."
             createNotification(transporter.requestuser,text,0)
             
         }
