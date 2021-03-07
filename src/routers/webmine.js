@@ -145,11 +145,12 @@ router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
                             mine.loading.forEach((loading) => {
                                 if (loading.loadingname == loadingname) {
                                    
-                                    if(update == "etl")
+                                    if(update == "rate")
                                     {
-                                        if(loading.etl != req.body.etl)
+                                        if(loading.rate != req.body.rate)
                                         {
-                                            rateChangeNotification(mine.name,loading,loading.etl,req.body.etl)
+                                            
+                                            rateChangeNotification(mine.name,loadingname,loading.rate,req.body.rate)
                                         }
                                     }
                                     loading[update] = req.body[update]
@@ -179,9 +180,11 @@ router.post('/webspecificmine/:id/:loadingname', async (req, res) => {
 
 const rateChangeNotification = async function(mine,loading,oldrate,newrate)
 {
+  
   let bookings = await Booking.find({minename: mine,loading,status: "PENDING"})
   bookings.forEach((booking)=>{
-      let text = "Dear Customer, th rate of your current booking from " + mine  + " to " + loading + " has been changed from " + 
+     
+      let text = "Dear Customer, the rate of your current booking from " + mine  + " to " + loading + " has been changed from " + 
       oldrate + " to " + newrate
       createNotification(booking.owner,text,0) 
   })
