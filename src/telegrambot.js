@@ -1,5 +1,6 @@
 const {Telegraf} = require('telegraf')
 const LocalSession = require('telegraf-session-local')
+const Mine = require('./models/mine')
 const mine = require('./models/mine')
 const TelegramUtils = require('./values')
 
