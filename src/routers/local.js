@@ -469,46 +469,28 @@ router.get("/local/bookings",async (req,res)=>{
 router.post("/local/delete",async (req,res)=>{
     try
     {
-        await Booking.deleteMany({ id: { $in: req.body.bookingid }, status: 'PENDING' }).exec(function(err,bookings){
-                            if (bookings) {
+       for(i in req.body.bookingid)
+       {
+          
+            const booking = await Booking.findOneAndDelete({ id: req.body.bookingid[i] })
+            if (booking != null) 
+            {
+            await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true })
+            let text = "Dear Customer, your current booking from " + booking.minename  + " to " + booking.loading + " has been cancelled. Please connect to us for more information."
+            createNotification(booking.owner,text,0) 
+           }
+           if(i == 0)
+           {
+            email.sendEmail('DELETE BOOKING',"Booking has been deleted for " + booking.minename +" by user "  +  req.body.user)
+           }
             
-                                email.sendEmail('DELETE BOOKING',"Booking has been deleted for " + bookings[0].minename + " by user "  +  req.body.user)
-                                let vehiclearray = bookings.map((b)=>{
-                                        return b.vehicle
-                                })
-                                let update = {
-                                    $set : {
-                                   active: true
-                                  }
-                                };
-                                let options = { multi: true, upsert: true };
-            
-                                
-                                
-                                 Vehicle.updateMany({number: { $in: vehiclearray }},update,options,(err,b)=>{
-                                    if(b)
-                                    {
-                                        bookings.forEach((booking)=>{
-     
-                                            let text = "Dear Customer, your current booking from " + booking.minename  + " to " + booking.loading + " has been cancelled. Please connect to us for more information."
-                                            createNotification(booking.owner,text,0) 
-                                        })
-                                        res.status(200).send(b)
-                                    }
-                                    else
-                                    {
-                                        res.status(200).send([])
-                                    }
-                            
-                                })
-                                    // await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true }) 
-                                
-                              
-                            }
-                            else {
-                                res.status(200).send([])
-                            }
-                        })
+       }
+
+       return res.status(200).send("done")
+
+      
+       
+                       
     }
     catch(e)
     {
@@ -559,7 +541,7 @@ let createNotification = async (user,text,type)=>{
     catch(e)
     {
        
-       throw new Error(e.message)
+      return true
     }
     
 }
