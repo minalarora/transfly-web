@@ -466,7 +466,7 @@ router.get("/local/bookings",async (req,res)=>{
 })
 
 
-router.delete("/local/bookings",async (req,res)=>{
+router.post("/local/delete",async (req,res)=>{
     try
     {
         await Booking.deleteMany({ id: { $in: req.body.bookingid }, status: 'PENDING' }).exec(function(err,bookings){
