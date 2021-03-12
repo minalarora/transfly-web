@@ -67,6 +67,7 @@ const WebVehicle = require('./src/routers/webvehicle')
 
 const Local = require('./src/routers/local')
 const Otp = require('./src/routers/otp')
+const BackOffice = require('./src/routers/backoffice')
 
 
 
@@ -162,6 +163,7 @@ app.use(Notification)
 app.use(Notificationtransporter)
 app.use(Local)
 app.use(Otp)
+app.use(BackOffice)
 
 app.use(helmet())
 app.use(compression())
