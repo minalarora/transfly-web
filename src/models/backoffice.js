@@ -19,9 +19,7 @@ const backofficeSchema  = mongoose.Schema({
     
     name: {
         type: String,
-        required: true,
-        trim: true,
-        uppercase: true
+        required: true
     },
     password:
     {

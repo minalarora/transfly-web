@@ -10,11 +10,15 @@ const Notification = require('../models/notification')
 const AreaManager = require('../models/areamanager')
 const FieldStaff = require('../models/fieldstaff')
 const Invoice = require('../models/invoice')
+const Message  = require('../values')
 const auth = require('../auth/auth')
 const jwt = require('jsonwebtoken')
 var multer = require('multer')
 var firebase = require('../values')
 let moment = require('moment-timezone')
+const Admin = require('../models/admin')
+const BackOffice = require('../models/backoffice')
+const email = require('../email')
 
 router.post("/local/validate",async (req,res)=>{
     try
@@ -35,6 +39,51 @@ router.post("/local/validate",async (req,res)=>{
         return res.status(400).send("User not found!")
     }
 })
+
+router.post("/local/admin",async (req,res)=>{
+    try
+    {
+        let mobile = req.body.mobile
+        let password = req.body.password
+        let user = await Admin.findOne({ mobile,password })
+        if(user)
+        {
+            return res.status(200).send("User found!")
+        }
+        else
+        {
+            return res.status(400).send("User not found!")
+        }
+    }
+    catch(e)
+    {
+        return res.status(400).send("User not found!")
+    }
+})
+
+
+router.post("/local/user",async (req,res)=>{
+    try
+    {
+        let name = req.body.mobile
+        let password = req.body.password
+        let user = await BackOffice.findOne({ name,password })
+        if(user)
+        {
+            return res.status(200).send("User found!")
+        }
+        else
+        {
+            return res.status(400).send("User not found!")
+        }
+    }
+    catch(e)
+    {
+        return res.status(400).send("User not found!")
+    }
+})
+
+
 
 router.post("/local/vehicles",async (req,res)=>{
     try
@@ -395,23 +444,10 @@ router.get("/local/reportmine",async (req,res)=>{
     }
 })
 
-router.get("/local/booking/:id",async (req,res)=>{
+router.get("/local/bookings",async (req,res)=>{
     try
     {
-        const id = req.params.id
-        if(id)
-        {
-            await Booking.find({ mineid: { $in: [id] }, status: 'PENDING' }).sort({ createdAt: -1 }).exec(function (err, bookings) {
-                if (bookings) {
-                    res.status(200).send(bookings)
-                }
-                else {
-                    res.status(200).send([])
-                }
-            })
-        }
-        else
-        {
+        
             await Booking.find({ status: 'PENDING' }).sort({ createdAt: -1 }).exec(function (err, bookings) {
                 if (bookings) {
                     res.status(200).send(bookings)
@@ -420,7 +456,7 @@ router.get("/local/booking/:id",async (req,res)=>{
                     res.status(200).send([])
                 }
             })    
-        }
+        
            
     }
     catch(e)
@@ -429,64 +465,104 @@ router.get("/local/booking/:id",async (req,res)=>{
     }
 })
 
-router.delete("/local/booking",async (req,res)=>{
+
+router.delete("/local/bookings",async (req,res)=>{
     try
     {
-        if(req.query.mine)
-        {
-            await Booking.deleteMany({ mineid: { $in: [req.query.mine] }, status: 'PENDING' }).exec(function(err,bookings){
-                if (bookings) {
-
-                    let vehiclearray = bookings.map((b)=>{
-                            return b.vehicle
-                    })
-                    let update = {
-                        $set : {
-                       active: true
-                      }
-                    };
-                    let options = { multi: true, upsert: true };
-
-                    
-                     Vehicle.updateMany({number: { $in: vehiclearray }},update,options,(err,bookings)=>{
-                        if(bookings)
-                        {
-                
-                            res.status(200).send(bookings)
-                        }
-                        else
-                        {
-                            res.status(200).send([])
-                        }
-                
-                    })
-                        // await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true }) 
-                    
-                  
-                }
-                else {
-                    res.status(200).send([])
-                }
-            })
-        }
-        else if(req.query.id)
-        {
-            const booking = await Booking.findOneAndDelete({ id })
-            if (booking != null) {
-                await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true })
-                res.status(200).send(booking)
-            }
-            else {
-                res.status(400).send("booking not found")
-            }
-        
-        }
+        await Booking.deleteMany({ id: { $in: req.body.bookingid }, status: 'PENDING' }).exec(function(err,bookings){
+                            if (bookings) {
+            
+                                email.sendEmail('DELETE BOOKING',"Booking has been deleted for " + bookings[0].minename + " by user "  +  req.body.user)
+                                let vehiclearray = bookings.map((b)=>{
+                                        return b.vehicle
+                                })
+                                let update = {
+                                    $set : {
+                                   active: true
+                                  }
+                                };
+                                let options = { multi: true, upsert: true };
+            
+                                
+                                
+                                 Vehicle.updateMany({number: { $in: vehiclearray }},update,options,(err,b)=>{
+                                    if(b)
+                                    {
+                                        bookings.forEach((booking)=>{
+     
+                                            let text = "Dear Customer, your current booking from " + booking.minename  + " to " + booking.loading + " has been cancelled. Please connect to us for more information."
+                                            createNotification(booking.owner,text,0) 
+                                        })
+                                        res.status(200).send(b)
+                                    }
+                                    else
+                                    {
+                                        res.status(200).send([])
+                                    }
+                            
+                                })
+                                    // await Vehicle.findOneAndUpdate({ number: booking.vehicle }, { active: true }) 
+                                
+                              
+                            }
+                            else {
+                                res.status(200).send([])
+                            }
+                        })
     }
     catch(e)
     {
-
+        res.status(400).send(e.message)
     }
 })
+
+
+
+let createNotification = async (user,text,type)=>{
+    try
+    {
+       if(type)
+    {
+       const notification = new Notification({user,text,type})
+       await notification.save()
+       var vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+              
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+       
+    }
+    else
+    {
+       const notification = new Notification({user,text})
+       await notification.save()
+       let vehicleowner = await VehicleOwner.findOne({ id: user })
+       vehicleowner.firebase.forEach((token) => {
+           try {
+               Message.sendFirebaseMessage(token, "TRANSFLY", text)
+
+           }
+           catch (e) {
+
+           }
+       })
+    }
+    return true;
+   
+    }
+    catch(e)
+    {
+       
+       throw new Error(e.message)
+    }
+    
+}
 
 
 
