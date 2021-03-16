@@ -8,17 +8,23 @@ const sendLoginOtp = async function(mobile)
  
     try
     {
-       
+      let apiKey = "apikey=" + encodeURIComponent("6sd+/zjlFsk-3sImebRHUKqPjzHbInlLLHgoUzy9kh");
+			let message = "&message=" + encodeURIComponent("1234 is your confirmation OTP. Please do not share your OTP and confidential info with anyone. Transfly");
+			let sender = "&sender=" + encodeURIComponent("TFIKJR");
+			let numbers = "&numbers=" + encodeURIComponent("91" + mobile);
 
-        var options = {
+      let data = "/send/?" + apiKey + numbers + message + sender;
+
+             var options = {
           "method": "GET",
-          "hostname": "api.msg91.com",
+          "hostname": "https://api.textlocal.in",
           "port": null,
-          "path": "/api/v5/otp?template_id=6043361a8f2bab509867ee8b&mobile=91" + mobile +"&authkey=350944Ar65hw8BuM5ff29c59P1",
+          "path": data,
           "headers": {
             "content-type": "application/json"
           }
         };
+
         
         var req = http.request(options, function (res) {
           var chunks = [];
@@ -46,40 +52,46 @@ const sendLoginOtp = async function(mobile)
 
 const sendOtherOtp = async function(mobile)
 {
-    try
-    {
-       
+  try
+  {
+    let apiKey = "apikey=" + encodeURIComponent("6sd+/zjlFsk-3sImebRHUKqPjzHbInlLLHgoUzy9kh");
+    let message = "&message=" + encodeURIComponent("We have sent the OTP to your registered mobile number 5678. TransFly");
+    let sender = "&sender=" + encodeURIComponent("TFIKJR");
+    let numbers = "&numbers=" + encodeURIComponent("91" + mobile);
 
-var options = {
-  "method": "GET",
-  "hostname": "api.msg91.com",
-  "port": null,
-  "path": "/api/v5/otp?template_id=604335237a221d7aa90bc48d&mobile=91" + mobile +"&authkey=350944Ar65hw8BuM5ff29c59P1",
-  "headers": {
-    "content-type": "application/json"
+    let data = "/send/?" + apiKey + numbers + message + sender;
+
+           var options = {
+        "method": "GET",
+        "hostname": "https://api.textlocal.in",
+        "port": null,
+        "path": data,
+        "headers": {
+          "content-type": "application/json"
+        }
+      };
+
+      
+      var req = http.request(options, function (res) {
+        var chunks = [];
+      
+        res.on("data", function (chunk) {
+          chunks.push(chunk);
+        });
+      
+        res.on("end", function () {
+          var body = Buffer.concat(chunks);
+          return body.toString();
+        });
+      });
+      
+      req.write("{}");
+      req.end();
   }
-};
+  catch(e)
+  {
 
-var req = http.request(options, function (res) {
-  var chunks = [];
-
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
-
-  res.on("end", function () {
-    var body = Buffer.concat(chunks);
-   // console.log(body.toString());
-  });
-});
-
-req.write("{}");
-req.end();
-    }
-    catch(e)
-    {
-
-    }
+  }
 }
 
 
