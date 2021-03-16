@@ -1,7 +1,14 @@
 
 var http = require("https");
 
-
+let otp = [1234,2313,2334,9876,7634,8786,7934,1213,3423,7772,9861,2578,7465,0981,1200,1209,1923]
+function between() {  
+  let min = 0
+  let max = otp.length - 1
+  return Math.floor(
+    Math.random() * (max - min) + min
+  )
+}
 
 const sendLoginOtp = async function(mobile)
 {
@@ -9,7 +16,7 @@ const sendLoginOtp = async function(mobile)
     try
     {
       let apiKey = "apikey=" + encodeURIComponent("6sd+/zjlFsk-3sImebRHUKqPjzHbInlLLHgoUzy9kh");
-			let message = "&message=" + encodeURIComponent("1234 is your confirmation OTP. Please do not share your OTP and confidential info with anyone. Transfly");
+			let message = "&message=" + encodeURIComponent(otp[between()] +" is your confirmation OTP. Please do not share your OTP and confidential info with anyone. Transfly");
 			let sender = "&sender=" + encodeURIComponent("TFIKJR");
 			let numbers = "&numbers=" + encodeURIComponent("91" + mobile);
 
@@ -17,7 +24,7 @@ const sendLoginOtp = async function(mobile)
 
              var options = {
           "method": "GET",
-          "hostname": "https://api.textlocal.in",
+          "hostname": "api.textlocal.in",
           "port": null,
           "path": data,
           "headers": {
@@ -28,13 +35,14 @@ const sendLoginOtp = async function(mobile)
         
         var req = http.request(options, function (res) {
           var chunks = [];
-        
+        console.log(res)
           res.on("data", function (chunk) {
             chunks.push(chunk);
           });
         
           res.on("end", function () {
             var body = Buffer.concat(chunks);
+            console.log(body.toString())
             return body.toString();
           });
         });
@@ -55,7 +63,7 @@ const sendOtherOtp = async function(mobile)
   try
   {
     let apiKey = "apikey=" + encodeURIComponent("6sd+/zjlFsk-3sImebRHUKqPjzHbInlLLHgoUzy9kh");
-    let message = "&message=" + encodeURIComponent("We have sent the OTP to your registered mobile number 5678. TransFly");
+    let message = "&message=" + encodeURIComponent("We have sent the OTP to your registered mobile number " + otp[between()] +". TransFly");
     let sender = "&sender=" + encodeURIComponent("TFIKJR");
     let numbers = "&numbers=" + encodeURIComponent("91" + mobile);
 
@@ -63,7 +71,7 @@ const sendOtherOtp = async function(mobile)
 
            var options = {
         "method": "GET",
-        "hostname": "https://api.textlocal.in",
+        "hostname": "api.textlocal.in",
         "port": null,
         "path": data,
         "headers": {
@@ -95,42 +103,19 @@ const sendOtherOtp = async function(mobile)
 }
 
 
-const verifyOtp =  function(mobile,otp,response)
+const verifyOtp =  function(mobile,o,response)
 {
     try
     {
      
-var options = {
-  "method": "POST",
-  "hostname": "api.msg91.com",
-  "port": null,
-  "path": "/api/v5/otp/verify?authkey=350944Ar65hw8BuM5ff29c59P1&mobile=91" + mobile +"&otp=" + otp,
-  "headers": {}
-};
-
-var req = http.request(options, function (res) {
-  var chunks = [];
-
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
-
-  res.on("end", function () {
-    var body = Buffer.concat(chunks);
-   // console.log(body.toString())
-    if(JSON.parse(body.toString()).type == "success")
-    {
-        response.status(200).send(body.toString());
-    }
-    else
-    {
-        response.status(400).send(body.toString());
-    }
-   
-  });
-});
-
-req.end();
+      if(otp.includes(o))
+      {
+        response.status(200).send("");
+      }
+      else
+      {
+        response.status(400).send("");
+      }
     }
     catch(e)
     {
@@ -141,37 +126,48 @@ req.end();
 
 const retryOtp = function(mobile)
 {
-    try
-    {
-        
+  try
+  {
+    let apiKey = "apikey=" + encodeURIComponent("6sd+/zjlFsk-3sImebRHUKqPjzHbInlLLHgoUzy9kh");
+    let message = "&message=" + encodeURIComponent(otp[between()] +" is your confirmation OTP. Please do not share your OTP and confidential info with anyone. Transfly");
+    let sender = "&sender=" + encodeURIComponent("TFIKJR");
+    let numbers = "&numbers=" + encodeURIComponent("91" + mobile);
 
-var options = {
-  "method": "POST",
-  "hostname": "api.msg91.com",
-  "port": null,
-  "path": "/api/v5/otp/retry?authkey=350944Ar65hw8BuM5ff29c59P1&retrytype=text&mobile=91" + mobile,
-  "headers": {}
-};
+    let data = "/send/?" + apiKey + numbers + message + sender;
 
-var req = http.request(options, function (res) {
-  var chunks = [];
+           var options = {
+        "method": "GET",
+        "hostname": "api.textlocal.in",
+        "port": null,
+        "path": data,
+        "headers": {
+          "content-type": "application/json"
+        }
+      };
 
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
+      
+      var req = http.request(options, function (res) {
+        var chunks = [];
+      console.log(res)
+        res.on("data", function (chunk) {
+          chunks.push(chunk);
+        });
+      
+        res.on("end", function () {
+          var body = Buffer.concat(chunks);
+          console.log(body.toString())
+          return body.toString();
+        });
+      });
+      
+      req.write("{}");
+      req.end();
+  }
+  catch(e)
+  {
 
-  res.on("end", function () {
-    var body = Buffer.concat(chunks);
-  //  console.log(body.toString());
-  });
-});
+  }
 
-req.end();
-    }
-    catch(e)
-    {
-
-    }
 }
 
 
