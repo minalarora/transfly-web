@@ -108,7 +108,7 @@ const verifyOtp =  function(mobile,o,response)
     try
     {
      
-      if(otp.includes(o))
+      if(otp.includes(parseInt(o)))
       {
         response.status(200).send("");
       }
