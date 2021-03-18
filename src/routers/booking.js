@@ -35,9 +35,10 @@ router.post("/booking", auth, async (req, res) => {
         }
       })
 
+      let booking = null
       if(updatedva.length > 0)
       {
-        let booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
+         booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
         await booking.save()
         await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
       }
@@ -53,7 +54,7 @@ router.post("/booking", auth, async (req, res) => {
             return res.status(401).send("Unable to add vehicle!")
         }
           
-            let booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
+         booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
            await booking.save()
 
       }
