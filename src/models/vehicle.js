@@ -20,7 +20,7 @@ const vehicleSchema = mongoose.Schema({
     rc: 
     {
         type: String,
-        default:"NOT AVAILABLE"
+      
         //unique: true,
         //required: true
     },
