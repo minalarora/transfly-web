@@ -64,7 +64,7 @@ const vehicleownerSchema = mongoose.Schema({
     {
         type: Number,
         required: true,
-        default: 0
+        default: 2
     }
     ,
     active:

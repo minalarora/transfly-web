@@ -40,18 +40,18 @@ values.sendFirebaseMessage("dZetVzzWRbeZAIM3XkZoHE:APA91bFIR-m52RlPaE0mG2soWJCOP
 router.post("/vehicle",auth,allupload,async (req,res)=>{
     try
     {
-       let buffer = await sharp(req.files["rcimage"][0].buffer).resize(500).png().toBuffer();
-       let name = nanoid()
+    //    let buffer = await sharp(req.files["rcimage"][0].buffer).resize(500).png().toBuffer();
+    //    let name = nanoid()
 
-       var c = db.imagedb.model(name, 
-         new Schema({ image: Buffer}), 
-         name);
+    //    var c = db.imagedb.model(name, 
+    //      new Schema({ image: Buffer}), 
+    //      name);
 
-         var obj = new c({image: buffer})
-          await obj.save()
+    //      var obj = new c({image: buffer})
+    //       await obj.save()
           
 
-        const vehicle  = new Vehicle({...req.body,driverid: req.user.id,rcimage:name})
+        const vehicle  = new Vehicle({...req.body,driverid: req.user.id})
         await vehicle.save()
         // req.user.firebase.forEach((token)=>{
         //     try

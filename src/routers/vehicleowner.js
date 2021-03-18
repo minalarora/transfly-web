@@ -51,10 +51,12 @@ router.post("/vehicleowner", async (req, res) => {
         const token = await vehicleowner.generateToken()
         // vehicleowner.firebase = []
         // vehicleowner.firebase = vehicleowner.firebase.concat(req.body.firebase)
-        let text = "Please complete your KYC under 'My Profile' section to start using this app."
+        //START
+        // let text = "Please complete your KYC under 'My Profile' section to start using this app."
        
-        await vehicleowner.save()
-        Notification.createNotification(vehicleowner.id,text,0)
+        // await vehicleowner.save()
+        // Notification.createNotification(vehicleowner.id,text,0)
+        //END
        // firebase.sendFirebaseMessage(req.body.firebase, "TRANSFLY", text)
         vehicleowner.firebase = []
         vehicleowner.firebase = vehicleowner.firebase.concat(req.body.firebase)

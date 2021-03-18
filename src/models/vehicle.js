@@ -20,12 +20,13 @@ const vehicleSchema = mongoose.Schema({
     rc: 
     {
         type: String,
-        unique: true,
-        required: true
+        default:"NOT AVAILABLE"
+        //unique: true,
+        //required: true
     },
     vehiclename: {
         type: String,
-        required: true
+       // required: true
     },
     driverid: {
         type: String,
@@ -40,7 +41,8 @@ const vehicleSchema = mongoose.Schema({
     tyres:
     {
         type: String,
-        required:true
+        default:"NOT AVAILABLE"
+     //   required:true
     },
     contact:
     {
@@ -50,7 +52,7 @@ const vehicleSchema = mongoose.Schema({
     status:
     {
         type: Number,
-        default: 0
+        default: 1
     },
     date:
     {

@@ -37,9 +37,26 @@ router.post("/booking", auth, async (req, res) => {
 
       if(updatedva.length > 0)
       {
-        const booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
+        let booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
         await booking.save()
         await Vehicle.findOneAndUpdate({ number: req.body.vehicle }, { active: false, contact: req.body.contact })
+      }
+      else
+      {
+        try
+        {
+            let vehicle = new Vehicle({number: req.body.vehicle, contact: req.body.contact,driverid: req.user.id, active: false})
+          await vehicle.save()
+        }
+        catch(e)
+        {
+            return res.status(401).send("Unable to add vehicle!")
+        }
+          
+            let booking = new Booking({ ...req.body, owner: req.user.id, vehicleowner: req.user.name, vehicleownermobile: req.user.mobile })
+           await booking.save()
+
+      }
         
         // req.user.firebase.forEach((token) => {
         //     try {
@@ -85,10 +102,7 @@ router.post("/booking", auth, async (req, res) => {
       
 
         return res.status(200).send("done")
-    }
-    else {
-        res.status(400).send("error")
-        }
+    
       }
       else 
       {

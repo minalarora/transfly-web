@@ -32,13 +32,23 @@ router.get('/transporterrate', async (req,res)=>{
 
         const requests = await Transporterrequest.find({status: 'PENDING'})
         let transporter = []
+      //  console.log(requests)
         for (req in requests)
         {
-            
+          //  console.log(requests[0].requestuser)
+            try
+            {
                 let t = await Transporter.findOne({id: requests[req].requestuser})
+               // console.log(t,req)
                 requests[req].name = t.name
                 requests[req].mobile = t.mobile
                 transporter.push(requests[req])
+            }
+            catch(e)
+            {
+
+            }
+                
         }
         let data = {
             transporter: transporter
@@ -49,7 +59,7 @@ router.get('/transporterrate', async (req,res)=>{
     }
     catch(e)
     {
-
+        return res.status(400).send(e.message)
     }
 })
 
