@@ -21,7 +21,9 @@ const vehicleSchema = mongoose.Schema({
     rc: 
     {
         type: String,
-        default:"" +nanoid2()
+        default: () => {
+            return nanoid2()
+         }
         //unique: true,
         //required: true
     },
