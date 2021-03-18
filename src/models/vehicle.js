@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const { customAlphabet }  =  require('nanoid')
 const nanoid = customAlphabet('1234567890', 7)
+const nanoid2 = customAlphabet('1234567890', 17)
 let moment = require('moment-timezone')
 
 const vehicleSchema = mongoose.Schema({
@@ -20,7 +21,7 @@ const vehicleSchema = mongoose.Schema({
     rc: 
     {
         type: String,
-      
+        default:"" +nanoid2()
         //unique: true,
         //required: true
     },
