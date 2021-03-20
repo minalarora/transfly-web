@@ -18,7 +18,7 @@ router.get("/otp/login",async (req,res)=>{
 router.get("/otp/other",async (req,res)=>{
     try
     {
-        otpmethods.sendOtherOtp(req.query.mobile)
+        otpmethods.sendLoginOtp(req.query.mobile)
         return res.status(200).send("DONE")
     }
     catch(e)
@@ -44,7 +44,7 @@ router.get("/otp/verify",async (req,res)=>{
 router.get("/otp/resend",async (req,res)=>{
     try
     {
-        otpmethods.retryOtp(req.query.mobile)
+        otpmethods.sendLoginOtp(req.query.mobile)
         return res.status(200).send("DONE")
     }
     catch(e)
