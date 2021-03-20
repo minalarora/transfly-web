@@ -68,6 +68,7 @@ router.get('/getvehicledata/:id', async (req, res) => {
 router.get("/vehicle_request_action/:id", async (req, res) => {
     try {
         const id = req.params.id
+        console.log("running")
         const vehicle = await Vehicle.findOne({ id })
         if (vehicle) {
             // const obj  = {...req.body}
