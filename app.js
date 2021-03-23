@@ -21,11 +21,9 @@ var session = require('express-session');
 const bodyparser = require('body-parser')
 const port = process.env.PORT || 3000
 require("./src/db/dbfile")
-//require("./src/telegrambot")
+require("./src/telegrambot")
 
 var CronJob = require('cron').CronJob
-
-
 
 // 
 

@@ -11,7 +11,7 @@ router.post("/ticket",auth,async (req,res)=>{
     {
         const ticket  = new Ticket({...req.body,userid: req.user.id})
         await ticket.save()
-        email.sendEmail('TICKET',"" + ticket.category + "\n" + ticket.message)
+        email.sendEmail('TICKET',"" + ticket.category +"\nUser: " + req.user.mobile +"\n" + ticket.message  )
         return res.status(200).send('DONE')        
     }
     catch(e)

@@ -20,6 +20,7 @@ const email= require('../src/email')
 const Notification = require('../src/models/notification')
 let moment = require('moment-timezone')
 // email.sendEmail('hey','how r u?')
+//MGZmNDAyNTE1MDkwMTc3MmY1NzM0MzA3YWI4N2ZiMzY=
 
 
 
@@ -436,44 +437,86 @@ const sendMessageOne =  function(number,vehicle,from,to,amount,cash,tonnage)
 ]
 }*/
 
-  const obj = {}
-  obj.flow_id = "5ff6baa6ede4c64496062ebe"
-  obj.recipients = [
-   {
-     mobiles:"91" + number,
-     vehicle,
-     from,
-     to,
-     amount,
-     cash,
-     tonnage
-   }
-  ]
+
+try
+    {
+      let apiKey = "apikey=" + encodeURIComponent("MGZmNDAyNTE1MDkwMTc3MmY1NzM0MzA3YWI4N2ZiMzY=");
+			let message = "&message=" + encodeURIComponent("Dear Customer, Your Vehicle No. " + vehicle + " has been Loaded and is ready for its journey From " + from + " - to - " + to + " with HSD amount Rs. " + amount + " , tonnage " + tonnage + " and Cash amount Rs " + cash + " Thank you, TransFly");
+			let sender = "&sender=" + encodeURIComponent("TFIKJR");
+			let numbers = "&numbers=" + encodeURIComponent("91" + number);
+
+      let data = "/send/?" + apiKey + numbers + message + sender;
+
+             var options = {
+          "method": "GET",
+          "hostname": "api.textlocal.in",
+          "port": null,
+          "path": data,
+          "headers": {
+            "content-type": "application/json"
+          }
+        };
+
+        
+        var req = http.request(options, function (res) {
+          var chunks = [];
+        console.log(res)
+          res.on("data", function (chunk) {
+            chunks.push(chunk);
+          });
+        
+          res.on("end", function () {
+            var body = Buffer.concat(chunks);
+            return body.toString();
+          });
+        });
+        
+        req.write("{}");
+        req.end();
+    }
+    catch(e)
+    {
+
+    }
+
+//   const obj = {}
+//   obj.flow_id = "5ff6baa6ede4c64496062ebe"
+//   obj.recipients = [
+//    {
+//      mobiles:"91" + number,
+//      vehicle,
+//      from,
+//      to,
+//      amount,
+//      cash,
+//      tonnage
+//    }
+//   ]
 
  
   
-try
-{
-   fetch("https://api.msg91.com/api/v5/flow/",{
-    method: 'POST',
-    headers: {
-      "Content-Type":"application/json",
-      "authkey":"350944Ar65hw8BuM5ff29c59P1"
-    },
-    body: JSON.stringify(obj)
-  }).then((res)=>{
+// try
+// {
+//    fetch("https://api.msg91.com/api/v5/flow/",{
+//     method: 'POST',
+//     headers: {
+//       "Content-Type":"application/json",
+//       "authkey":"350944Ar65hw8BuM5ff29c59P1"
+//     },
+//     body: JSON.stringify(obj)
+//   }).then((res)=>{
     
-     //(res.status)
-  }).catch((e)=>{
-   //(e)
-  }) 
+//      //(res.status)
+//   }).catch((e)=>{
+//    //(e)
+//   }) 
   
  
-}
-catch(e)
-{
- //(e)
-}
+// }
+// catch(e)
+// {
+//  //(e)
+// }
   
 
   
@@ -497,44 +540,87 @@ const sendMessageTwo =  function(number,vehicle,date,from,to)
 ]
 }*/
 
-  const obj = {}
-  obj.flow_id = "6010eac0c028a46d117fa0e8"
-  obj.recipients = [
-   {
-     mobiles:"91" + number,
-     vehicle,
-     date,
-     from,
-     to,
-    
-   }
-  ]
-
- 
-
-  
 try
-{
-   fetch("https://api.msg91.com/api/v5/flow/",{
-    method: 'POST',
-    headers: {
-      "Content-Type":"application/json",
-      "authkey":"350944Ar65hw8BuM5ff29c59P1"
-    },
-    body: JSON.stringify(obj)
-  }).then((res)=>{
+    {
+      let apiKey = "apikey=" + encodeURIComponent("MGZmNDAyNTE1MDkwMTc3MmY1NzM0MzA3YWI4N2ZiMzY=");
+			let message = "&message=" + encodeURIComponent("Dear Customer, your Invoice for vehicle no. " + vehicle + ", Loading Date " + date + ", " + from + " - " + to + " is ready for your view under 'Payment/Challan status' option on our app - Transfly");
+			let sender = "&sender=" + encodeURIComponent("TFIKJR");
+			let numbers = "&numbers=" + encodeURIComponent("91" + number);
+
+      let data = "/send/?" + apiKey + numbers + message + sender;
+
+             var options = {
+          "method": "GET",
+          "hostname": "api.textlocal.in",
+          "port": null,
+          "path": data,
+          "headers": {
+            "content-type": "application/json"
+          }
+        };
+
+        
+        var req = http.request(options, function (res) {
+          var chunks = [];
+        console.log(res)
+          res.on("data", function (chunk) {
+            chunks.push(chunk);
+          });
+        
+          res.on("end", function () {
+            var body = Buffer.concat(chunks);
+            return body.toString();
+          });
+        });
+        
+        req.write("{}");
+        req.end();
+    }
+    catch(e)
+    {
+
+    }
+
+
+
+//   const obj = {}
+//   obj.flow_id = "6010eac0c028a46d117fa0e8"
+//   obj.recipients = [
+//    {
+//      mobiles:"91" + number,
+//      vehicle,
+//      date,
+//      from,
+//      to,
     
-     //(res.status)
-  }).catch((e)=>{
-   //(e)
-  }) 
+//    }
+//   ]
+
+ 
+
+  
+// try
+// {
+//    fetch("https://api.msg91.com/api/v5/flow/",{
+//     method: 'POST',
+//     headers: {
+//       "Content-Type":"application/json",
+//       "authkey":"350944Ar65hw8BuM5ff29c59P1"
+//     },
+//     body: JSON.stringify(obj)
+//   }).then((res)=>{
+    
+//      //(res.status)
+//   }).catch((e)=>{
+//    //(e)
+//   }) 
   
  
-}
-catch(e)
-{
- //(e)
-}
+// }
+// catch(e)
+// {
+//  //(e)
+// }
   
 
   
@@ -558,42 +644,84 @@ const sendMessageThree =  function(number,vehicle,date,from,to)
 ]
 }*/
 
-  const obj = {}
-  obj.flow_id = "6010eb330c7eb81f9842f8da"
-  obj.recipients = [
-   {
-     mobiles:"91" + number,
-     vehicle,
-     date,
-     from,
-     to,
-    
-   }
-  ]
-  
-  
 try
-{
-   fetch("https://api.msg91.com/api/v5/flow/",{
-    method: 'POST',
-    headers: {
-      "Content-Type":"application/json",
-      "authkey":"350944Ar65hw8BuM5ff29c59P1"
-    },
-    body: JSON.stringify(obj)
-  }).then((res)=>{
+    {
+      let apiKey = "apikey=" + encodeURIComponent("MGZmNDAyNTE1MDkwMTc3MmY1NzM0MzA3YWI4N2ZiMzY=");
+			let message = "&message=" + encodeURIComponent("Dear Customer, your Invoice Balance Amount for Vehicle no. " + vehicle + ", Loading Date " + date + ", " + from + " - " + to + ", has been cleared and can be viewed under 'Payment/Challan status' option on our app- Transfly");
+			let sender = "&sender=" + encodeURIComponent("TFIKJR");
+			let numbers = "&numbers=" + encodeURIComponent("91" + number);
+
+      let data = "/send/?" + apiKey + numbers + message + sender;
+
+             var options = {
+          "method": "GET",
+          "hostname": "api.textlocal.in",
+          "port": null,
+          "path": data,
+          "headers": {
+            "content-type": "application/json"
+          }
+        };
+
+        
+        var req = http.request(options, function (res) {
+          var chunks = [];
+        console.log(res)
+          res.on("data", function (chunk) {
+            chunks.push(chunk);
+          });
+        
+          res.on("end", function () {
+            var body = Buffer.concat(chunks);
+            return body.toString();
+          });
+        });
+        
+        req.write("{}");
+        req.end();
+    }
+    catch(e)
+    {
+
+    }
+
+
+//   const obj = {}
+//   obj.flow_id = "6010eb330c7eb81f9842f8da"
+//   obj.recipients = [
+//    {
+//      mobiles:"91" + number,
+//      vehicle,
+//      date,
+//      from,
+//      to,
     
-     //(res.status)
-  }).catch((e)=>{
-   //(e)
-  }) 
+//    }
+//   ]
+  
+  
+// try
+// {
+//    fetch("https://api.msg91.com/api/v5/flow/",{
+//     method: 'POST',
+//     headers: {
+//       "Content-Type":"application/json",
+//       "authkey":"350944Ar65hw8BuM5ff29c59P1"
+//     },
+//     body: JSON.stringify(obj)
+//   }).then((res)=>{
+    
+//      //(res.status)
+//   }).catch((e)=>{
+//    //(e)
+//   }) 
   
  
-}
-catch(e)
-{
- //(e)
-}
+// }
+// catch(e)
+// {
+//  //(e)
+// }
   
 
   
@@ -616,45 +744,85 @@ const sendMessageFour =  function(number,vehicle,date,from,to,driver)
 ]
 }*/
 
-  const obj = {}
-  obj.flow_id = "601a65f9a9dbb953a96b9927"
-  obj.recipients = [
-   {
-     mobiles:"91" + number,
-     vehicle,
-     date,
-     from,
-     to,
-     driver
+//   const obj = {}
+//   obj.flow_id = "601a65f9a9dbb953a96b9927"
+//   obj.recipients = [
+//    {
+//      mobiles:"91" + number,
+//      vehicle,
+//      date,
+//      from,
+//      to,
+//      driver
     
-   }
-  ]
+//    }
+//   ]
 
 
 
   
+// try
+// {
+//    fetch("https://api.msg91.com/api/v5/flow/",{
+//     method: 'POST',
+//     headers: {
+//       "Content-Type":"application/json",
+//       "authkey":"350944Ar65hw8BuM5ff29c59P1"
+//     },
+//     body: JSON.stringify(obj)
+//   }).then((res)=>{
+    
+//      //(res.status)
+//   }).catch((e)=>{
+//    //(e)
+//   }) 
 try
 {
-   fetch("https://api.msg91.com/api/v5/flow/",{
-    method: 'POST',
-    headers: {
-      "Content-Type":"application/json",
-      "authkey":"350944Ar65hw8BuM5ff29c59P1"
-    },
-    body: JSON.stringify(obj)
-  }).then((res)=>{
+  let apiKey = "apikey=" + encodeURIComponent("MGZmNDAyNTE1MDkwMTc3MmY1NzM0MzA3YWI4N2ZiMzY=");
+  let message = "&message=" + encodeURIComponent("New Booking : Veh number " + vehicle + " booked at " + date + " from " + from + " -to- " + to + ", driver number " + driver + ".");
+  let sender = "&sender=" + encodeURIComponent("TFIKJR");
+  let numbers = "&numbers=" + encodeURIComponent("91" + number);
+
+  let data = "/send/?" + apiKey + numbers + message + sender;
+
+         var options = {
+      "method": "GET",
+      "hostname": "api.textlocal.in",
+      "port": null,
+      "path": data,
+      "headers": {
+        "content-type": "application/json"
+      }
+    };
+
     
-     //(res.status)
-  }).catch((e)=>{
-   //(e)
-  }) 
-  
- 
+    var req = http.request(options, function (res) {
+      var chunks = [];
+    console.log(res)
+      res.on("data", function (chunk) {
+        chunks.push(chunk);
+      });
+    
+      res.on("end", function () {
+        var body = Buffer.concat(chunks);
+        return body.toString();
+      });
+    });
+    
+    req.write("{}");
+    req.end();
 }
 catch(e)
 {
- //(e)
+
 }
+
+ 
+// }
+// catch(e)
+// {
+//  //(e)
+// }
   
 
   
