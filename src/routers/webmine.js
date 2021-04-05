@@ -185,9 +185,30 @@ const rateChangeNotification = async function(mine,loading,oldrate,newrate)
   bookings.forEach((booking)=>{
      
       let text = "Dear Customer, the rate of your current booking from " + mine  + " to " + loading + " has been changed from " + 
-      oldrate + " to " + newrate
+      oldrate + " to " + newrate + "."
       createNotification(booking.owner,text,0) 
   })
+
+//   let conditions = {};
+//   let update = {
+//       $set : {
+//      active: true
+//     }
+//   };
+//   let options = { multi: true, upsert: true };
+//   MineModel.updateMany(conditions,update,options,(err,doc)=>{
+//       if(doc)
+//       {
+
+          
+//       }
+//       else
+//       {
+          
+//       }
+
+//   })
+  
 }
 
 

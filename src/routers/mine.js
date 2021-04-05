@@ -13,28 +13,49 @@ var upload = multer({
     }
 })
 
-// let f =async function()
-// {
-  
-//    Mine.find({}).then((mines)=>{
-//     mines.forEach((mine)=>{
-//         mine.areamanager  = null
-//         mine.fieldstaff = null
-//         mine.loading.forEach((l)=>{
 
-//             l["active"] = true
-//         })
 
-//         mine.save()
-       
+// router.post("/mineloading",async (req,res)=>{
+//     try
+//     {
+        
+//    let mines = await Mine.find({})
+
+//    for(i in mines)
+//    {
+//        let mine = mines[i]
+//         mine.loading = mine.loading.concat({
+//         rate: 0,
+//         etl: 0,
+//         active: false,
+//         loadingname:"Rourkela"
+
 //     })
-//    }).catch((e)=>{
 
-//    })
+//    await mine.save()
+
+//    }
+       
+//         // mine.areamanager  = null
+//         // mine.fieldstaff = null
+//         // mine.loading.forEach((l)=>{
+
+//         //     l["active"] = true
+//         // })
+
+       
+       
+
    
 
-// }
-// f()
+
+//     }
+//     catch(e)
+//     {
+
+//     }
+// })
+
 router.post("/mine",async (req,res)=>{
     try
     {
