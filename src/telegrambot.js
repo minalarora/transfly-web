@@ -37,6 +37,8 @@ bot.use(localSession.middleware(property))
 
 
 bot.use((ctx, next) => {
+    if(ctx.data)
+    {
     if(!ctx.data.message)
     {
         ctx.data.message = []
@@ -51,6 +53,7 @@ bot.use((ctx, next) => {
         ctx.data.language = null
     }
     return next()
+    }
   })
 
 
@@ -630,7 +633,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                      message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
@@ -674,7 +677,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                       message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -720,7 +723,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                    //   message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -766,7 +769,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                      // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -1557,7 +1560,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                      message = message + "Press " + i + " for " + vehiclearray[i] + "\n"
@@ -1601,7 +1604,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     message = message + vehiclearray[i] + " के लिए " + i + " दबाएं" + "\n"
@@ -1648,7 +1651,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -1695,7 +1698,7 @@ bot.on('text',(ctx)=>{
             TelegramUtils.getVehiclesByMobile2(ctx.data.number).then((val)=>{
 
                 let vehiclearray = val
-                let message = "" + getValue((englisharr.length - 1),ctx.data.language) + "\n\n"
+                let message = "" + getValue(92,ctx.data.language) + "\n\n"
                 for(let i = 0;i<vehiclearray.length;i++)
                 {
                     // message = message + vehiclearray[i] + " के लिए " + i + "दबाएं" + "\n"
@@ -5262,7 +5265,17 @@ bot.on('text',(ctx)=>{
             ctx.data.message.unshift("Raipur")
             ctx.reply(message)
         }
+        else if(option == "7")
+        {
+            ctx.data.message.unshift("Jharsuguda")
+            ctx.reply(message)
+        }
         else if(option == "8")
+        {
+            ctx.data.message.unshift("Rourkela")
+            ctx.reply(message)
+        }
+        else if(option == "10")
         {
 
             ctx.data.message = []
@@ -5270,7 +5283,7 @@ bot.on('text',(ctx)=>{
             ctx.reply(englisharr[54]+" \n"+englisharr[6]+" \n"+ englisharr[24] +"\n" + 
             englisharr[27] + "\n"+ englisharr[46])
         }
-        else if(option == "9")
+        else if(option == "11")
         {
 
             ctx.reply(englisharr[5])
@@ -5326,7 +5339,17 @@ bot.on('text',(ctx)=>{
             ctx.data.message.unshift("Raipur")
             ctx.reply(message)
         }
+        else if(option == "7")
+        {
+            ctx.data.message.unshift("Jharsuguda")
+            ctx.reply(message)
+        }
         else if(option == "8")
+        {
+            ctx.data.message.unshift("Rourkela")
+            ctx.reply(message)
+        }
+        else if(option == "10")
         {
 
             ctx.data.message = []
@@ -5334,7 +5357,7 @@ bot.on('text',(ctx)=>{
             ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
-        else if(option == "9")
+        else if(option == "11")
         {
 
             ctx.reply(getValue(5,ctx.data.language))
@@ -5390,7 +5413,17 @@ bot.on('text',(ctx)=>{
             ctx.data.message.unshift("Raipur")
             ctx.reply(message)
         }
+        else if(option == "7")
+        {
+            ctx.data.message.unshift("Jharsuguda")
+            ctx.reply(message)
+        }
         else if(option == "8")
+        {
+            ctx.data.message.unshift("Rourkela")
+            ctx.reply(message)
+        }
+        else if(option == "10")
         {
 
             ctx.data.message = []
@@ -5398,7 +5431,7 @@ bot.on('text',(ctx)=>{
             ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
-        else if(option == "9")
+        else if(option == "11")
         {
 
             ctx.reply(getValue(5,ctx.data.language))
@@ -5454,7 +5487,17 @@ bot.on('text',(ctx)=>{
             ctx.data.message.unshift("Raipur")
             ctx.reply(message)
         }
+        else if(option == "7")
+        {
+            ctx.data.message.unshift("Jharsuguda")
+            ctx.reply(message)
+        }
         else if(option == "8")
+        {
+            ctx.data.message.unshift("Rourkela")
+            ctx.reply(message)
+        }
+        else if(option == "10")
         {
 
             ctx.data.message = []
@@ -5462,7 +5505,7 @@ bot.on('text',(ctx)=>{
             ctx.reply(getValue(54,ctx.data.language)+" \n"+getValue(6,ctx.data.language)+" \n"+ getValue(24,ctx.data.language) +"\n" + 
             getValue(27,ctx.data.language) + "\n"+ getValue(46,ctx.data.language))
         }
-        else if(option == "9")
+        else if(option == "11")
         {
 
             ctx.reply(getValue(5,ctx.data.language))
@@ -5494,6 +5537,8 @@ bot.on('text',(ctx)=>{
                 englisharr[35] + "\n" +
                 englisharr[39] + "\n" +
                 englisharr[42] + "\n" +
+                englisharr[93] + "\n" +
+                englisharr[94] + "\n" +
                 englisharr[45] + "\n" +
                 englisharr[46] + "\n" 
                 )
@@ -5503,7 +5548,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message.unshift("invoice")
             ctx.reply(
-                englisharr[englisharr.length - 2] + "\n" +
+                englisharr[91] + "\n" +
                 englisharr[45] + "\n" +
                 englisharr[46] + "\n" 
                 )
@@ -5520,7 +5565,7 @@ bot.on('text',(ctx)=>{
                 englisharr[46] + "\n" 
                 )
         }
-        else if(option == "9")
+        else if(option == "11")
         {
             ctx.reply(englisharr[5])
             ctx.data.number = null
@@ -5565,6 +5610,8 @@ bot.on('text',(ctx)=>{
                 getValue(35,ctx.data.language) + "\n" +
                 getValue(39,ctx.data.language) + "\n" +
                 getValue(42,ctx.data.language) + "\n" +
+                getValue(93,ctx.data.language) + "\n" +
+                getValue(94,ctx.data.language) + "\n" +
                 getValue(45,ctx.data.language) + "\n" +
                 getValue(46,ctx.data.language) + "\n" 
                 )
@@ -5574,7 +5621,7 @@ bot.on('text',(ctx)=>{
         {
             ctx.data.message.unshift("invoice")
             ctx.reply(
-                getValue(englisharr.length - 2,ctx.data.language)  + "\n" +
+                getValue(91,ctx.data.language)  + "\n" +
                 getValue(45,ctx.data.language) + "\n" +
                 getValue(46,ctx.data.language)  + "\n" 
                 )
@@ -5591,7 +5638,7 @@ bot.on('text',(ctx)=>{
                 getValue(46,ctx.data.language)  + "\n" 
                 )
         }
-        else if(option == "9")
+        else if(option == "11")
         {
             ctx.reply(getValue(5,ctx.data.language))
             ctx.data.number = null
@@ -5635,6 +5682,8 @@ bot.on('text',(ctx)=>{
                         getValue(35,ctx.data.language) + "\n" +
                         getValue(39,ctx.data.language) + "\n" +
                         getValue(42,ctx.data.language) + "\n" +
+                        getValue(93,ctx.data.language) + "\n" +
+                        getValue(94,ctx.data.language) + "\n" +
                         getValue(45,ctx.data.language) + "\n" +
                         getValue(46,ctx.data.language) + "\n" 
                         )
@@ -5644,7 +5693,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message.unshift("invoice")
                     ctx.reply(
-                        getValue(englisharr.length - 2,ctx.data.language)  + "\n" +
+                        getValue(91,ctx.data.language)  + "\n" +
                         getValue(45,ctx.data.language) + "\n" +
                         getValue(46,ctx.data.language)  + "\n" 
                         )
@@ -5661,7 +5710,7 @@ bot.on('text',(ctx)=>{
                         getValue(46,ctx.data.language)  + "\n" 
                         )
                 }
-                else if(option == "9")
+                else if(option == "11")
                 {
                     ctx.reply(getValue(5,ctx.data.language))
                     ctx.data.number = null
@@ -5705,6 +5754,8 @@ bot.on('text',(ctx)=>{
                         getValue(35,ctx.data.language) + "\n" +
                         getValue(39,ctx.data.language) + "\n" +
                         getValue(42,ctx.data.language) + "\n" +
+                        getValue(93,ctx.data.language) + "\n" +
+                        getValue(94,ctx.data.language) + "\n" +
                         getValue(45,ctx.data.language) + "\n" +
                         getValue(46,ctx.data.language) + "\n" 
                         )
@@ -5714,7 +5765,7 @@ bot.on('text',(ctx)=>{
                 {
                     ctx.data.message.unshift("invoice")
                     ctx.reply(
-                        getValue(englisharr.length - 2,ctx.data.language)  + "\n" +
+                        getValue(91,ctx.data.language)  + "\n" +
                         getValue(45,ctx.data.language) + "\n" +
                         getValue(46,ctx.data.language)  + "\n" 
                         )
@@ -5731,7 +5782,7 @@ bot.on('text',(ctx)=>{
                         getValue(46,ctx.data.language)  + "\n" 
                         )
                 }
-                else if(option == "9")
+                else if(option == "11")
                 {
                     ctx.reply(getValue(5,ctx.data.language))
                     ctx.data.number = null
@@ -5960,8 +6011,8 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Press 6 for Raipur Loading",
 "Press 6 to book your loading from Essel Minings",
 "Press 7 to book your loading from PTA mines",
-"Press 8 to go to Previous Menu",
-"Press 9 to go back to main menu",
+"Press 10 to go to Previous Menu",//43
+"Press 11 to go back to main menu",//44
 "Sorry, the number is not registered. Please register on our app or speak to customer care: \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nPress any key to continue",
 "Thank you, information has been sent to your registred mobile number. Press any key to continue",
 "Thank you, our emergency response team will soon get in touch with you. Press any key to continue",
@@ -6007,7 +6058,17 @@ let englisharr = ["Please enter last four digits of your registered vehicle",
 "Loading Problem",
 "Kindly register the vehicles through Transfly app.\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nPress any key to continue",
 "Press 1 to continue to Challan and Invoice information",
-"Here is the best match currently, please select from the below options to proceed:"
+"Here is the best match currently, please select from the below options to proceed:", //92
+"Press 7 for Jharsuguda Loading",//93
+"Press 8 for Rourkela Loading",//94
+"JSW, Narayanposhi", //"जेएसडब्ल्यू, नारायणपोशी", "జెఎస్‌డబ్ల్యు, నారాయణపోషి", "JSW, ନାରାୟଣପୋଶୀ",
+"Kamanda steel plant", //कामंदा स्टील प्लांट , కామండా స్టీల్ ప్లాంట్, କାମଣ୍ଡା ଇସ୍ପାତ କାରଖାନା |
+"Kavita (zero point)", //कविता (शून्य अंक), కవిత (సున్నా పాయింట్), କବିତା (ଶୂନ ବିନ୍ଦୁ)
+"Rungta mines, Sanindpur", //रूंगटा की खदानें, सानिन्दपुर, రుంగ్తా గనులు, సనింద్‌పూర్, ରଙ୍ଗଟା ଖଣି, ସାନିନ୍ଦପୁର |
+"Rungta mines, Oraghat", //रूंगटा माइंस, ओराघाट,రుంగ్తా గనులు, ఒరాఘాట్, ରଙ୍ଗଟା ଖଣି, ଓରାଘାଟ |
+"NE ADAGHAT", 
+"DR Patnaik",
+"NE RAIKELA"
 ]
 
 
@@ -6058,8 +6119,8 @@ let hindiarr =
 "रायपुर लोडिंग के लिए 6 दबाएँ।",
 "एस्सेल माईनिंग्स से लोड करने के लिए 6 दबाएँ।",
 "पी टी ऐ माइन से लोड करने के लिए 7 दबाएँ।",
-"पिछले मेनू में जाने के लिए 8 दबाएँ।",
-"मेन मेनू में जाने के लिए 9 दबाएँ।",
+"पिछले मेनू में जाने के लिए 10 दबाएँ।",
+"मेन मेनू में जाने के लिए 11 दबाएँ।",
 "माफ़ कीजिये, यह नंबर रजिस्टर्ड नहीं है। कृपया हमारे ऐप्प पर या कस्टमर केयर से बात करके नंबर रजिस्टर करें।\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nकृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
 "धन्यवाद, सूचना आपके रजिस्टर्ड मोबाइल नंबर पर भेजी जा चुकी है। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|",
 "धन्यवाद, हमारी ऐमरजेंसी रेस्पॉन्स टीम आपको जल्द ही कॉन्टैक्ट करेगी। कृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें|", 
@@ -6105,7 +6166,16 @@ let hindiarr =
 "लोडिंग प्रॉब्लम ",
 "कृपया ट्रांसफ्लाय ऐप्प पर अपने वाहनों का रजिस्ट्रेशन करें| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nकृपया आगे बढ़ने के लिए कोई भी अक्षर टाइप करें| ",
 "चलान तथा इनवॉइस जानकारी के लिए 1 दबाएँ",
-"वर्तमान में यह सबसे निकटतम मैच है, कृपया आगे बढ़ने के लिए नीचे दिए गए विकल्पों में से चुनें:"
+"वर्तमान में यह सबसे निकटतम मैच है, कृपया आगे बढ़ने के लिए नीचे दिए गए विकल्पों में से चुनें:",
+"जेएसडब्ल्यू, नारायणपोशी",
+"कामंदा स्टील प्लांट",
+"कविता (शून्य अंक)",
+"रूंगटा की खदानें, सानिन्दपुर",
+"रूंगटा माइंस, ओराघाट",
+"NE ADAGHAT", 
+"DR Patnaik",
+"NE RAIKELA"
+
 
 
 
@@ -6157,8 +6227,8 @@ let teleguarr = [
 "రాయ్‌పుర్ లోడింగ్ కోసం ఆరు నొక్కండి ",
 "ఎసెల్ మైనింగ్స్ నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి ఆరు నొక్కండ ి ",
 "PTA  మైన్స్ నుండి మీ లోడింగ్ బుక్ చేసుకోవడానికి ఏడు నొక్కండి ",
-"మునుపటి మెనుకు వెళ్లడానికి ఎనిమిది నొక్కండి ",
-"మెయిన్ మెనుకు వెళ్లడానికి  తొమ్మిది నొక్కండి ",
+"మునుపటి మెనూకు వెళ్ళడానికి పది నొక్కండి ",
+"ప్రధాన మెనూకు వెళ్లడానికి పదకొండు నొక్కండి ",
 "క్షమించండి, ఈ నెంబర్ రిజిస్టర్ కాలేదు. దయచేసి మా యాప్ లో రిజిస్టర్ చేయండి లేదా కస్టమర్ కేర్ తో మాట్లాడండి|\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nకొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|",
 "ధన్యవాదం మీ రిజిస్టర్డ్ మొబైల్  నెంబర్‌కు సమాచారం  పంపబడినది| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ",
 "ధన్యవాదం మా ఎమర్జెన్సీ ప్రతిస్పందన బృందం త్వరలో మీతో సంప్రదిస్తారు| కొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి| ", 
@@ -6204,7 +6274,16 @@ let teleguarr = [
 "లోడింగ్ ప్రాబ్లెమ్",
 "దయచేసి ట్రాన్స్ ఫ్లై యాప్ ద్వారా వాహనాలను రిజిస్ట్రేషన్ చేయండి| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nకొనసాగడానికి దయచేసి ఏదైనా అక్షరాన్ని టైప్ చేయండి|",
 "చల్లాన్ మరియు ఇన్వాయిస్స సమాచారం కోసం 1 నొక్కండి",
-"ఇది ప్రస్తుతం దగ్గరి మ్యాచ్, దయచేసి కొనసాగడానికి క్రింది ఎంపికల నుండి ఎంచుకోండి:"
+"ఇది ప్రస్తుతం దగ్గరి మ్యాచ్, దయచేసి కొనసాగడానికి క్రింది ఎంపికల నుండి ఎంచుకోండి:",
+"జెఎస్‌డబ్ల్యు, నారాయణపోషి", 
+"కామండా స్టీల్ ప్లాంట్",
+"కవిత (సున్నా పాయింట్)",
+"రుంగ్తా గనులు, సనింద్‌పూర్",
+"రుంగ్తా గనులు, ఒరాఘాట్",
+"NE ADAGHAT", 
+"DR Patnaik",
+"NE RAIKELA"
+
 
 
 ]
@@ -6256,8 +6335,8 @@ let odhissaarr = [
    "ରାୟପୁର ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 6 ଦବାନ୍ତୁ। ",
    "ଏସେଲ୍ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 6 ଦବାନ୍ତୁ। ",
    "ପିଟିଏ ମାଇନ୍ସ ରୁ ଲୋଡିଂ କରିବା ପାଇଁ 7 ଦବାନ୍ତୁ। ",
-   "ପୂର୍ବ ମେନ୍ୟୁ କୁ ଯିବା ପାଇଁ 8 ଦବାନ୍ତୁ। ",
-   "ମେନ୍ ମେନ୍ୟୁ କୁ ଯିବାପାଇଁ 9 ଦବାନ୍ତୁ। ",
+   "ପୂର୍ବ ମେନ୍ୟୁ କୁ ଯିବା ପାଇଁ 10 ଦବାନ୍ତୁ। ",
+   "ମେନ୍ ମେନ୍ୟୁ କୁ ଯିବାପାଇଁ 11 ଦବାନ୍ତୁ। ",
    "କ୍ଷମା କରିବେ, ଏହି ନମ୍ବର ରେଜିଷ୍ଟର ନାହିଁ। ଦୟାକରି ଆମ ଆପ ରେ କିମ୍ବା କଷ୍ଟମର୍ କେଆର ସହିତ କଥା ହୋଇ ନମ୍ବର ରେଜିଷ୍ଟର କରନ୍ତୁ।\nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n18002702356.\n\nଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଧନ୍ୟବାଦ୍, ସୂଚନାଟି ଆପଣଙ୍କର ରେଜିଷ୍ଟର ମୋବାଇଲ ନମ୍ବର କୁ ପଠା ଯାଇଛି। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ| ",
    "ଧନ୍ୟବାଦ୍, ଆମର ଏମର୍ଜେନ୍ସୀ ରେସ୍ପନ୍ସ ଟିମ୍ ଆପଣଙ୍କୁ ଶୀଘ୍ର ସମ୍ପର୍କ କରିବେ। ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
@@ -6303,7 +6382,16 @@ let odhissaarr = [
    "ଲୋଡିଂ ପ୍ରୋବଲମ୍ ",
    "ଦୟାକରି ଟ୍ରାନ୍ସଫ୍ଲାଏ ଆପ୍ ମାଧ୍ୟମରେ ଯାନଗୁଡ଼ିକୁ ପଞ୍ଜିକରଣ କରନ୍ତୁ: Odia| \nhttps://play.google.com/store/apps/details?id=com.truck.transfly \n\nଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ଯେକୌଣସି ଅକ୍ଷର ଟାଇପ୍ କରନ୍ତୁ|",
    "ଚାଲାଣ ଏବଂ ଇନଭଏସ୍ ସମ୍ବନ୍ଧିୟ ସୂଚନା ଜାଣିବା ପାଇଁ 1 ଦବାନ୍ତୁ ।",
-   "ଏହା ସମ୍ପ୍ରତି ନିକଟତମ ମ୍ୟାଚ୍, ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ନିମ୍ନରେ ଥିବା ବିକଳ୍ପଗୁଡିକରୁ ବାଛନ୍ତୁ:"
+   "ଏହା ସମ୍ପ୍ରତି ନିକଟତମ ମ୍ୟାଚ୍, ଅଗ୍ରଗତି କରିବାକୁ ଦୟାକରି ନିମ୍ନରେ ଥିବା ବିକଳ୍ପଗୁଡିକରୁ ବାଛନ୍ତୁ:",
+   "JSW, ନାରାୟଣପୋଶୀ",
+   "କାମଣ୍ଡା ଇସ୍ପାତ କାରଖାନା |",
+   "କବିତା (ଶୂନ ବିନ୍ଦୁ)",
+   "ରଙ୍ଗଟା ଖଣି, ସାନିନ୍ଦପୁର |",
+   "ରଙ୍ଗଟା ଖଣି, ଓରାଘାଟ |",
+   "NE ADAGHAT", 
+"DR Patnaik",
+"NE RAIKELA"
+
 
 
 ]
