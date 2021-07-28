@@ -56,6 +56,21 @@ var upload = multer({
 //     }
 // })
 
+// let f= async function()
+// {
+//     let mine = await Mine.findOne({id: 2637269})
+//     let newmine = await Mine.findOne({id: 8250115})
+//     let newmine2 = await Mine.findOne({id: 5857401})
+
+//     newmine.areaimage = mine.areaimage
+//     await newmine.save()
+
+//     newmine2.areaimage = mine.areaimage
+//     await newmine2.save()
+// }
+
+// f()
+
 router.post("/mine",async (req,res)=>{
     try
     {
