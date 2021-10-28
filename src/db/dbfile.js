@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
-const connectionUrl = 'mongodb+srv://minal:123Password@cluster1.tvrlt.mongodb.net/transfly-db?retryWrites=true&w=majority' 
-const connectionUrl2 = 'mongodb+srv://minal:123Password@cluster1.tvrlt.mongodb.net/transfly-image?retryWrites=true&w=majority' 
+const connectionUrl = 'mongodb+srv://minal:123Password@cluster0.se7ib.mongodb.net/transfly-db?retryWrites=true&w=majority' 
+const connectionUrl2 = 'mongodb+srv://minal:123Password@cluster0.se7ib.mongodb.net/transfly-image?retryWrites=true&w=majority' 
 
 
 mongoose.connect(connectionUrl,{
